@@ -1,0 +1,47 @@
+{
+    "type": "SimulationParameter",
+    "output": {
+        "type": "SimulationOutput",
+        "reporting_frequency": "Hourly",
+        "include_sqlite": true,
+        "include_html": false,
+        "summary_reports": [
+            "AllSummary"
+        ]
+    },
+    "run_period": {
+        "type": "RunPeriod",
+        "start_date": {
+            "month": 1,
+            "day": 1,
+            "type": "Date"
+        },
+        "end_date": {
+            "month": 12,
+            "day": 31,
+            "type": "Date"
+        },
+        "start_day_of_week": "Sunday"
+    },
+    "timestep": 6,
+    "simulation_control": {
+        "type": "SimulationControl",
+        "do_zone_sizing": true,
+        "do_system_sizing": true,
+        "do_plant_sizing": true,
+        "run_for_sizing_periods": false,
+        "run_for_run_periods": true
+    },
+    "shadow_calculation": {
+        "type": "ShadowCalculation",
+        "solar_distribution": "FullInteriorAndExteriorWithReflections",
+        "calculation_method": "AverageOverDaysInFrequency",
+        "calculation_frequency": 30,
+        "maximum_figures": 15000
+    },
+    "sizing_parameter": {
+        "type": "SizingParameter",
+        "heating_factor": 1.25,
+        "cooling_factor": 1.15
+    }
+}

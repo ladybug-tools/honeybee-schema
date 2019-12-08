@@ -1,0 +1,6 @@
+{
+    "type": "LightingAbridged",
+    "name": "Lighting Definition",
+    "lighting_per_area": 17,
+    "schedule": "Schedule-Lighting"
+}

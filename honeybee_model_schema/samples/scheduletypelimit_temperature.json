@@ -1,0 +1,8 @@
+{
+    "type": "ScheduleTypeLimit",
+    "name": "Temperature",
+    "lower_limit": -273.15,
+    "upper_limit": null,
+    "numeric_type": "Continuous",
+    "unit_type": "Temperature"
+}

@@ -1,0 +1,17 @@
+{
+    "type": "EnergyWindowMaterialGlazing",
+    "name": "Theoretical Glass 167",
+    "thickness": 0.029,
+    "solar_transmittance": 0.2374,
+    "solar_reflectance": 0.7126,
+    "solar_reflectance_back": 0,
+    "visible_transmittance": 0.2512,
+    "visible_reflectance": 0.6988,
+    "visible_reflectance_back": 0,
+    "infrared_transmittance": 0,
+    "emissivity": 0.985,
+    "emissivity_back": 0.985,
+    "conductivity": 2.1073,
+    "dirt_correction": 1,
+    "solar_diffusing": false
+}

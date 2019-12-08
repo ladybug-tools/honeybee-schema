@@ -1,0 +1,10 @@
+{
+    "type": "EnergyWindowMaterialGasCustom",
+    "name": "Custom Gas",
+    "thickness": 0.0125,
+    "conductivity_coeff_a": 1,
+    "viscosity_coeff_a": 1,
+    "specific_heat_coeff_a": 1,
+    "specific_heat_ratio": 2,
+    "molecular_weight": 20
+}

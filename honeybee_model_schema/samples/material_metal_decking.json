@@ -1,0 +1,12 @@
+{
+    "type": "EnergyMaterial",
+    "name": "Metal Decking",
+    "roughness": "MediumSmooth",
+    "thickness": 0.0015,
+    "conductivity": 45,
+    "density": 7680,
+    "specific_heat": 418.4,
+    "thermal_absorptance": 0.9,
+    "solar_absorptance": 0.6,
+    "visible_absorptance": 0.6
+}

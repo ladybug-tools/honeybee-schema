@@ -1,0 +1,2 @@
+pydantic<1.0
+pytest~=4.4.0

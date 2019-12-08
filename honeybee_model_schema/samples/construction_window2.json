@@ -1,0 +1,9 @@
+{
+    "type": "WindowConstructionAbridged",
+    "name": "Exterior Window - Gas Mixture",
+    "layers": [
+        "Theoretical Glass 167",
+        "Gas Mixture",
+        "Theoretical Glass 167"
+    ]
+}

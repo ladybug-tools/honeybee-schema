@@ -1,0 +1,19 @@
+{
+    "type": "EnergyWindowMaterialGasMixture",
+    "name": "Gas Mixture",
+    "thickness": 0.003,
+    "gas_type_fraction": [
+        {
+            "gas_type": "Air",
+            "gas_fraction": 0.97
+        },
+        {
+            "gas_type": "Argon",
+            "gas_fraction": 0.02
+        },
+        {
+            "gas_type": "Krypton",
+            "gas_fraction": 0.01
+        }
+    ]
+}

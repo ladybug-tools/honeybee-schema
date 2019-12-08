@@ -1,0 +1,8 @@
+{
+    "type": "WindowConstructionAbridged",
+    "name": "Window with Blinds",
+    "layers": [
+        "Window Material Blind 1",
+        "Fixed Window 2.00 0.40 0.31"
+    ]
+}

@@ -1,0 +1,182 @@
+{
+    "type": "ScheduleRulesetAbridged",
+    "name": "School Occupancy",
+    "default_day_schedule": {
+        "type": "ScheduleDay",
+        "name": "Weekday School Year",
+        "values": [
+            0.0,
+            1.0,
+            0.5
+        ],
+        "times": [
+            [
+                0,
+                0
+            ],
+            [
+                8,
+                0
+            ],
+            [
+                15,
+                0
+            ],
+            [
+                18,
+                0
+            ]
+        ],
+        "interpolate": false
+    },
+    "schedule_rules": [
+        {
+            "type": "ScheduleRule",
+            "schedule_day": {
+                "type": "ScheduleDay",
+                "name": "Weekday Summer",
+                "values": [
+                    0.0,
+                    0.5,
+                    0.0
+                ],
+                "times": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        9,
+                        0
+                    ],
+                    [
+                        17,
+                        0
+                    ]
+                ],
+                "interpolate": false
+            },
+            "apply_sunday": false,
+            "apply_monday": true,
+            "apply_tuesday": true,
+            "apply_wednesday": true,
+            "apply_thursday": true,
+            "apply_friday": true,
+            "apply_saturday": false,
+            "apply_holiday": false,
+            "start_date": [
+                7,
+                1
+            ],
+            "end_date": [
+                9,
+                1
+            ]
+        },
+        {
+            "type": "ScheduleRule",
+            "schedule_day": {
+                "type": "ScheduleDay",
+                "name": "Weekend Summer",
+                "values": [
+                    0.0
+                ],
+                "times": [
+                    [
+                        0,
+                        0
+                    ]
+                ],
+                "interpolate": false
+            },
+            "apply_sunday": true,
+            "apply_monday": false,
+            "apply_tuesday": false,
+            "apply_wednesday": false,
+            "apply_thursday": false,
+            "apply_friday": false,
+            "apply_saturday": true,
+            "apply_holiday": true,
+            "start_date": [
+                7,
+                1
+            ],
+            "end_date": [
+                9,
+                1
+            ]
+        },
+        {
+            "type": "ScheduleRule",
+            "schedule_day": {
+                "type": "ScheduleDay",
+                "name": "Weekend School Year",
+                "values": [
+                    0.0
+                ],
+                "times": [
+                    [
+                        0,
+                        0
+                    ]
+                ],
+                "interpolate": false
+            },
+            "apply_sunday": true,
+            "apply_monday": false,
+            "apply_tuesday": false,
+            "apply_wednesday": false,
+            "apply_thursday": false,
+            "apply_friday": false,
+            "apply_saturday": true,
+            "apply_holiday": true,
+            "start_date": [
+                1,
+                1
+            ],
+            "end_date": [
+                12,
+                31
+            ]
+        }
+    ],
+    "summer_designday_schedule": {
+        "type": "ScheduleDay",
+        "name": "School Summer Design",
+        "values": [
+            0.0,
+            1.0,
+            0.25
+        ],
+        "times": [
+            [
+                0,
+                0
+            ],
+            [
+                6,
+                0
+            ],
+            [
+                18,
+                0
+            ]
+        ],
+        "interpolate": false
+    },
+    "winter_designday_schedule": {
+        "type": "ScheduleDay",
+        "name": "School Winter Design",
+        "values": [
+            0.0
+        ],
+        "times": [
+            [
+                0,
+                0
+            ]
+        ],
+        "interpolate": false
+    },
+    "schedule_type_limit": "Fractional"
+}

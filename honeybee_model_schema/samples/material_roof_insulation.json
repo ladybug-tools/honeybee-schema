@@ -1,0 +1,12 @@
+{
+    "type": "EnergyMaterial",
+    "name": "Roof Insulation",
+    "roughness": "MediumRough",
+    "thickness": 0.1693,
+    "conductivity": 0.049,
+    "density": 265,
+    "specific_heat": 836.8,
+    "thermal_absorptance": 0.9,
+    "solar_absorptance": 0.7,
+    "visible_absorptance": 0.7
+}

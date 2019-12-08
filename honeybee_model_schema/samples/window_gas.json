@@ -1,0 +1,6 @@
+{
+    "type": "EnergyWindowMaterialGas",
+    "name": "Air 13mm",
+    "gas_type": "Air",
+    "thickness": 0.0127
+}

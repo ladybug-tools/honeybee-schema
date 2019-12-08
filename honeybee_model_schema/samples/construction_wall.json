@@ -1,0 +1,10 @@
+{
+    "type": "OpaqueConstructionAbridged",
+    "name": "Exterior Wall ASHRAE 2009",
+    "layers": [
+        "1 in Gypsum",
+        "8in Concrete HW",
+        "Wall Insulation",
+        "1.5 in Gypsum"
+    ]
+}

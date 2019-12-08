@@ -1,0 +1,9 @@
+{
+    "type": "WindowConstructionAbridged",
+    "name": "Exterior Window",
+    "layers": [
+        "Theoretical Glass 167",
+        "Air 13mm",
+        "Theoretical Glass 167"
+    ]
+}

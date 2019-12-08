@@ -1,0 +1,7 @@
+{
+    "type": "PeopleAbridged",
+    "name": "People Definition",
+    "people_per_area": 0.35,
+    "occupancy_schedule": "Schedule-People Occupancy",
+    "activity_schedule": "Schedule-People Activity"
+}

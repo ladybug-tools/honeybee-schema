@@ -1,0 +1,12 @@
+{
+    "type": "EnergyMaterial",
+    "name": "Wall Insulation",
+    "roughness": "MediumRough",
+    "thickness": 0.033,
+    "conductivity": 0.0432,
+    "density": 91,
+    "specific_heat": 836.9,
+    "thermal_absorptance": 0.9,
+    "solar_absorptance": 0.5,
+    "visible_absorptance": 0.5
+}

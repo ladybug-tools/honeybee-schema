@@ -1,0 +1,577 @@
+{
+    "type": "Model",
+    "name": "ShoeBox",
+    "display_name": "Shoe Box",
+    "properties": {
+        "type": "ModelProperties",
+        "energy": {
+            "type": "ModelEnergyProperties",
+            "terrain_type": "City",
+            "construction_sets": [
+                {
+                    "type": "ConstructionSetAbridged",
+                    "name": "Shoe Box Construction Set",
+                    "wall_set": {
+                        "type": "WallSetAbridged",
+                        "exterior_construction": "Generic Exterior Wall",
+                        "interior_construction": "Generic Interior Wall",
+                        "ground_construction": null
+                    },
+                    "floor_set": {
+                        "type": "FloorSetAbridged",
+                        "exterior_construction": null,
+                        "interior_construction": "Generic Interior Floor",
+                        "ground_construction": null
+                    },
+                    "roof_ceiling_set": {
+                        "type": "RoofCeilingSetAbridged",
+                        "exterior_construction": null,
+                        "interior_construction": "Generic Interior Ceiling",
+                        "ground_construction": null
+                    },
+                    "aperture_set": {
+                        "type": "ApertureSetAbridged",
+                        "window_construction": "Generic Double Pane",
+                        "interior_construction": null,
+                        "skylight_construction": null,
+                        "operable_construction": null
+                    },
+                    "door_set": {
+                        "type": "DoorSetAbridged",
+                        "exterior_construction": null,
+                        "interior_construction": null,
+                        "exterior_glass_construction": null,
+                        "interior_glass_construction": null,
+                        "overhead_construction": null
+                    },
+                    "shade_construction": null
+                }
+            ],
+            "constructions": [
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "name": "Generic Interior Ceiling",
+                    "layers": [
+                        "Generic LW Concrete",
+                        "Generic Ceiling Air Gap",
+                        "Generic Acoustic Tile"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "name": "Generic Interior Floor",
+                    "layers": [
+                        "Generic Acoustic Tile",
+                        "Generic Ceiling Air Gap",
+                        "Generic LW Concrete"
+                    ]
+                },
+                {
+                    "type": "WindowConstructionAbridged",
+                    "name": "Generic Double Pane",
+                    "layers": [
+                        "Generic Low-e Glass",
+                        "Generic Window Air Gap",
+                        "Generic Clear Glass"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "name": "Generic Exterior Wall",
+                    "layers": [
+                        "Generic Brick",
+                        "Generic LW Concrete",
+                        "Generic 50mm Insulation",
+                        "Generic Wall Air Gap",
+                        "Generic Gypsum Board"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "name": "Generic Interior Wall",
+                    "layers": [
+                        "Generic Gypsum Board",
+                        "Generic Wall Air Gap",
+                        "Generic Gypsum Board"
+                    ]
+                }
+            ],
+            "materials": [
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic Wall Air Gap",
+                    "roughness": "Smooth",
+                    "thickness": 0.1,
+                    "conductivity": 0.667,
+                    "density": 1.28,
+                    "specific_heat": 1000.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "name": "Generic Window Air Gap",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic Brick",
+                    "roughness": "MediumRough",
+                    "thickness": 0.1,
+                    "conductivity": 0.9,
+                    "density": 1920.0,
+                    "specific_heat": 790.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.65,
+                    "visible_absorptance": 0.65
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic Gypsum Board",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.0127,
+                    "conductivity": 0.16,
+                    "density": 800.0,
+                    "specific_heat": 1090.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.5,
+                    "visible_absorptance": 0.5
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "name": "Generic Clear Glass",
+                    "thickness": 0.006,
+                    "solar_transmittance": 0.77,
+                    "solar_reflectance": 0.07,
+                    "solar_reflectance_back": 0.07,
+                    "visible_transmittance": 0.88,
+                    "visible_reflectance": 0.08,
+                    "visible_reflectance_back": 0.08,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.84,
+                    "conductivity": 1.0,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "name": "Generic Low-e Glass",
+                    "thickness": 0.006,
+                    "solar_transmittance": 0.45,
+                    "solar_reflectance": 0.36,
+                    "solar_reflectance_back": 0.36,
+                    "visible_transmittance": 0.71,
+                    "visible_reflectance": 0.21,
+                    "visible_reflectance_back": 0.21,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.047,
+                    "conductivity": 1.0,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic Ceiling Air Gap",
+                    "roughness": "Smooth",
+                    "thickness": 0.1,
+                    "conductivity": 0.556,
+                    "density": 1.28,
+                    "specific_heat": 1000.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic LW Concrete",
+                    "roughness": "MediumRough",
+                    "thickness": 0.1,
+                    "conductivity": 0.53,
+                    "density": 1280.0,
+                    "specific_heat": 840.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.8,
+                    "visible_absorptance": 0.8
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic Acoustic Tile",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.02,
+                    "conductivity": 0.06,
+                    "density": 368.0,
+                    "specific_heat": 590.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.2,
+                    "visible_absorptance": 0.2
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic 50mm Insulation",
+                    "roughness": "MediumRough",
+                    "thickness": 0.05,
+                    "conductivity": 0.03,
+                    "density": 43.0,
+                    "specific_heat": 1210.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                }
+            ],
+            "program_types": [],
+            "schedules": [],
+            "schedule_type_limits": []
+        }
+    },
+    "rooms": [
+        {
+            "type": "Room",
+            "name": "SimpleShoeBoxZone",
+            "display_name": "Simple Shoe Box Zone",
+            "properties": {
+                "type": "RoomPropertiesAbridged",
+                "energy": {
+                    "type": "RoomEnergyPropertiesAbridged",
+                    "construction_set": "Shoe Box Construction Set"
+                }
+            },
+            "faces": [
+                {
+                    "type": "Face",
+                    "name": "SimpleShoeBoxZone_Bottom",
+                    "display_name": "Simple Shoe Box Zone_Bottom",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                0.0,
+                                0.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Floor",
+                    "boundary_condition": {
+                        "type": "Adiabatic"
+                    }
+                },
+                {
+                    "type": "Face",
+                    "name": "SimpleShoeBoxZone_Front",
+                    "display_name": "Simple Shoe Box Zone_Front",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                5.0,
+                                10.0,
+                                3.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": "autocalculate"
+                    },
+                    "apertures": [
+                        {
+                            "type": "Aperture",
+                            "name": "SimpleShoeBoxZone_Front_Glz0",
+                            "display_name": "Simple Shoe Box Zone_Front_Glz0",
+                            "properties": {
+                                "type": "AperturePropertiesAbridged",
+                                "energy": {
+                                    "type": "ApertureEnergyPropertiesAbridged"
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        4.5,
+                                        10.0,
+                                        2.7
+                                    ],
+                                    [
+                                        4.5,
+                                        10.0,
+                                        0.7
+                                    ],
+                                    [
+                                        3.0,
+                                        10.0,
+                                        0.7
+                                    ],
+                                    [
+                                        3.0,
+                                        10.0,
+                                        2.7
+                                    ]
+                                ]
+                            },
+                            "is_operable": false,
+                            "boundary_condition": {
+                                "type": "Outdoors",
+                                "sun_exposure": true,
+                                "wind_exposure": true,
+                                "view_factor": "autocalculate"
+                            }
+                        },
+                        {
+                            "type": "Aperture",
+                            "name": "SimpleShoeBoxZone_Front_Glz1",
+                            "display_name": "Simple Shoe Box Zone_Front_Glz1",
+                            "properties": {
+                                "type": "AperturePropertiesAbridged",
+                                "energy": {
+                                    "type": "ApertureEnergyPropertiesAbridged"
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        2.0,
+                                        10.0,
+                                        2.7
+                                    ],
+                                    [
+                                        2.0,
+                                        10.0,
+                                        0.7
+                                    ],
+                                    [
+                                        0.5,
+                                        10.0,
+                                        0.7
+                                    ],
+                                    [
+                                        0.5,
+                                        10.0,
+                                        2.7
+                                    ]
+                                ]
+                            },
+                            "is_operable": false,
+                            "boundary_condition": {
+                                "type": "Outdoors",
+                                "sun_exposure": true,
+                                "wind_exposure": true,
+                                "view_factor": "autocalculate"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "Face",
+                    "name": "SimpleShoeBoxZone_Right",
+                    "display_name": "Simple Shoe Box Zone_Right",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                5.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                5.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Adiabatic"
+                    }
+                },
+                {
+                    "type": "Face",
+                    "name": "SimpleShoeBoxZone_Back",
+                    "display_name": "Simple Shoe Box Zone_Back",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                0.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Adiabatic"
+                    }
+                },
+                {
+                    "type": "Face",
+                    "name": "SimpleShoeBoxZone_Left",
+                    "display_name": "Simple Shoe Box Zone_Left",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                10.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Adiabatic"
+                    }
+                },
+                {
+                    "type": "Face",
+                    "name": "SimpleShoeBoxZone_Top",
+                    "display_name": "Simple Shoe Box Zone_Top",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                5.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "RoofCeiling",
+                    "boundary_condition": {
+                        "type": "Adiabatic"
+                    }
+                }
+            ]
+        }
+    ]
+}

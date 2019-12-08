@@ -1,0 +1,88 @@
+{
+    "type": "SimulationParameter",
+    "output": {
+        "type": "SimulationOutput",
+        "reporting_frequency": "Daily",
+        "include_sqlite": true,
+        "include_html": true,
+        "outputs": [
+            "Zone Electric Equipment Electric Energy",
+            "Zone Gas Equipment Gas Energy",
+            "Zone Ideal Loads Supply Air Total Cooling Energy",
+            "Zone Ideal Loads Supply Air Total Heating Energy",
+            "Zone Lights Electric Energy",
+            "Zone Ventilation Fan Electric Energy"
+        ],
+        "summary_reports": [
+            "AllSummary",
+            "Annual Building Utility Performance Summary",
+            "Climatic Data Summary",
+            "Envelope Summary"
+        ]
+    },
+    "run_period": {
+        "type": "RunPeriod",
+        "start_date": {
+            "month": 1,
+            "day": 1,
+            "type": "Date"
+        },
+        "end_date": {
+            "month": 6,
+            "day": 21,
+            "type": "Date"
+        },
+        "start_day_of_week": "Monday",
+        "holidays": [
+            {
+                "month": 1,
+                "day": 1,
+                "type": "Date"
+            },
+            {
+                "month": 3,
+                "day": 17,
+                "type": "Date"
+            },
+            {
+                "month": 7,
+                "day": 4,
+                "type": "Date"
+            }
+        ],
+        "daylight_saving_time": {
+            "type": "DaylightSavingTime",
+            "start_date": {
+                "month": 3,
+                "day": 12,
+                "type": "Date"
+            },
+            "end_date": {
+                "month": 11,
+                "day": 5,
+                "type": "Date"
+            }
+        }
+    },
+    "timestep": 4,
+    "simulation_control": {
+        "type": "SimulationControl",
+        "do_zone_sizing": true,
+        "do_system_sizing": true,
+        "do_plant_sizing": true,
+        "run_for_sizing_periods": true,
+        "run_for_run_periods": false
+    },
+    "shadow_calculation": {
+        "type": "ShadowCalculation",
+        "solar_distribution": "FullInteriorAndExteriorWithReflections",
+        "calculation_method": "AverageOverDaysInFrequency",
+        "calculation_frequency": 20,
+        "maximum_figures": 15000
+    },
+    "sizing_parameter": {
+        "type": "SizingParameter",
+        "heating_factor": 1.0,
+        "cooling_factor": 1.0
+    }
+}

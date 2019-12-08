@@ -1,0 +1,11 @@
+venv
+.vscode
+kubeconfig
+node_modules
+package-lock.json
+__pycache__
+*.pyc
+test.db
+test.py
+out.txt
+docs/openapi.json

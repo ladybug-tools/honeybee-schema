@@ -1,0 +1,12 @@
+{
+    "type": "EnergyMaterial",
+    "name": "8in Concrete HW",
+    "roughness": "MediumRough",
+    "thickness": 0.2,
+    "conductivity": 1.72,
+    "density": 2242,
+    "specific_heat": 836,
+    "thermal_absorptance": 0.9,
+    "solar_absorptance": 0.65,
+    "visible_absorptance": 0.65
+}

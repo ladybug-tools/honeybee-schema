@@ -1,0 +1,9 @@
+{
+    "type": "EnergyMaterialNoMass",
+    "name": "CP02 Carpet Pad",
+    "r_value": 0.9,
+    "roughness": "Smooth",
+    "thermal_absorptance": 0.8,
+    "solar_absorptance": 0.8,
+    "visible_absorptance": 0.8
+}

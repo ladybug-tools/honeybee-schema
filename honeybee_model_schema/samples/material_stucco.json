@@ -1,0 +1,12 @@
+{
+    "type": "EnergyMaterial",
+    "name": "1 in Gypsum",
+    "roughness": "Smooth",
+    "thickness": 0.025,
+    "conductivity": 0.69,
+    "density": 1858,
+    "specific_heat": 836.9,
+    "thermal_absorptance": 0.9,
+    "solar_absorptance": 0.92,
+    "visible_absorptance": 0.92
+}

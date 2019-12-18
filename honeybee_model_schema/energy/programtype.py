@@ -41,7 +41,8 @@ class PeopleAbridged(BaseModel):
         default=None,
         ge=0,
         le=1,
-        description='Used to specify a fixed latent fraction of heat gain due to people.'
+        description='Used to specify a fixed latent fraction of heat gain due to people. \
+            If left null then Honeybee will autocalculate this value.'
     )
 
     @validator('latent_fraction')

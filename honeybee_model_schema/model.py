@@ -136,7 +136,8 @@ class Outdoors(BaseModel):
     view_factor: float = Schema(
         default=None,
         ge=0,
-        le=1
+        le=1,
+        description='If left null then Honeybee will autocalculate this value.'
     )
 
 

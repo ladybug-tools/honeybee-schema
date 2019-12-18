@@ -415,7 +415,7 @@
                         "name": "Generic Office People",
                         "people_per_area": 0.0565,
                         "radiant_fraction": 0.3,
-                        "latent_fraction": "autocalculate",
+                        "latent_fraction": null,
                         "occupancy_schedule": "Generic Office Occupancy",
                         "activity_schedule": "Generic Office Activity"
                     },
@@ -1758,7 +1758,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -1802,7 +1802,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ],
@@ -1847,7 +1847,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ],
@@ -1930,7 +1930,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     }
                 },
                 {
@@ -1973,7 +1973,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -2016,7 +2016,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             },
                             "outdoor_shades": [
                                 {
@@ -2139,7 +2139,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     }
                 },
                 {
@@ -2182,7 +2182,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     }
                 }
             ],

@@ -1,7 +1,13 @@
 {
     "type": "IdealAirSystem",
-    "heating_limit": 2000.0,
-    "cooling_limit": 3500.0,
+    "heating_limit": {
+        "config": "FixedValue",
+        "value": 2000.0
+    },
+    "cooling_limit": {
+        "config": "FixedValue",
+        "value": 3500.0
+    },
     "economizer_type": "DifferentialEnthalpy",
     "demand_controlled_ventilation": true,
     "sensible_heat_recovery": 0.75,

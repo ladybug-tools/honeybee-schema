@@ -37,8 +37,8 @@ class PeopleAbridged(BaseModel):
         'value is 0.30.'
     )
 
-    latent_fraction: Union[float, str] = Schema(
-        'autocalculate',
+    latent_fraction: float = Schema(
+        default=None,
         ge=0,
         le=1,
         description='Used to specify a fixed latent fraction of heat gain due to people.'

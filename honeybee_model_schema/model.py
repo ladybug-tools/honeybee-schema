@@ -133,8 +133,8 @@ class Outdoors(BaseModel):
         default=None
     )
 
-    view_factor: Union[str, float] = Schema(
-        'autocalculate',
+    view_factor: float = Schema(
+        default=None,
         ge=0,
         le=1
     )

@@ -371,7 +371,7 @@
                         "name": "2013::Hospital::ICU_PatRm_People",
                         "people_per_area": 0.05381957525591208,
                         "radiant_fraction": 0.3,
-                        "latent_fraction": "autocalculate",
+                        "latent_fraction": null,
                         "occupancy_schedule": "Hospital BLDG_OCC_EXTD_SCH",
                         "activity_schedule": "Hospital ACTIVITY_SCH"
                     },
@@ -1470,7 +1470,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -1513,7 +1513,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             },
                             "outdoor_shades": [
                                 {

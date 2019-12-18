@@ -531,7 +531,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -574,7 +574,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ]
@@ -619,7 +619,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -662,7 +662,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ]
@@ -707,7 +707,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -750,7 +750,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ]
@@ -795,7 +795,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -838,7 +838,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ]
@@ -992,7 +992,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -1035,7 +1035,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ]
@@ -1080,7 +1080,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -1123,7 +1123,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ]
@@ -1168,7 +1168,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -1211,7 +1211,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ]
@@ -1256,7 +1256,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     },
                     "apertures": [
                         {
@@ -1299,7 +1299,7 @@
                                 "type": "Outdoors",
                                 "sun_exposure": true,
                                 "wind_exposure": true,
-                                "view_factor": "autocalculate"
+                                "view_factor": null
                             }
                         }
                     ]
@@ -1453,7 +1453,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     }
                 },
                 {
@@ -1496,7 +1496,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     }
                 },
                 {
@@ -1534,7 +1534,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     }
                 },
                 {
@@ -1572,7 +1572,7 @@
                         "type": "Outdoors",
                         "sun_exposure": true,
                         "wind_exposure": true,
-                        "view_factor": "autocalculate"
+                        "view_factor": null
                     }
                 }
             ]

@@ -8,31 +8,41 @@ class EconomizerType(str, Enum):
     differential_dry_bulb = 'DifferentialDryBulb'
     differential_enthalpy = 'DifferentialEnthalpy'
 
+class IdealAirLimitConfig(str, Enum):
+    autosize = 'AutoSize'
+    no_limit = 'NoLimit'
+    fixed_value = 'FixedValue'
+
+class IdealAirLimit(BaseModel):
+
+    config: IdealAirLimitConfig = IdealAirLimitConfig.autosize
+
+    value: float = Schema(
+        default=None,
+        ge=0
+    )
+
+    @validator('value')
+    def check_config(cls, v, values, **kwargs):
+        if 'value' in values and values['config'] == "FixedValue":
+            raise ValueError('ideal air limit config should be "FixedValue" if value is not null')
+        return v
 
 class IdealAirSystem(BaseModel):
     """ Provides a model for an ideal HVAC system."""
     type: Enum('IdealAirSystem', {'type': 'IdealAirSystem'})
 
-    heating_limit: Union[float, str] = Schema(
-        'autosize',
-        ge=0
+    heating_limit: IdealAirLimit = Schema(
+        default=IdealAirLimit(),
+        description='The heating system limit. If not specified the \
+            default configuraiton will autocalculate the system size.'
     )
 
-    @validator('heating_limit')
-    def check_string_heating_limit(cls, v):
-        if not isinstance(v ,float) and v != 'autosize' and v != 'NoLimit':
-            raise ValueError( 'This is not a valid entry for heating_limit')
-
-
-    cooling_limit: Union[float, str] = Schema(
-        'autosize',
-        ge=0
+    cooling_limit: IdealAirLimit = Schema(
+        default=IdealAirLimit(),
+        description='The cooling system limit. If not specified the \
+            default configuraiton will autocalculate the system size.'
     )
-
-    @validator('cooling_limit')
-    def check_string_cooling_limit(cls, v):
-        if not isinstance(v, float) and v != 'autosize' and v != 'NoLimit':
-            raise ValueError( 'This is not a valid entry for cooling_limit')
 
     economizer_type: EconomizerType = EconomizerType.differential_dry_bulb
 

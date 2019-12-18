@@ -45,12 +45,6 @@ class PeopleAbridged(BaseModel):
             If left null then Honeybee will autocalculate this value.'
     )
 
-    @validator('latent_fraction')
-    def check_string_latent_fraction(cls, v):
-        if not isinstance(v, float) and v != 'autocalculate':
-            raise ValueError('"{}" is not a valid entry for latent_fraction'.format(v))
-
-
     occupancy_schedule: str = Schema(
         ...,
         min_length=1,
@@ -167,7 +161,7 @@ class ElectricEquipmentAbridged(BaseModel):
         ' by electric equipment. Default value is 0.'
     )
 
-    latent_fraction: Union[float, str] = Schema(
+    latent_fraction: float = Schema(
         0,
         ge=0,
         le=1,
@@ -227,7 +221,7 @@ class GasEquipmentAbridged(BaseModel):
         ' by electric equipment.'
     )
 
-    latent_fraction: Union[float, str] = Schema(
+    latent_fraction: float = Schema(
         0,
         ge=0,
         le=1,

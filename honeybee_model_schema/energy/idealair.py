@@ -33,15 +33,11 @@ class IdealAirSystem(BaseModel):
     type: Enum('IdealAirSystem', {'type': 'IdealAirSystem'})
 
     heating_limit: IdealAirLimit = Schema(
-        default=IdealAirLimit(),
-        description='The heating system limit. If not specified the \
-            default configuraiton will autocalculate the system size.'
+        None
     )
 
     cooling_limit: IdealAirLimit = Schema(
-        default=IdealAirLimit(),
-        description='The cooling system limit. If not specified the \
-            default configuraiton will autocalculate the system size.'
+        None
     )
 
     economizer_type: EconomizerType = EconomizerType.differential_dry_bulb

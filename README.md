@@ -18,7 +18,7 @@ import honeybee_model_schema
 
 ```
 
-## [API Documentation](http://ladybug-tools-in2.github.io/honeybee-model-schema/docs)
+## [API Documentation](https://ladybug-tools-in2.github.io/honeybee-model-schema/)
 
 ## Local Development
 1. Clone this repo locally

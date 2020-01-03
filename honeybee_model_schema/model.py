@@ -24,17 +24,23 @@ class Plane(BaseModel):
 
     n: List[float] = Schema(
         ...,
-        description="Normal"
+        description="Plane Normal",
+        minItems=3,
+        maxItems=3
     )
 
     o: List[float] = Schema(
         ...,
-        description="Origin"
+        description="Plane Origin",
+        minItems=3,
+        maxItems=3
     )
 
     x: List[float] = Schema(
         default=None,
-        description="x-axis"
+        description="Plane X-axis",
+        minItems=3,
+        maxItems=3
     )
 
 
@@ -57,7 +63,7 @@ class Face3D(BaseModel):
         for i in v:
             if len(i) != 3:
                 raise ValueError(
-                    'Number of floats must be 3.'
+                    'Number of floats must be 3 for (x, y, z).'
                 )
         return v
 
@@ -67,7 +73,7 @@ class Face3D(BaseModel):
             for pt in pt_list:
                 if len(pt) != 3:
                     raise ValueError(
-                        'Number of floats must be 3.'
+                        'Number of floats must be 3 for (x, y, z).'
                     )
         return v
 
@@ -159,12 +165,6 @@ class Surface(BaseModel):
         minItems=2,
         maxItems=3
     )
-
-    @validator('boundary_condition_objects', whole=True)
-    def check_num(cls, v):
-        if len(v) != (2 or 3):
-            raise ValueError('Incorrect number of boundary condition objects.')
-        return v
 
 
 class ApertureEnergyPropertiesAbridged(BaseModel):

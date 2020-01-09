@@ -1,17 +1,17 @@
 from pydantic.schema import schema
 from typing import Dict
 
-from ..model import Model
 
+# base open api dictionary for all schemas
 _base_open_api = {
     "openapi": "3.0.2",
     "servers": [],
     "info": {
-        "description": "This is the documentation for Honeybee model schema.",
+        "description": "",
         "version": "1.0.0",
-        "title": "Honeybee Model Schema",
+        "title": "",
         "contact": {
-            "name": "Honeybee Data Model Support",
+            "name": "Ladybug Tools",
             "email": "info@ladybug.tools",
             "url": "https://github.com/ladybug-tools/honeybee"
         },
@@ -25,7 +25,7 @@ _base_open_api = {
         }
     },
     "externalDocs": {
-        "description": "See how to use this model in action.",
+        "description": "See how to use these schema in action.",
         "url": "https://api.pollination.cloud/"
     },
     "tags": [],
@@ -41,7 +41,7 @@ _base_open_api = {
 
 
 def get_openapi(
-    *,
+    base_object,
     title: str = None,
     version: str = None,
     openapi_version: str = "3.0.2",
@@ -61,7 +61,7 @@ def get_openapi(
     if description:
         open_api['info']['description'] = description
 
-    definitions = schema([Model], ref_prefix='#/components/schemas/')
+    definitions = schema(base_object, ref_prefix='#/components/schemas/')
 
     # goes to tags
     tags = []

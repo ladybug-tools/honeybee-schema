@@ -8,4 +8,4 @@ __pycache__
 test.db
 test.py
 out.txt
-docs/openapi.json
+docs/*.json

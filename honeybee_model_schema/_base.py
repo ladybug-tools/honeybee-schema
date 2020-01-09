@@ -1,4 +1,4 @@
-"""Base class for all objects requiring a valid EnergyPlus name."""
+"""Base class for all objects requiring a valid names for all engines."""
 from pydantic import BaseModel, Schema, validator
 
 
@@ -11,11 +11,11 @@ class NamedBaseModel(BaseModel):
         min_length=1,
         max_length=100,
         description='Name of the object used in all simulation engines. Must not '
-            'contain spaces, use only letters, digits and underscores, and not be '
-            'more than 100 characters.'
+            'contain spaces and use only letters, digits and underscores/dashes. '
+            'It cannot be longer than 100 characters.'
     )
 
     display_name: str = Schema(
         default=None,
-        description='Display name of the object with no character restrictions.'
+        description='Display name of the object with no restrictions.'
     )

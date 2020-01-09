@@ -229,7 +229,7 @@ class SimulationParameter(BaseModel):
     sizing_parameter: SizingParameter = Schema(
         default=None,
         description='A SizingParameter object with criteria for sizing the '
-            'heating and cooling systm.'
+            'heating and cooling system.'
     )
 
 

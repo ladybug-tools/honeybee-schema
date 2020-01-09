@@ -1,4 +1,4 @@
-from honeybee_model_schema.energy.simulationparameter import SimulationParameter
+from honeybee_model_schema.energy.simulation import SimulationParameter
 import os
 
 # target folder where all of the samples live

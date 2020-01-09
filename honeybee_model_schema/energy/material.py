@@ -1,13 +1,13 @@
-"""Materials Schema"""
+"""Material Schema"""
 from pydantic import BaseModel, Schema, validator
 from typing import List
 from enum import Enum
 
+from ._base import NamedEnergyBaseModel
+
 
 class Roughness(str, Enum):
-    """
-    Relative roughness of a particular material layer.
-    """
+    """Relative roughness of a particular material layer."""
     very_rough = 'VeryRough'
     rough = 'Rough'
     medium_rough = 'MediumRough'
@@ -16,23 +16,9 @@ class Roughness(str, Enum):
     very_smooth = 'VerySmooth'
 
 
-class EnergyMaterial(BaseModel):
-    """Material 'types' used to describe layers within opaque construction elements."""
+class EnergyMaterial(NamedEnergyBaseModel):
+    """Opaque material representing a layer within an opaque construction."""
     type: Enum('EnergyMaterial', {'type': 'EnergyMaterial'})
-
-    name: str = Schema(
-        ...,
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
 
     roughness: Roughness = Roughness.medium_rough
 
@@ -86,33 +72,18 @@ class EnergyMaterial(BaseModel):
     )
 
 
-class EnergyMaterialNoMass(BaseModel):
-    """
-    Used when only the thermal resistance (R value) of the material is known. Used for
-    opaque construction elements.
+class EnergyMaterialNoMass(NamedEnergyBaseModel):
+    """No mass opaque material representing a layer within an opaque construction.
+
+    Used when only the thermal resistance (R value) of the material is known.
     """
 
     type: Enum('EnergyMaterialNoMass', {'type': 'EnergyMaterialNoMass'})
 
-    name: str = Schema(
-        ...,
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
-
     r_value: float = Schema(
         ...,
         ge=0.001,
-        description='Used to enter the thermal resistance (R-value) of the material'
-        ' layer in (m2-K)/W.'
+        description='The thermal resistance (R-value) of the material layer [m2-K/W].'
     )
 
     roughness: Roughness = Roughness.medium_rough
@@ -122,7 +93,7 @@ class EnergyMaterialNoMass(BaseModel):
         gt=0,
         le=0.99999,
         description='Fraction of incident long wavelength radiation that is absorbed by'
-        ' the material. Default value is 0.9.'
+            ' the material. Default value is 0.9.'
     )
 
     solar_absorptance: float = Schema(
@@ -149,28 +120,13 @@ class GasType (str, Enum):
     xenon = 'Xenon'
 
 
-class EnergyWindowMaterialGas(BaseModel):
-    """Create single layer of gas.
+class EnergyWindowMaterialGas(NamedEnergyBaseModel):
+    """Create single layer of gas in a window construction.
 
     Can be combined with EnergyWindowMaterialGlazing to make multi-pane windows.
     """
 
-    type: Enum('EnergyWindowMaterialGas', {
-               'type': 'EnergyWindowMaterialGas'})
-
-    name: str = Schema(
-        'AIRGAP',
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
+    type: Enum('EnergyWindowMaterialGas', {'type': 'EnergyWindowMaterialGas'})
 
     gas_type: GasType = GasType.air
 
@@ -181,25 +137,11 @@ class EnergyWindowMaterialGas(BaseModel):
     )
 
 
-class EnergyWindowMaterialGasCustom(BaseModel):
+class EnergyWindowMaterialGasCustom(NamedEnergyBaseModel):
     """Create single layer of custom gas."""
 
     type: Enum('EnergyWindowMaterialGasCustom', {
                'type': 'EnergyWindowMaterialGasCustom'})
-
-    name: str = Schema(
-        ...,
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
 
     thickness: float = Schema(
         0.0125,
@@ -279,26 +221,12 @@ class GasTypeAndFraction(BaseModel):
     )
 
 
-class EnergyWindowMaterialGasMixture(BaseModel):
+class EnergyWindowMaterialGasMixture(NamedEnergyBaseModel):
     """Create a mixture of two to four different gases to fill the panes of multiple
     pane windows."""
 
     type: Enum('EnergyWindowMaterialGasMixture', {
         'type': 'EnergyWindowMaterialGasMixture'})
-
-    name: str = Schema(
-        ...,
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
 
     thickness: float = Schema(
         ...,
@@ -307,8 +235,7 @@ class EnergyWindowMaterialGasMixture(BaseModel):
 
     gas_type_fraction: List[GasTypeAndFraction] = Schema(
         ...,
-        description='Used to describe the type of gas and its fraction in a mixture of'
-        'gases.'
+        description='List of gases and their fractions in a mixture.'
     )
 
     @validator('gas_type_fraction', whole=True)
@@ -319,7 +246,7 @@ class EnergyWindowMaterialGasMixture(BaseModel):
         return v
 
 
-class EnergyWindowMaterialSimpleGlazSys(BaseModel):
+class EnergyWindowMaterialSimpleGlazSys(NamedEnergyBaseModel):
     """Describe an entire glazing system rather than individual layers.
 
     Used when only very limited information is available on the glazing layers or when
@@ -328,20 +255,6 @@ class EnergyWindowMaterialSimpleGlazSys(BaseModel):
 
     type: Enum('EnergyWindowMaterialSimpleGlazSys', {
                'type': 'EnergyWindowMaterialSimpleGlazSys'})
-
-    name: str = Schema(
-        ...,
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
 
     u_factor: float = Schema(
         ...,
@@ -362,7 +275,7 @@ class EnergyWindowMaterialSimpleGlazSys(BaseModel):
     vt: float = Schema(
         0.54,
         gt=0,
-        le=1,
+        lt=1,
         description='The fraction of visible light falling on the window that makes it'
         ' through the glass at normal incidence.'
     )
@@ -371,12 +284,12 @@ class EnergyWindowMaterialSimpleGlazSys(BaseModel):
 class SlatOrientation (str, Enum):
     horizontal = 'Horizontal'
     vertical = 'Vertical'
-    description = 'Choices include Horizontal and Vertical. Horizontal means the slats'
-    ' are parallel to the X-axis of the window. Vertical means the slats are parallel'
-    ' to the Y-axis of the window.'
+    description = 'Choices include Horizontal and Vertical. Horizontal means the ' \
+        'slats are parallel to the X-axis of the window. Vertical means the slats ' \
+        'are parallel to the Y-axis of the window.'
 
 
-class EnergyWindowMaterialBlind(BaseModel):
+class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
     """Window blind properties.
 
     Window blind properties consist of flat, equally-spaced slats.
@@ -385,21 +298,7 @@ class EnergyWindowMaterialBlind(BaseModel):
     type: Enum('EnergyWindowMaterialBlind', {
                'type': 'EnergyWindowMaterialBlind'})
 
-    name: str = Schema(
-        ...,
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
-
-    slat_orientation: SlatOrientation
+    slat_orientation: SlatOrientation = SlatOrientation.horizontal
 
     slat_width: float = Schema(
         0.025,
@@ -581,7 +480,7 @@ class EnergyWindowMaterialBlind(BaseModel):
     )
 
     bottom_opening_multiplier: float = Schema(
-        0,
+        0.5,
         ge=0,
         le=1,
         description='The effective area for air flow at the bottom of the shade, divided'
@@ -619,25 +518,11 @@ class EnergyWindowMaterialBlind(BaseModel):
     )
 
 
-class EnergyWindowMaterialGlazing(BaseModel):
+class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
     """Describe a single glass pane corresponding to a layer in a window construction."""
 
     type: Enum('EnergyWindowMaterialGlazing', {
                'type': 'EnergyWindowMaterialGlazing'})
-
-    name: str = Schema(
-        ...,
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
 
     thickness: float = Schema(
         0.003,
@@ -741,25 +626,11 @@ class EnergyWindowMaterialGlazing(BaseModel):
     )
 
 
-class EnergyWindowMaterialShade (BaseModel):
+class EnergyWindowMaterialShade (NamedEnergyBaseModel):
     """This object specifies the properties of window shade materials."""
 
     type: Enum('EnergyWindowMaterialShade', {
                'type': 'EnergyWindowMaterialShade'})
-
-    name: str = Schema(
-        ...,
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
 
     solar_transmittance: float = Schema(
         0.4,
@@ -874,3 +745,15 @@ class EnergyWindowMaterialShade (BaseModel):
         ' If air cannot pass through the shade material, airflow_permeability = 0.'
         ' Default value is 0.'
     )
+
+
+if __name__ == '__main__':
+    print(EnergyMaterial.schema_json(indent=2))
+    print(EnergyMaterialNoMass.schema_json(indent=2))
+    print(EnergyWindowMaterialSimpleGlazSys.schema_json(indent=2))
+    print(EnergyWindowMaterialGlazing.schema_json(indent=2))
+    print(EnergyWindowMaterialGas.schema_json(indent=2))
+    print(EnergyWindowMaterialGasMixture.schema_json(indent=2))
+    print(EnergyWindowMaterialGasCustom.schema_json(indent=2))
+    print(EnergyWindowMaterialBlind.schema_json(indent=2))
+    print(EnergyWindowMaterialShade.schema_json(indent=2))

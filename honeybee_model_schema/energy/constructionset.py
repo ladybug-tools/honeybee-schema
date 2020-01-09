@@ -2,194 +2,221 @@
 from pydantic import BaseModel, Schema, validator
 from enum import Enum
 
+from ._base import NamedEnergyBaseModel
+
 
 class WallSetAbridged(BaseModel):
     """A set of constructions for wall assemblies."""
 
-    type: Enum('WallSetAbridged', {
-               'type': 'WallSetAbridged'})
+    type: Enum('WallSetAbridged', {'type': 'WallSetAbridged'})
 
     interior_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for walls with a Surface or '
+            'Adiabatic boundary condition.'
     )
 
     exterior_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for walls with an Outdoors '
+            'boundary condition.'
     )
 
     ground_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for walls with a Ground '
+            'boundary condition.'
     )
 
 
 class FloorSetAbridged(BaseModel):
     """A set of constructions for floor assemblies."""
 
-    type: Enum('FloorSetAbridged', {
-               'type': 'FloorSetAbridged'})
+    type: Enum('FloorSetAbridged', {'type': 'FloorSetAbridged'})
 
     interior_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for floors with a Surface or '
+            'Adiabatic boundary condition.'
     )
 
     exterior_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for floors with an Outdoors '
+            'boundary condition.'
     )
 
     ground_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for floors with a Ground '
+            'boundary condition.'
     )
 
 
 class RoofCeilingSetAbridged(BaseModel):
     """A set of constructions for roof and ceiling assemblies."""
 
-    type: Enum('RoofCeilingSetAbridged', {
-               'type': 'RoofCeilingSetAbridged'})
+    type: Enum('RoofCeilingSetAbridged', {'type': 'RoofCeilingSetAbridged'})
 
     interior_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for ceilings with a Surface or '
+            'Adiabatic boundary condition.'
     )
 
     exterior_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for roofs with an Outdoors '
+            'boundary condition.'
     )
 
     ground_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for roofs with a Ground '
+            'boundary condition.'
     )
 
 
 class ApertureSetAbridged(BaseModel):
     """A set of constructions for aperture assemblies."""
 
-    type: Enum('ApertureSetAbridged', {
-               'type': 'ApertureSetAbridged'})
+    type: Enum('ApertureSetAbridged', {'type': 'ApertureSetAbridged'})
 
     interior_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for a WindowConstruction for apertures with an '
+            'Outdoors boundary condition, False is_operable property, and a Wall '
+            'face type for their parent face.'
     )
 
     window_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for a WindowConstruction for all apertures with a '
+            'Surface boundary condition.'
     )
 
     skylight_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for a WindowConstruction for apertures with a Outdoors '
+            'boundary condition, False is_operable property, and a RoofCeiling or '
+            'Floor face type for their parent face.'
     )
 
     operable_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for a WindowConstruction for all apertures with an '
+            'Outdoors boundary condition and True is_operable property..'
     )
 
 
 class DoorSetAbridged(BaseModel):
     """A set of constructions for door assemblies."""
 
-    type: Enum('DoorSetAbridged', {
-               'type': 'DoorSetAbridged'})
+    type: Enum('DoorSetAbridged', {'type': 'DoorSetAbridged'})
 
     interior_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for all opaque doors with a '
+            'Surface boundary condition.'
     )
 
     exterior_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for opaque doors with an Outdoors '
+            'boundary condition and a Wall face type for their parent face.'
     )
 
     overhead_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an OpaqueConstruction for opaque doors with an Outdoors '
+            'boundary condition and a RoofCeiling or Floor type for their parent face.'
     )
 
     exterior_glass_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an WindowConstruction for all glass doors with an '
+            'Outdoors boundary condition.'
     )
 
     interior_glass_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='Name for an WindowConstruction for all glass doors with a '
+            'Surface boundary condition.'
     )
 
 
-class ConstructionSetAbridged(BaseModel):
+class ConstructionSetAbridged(NamedEnergyBaseModel):
     """A set of constructions for different surface types and boundary conditions."""
 
-    type: Enum('ConstructionSetAbridged', {
-               'type': 'ConstructionSetAbridged'})
-
-    name: str = Schema(
-        ...,
-        min_length=1,
-        max_length=100
-    )
-
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \n \t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
+    type: Enum('ConstructionSetAbridged', {'type': 'ConstructionSetAbridged'})
 
     wall_set: WallSetAbridged = Schema(
-        default=None
+        default=None,
+        description='A WallSet object for this ConstructionSet.'
     )
 
     floor_set: FloorSetAbridged = Schema(
-        default=None
+        default=None,
+        description='A FloorSet object for this ConstructionSet.'
     )
 
     roof_ceiling_set: RoofCeilingSetAbridged = Schema(
-        default=None
+        default=None,
+        description='A RoofCeilingSet object for this ConstructionSet.'
     )
 
     aperture_set: ApertureSetAbridged = Schema(
-        default=None
+        default=None,
+        description='A ApertureSet object for this ConstructionSet.'
     )
 
     door_set: DoorSetAbridged = Schema(
-        default=None
+        default=None,
+        description='A DoorSet object for this ConstructionSet.'
     )
 
     shade_construction: str = Schema(
         default=None,
         min_length=1,
-        max_length=100
+        max_length=100,
+        description='A ShadeConstruction to set the reflectance properties of all '
+            'outdoor shades to which this ConstructionSet is assigned.'
     )
 
 

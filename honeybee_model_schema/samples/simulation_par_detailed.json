@@ -83,6 +83,243 @@
     "sizing_parameter": {
         "type": "SizingParameter",
         "heating_factor": 1.0,
-        "cooling_factor": 1.0
+        "cooling_factor": 1.0,
+        "design_days": [
+            {
+                "type": "DesignDay",
+                "name": "Chicago Ohare Intl Ap Ann Htg 99.6% Condns DB",
+                "day_type": "WinterDesignDay",
+                "dry_bulb_condition": {
+                    "type": "DryBulbCondition",
+                    "dry_bulb_max": -20.0,
+                    "dry_bulb_range": 0.0
+                },
+                "humidity_condition": {
+                    "type": "HumidityCondition",
+                    "humidity_type": "Wetbulb",
+                    "humidity_value": -20.0,
+                    "barometric_pressure": 98934.0,
+                    "rain": false,
+                    "snow_on_ground": false
+                },
+                "wind_condition": {
+                    "type": "WindCondition",
+                    "wind_speed": 4.9,
+                    "wind_direction": 270.0
+                },
+                "sky_condition": {
+                    "type": "ASHRAEClearSky",
+                    "date": {
+                        "month": 1,
+                        "day": 21,
+                        "type": "Date"
+                    },
+                    "clearness": 0.0,
+                    "daylight_savings": false
+                }
+            },
+            {
+                "type": "DesignDay",
+                "name": "Chicago Ohare Intl Ap Ann Hum_n 99.6% Condns DP=>MCDB",
+                "day_type": "WinterDesignDay",
+                "dry_bulb_condition": {
+                    "type": "DryBulbCondition",
+                    "dry_bulb_max": -19.2,
+                    "dry_bulb_range": 0.0
+                },
+                "humidity_condition": {
+                    "type": "HumidityCondition",
+                    "humidity_type": "Dewpoint",
+                    "humidity_value": -25.7,
+                    "barometric_pressure": 98934.0,
+                    "rain": false,
+                    "snow_on_ground": false
+                },
+                "wind_condition": {
+                    "type": "WindCondition",
+                    "wind_speed": 4.9,
+                    "wind_direction": 270.0
+                },
+                "sky_condition": {
+                    "type": "ASHRAEClearSky",
+                    "date": {
+                        "month": 1,
+                        "day": 21,
+                        "type": "Date"
+                    },
+                    "clearness": 0.0,
+                    "daylight_savings": false
+                }
+            },
+            {
+                "type": "DesignDay",
+                "name": "Chicago Ohare Intl Ap Ann Htg Wind 99.6% Condns WS=>MCDB",
+                "day_type": "WinterDesignDay",
+                "dry_bulb_condition": {
+                    "type": "DryBulbCondition",
+                    "dry_bulb_max": -3.5,
+                    "dry_bulb_range": 0.0
+                },
+                "humidity_condition": {
+                    "type": "HumidityCondition",
+                    "humidity_type": "Wetbulb",
+                    "humidity_value": -3.5,
+                    "barometric_pressure": 98934.0,
+                    "rain": false,
+                    "snow_on_ground": false
+                },
+                "wind_condition": {
+                    "type": "WindCondition",
+                    "wind_speed": 12.4,
+                    "wind_direction": 270.0
+                },
+                "sky_condition": {
+                    "type": "ASHRAEClearSky",
+                    "date": {
+                        "month": 1,
+                        "day": 21,
+                        "type": "Date"
+                    },
+                    "clearness": 0.0,
+                    "daylight_savings": false
+                }
+            },
+            {
+                "type": "DesignDay",
+                "name": "Chicago Ohare Intl Ap Ann Clg .4% Condns DB=>MWB",
+                "day_type": "SummerDesignDay",
+                "dry_bulb_condition": {
+                    "type": "DryBulbCondition",
+                    "dry_bulb_max": 33.3,
+                    "dry_bulb_range": 10.5
+                },
+                "humidity_condition": {
+                    "type": "HumidityCondition",
+                    "humidity_type": "Wetbulb",
+                    "humidity_value": 23.7,
+                    "barometric_pressure": 98934.0,
+                    "rain": false,
+                    "snow_on_ground": false
+                },
+                "wind_condition": {
+                    "type": "WindCondition",
+                    "wind_speed": 5.2,
+                    "wind_direction": 230.0
+                },
+                "sky_condition": {
+                    "type": "ASHRAETau",
+                    "date": {
+                        "month": 7,
+                        "day": 21,
+                        "type": "Date"
+                    },
+                    "tau_b": 0.455,
+                    "tau_d": 2.05,
+                    "daylight_savings": false
+                }
+            },
+            {
+                "type": "DesignDay",
+                "name": "Chicago Ohare Intl Ap Ann Clg .4% Condns WB=>MDB",
+                "day_type": "SummerDesignDay",
+                "dry_bulb_condition": {
+                    "type": "DryBulbCondition",
+                    "dry_bulb_max": 31.2,
+                    "dry_bulb_range": 10.5
+                },
+                "humidity_condition": {
+                    "type": "HumidityCondition",
+                    "humidity_type": "Wetbulb",
+                    "humidity_value": 25.5,
+                    "barometric_pressure": 98934.0,
+                    "rain": false,
+                    "snow_on_ground": false
+                },
+                "wind_condition": {
+                    "type": "WindCondition",
+                    "wind_speed": 5.2,
+                    "wind_direction": 230.0
+                },
+                "sky_condition": {
+                    "type": "ASHRAETau",
+                    "date": {
+                        "month": 7,
+                        "day": 21,
+                        "type": "Date"
+                    },
+                    "tau_b": 0.455,
+                    "tau_d": 2.05,
+                    "daylight_savings": false
+                }
+            },
+            {
+                "type": "DesignDay",
+                "name": "Chicago Ohare Intl Ap Ann Clg .4% Condns DP=>MDB",
+                "day_type": "SummerDesignDay",
+                "dry_bulb_condition": {
+                    "type": "DryBulbCondition",
+                    "dry_bulb_max": 28.9,
+                    "dry_bulb_range": 10.5
+                },
+                "humidity_condition": {
+                    "type": "HumidityCondition",
+                    "humidity_type": "Dewpoint",
+                    "humidity_value": 23.8,
+                    "barometric_pressure": 98934.0,
+                    "rain": false,
+                    "snow_on_ground": false
+                },
+                "wind_condition": {
+                    "type": "WindCondition",
+                    "wind_speed": 5.2,
+                    "wind_direction": 230.0
+                },
+                "sky_condition": {
+                    "type": "ASHRAETau",
+                    "date": {
+                        "month": 7,
+                        "day": 21,
+                        "type": "Date"
+                    },
+                    "tau_b": 0.455,
+                    "tau_d": 2.05,
+                    "daylight_savings": false
+                }
+            },
+            {
+                "type": "DesignDay",
+                "name": "Chicago Ohare Intl Ap Ann Clg .4% Condns Enth=>MDB",
+                "day_type": "SummerDesignDay",
+                "dry_bulb_condition": {
+                    "type": "DryBulbCondition",
+                    "dry_bulb_max": 31.4,
+                    "dry_bulb_range": 10.5
+                },
+                "humidity_condition": {
+                    "type": "HumidityCondition",
+                    "humidity_type": "Enthalpy",
+                    "humidity_value": 79200.0,
+                    "barometric_pressure": 98934.0,
+                    "rain": false,
+                    "snow_on_ground": false
+                },
+                "wind_condition": {
+                    "type": "WindCondition",
+                    "wind_speed": 5.2,
+                    "wind_direction": 230.0
+                },
+                "sky_condition": {
+                    "type": "ASHRAETau",
+                    "date": {
+                        "month": 7,
+                        "day": 21,
+                        "type": "Date"
+                    },
+                    "tau_b": 0.455,
+                    "tau_d": 2.05,
+                    "daylight_savings": false
+                }
+            }
+        ]
     }
 }

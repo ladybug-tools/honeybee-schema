@@ -1,5 +1,5 @@
-from honeybee_model_schema.energy.scheduleruleset import ScheduleRulesetAbridged
-from honeybee_model_schema.energy.schedulefixedinterval import ScheduleFixedIntervalAbridged
+from honeybee_model_schema.energy.schedule import ScheduleRulesetAbridged, \
+    ScheduleFixedIntervalAbridged
 import os
 
 # target folder where all of the samples live
@@ -40,4 +40,10 @@ def test_fixedinterval_increasing_single_day():
 def test_fixedinterval_random_annual():
     file_path = os.path.join(
         target_folder, 'schedule_fixedinterval_random_annual.json')
+    ScheduleFixedIntervalAbridged.parse_file(file_path)
+
+
+def test_fixedinterval_simple():
+    file_path = os.path.join(
+        target_folder, 'schedule_fixedinterval_simple.json')
     ScheduleFixedIntervalAbridged.parse_file(file_path)

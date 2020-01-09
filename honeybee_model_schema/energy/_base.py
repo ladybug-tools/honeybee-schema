@@ -9,8 +9,8 @@ class NamedEnergyBaseModel(BaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of the object used in EnergyPlus. Must use only ASCII '
-            'characters, avoid (, ; ! \\n \\t), and not be more than 100 characters.'
+        description='Name of the object. Must use only ASCII characters and '
+            'exclude (, ; ! \\n \\t). It cannot be longer than 100 characters.'
     )
 
     @validator('name')

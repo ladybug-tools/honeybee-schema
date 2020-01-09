@@ -54,15 +54,36 @@ class ScheduleDay(NamedEnergyBaseModel):
     """Used to describe the daily schedule for a single simulation day."""
     type: Enum('ScheduleDay', {'type': 'ScheduleDay'})
 
-    values: List[float]
+    values: List[float] = Schema(
+        ...,
+        description='A list of floats or integers for the values of the schedule. '
+            'The length of this list must match the length of the times list.'
+    )
 
-    times: List[List[float]]
+    times: List[List[float]] = Schema(
+        [0, 0],
+        description='A list of lists with each sub-list possesing 2 values for '
+            '[hour, minute]. The length of the master list must match the length '
+            'of the values list. Each time in the master list represents the time '
+            'of day that the corresponding value begins to take effect. For example '
+            '[(0,0), (9,0), (17,0)] in combination with the values [0, 1, 0] denotes a '
+            'schedule value of 0 from 0:00 to 9:00, a value of 1 from 9:00 to 17:00 '
+            'and 0 from 17:00 to the end of the day. Note that this representation '
+            'of times as the "time of beginning" is a different convention than '
+            'EnergyPlus, which uses "time until".'
+    )
 
     @validator('times', whole=True)
     def check_len_times(cls, v):
         for i in v:
             assert len(i) == 2, \
                 'Schedule times must each have two values for [hour, minute].'
+        return v
+    
+    @validator('times', whole=True)
+    def check_times_values_match(cls, v, values):
+        assert len(v) == len(values['values']), 'Length of schedule times must match ' \
+            'the schedule values. {} != {}.'.format(len(v), len(values['values']))
         return v
 
     interpolate: bool = Schema(
@@ -192,9 +213,9 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='ScheduleTypeLimit that will be used to validate schedule values '
-            'against upper/lower limits and assign units to the schedule values. '
-            'If None, no validation will occur.'
+        description='Name of a ScheduleTypeLimit that will be used to validate '
+            'schedule values against upper/lower limits and assign units to the '
+            'schedule values. If None, no validation will occur.'
     )
 
 
@@ -215,9 +236,11 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
 
     schedule_type_limit: str = Schema(
         default=None,
-        description='ScheduleTypeLimit that will be used to validate schedule values '
-            'against upper/lower limits and assign units to the schedule values. '
-            'If None, no validation will occur.'
+        min_length=1,
+        max_length=100,
+        description='Name of a ScheduleTypeLimit that will be used to validate '
+            'schedule values against upper/lower limits and assign units to the '
+            'schedule values. If None, no validation will occur.'
     )
 
     timestep: int = Schema(
@@ -233,7 +256,7 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
             'the start date will be [1 Jan].'
     )
 
-    placeholder_value = float = Schema(
+    placeholder_value: float = Schema(
         0,
         description=' A value that will be used for all times not covered by the '
             'input values. Typically, your simulation should not need to use this '
@@ -251,8 +274,8 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
     def check_range(cls, v, values):
         "Ensure a correct number of schedule values."
         valid_timesteps = (1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60)
-        assert values['timestep'] in valid_timesteps, \
-            '"{}" is not a valid timestep. Choose from {}'.format(v, valid_timesteps)
+        assert values['timestep'] in valid_timesteps, '"{}" is not a valid timestep. ' \
+            'Choose from {}'.format(values['timestep'], valid_timesteps)
 
         if len(values['values']) < 24 * values['timestep']:
              raise ValueError('Number of schedule values must be for at least one day, '

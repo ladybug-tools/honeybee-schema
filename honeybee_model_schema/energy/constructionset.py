@@ -1,5 +1,5 @@
 """ConstructionSet Schema"""
-from pydantic import BaseModel, Schema, validator
+from pydantic import BaseModel, Field
 from enum import Enum
 
 from ._base import NamedEnergyBaseModel
@@ -10,7 +10,7 @@ class WallSetAbridged(BaseModel):
 
     type: Enum('WallSetAbridged', {'type': 'WallSetAbridged'})
 
-    interior_construction: str = Schema(
+    interior_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -18,7 +18,7 @@ class WallSetAbridged(BaseModel):
             'Adiabatic boundary condition.'
     )
 
-    exterior_construction: str = Schema(
+    exterior_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -26,7 +26,7 @@ class WallSetAbridged(BaseModel):
             'boundary condition.'
     )
 
-    ground_construction: str = Schema(
+    ground_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -40,7 +40,7 @@ class FloorSetAbridged(BaseModel):
 
     type: Enum('FloorSetAbridged', {'type': 'FloorSetAbridged'})
 
-    interior_construction: str = Schema(
+    interior_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -48,7 +48,7 @@ class FloorSetAbridged(BaseModel):
             'Adiabatic boundary condition.'
     )
 
-    exterior_construction: str = Schema(
+    exterior_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -56,7 +56,7 @@ class FloorSetAbridged(BaseModel):
             'boundary condition.'
     )
 
-    ground_construction: str = Schema(
+    ground_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -70,7 +70,7 @@ class RoofCeilingSetAbridged(BaseModel):
 
     type: Enum('RoofCeilingSetAbridged', {'type': 'RoofCeilingSetAbridged'})
 
-    interior_construction: str = Schema(
+    interior_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -78,7 +78,7 @@ class RoofCeilingSetAbridged(BaseModel):
             'Adiabatic boundary condition.'
     )
 
-    exterior_construction: str = Schema(
+    exterior_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -86,7 +86,7 @@ class RoofCeilingSetAbridged(BaseModel):
             'boundary condition.'
     )
 
-    ground_construction: str = Schema(
+    ground_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -100,7 +100,7 @@ class ApertureSetAbridged(BaseModel):
 
     type: Enum('ApertureSetAbridged', {'type': 'ApertureSetAbridged'})
 
-    interior_construction: str = Schema(
+    interior_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -109,7 +109,7 @@ class ApertureSetAbridged(BaseModel):
             'face type for their parent face.'
     )
 
-    window_construction: str = Schema(
+    window_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -117,7 +117,7 @@ class ApertureSetAbridged(BaseModel):
             'Surface boundary condition.'
     )
 
-    skylight_construction: str = Schema(
+    skylight_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -126,7 +126,7 @@ class ApertureSetAbridged(BaseModel):
             'Floor face type for their parent face.'
     )
 
-    operable_construction: str = Schema(
+    operable_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -140,7 +140,7 @@ class DoorSetAbridged(BaseModel):
 
     type: Enum('DoorSetAbridged', {'type': 'DoorSetAbridged'})
 
-    interior_construction: str = Schema(
+    interior_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -148,7 +148,7 @@ class DoorSetAbridged(BaseModel):
             'Surface boundary condition.'
     )
 
-    exterior_construction: str = Schema(
+    exterior_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -156,7 +156,7 @@ class DoorSetAbridged(BaseModel):
             'boundary condition and a Wall face type for their parent face.'
     )
 
-    overhead_construction: str = Schema(
+    overhead_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -164,7 +164,7 @@ class DoorSetAbridged(BaseModel):
             'boundary condition and a RoofCeiling or Floor type for their parent face.'
     )
 
-    exterior_glass_construction: str = Schema(
+    exterior_glass_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -172,7 +172,7 @@ class DoorSetAbridged(BaseModel):
             'Outdoors boundary condition.'
     )
 
-    interior_glass_construction: str = Schema(
+    interior_glass_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -186,32 +186,32 @@ class ConstructionSetAbridged(NamedEnergyBaseModel):
 
     type: Enum('ConstructionSetAbridged', {'type': 'ConstructionSetAbridged'})
 
-    wall_set: WallSetAbridged = Schema(
+    wall_set: WallSetAbridged = Field(
         default=None,
         description='A WallSet object for this ConstructionSet.'
     )
 
-    floor_set: FloorSetAbridged = Schema(
+    floor_set: FloorSetAbridged = Field(
         default=None,
         description='A FloorSet object for this ConstructionSet.'
     )
 
-    roof_ceiling_set: RoofCeilingSetAbridged = Schema(
+    roof_ceiling_set: RoofCeilingSetAbridged = Field(
         default=None,
         description='A RoofCeilingSet object for this ConstructionSet.'
     )
 
-    aperture_set: ApertureSetAbridged = Schema(
+    aperture_set: ApertureSetAbridged = Field(
         default=None,
         description='A ApertureSet object for this ConstructionSet.'
     )
 
-    door_set: DoorSetAbridged = Schema(
+    door_set: DoorSetAbridged = Field(
         default=None,
         description='A DoorSet object for this ConstructionSet.'
     )
 
-    shade_construction: str = Schema(
+    shade_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,

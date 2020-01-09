@@ -1,5 +1,5 @@
 """Programtype Schema"""
-from pydantic import BaseModel, Schema, validator
+from pydantic import BaseModel, Field, validator, root_validator
 from typing import Union
 from enum import Enum
 
@@ -10,13 +10,13 @@ class PeopleAbridged(NamedEnergyBaseModel):
 
     type: Enum('PeopleAbridged', {'type': 'PeopleAbridged'})
 
-    people_per_area: float = Schema(
+    people_per_area: float = Field(
         ...,
         ge=0,
         description='People per floor area expressed as [people/m2]'
     )
 
-    occupancy_schedule: str = Schema(
+    occupancy_schedule: str = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -26,7 +26,7 @@ class PeopleAbridged(NamedEnergyBaseModel):
             'occupancy profile.'
     )
 
-    activity_schedule: str = Schema(
+    activity_schedule: str = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -36,7 +36,7 @@ class PeopleAbridged(NamedEnergyBaseModel):
             'individual person in the room.'
     )
 
-    radiant_fraction: float = Schema(
+    radiant_fraction: float = Field(
         0.3,
         ge=0,
         le=1,
@@ -44,7 +44,7 @@ class PeopleAbridged(NamedEnergyBaseModel):
         'value is 0.30.'
     )
 
-    latent_fraction: Union[float, str] = Schema(
+    latent_fraction: Union[float, str] = Field(
         'autocalculate',
         ge=0,
         le=1,
@@ -56,19 +56,29 @@ class PeopleAbridged(NamedEnergyBaseModel):
     def check_string_latent_fraction(cls, v):
         if not isinstance(v, float) and v != 'autocalculate':
             raise ValueError('"{}" is not a valid entry for latent_fraction'.format(v))
+    
+    @root_validator
+    def check_sum_fractions(cls, values): 
+        "Ensure sum is less than 1."
+        rad = values.get('radiant_fraction')
+        latent = values.get('latent_fraction')
+        if latent is not None and latent != 'autocalculate':
+            assert rad + latent < 1, \
+                'Sum of radiant and latent fractions cannot be greater than 1.'
+        return values
 
 
 class LightingAbridged(NamedEnergyBaseModel):
 
     type: Enum('LightingAbridged', {'type': 'LightingAbridged'})
 
-    watts_per_area: float = Schema(
+    watts_per_area: float = Field(
         ...,
         ge=0,
         description='Lighting per floor area as [W/m2].'
     )
 
-    schedule: str = Schema(
+    schedule: str = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -78,7 +88,7 @@ class LightingAbridged(NamedEnergyBaseModel):
             'complete lighting profile.'
     )
 
-    visible_fraction: float = Schema(
+    visible_fraction: float = Field(
         0.25,
         ge=0,
         le=1,
@@ -86,7 +96,7 @@ class LightingAbridged(NamedEnergyBaseModel):
         '(short-wave) radiation. The default value is `0.25`.'
     )
 
-    radiant_fraction: float = Schema(
+    radiant_fraction: float = Field(
         0.32,
         ge=0,
         le=1,
@@ -94,7 +104,7 @@ class LightingAbridged(NamedEnergyBaseModel):
         ' value is `0.32`.'
     )
 
-    return_air_fraction: float = Schema(
+    return_air_fraction: float = Field(
         0.0,
         ge=0,
         le=1,
@@ -102,22 +112,26 @@ class LightingAbridged(NamedEnergyBaseModel):
         'air. Default value is `0`.'
     )
 
-    @validator('return_air_fraction')
-    def check_sum(cls, v, values): 
+    @root_validator
+    def check_sum_fractions(cls, values): 
         "Ensure sum is less than 1."
-        assert (v + values['visible_fraction'] + values['radiant_fraction']) < 1, \
+        return_air = values.get('return_air_fraction')
+        vis = values.get('visible_fraction')
+        rad = values.get('radiant_fraction')
+        assert sum((return_air, vis, rad)) < 1, \
             'Sum of visible, radiant, and return air fractions cannot be greater than 1.'
+        return values
 
 
 class _EquipmentBase(NamedEnergyBaseModel):
 
-    watts_per_area: float = Schema(
+    watts_per_area: float = Field(
         ...,
         ge=0,
         description='Equipment level per floor area as [W/m2].'
     )
 
-    schedule: str = Schema(
+    schedule: str = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -127,7 +141,7 @@ class _EquipmentBase(NamedEnergyBaseModel):
             'a complete equipment profile.'
     )
 
-    radiant_fraction: float = Schema(
+    radiant_fraction: float = Field(
         0,
         ge=0,
         le=1,
@@ -135,7 +149,7 @@ class _EquipmentBase(NamedEnergyBaseModel):
         ' by electric equipment. Default value is 0.'
     )
 
-    latent_fraction: Union[float, str] = Schema(
+    latent_fraction: Union[float, str] = Field(
         0,
         ge=0,
         le=1,
@@ -144,13 +158,23 @@ class _EquipmentBase(NamedEnergyBaseModel):
 
     )
 
-    lost_fraction: float = Schema(
+    lost_fraction: float = Field(
         0,
         ge = 0,
         le = 1,
         description='Number for the amount of “lost” heat being given off by '
             'equipment. The default value is 0.'
     )
+
+    @root_validator
+    def check_sum_fractions(cls, values): 
+        "Ensure sum is less than 1."
+        rad = values.get('radiant_fraction')
+        latent = values.get('latent_fraction')
+        lost = values.get('lost_fraction')
+        assert sum((rad, latent, lost)) < 1, \
+            'Sum of radiant, latent, and lost fractions cannot be greater than 1.'
+        return values
 
 class ElectricEquipmentAbridged(_EquipmentBase):
 
@@ -166,13 +190,13 @@ class InfiltrationAbridged(NamedEnergyBaseModel):
 
     type: Enum('InfiltrationAbridged', {'type': 'InfiltrationAbridged'})
 
-    flow_per_exterior_area: float = Schema(
+    flow_per_exterior_area: float = Field(
         ...,
         ge=0,
         description='Number for the infiltration per exterior surface area in m3/s-m2.'
     )
 
-    schedule: str = Schema(
+    schedule: str = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -182,17 +206,17 @@ class InfiltrationAbridged(NamedEnergyBaseModel):
             'to yield a complete infiltration profile.'
     )
 
-    constant_coefficient: float = Schema(
+    constant_coefficient: float = Field(
         1,
         ge=0
     )
 
-    temperature_coefficient: float = Schema(
+    temperature_coefficient: float = Field(
         0,
         ge=0
     )
 
-    velocity_coefficient: float = Schema(
+    velocity_coefficient: float = Field(
         0,
         ge=0
     )
@@ -202,7 +226,7 @@ class VentilationAbridged(NamedEnergyBaseModel):
 
     type: Enum('VentilationAbridged', {'type': 'VentilationAbridged'})
 
-    flow_per_person: float = Schema(
+    flow_per_person: float = Field(
         0,
         ge=0,
         description='Intensity of ventilation in[] m3/s per person]. Note that '
@@ -211,26 +235,26 @@ class VentilationAbridged(NamedEnergyBaseModel):
             'is determined using this value and the People object of the Room.'
     )
 
-    flow_per_area: float = Schema(
+    flow_per_area: float = Field(
         0,
         ge=0,
         description='Intensity of ventilation in [m3/s per m2 of floor area].'
     )
 
-    air_changes_per_hour: float = Schema(
+    air_changes_per_hour: float = Field(
         0,
         ge = 0,
         description='Intensity of ventilation in air changes per hour (ACH) for '
             'the entire Room.'
     )
 
-    flow_per_zone: float = Schema(
+    flow_per_zone: float = Field(
         0,
         ge = 0,
         description='Intensity of ventilation in m3/s for the entire Room.'
     )
 
-    schedule: str = Schema(
+    schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -246,7 +270,7 @@ class SetpointAbridged(NamedEnergyBaseModel):
 
     type: Enum('SetpointAbridged', {'type': 'SetpointAbridged'})   
 
-    cooling_schedule: str = Schema(
+    cooling_schedule: str = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -254,7 +278,7 @@ class SetpointAbridged(NamedEnergyBaseModel):
             'this schedule should be temperature in [C].'
     )
 
-    heating_schedule: str = Schema(
+    heating_schedule: str = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -262,7 +286,7 @@ class SetpointAbridged(NamedEnergyBaseModel):
             'this schedule should be temperature in [C].'
     )
 
-    humidification_schedule: str = Schema(
+    humidification_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -270,13 +294,26 @@ class SetpointAbridged(NamedEnergyBaseModel):
             'in this schedule should be in [%].'
     )
 
-    dehumidification_schedule: str = Schema(
+    dehumidification_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
         description='Name of the schedule for the dehumidification setpoint. The values '
             'in this schedule should be in [%].'
     )
+
+    @root_validator
+    def check_both_himd_sch(cls, values): 
+        "Ensure that the other humidity schedule is included when one is."
+        humid = values.get('humidification_schedule')
+        dehumid = values.get('dehumidification_schedule')
+        if humid is not None:
+            assert dehumid is not None, 'When humidification_schedule is specified, ' \
+                'dehumidification_schedule must also be specified.'
+        if dehumid is not None:
+            assert humid is not None, 'When dehumidification_schedule is specified, ' \
+                'humidification_schedule must also be specified.'
+        return values
 
 
 if __name__ == '__main__':

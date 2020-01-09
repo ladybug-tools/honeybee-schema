@@ -1,11 +1,11 @@
 """Base class for all objects requiring a valid EnergyPlus name."""
-from pydantic import BaseModel, Schema, validator
+from pydantic import BaseModel, Field, validator
 
 
 class NamedEnergyBaseModel(BaseModel):
     """Base class for all objects requiring a valid EnergyPlus name."""
 
-    name: str = Schema(
+    name: str = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -18,6 +18,4 @@ class NamedEnergyBaseModel(BaseModel):
         assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
         assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
             'Name contains invalid character for EnergyPlus (, ; ! \\n \\t).'
-        assert len(v) > 0, 'Name is an empty string.'
-        assert len(v) <= 100, 'Number of characters must be less than 100.'
         return v

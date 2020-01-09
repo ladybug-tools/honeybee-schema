@@ -1,5 +1,5 @@
 """Simulation Parameter Schema"""
-from pydantic import BaseModel, Schema
+from pydantic import BaseModel, Field
 from typing import Union
 from enum import Enum
 from ..datetime import Date
@@ -12,14 +12,14 @@ class DryBulbCondition(BaseModel):
 
     type: Enum('DryBulbCondition', {'type': 'DryBulbCondition'})
 
-    dry_bulb_max: float = Schema(
+    dry_bulb_max: float = Field(
         ...,
         ge=-90,
         le=70,
         description='The maximum dry bulb temperature on the design day [C].'
     )
 
-    dry_bulb_range: float = Schema(
+    dry_bulb_range: float = Field(
         ...,
         ge=0,
         description='The difference between min and max temperatures on the' 
@@ -41,24 +41,24 @@ class HumidityCondition(BaseModel):
 
     humidity_type: HumidityTypes
 
-    humidity_value: float = Schema(
+    humidity_value: float = Field(
         ...,
         description='The value correcponding to the humidity_type.'
     )
 
-    barometric_pressure: float = Schema(
+    barometric_pressure: float = Field(
         101325,
         ge=31000,
         le=120000,
         description='Barometric air pressure on the design day [Pa].'
     )
 
-    rain: bool = Schema(
+    rain: bool = Field(
         default=False,
         description='Boolean to indicate rain on the design day.'
     )
 
-    snow_on_ground: bool = Schema(
+    snow_on_ground: bool = Field(
         default=False,
         description='Boolean to indicate snow on the ground during the design day.'
     )
@@ -69,14 +69,14 @@ class WindCondition(BaseModel):
 
     type: Enum('WindCondition', {'type': 'WindCondition'})
 
-    wind_speed: float = Schema(
+    wind_speed: float = Field(
         ...,
         ge=0,
         le=40,
         description='Wind speed on the design day [m/s].'
     )
 
-    wind_direction: float = Schema(
+    wind_direction: float = Field(
         0,
         ge=0,
         le=360,
@@ -89,12 +89,12 @@ class ASHRAEClearSky(BaseModel):
 
     type: Enum('ASHRAEClearSky', {'type': 'ASHRAEClearSky'})
 
-    date: Date = Schema(
+    date: Date = Field(
         ...,
         description='Date for the day of the year on which the design day occurs.'
     )
 
-    clearness: float = Schema(
+    clearness: float = Field(
         ...,
         ge=0,
         le=1.2,
@@ -102,7 +102,7 @@ class ASHRAEClearSky(BaseModel):
             'irradinace to correct for factors like elevation above sea level.'
     )
 
-    daylight_savings: bool = Schema(
+    daylight_savings: bool = Field(
         default=False,
         description='Boolean to indicate whether daylight savings time is active '
             'on the design day.'
@@ -114,26 +114,26 @@ class ASHRAETau(BaseModel):
 
     type: Enum('ASHRAETau', {'type': 'ASHRAETau'})
 
-    date: Date = Schema(
+    date: Date = Field(
         ...,
         description='Date for the day of the year on which the design day occurs.'
     )
 
-    tau_b: float = Schema(
+    tau_b: float = Field(
         ...,
         ge=0,
         le=1.2,
         description='Value for the beam optical depth. Typically found in .stat files.'
     )
 
-    tau_d: float = Schema(
+    tau_d: float = Field(
         ...,
         ge=0,
         le=3,
         description='Value for the diffuse optical depth. Typically found in .stat files.'
     )
 
-    daylight_savings: bool = Schema(
+    daylight_savings: bool = Field(
         default=False,
         description='Boolean to indicate whether daylight savings time is active '
             'on the design day.'
@@ -161,25 +161,29 @@ class DesignDay(NamedEnergyBaseModel):
 
     day_type: DesignDayTypes
 
-    dry_bulb_condition: DryBulbCondition = Schema(
+    dry_bulb_condition: DryBulbCondition = Field(
         ...,
         description='A DryBulbCondition describing temperature conditions on '
             'the design day.'
     )
 
-    humidity_condition: HumidityCondition = Schema(
+    humidity_condition: HumidityCondition = Field(
         ...,
         description='A HumidityCondition describing humidity and precipitation '
             'conditions on the design day.'
     )
 
-    wind_condition: WindCondition = Schema(
+    wind_condition: WindCondition = Field(
         ...,
         description='A WindCondition describing wind conditions on the design day.'
     )
 
-    sky_condition: Union[ASHRAEClearSky, ASHRAETau] = Schema(
+    sky_condition: Union[ASHRAEClearSky, ASHRAETau] = Field(
         ...,
         description='A SkyCondition (either ASHRAEClearSky or ASHRAETau) describing '
             'solar irradiance conditions on the design day.'
     )
+
+
+if __name__ == '__main__':
+    print(DesignDay.schema_json(indent=2))

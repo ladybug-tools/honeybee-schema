@@ -1,5 +1,5 @@
 """Construction Schema"""
-from pydantic import BaseModel, Schema, validator, ValidationError, constr
+from pydantic import BaseModel, Field, constr
 from typing import List, Union
 from enum import Enum
 
@@ -16,28 +16,13 @@ class WindowConstructionAbridged(NamedEnergyBaseModel):
     type: Enum('WindowConstructionAbridged', {
                'type': 'WindowConstructionAbridged'})
 
-    layers: List[constr(min_length=1, max_length=100)] = Schema(
+    layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
         description='List of strings for material names. The order of the materials '
             'is from exterior to interior.',
-        minItems=1,
-        maxItems=8
+        min_items=1,
+        max_items=8
     )
-
-    @validator('layers', whole=True)
-    def check_num_items(cls, layers):
-        "Ensure length of material is at least 1 and not more than 8."
-        if len(layers) == 0:
-            raise ValidationError(
-                'Window construction should at least have one material.'
-            )
-
-        elif len(layers) > 8:
-            raise ValidationError(
-                'Window construction cannot have more than 8 layers.'
-            )
-        else:
-            return layers
 
 
 class WindowConstruction(WindowConstructionAbridged):
@@ -52,12 +37,12 @@ class WindowConstruction(WindowConstructionAbridged):
             EnergyWindowMaterialSimpleGlazSys, EnergyWindowMaterialBlind,
             EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
         ]
-    ] = Schema(
+    ] = Field(
         ...,
         description='List of materials. The order of the materials is from outside '
             'to inside.',
-        minItems=1,
-        maxItems=8
+        min_items=1,
+        max_items=8
     )
 
 
@@ -67,27 +52,13 @@ class OpaqueConstructionAbridged(NamedEnergyBaseModel):
     type: Enum('OpaqueConstructionAbridged', {
                'type': 'OpaqueConstructionAbridged'})
 
-    layers: List[constr(min_length=1, max_length=100)] = Schema(
+    layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
         description='List of strings for material names. The order of the materials '
             'is from exterior to interior.',
         min_items=1,
         max_items=10
     )
-
-    @validator('layers', whole=True)
-    def check_num_items(cls, layers):
-        "Ensure length of material is at least 1 and not more than 10."
-        if len(layers) == 0:
-            raise ValidationError(
-                'Opaque construction should at least have one material.'
-            )
-        elif len(layers) > 10:
-            raise ValidationError(
-                'Opaque construction cannot have more than 10 layers.'
-            )
-        else:
-            return layers
 
 
 class OpaqueConstruction(OpaqueConstructionAbridged):
@@ -96,16 +67,12 @@ class OpaqueConstruction(OpaqueConstructionAbridged):
     type: Enum('OpaqueConstruction', {
                'type': 'OpaqueConstruction'})
 
-    materials: List[
-        Union[
-            EnergyMaterial, EnergyMaterialNoMass
-        ]
-    ] = Schema(
+    materials: List[Union[EnergyMaterial, EnergyMaterialNoMass]] = Field(
         ...,
         description='List of materials. The order of the materials is from outside to'
         ' inside.',
-        minItems=1,
-        maxItems=10
+        min_items=1,
+        max_items=10
     )
 
 
@@ -115,21 +82,21 @@ class ShadeConstruction(NamedEnergyBaseModel):
     type: Enum('ShadeConstruction', {
                'type': 'ShadeConstruction'})
 
-    solar_reflectance: float = Schema(
+    solar_reflectance: float = Field(
         0.2,
         ge=0,
         le=1,
         description=' A number for the solar reflectance of the construction.'
     )
 
-    visible_reflectance: float = Schema(
+    visible_reflectance: float = Field(
         0.2,
         ge=0,
         le=1,
         description=' A number for the visible reflectance of the construction.'
     )
 
-    is_specular: bool = Schema(
+    is_specular: bool = Field(
         default=False,
         description='Boolean to note whether the reflection off the shade is diffuse '
             '(False) or specular (True). Set to True if the construction is '

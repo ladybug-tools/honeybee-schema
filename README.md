@@ -19,7 +19,9 @@ import honeybee_model_schema
 ```
 
 ## API Documentation
+
 [Model Schema](https://ladybug-tools-in2.github.io/honeybee-model-schema/model.html)
+
 [Energy Simulation Parameter Schema](https://ladybug-tools-in2.github.io/honeybee-model-schema/simulation-parameter.html)
 
 ## Local Development

@@ -1,11 +1,11 @@
 """Base class for all objects requiring a valid names for all engines."""
-from pydantic import BaseModel, Schema, validator
+from pydantic import BaseModel, Field
 
 
 class NamedBaseModel(BaseModel):
     """Base class for all objects requiring a valid names for all engines."""
 
-    name: str = Schema(
+    name: str = Field(
         ...,
         regex=r'[A-Za-z0-9_-]',
         min_length=1,
@@ -15,7 +15,7 @@ class NamedBaseModel(BaseModel):
             'It cannot be longer than 100 characters.'
     )
 
-    display_name: str = Schema(
+    display_name: str = Field(
         default=None,
         description='Display name of the object with no restrictions.'
     )

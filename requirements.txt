@@ -1,2 +1,2 @@
-pydantic<1.0
+pydantic==1.3
 pytest~=4.4.0

@@ -1,5 +1,5 @@
 """Material Schema"""
-from pydantic import BaseModel, Schema, validator
+from pydantic import BaseModel, Field, validator
 from typing import List
 from enum import Enum
 
@@ -22,32 +22,32 @@ class EnergyMaterial(NamedEnergyBaseModel):
 
     roughness: Roughness = Roughness.medium_rough
 
-    thickness: float = Schema(
+    thickness: float = Field(
         ...,
         gt=0,
         le=3,
         description='Thickness of the material layer in meters.'
     )
 
-    conductivity: float = Schema(
+    conductivity: float = Field(
         ...,
         gt=0,
         description='Thermal conductivity of the material layer in W/(m-K).',
     )
 
-    density: float = Schema(
+    density: float = Field(
         ...,
         gt=0,
         description='Density of the material layer in kg/m3.'
     )
 
-    specific_heat: float = Schema(
+    specific_heat: float = Field(
         ...,
         gt=0,
         description='Specific heat of the material layer in J/(kg-K).'
     )
 
-    thermal_absorptance: float = Schema(
+    thermal_absorptance: float = Field(
         0.9,
         gt=0,
         le=0.99999,
@@ -55,7 +55,7 @@ class EnergyMaterial(NamedEnergyBaseModel):
         ' the material. Default value is 0.9.'
     )
 
-    solar_absorptance: float = Schema(
+    solar_absorptance: float = Field(
         0.7,
         ge=0,
         le=1,
@@ -63,7 +63,7 @@ class EnergyMaterial(NamedEnergyBaseModel):
         ' Default value is 0.7.'
     )
 
-    visible_absorptance: float = Schema(
+    visible_absorptance: float = Field(
         0.7,
         ge=0,
         le=1,
@@ -80,7 +80,7 @@ class EnergyMaterialNoMass(NamedEnergyBaseModel):
 
     type: Enum('EnergyMaterialNoMass', {'type': 'EnergyMaterialNoMass'})
 
-    r_value: float = Schema(
+    r_value: float = Field(
         ...,
         ge=0.001,
         description='The thermal resistance (R-value) of the material layer [m2-K/W].'
@@ -88,7 +88,7 @@ class EnergyMaterialNoMass(NamedEnergyBaseModel):
 
     roughness: Roughness = Roughness.medium_rough
 
-    thermal_absorptance: float = Schema(
+    thermal_absorptance: float = Field(
         0.9,
         gt=0,
         le=0.99999,
@@ -96,7 +96,7 @@ class EnergyMaterialNoMass(NamedEnergyBaseModel):
             ' the material. Default value is 0.9.'
     )
 
-    solar_absorptance: float = Schema(
+    solar_absorptance: float = Field(
         0.7,
         ge=0,
         le=1,
@@ -104,7 +104,7 @@ class EnergyMaterialNoMass(NamedEnergyBaseModel):
         ' Default value is 0.7.'
     )
 
-    visible_absorptance: float = Schema(
+    visible_absorptance: float = Field(
         0.7,
         ge=0,
         le=1,
@@ -130,7 +130,7 @@ class EnergyWindowMaterialGas(NamedEnergyBaseModel):
 
     gas_type: GasType = GasType.air
 
-    thickness: float = Schema(
+    thickness: float = Field(
         0.0125,
         gt=0,
         description='Thickness of the gas layer in meters. Default value is 0.0125.'
@@ -143,66 +143,66 @@ class EnergyWindowMaterialGasCustom(NamedEnergyBaseModel):
     type: Enum('EnergyWindowMaterialGasCustom', {
                'type': 'EnergyWindowMaterialGasCustom'})
 
-    thickness: float = Schema(
+    thickness: float = Field(
         0.0125,
         gt=0,
         description='Thickness of the gas layer in meters. Default value is 0.0125.'
     )
 
-    conductivity_coeff_a: float = Schema(
+    conductivity_coeff_a: float = Field(
         ...,
         description='The A coefficient for gas conductivity in W/(m-K).'
     )
 
-    conductivity_coeff_b: float = Schema(
+    conductivity_coeff_b: float = Field(
         0,
         description='The B coefficient for gas conductivity in W/(m-K2).'
     )
 
-    conductivity_coeff_c: float = Schema(
+    conductivity_coeff_c: float = Field(
         0,
         description='The C coefficient for gas conductivity in W/(m-K3).'
     )
 
-    viscosity_coeff_a: float = Schema(
+    viscosity_coeff_a: float = Field(
         ...,
         gt=0,
         description='The A coefficient for gas viscosity in kg/(m-s).'
     )
 
-    viscosity_coeff_b: float = Schema(
+    viscosity_coeff_b: float = Field(
         0,
         description='The B coefficient for gas viscosity in kg/(m-s-K).'
     )
 
-    viscosity_coeff_c: float = Schema(
+    viscosity_coeff_c: float = Field(
         0,
         description='The C coefficient for gas viscosity in kg/(m-s-K2).'
     )
 
-    specific_heat_coeff_a: float = Schema(
+    specific_heat_coeff_a: float = Field(
         ...,
         gt=0,
         description='The A coefficient for gas specific heat in J/(kg-K).'
     )
 
-    specific_heat_coeff_b: float = Schema(
+    specific_heat_coeff_b: float = Field(
         0,
         description='The B coefficient for gas specific heat in J/(kg-K2).'
     )
 
-    specific_heat_coeff_c: float = Schema(
+    specific_heat_coeff_c: float = Field(
         0,
         description='The C coefficient for gas specific heat in J/(kg-K3).'
     )
 
-    specific_heat_ratio: float = Schema(
+    specific_heat_ratio: float = Field(
         ...,
         gt=1,
         description='The specific heat ratio for gas.'
     )
 
-    molecular_weight: float = Schema(
+    molecular_weight: float = Field(
         ...,
         ge=20,
         le=200,
@@ -214,7 +214,7 @@ class GasTypeAndFraction(BaseModel):
 
     gas_type: GasType
 
-    gas_fraction: float = Schema(
+    gas_fraction: float = Field(
         ...,
         gt=0,
         lt=1
@@ -228,17 +228,17 @@ class EnergyWindowMaterialGasMixture(NamedEnergyBaseModel):
     type: Enum('EnergyWindowMaterialGasMixture', {
         'type': 'EnergyWindowMaterialGasMixture'})
 
-    thickness: float = Schema(
+    thickness: float = Field(
         ...,
         description='The thickness of the gas mixture layer in meters.'
     )
 
-    gas_type_fraction: List[GasTypeAndFraction] = Schema(
+    gas_type_fraction: List[GasTypeAndFraction] = Field(
         ...,
         description='List of gases and their fractions in a mixture.'
     )
 
-    @validator('gas_type_fraction', whole=True)
+    @validator('gas_type_fraction')
     def check_sum(cls, v):
         total = sum(f.gas_fraction for f in v)
         if total != 1:
@@ -256,7 +256,7 @@ class EnergyWindowMaterialSimpleGlazSys(NamedEnergyBaseModel):
     type: Enum('EnergyWindowMaterialSimpleGlazSys', {
                'type': 'EnergyWindowMaterialSimpleGlazSys'})
 
-    u_factor: float = Schema(
+    u_factor: float = Field(
         ...,
         gt=0,
         le=5.8,
@@ -264,7 +264,7 @@ class EnergyWindowMaterialSimpleGlazSys(NamedEnergyBaseModel):
         ' heat transfer coefficient in W/(m2-K).'
     )
 
-    shgc: float = Schema(
+    shgc: float = Field(
         ...,
         gt=0,
         lt=1,
@@ -272,7 +272,7 @@ class EnergyWindowMaterialSimpleGlazSys(NamedEnergyBaseModel):
         ' normal incidence and vertical orientation.'
     )
 
-    vt: float = Schema(
+    vt: float = Field(
         0.54,
         gt=0,
         lt=1,
@@ -300,14 +300,14 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
 
     slat_orientation: SlatOrientation = SlatOrientation.horizontal
 
-    slat_width: float = Schema(
+    slat_width: float = Field(
         0.025,
         gt=0,
         le=1,
         description='The width of slat measured from edge to edge in meters.'
     )
 
-    slat_separation: float = Schema(
+    slat_separation: float = Field(
         0.01875,
         gt=0,
         le=1,
@@ -315,7 +315,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' adjacent slat in meters.'
     )
 
-    slat_thickness: float = Schema(
+    slat_thickness: float = Field(
         0.001,
         gt=0,
         le=0.1,
@@ -323,7 +323,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' value is 0.001.'
     )
 
-    slat_angle: float = Schema(
+    slat_angle: float = Field(
         45,
         ge=0,
         le=180,
@@ -332,14 +332,14 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' slat (degrees). The default value is 45.'
     )
 
-    slat_conductivity: float = Schema(
+    slat_conductivity: float = Field(
         221,
         gt=0,
         description='The thermal conductivity of the slat in W/(m-K). Default value is'
         ' 221.'
     )
 
-    beam_solar_transmittance: float = Schema(
+    beam_solar_transmittance: float = Field(
         0,
         ge=0,
         lt=1,
@@ -348,7 +348,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' to be 100% diffuse (i.e., slats are translucent). The default value is 0.'
     )
 
-    beam_solar_reflectance: float = Schema(
+    beam_solar_reflectance: float = Field(
         0.5,
         ge=0,
         lt=1,
@@ -356,7 +356,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' assumed to be independent of the angle of incidence. Default value is 0.5.'
     )
 
-    beam_solar_reflectance_back: float = Schema(
+    beam_solar_reflectance_back: float = Field(
         0.5,
         ge=0,
         lt=1,
@@ -364,7 +364,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' assumed to be independent of the angle of incidence. Default value is 0.5.'
     )
 
-    diffuse_solar_transmittance: float = Schema(
+    diffuse_solar_transmittance: float = Field(
         0,
         ge=0,
         lt=1,
@@ -372,7 +372,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' Default value is 0.'
     )
 
-    diffuse_solar_reflectance: float = Schema(
+    diffuse_solar_reflectance: float = Field(
         0.5,
         ge=0,
         lt=1,
@@ -380,7 +380,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' radiation. Default value is 0.5.'
     )
 
-    diffuse_solar_reflectance_back: float = Schema(
+    diffuse_solar_reflectance_back: float = Field(
         0.5,
         ge=0,
         lt=1,
@@ -388,7 +388,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' radiation. Default value is 0.5.'
     )
 
-    beam_visible_transmittance: float = Schema(
+    beam_visible_transmittance: float = Field(
         0,
         ge=0,
         lt=1,
@@ -396,7 +396,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' independent of the angle of incidence. Default value is 0.'
     )
 
-    beam_visible_reflectance: float = Schema(
+    beam_visible_reflectance: float = Field(
         0.5,
         ge=0,
         lt=1,
@@ -404,7 +404,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' assumed to be independent of the angle of incidence. Default value is 0.5.'
     )
 
-    beam_visible_reflectance_back: float = Schema(
+    beam_visible_reflectance_back: float = Field(
         0.5,
         ge=0,
         lt=1,
@@ -412,7 +412,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' assumed to be independent of the angle of incidence. Default value is 0.5.'
     )
 
-    diffuse_visible_transmittance: float = Schema(
+    diffuse_visible_transmittance: float = Field(
         0,
         ge=0,
         lt=1,
@@ -420,7 +420,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' radiation. This value should equal “Slat Beam Visible Transmittance.”'
     )
 
-    diffuse_visible_reflectance: float = Schema(
+    diffuse_visible_reflectance: float = Field(
         0.5,
         ge=0,
         lt=1,
@@ -429,7 +429,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' Default value is 0.5.'
     )
 
-    diffuse_visible_reflectance_back: float = Schema(
+    diffuse_visible_reflectance_back: float = Field(
         0.5,
         ge=0,
         lt=1,
@@ -438,7 +438,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' Default value is 0.5.”'
     )
 
-    infrared_transmittance: float = Schema(
+    infrared_transmittance: float = Field(
         0,
         ge=0,
         lt=1,
@@ -447,7 +447,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' plastic slats. The default value is 0.'
     )
 
-    emissivity: float = Schema(
+    emissivity: float = Field(
         0.9,
         ge=0,
         lt=1,
@@ -455,7 +455,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' most materials. The default value is 0.9.'
     )
 
-    emissivity_back: float = Schema(
+    emissivity_back: float = Field(
         0.9,
         ge=0,
         lt=1,
@@ -463,7 +463,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' most materials. The default value is 0.9.'
     )
 
-    distance_to_glass: float = Schema(
+    distance_to_glass: float = Field(
         0.05,
         ge=0.01,
         le=1,
@@ -471,7 +471,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' in meters. The default value is 0.05.'
     )
 
-    top_opening_multiplier: float = Schema(
+    top_opening_multiplier: float = Field(
         0.5,
         ge=0,
         le=1,
@@ -479,7 +479,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' the horizontal area between glass and shade. The default value is 0.5'
     )
 
-    bottom_opening_multiplier: float = Schema(
+    bottom_opening_multiplier: float = Field(
         0.5,
         ge=0,
         le=1,
@@ -487,7 +487,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' by the horizontal area between glass and shade. The default value is 0.'
     )
 
-    left_opening_multiplier: float = Schema(
+    left_opening_multiplier: float = Field(
         0.5,
         ge=0,
         le=1,
@@ -495,7 +495,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' divided by the vertical area between glass and shade. The default value is 0.5.'
     )
 
-    right_opening_multiplier: float = Schema(
+    right_opening_multiplier: float = Field(
         0.5,
         ge=0,
         le=1,
@@ -503,14 +503,14 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ' divided by the vertical area between glass and shade. The default value is 0.5.'
     )
 
-    minimum_slat_angle: float = Schema(
+    minimum_slat_angle: float = Field(
         0,
         ge=0,
         le=180,
         description='The minimum allowed slat angle in degrees. The default value is 0.'
     )
 
-    maximum_slat_angle: float = Schema(
+    maximum_slat_angle: float = Field(
         180,
         ge=0,
         le=180,
@@ -524,14 +524,14 @@ class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
     type: Enum('EnergyWindowMaterialGlazing', {
                'type': 'EnergyWindowMaterialGlazing'})
 
-    thickness: float = Schema(
+    thickness: float = Field(
         0.003,
         gt=0,
         description='The surface-to-surface of the glass in meters. Default value is'
         ' 0.003.'
     )
 
-    solar_transmittance: float = Schema(
+    solar_transmittance: float = Field(
         0.85,
         ge=0,
         le=1,
@@ -539,7 +539,7 @@ class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
         ' incidence. Default value is 0.85 for clear glass.'
     )
 
-    solar_reflectance: float = Schema(
+    solar_reflectance: float = Field(
         0.075,
         ge=0,
         le=1,
@@ -548,13 +548,13 @@ class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
         ' for clear glass.'
     )
 
-    solar_reflectance_back: float = Schema(
+    solar_reflectance_back: float = Field(
         default=None,
         description='Reflectance of solar radiation off of the back side of the glass at'
         ' normal incidence, averaged over the solar spectrum.'
     )
 
-    visible_transmittance: float = Schema(
+    visible_transmittance: float = Field(
         0.9,
         ge=0,
         le=1,
@@ -562,7 +562,7 @@ class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
         ' Default value is 0.9 for clear glass.'
     )
 
-    visible_reflectance: float = Schema(
+    visible_reflectance: float = Field(
         0.075,
         ge=0,
         le=1,
@@ -570,7 +570,7 @@ class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
         ' normal incidence. Default value is 0.075 for clear glass.'
     )
 
-    visible_reflectance_back: float = Schema(
+    visible_reflectance_back: float = Field(
         default=None,
         ge=0,
         le=1,
@@ -579,14 +579,14 @@ class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
         ' of the human eye.'
     )
 
-    infrared_transmittance: float = Schema(
+    infrared_transmittance: float = Field(
         0,
         ge=0,
         le=1,
         description='Long-wave transmittance at normal incidence.'
     )
 
-    emissivity: float = Schema(
+    emissivity: float = Field(
         0.84,
         ge=0,
         le=1,
@@ -595,7 +595,7 @@ class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
         ' without a low-e coating.'
     )
 
-    emissivity_back: float = Schema(
+    emissivity_back: float = Field(
         0.84,
         ge=0,
         le=1,
@@ -604,20 +604,20 @@ class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
         ' a low-e coating.'
     )
 
-    conductivity: float = Schema(
+    conductivity: float = Field(
         0.9,
         gt=0,
         description='Thermal conductivity of the glass in W/(m-K). Default value is 0.9,'
         ' which is  typical for clear glass without a low-e coating.'
     )
 
-    dirt_correction: float = Schema(
+    dirt_correction: float = Field(
         1,
         description='Factor that corrects for the presence of dirt on the glass. A'
         ' default value of 1 indicates the glass is clean.'
     )
 
-    solar_diffusing: bool = Schema(
+    solar_diffusing: bool = Field(
         False,
         description='Takes values True and False. If False (default), the beam solar radiation'
         ' incident on the glass is transmitted as beam radiation with no diffuse component.'
@@ -632,7 +632,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
     type: Enum('EnergyWindowMaterialShade', {
                'type': 'EnergyWindowMaterialShade'})
 
-    solar_transmittance: float = Schema(
+    solar_transmittance: float = Field(
         0.4,
         ge=0,
         lt=1,
@@ -640,7 +640,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' independent of incidence angle. Default value is 0.4.'
     )
 
-    solar_reflectance: float = Schema(
+    solar_reflectance: float = Field(
         0.5,
         ge=0,
         lt=1,
@@ -649,7 +649,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' value is 0.5'
     )
 
-    visible_transmittance: float = Schema(
+    visible_transmittance: float = Field(
         0.4,
         ge=0,
         lt=1,
@@ -658,7 +658,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' Default value is 0.4.'
     )
 
-    visible_reflectance: float = Schema(
+    visible_reflectance: float = Field(
         0.4,
         ge=0,
         lt=1,
@@ -667,7 +667,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' Default value is 0.4'
     )
 
-    emissivity: float = Schema(
+    emissivity: float = Field(
         0.9,
         gt=0,
         lt=1,
@@ -675,7 +675,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' assumed same on both sides of shade. Default value is 0.9.'
     )
 
-    infrared_transmittance: float = Schema(
+    infrared_transmittance: float = Field(
         0,
         ge=0,
         lt=1,
@@ -683,21 +683,21 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' of incidence angle. Default value is 0.'
     )
 
-    thickness: float = Schema(
+    thickness: float = Field(
         0.005,
         gt=0,
         description='The thickness of the shade material in meters. Default value is'
         ' 0.005.'
     )
 
-    conductivity: float = Schema(
+    conductivity: float = Field(
         0.1,
         gt=0,
         description='The conductivity of the shade material in W/(m-K). Default value'
         ' is 0.1.'
     )
 
-    distance_to_glass: float = Schema(
+    distance_to_glass: float = Field(
         0.05,
         ge=0.001,
         le=1,
@@ -705,7 +705,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' is 0.05'
     )
 
-    top_opening_multiplier: float = Schema(
+    top_opening_multiplier: float = Field(
         0.5,
         ge=0,
         le=1,
@@ -713,7 +713,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' the horizontal area between glass and shade. Default value is 0.5.'
     )
 
-    bottom_opening_multiplier: float = Schema(
+    bottom_opening_multiplier: float = Field(
         0.5,
         ge=0,
         le=1,
@@ -721,7 +721,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' by the horizontal area between glass and shade. Default value is 0.5.'
     )
 
-    left_opening_multiplier: float = Schema(
+    left_opening_multiplier: float = Field(
         0.5,
         ge=0,
         le=1,
@@ -729,7 +729,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' divided by the vertical area between glass and shade. Default value is 0.5.'
     )
 
-    right_opening_multiplier: float = Schema(
+    right_opening_multiplier: float = Field(
         0.5,
         ge=0,
         le=1,
@@ -737,7 +737,7 @@ class EnergyWindowMaterialShade (NamedEnergyBaseModel):
         ' divided by the vertical area between glass and shade. Default value is 0.5.'
     )
 
-    airflow_permeability: float = Schema(
+    airflow_permeability: float = Field(
         0,
         ge=0,
         le=0.8,

@@ -1,5 +1,5 @@
 """Ideal Air Schema"""
-from pydantic import BaseModel, Schema, validator
+from pydantic import BaseModel, Field, validator
 from typing import Union
 from enum import Enum
 
@@ -13,7 +13,7 @@ class IdealAirSystem(BaseModel):
     """ Provides a model for an ideal HVAC system."""
     type: Enum('IdealAirSystem', {'type': 'IdealAirSystem'})
 
-    heating_limit: Union[float, str] = Schema(
+    heating_limit: Union[float, str] = Field(
         'autosize',
         ge=0
     )
@@ -24,7 +24,7 @@ class IdealAirSystem(BaseModel):
             raise ValueError( 'This is not a valid entry for heating_limit')
 
 
-    cooling_limit: Union[float, str] = Schema(
+    cooling_limit: Union[float, str] = Field(
         'autosize',
         ge=0
     )
@@ -36,17 +36,17 @@ class IdealAirSystem(BaseModel):
 
     economizer_type: EconomizerType = EconomizerType.differential_dry_bulb
 
-    demand_control_ventilation: bool = Schema(
+    demand_control_ventilation: bool = Field(
         False
     )
 
-    sensible_heat_recovery: float = Schema(
+    sensible_heat_recovery: float = Field(
         0,
         ge=0,
         le=1
     )
 
-    latent_heat_recovery: float = Schema(
+    latent_heat_recovery: float = Field(
         0,
         ge=0,
         le=1

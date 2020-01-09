@@ -1,5 +1,5 @@
 """Boundary condition schemas."""
-from pydantic import BaseModel, Schema
+from pydantic import BaseModel, Field
 from typing import List, Union
 from enum import Enum
 
@@ -8,17 +8,17 @@ class Outdoors(BaseModel):
 
     type: Enum('Outdoors', {'type': 'Outdoors'})
 
-    sun_exposure: bool = Schema(
+    sun_exposure: bool = Field(
         True,
         description='A boolean noting whether the boundary is exposed to sun.'
     )
 
-    wind_exposure: bool = Schema(
+    wind_exposure: bool = Field(
         True,
         description='A boolean noting whether the boundary is exposed to wind.'
     )
 
-    view_factor: Union[str, float] = Schema(
+    view_factor: Union[str, float] = Field(
         'autocalculate',
         ge=0,
         le=1,
@@ -30,10 +30,10 @@ class Surface(BaseModel):
 
     type: Enum('Surface', {'type': 'Surface'})
 
-    boundary_condition_objects: List[str] = Schema(
+    boundary_condition_objects: List[str] = Field(
         ...,
-        minItems=2,
-        maxItems=3,
+        min_tems=2,
+        max_items=3,
         description='A list of up to 3 object names that are adjacent to this one. '
             'The first object is always the one that is immediately adjacet and is of '
             'the same object type (Face, Aperture, Door). When this boundary condition '

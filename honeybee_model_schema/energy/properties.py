@@ -1,5 +1,5 @@
-"""Energy properties."""
-from pydantic import BaseModel, Schema
+"""Model energy properties."""
+from pydantic import BaseModel, Field
 from typing import List, Union
 from enum import Enum
 
@@ -23,7 +23,7 @@ class ShadeEnergyPropertiesAbridged(BaseModel):
     type: Enum('ShadeEnergyPropertiesAbridged', {
                'type': 'ShadeEnergyPropertiesAbridged'})
 
-    transmittance_schedule: str = Schema(
+    transmittance_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -32,7 +32,7 @@ class ShadeEnergyPropertiesAbridged(BaseModel):
             'parent Room construction_set or the Model global_construction_set.'
     )
 
-    construction:  str = Schema(
+    construction:  str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -47,7 +47,7 @@ class DoorEnergyPropertiesAbridged(BaseModel):
     type: Enum('DoorEnergyPropertiesAbridged', {
                'type': 'DoorEnergyPropertiesAbridged'})
 
-    construction: str = Schema(
+    construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -63,7 +63,7 @@ class ApertureEnergyPropertiesAbridged(BaseModel):
     type: Enum('ApertureEnergyPropertiesAbridged', {
                'type': 'ApertureEnergyPropertiesAbridged'})
 
-    construction: str = Schema(
+    construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -78,7 +78,7 @@ class FaceEnergyPropertiesAbridged(BaseModel):
     type: Enum('FaceEnergyPropertiesAbridged', {
                'type': 'FaceEnergyPropertiesAbridged'})
 
-    construction: str = Schema(
+    construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -93,7 +93,7 @@ class RoomEnergyPropertiesAbridged(BaseModel):
     type: Enum('RoomEnergyPropertiesAbridged', {
                'type': 'RoomEnergyPropertiesAbridged'})
 
-    construction_set: str = Schema(
+    construction_set: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -102,7 +102,7 @@ class RoomEnergyPropertiesAbridged(BaseModel):
             'use the Model global_construction_set.'
     )
 
-    program_type: str = Schema(
+    program_type: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -110,41 +110,41 @@ class RoomEnergyPropertiesAbridged(BaseModel):
             'for the Room. If None, the Room will have no loads or setpoints.'
     )
 
-    hvac: IdealAirSystem = Schema(
+    hvac: IdealAirSystem = Field(
         default=None
     )
 
-    people: PeopleAbridged = Schema(
+    people: PeopleAbridged = Field(
         default=None,
         description='People object to describe the occupancy of the Room.'
     )
     
-    lighting: LightingAbridged = Schema(
+    lighting: LightingAbridged = Field(
         default=None,
         description='Lighting object to describe the lighting usage of the Room.'
     )
 
-    electric_equipment: ElectricEquipmentAbridged = Schema(
+    electric_equipment: ElectricEquipmentAbridged = Field(
         default=None,
         description='ElectricEquipment object to describe the equipment usage.'
     )
 
-    gas_equipment: GasEquipmentAbridged = Schema(
+    gas_equipment: GasEquipmentAbridged = Field(
         default=None,
         description='GasEquipment object to describe the equipment usage.'
     )
 
-    infiltration: InfiltrationAbridged = Schema(
+    infiltration: InfiltrationAbridged = Field(
         default=None,
         description='Infiltration object to to describe the outdoor air leakage.'
     )
 
-    ventilation: VentilationAbridged = Schema(
+    ventilation: VentilationAbridged = Field(
         default=None,
         description='Ventilation object for the minimum outdoor air requirement.'
     )
 
-    setpoint: SetpointAbridged = Schema(
+    setpoint: SetpointAbridged = Field(
         default=None,
         description='Setpoint object for the temperature setpoints of the Room.'
     )
@@ -164,12 +164,12 @@ class ModelEnergyProperties(BaseModel):
 
     terrain_type: TerrianTypes = TerrianTypes.city
 
-    construction_sets: List[ConstructionSetAbridged] = Schema(
+    construction_sets: List[ConstructionSetAbridged] = Field(
         default=None,
         description='List of all ConstructionSets in the Model.'
     )
 
-    global_construction_set: str = Schema(
+    global_construction_set: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -179,7 +179,7 @@ class ModelEnergyProperties(BaseModel):
     )
 
     constructions: List[Union[OpaqueConstructionAbridged, WindowConstructionAbridged,
-                              ShadeConstruction]] = Schema(
+                              ShadeConstruction]] = Field(
         ...,
         description='A list of all unique constructions in the model. This includes '
             'constructions across all Faces, Apertures, Doors, Shades, Room '
@@ -190,24 +190,24 @@ class ModelEnergyProperties(BaseModel):
                           EnergyWindowMaterialGasCustom, EnergyWindowMaterialGasMixture,
                           EnergyWindowMaterialSimpleGlazSys, EnergyWindowMaterialBlind,
                           EnergyWindowMaterialGlazing,
-                          EnergyWindowMaterialShade]] = Schema(
+                          EnergyWindowMaterialShade]] = Field(
         ...,
         description='A list of all unique materials in the model. This includes '
             'materials needed to make the Model constructions.'
     )
 
-    program_types: List[ProgramTypeAbridged] = Schema(
+    program_types: List[ProgramTypeAbridged] = Field(
         default=None,
         description='List of all ProgramTypes in the Model.'
     )
 
-    schedules: List[Union[ScheduleRulesetAbridged, ScheduleFixedIntervalAbridged]] = Schema(
+    schedules: List[Union[ScheduleRulesetAbridged, ScheduleFixedIntervalAbridged]] = Field(
         default=None,
         description='A list of all unique schedules in the model. This includes '
             'schedules across all ProgramTypes, Rooms, and Shades.'
     )
 
-    schedule_type_limits: List[ScheduleTypeLimit] = Schema(
+    schedule_type_limits: List[ScheduleTypeLimit] = Field(
         default=None,
         description='A list of all unique ScheduleTypeLimits in the model. This '
             'all ScheduleTypeLimits needed to make the Model schedules.'

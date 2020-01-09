@@ -1,5 +1,5 @@
 """Schedule Type Limit Schema"""
-from pydantic import BaseModel, Schema, validator
+from pydantic import BaseModel, Field, validator, root_validator
 from typing import List
 from enum import Enum
 
@@ -35,12 +35,12 @@ class ScheduleTypeLimit(NamedEnergyBaseModel):
 
     type: Enum('ScheduleTypeLimit', {'type': 'ScheduleTypeLimit'})
 
-    lower_limit: float = Schema(
+    lower_limit: float = Field(
         default=None,
         description='Lower limit for the schedule type is entered.'
     )
 
-    upper_limit: float = Schema(
+    upper_limit: float = Field(
         default=None,
         description='Upper limit for the schedule type is entered.'
     )
@@ -54,13 +54,13 @@ class ScheduleDay(NamedEnergyBaseModel):
     """Used to describe the daily schedule for a single simulation day."""
     type: Enum('ScheduleDay', {'type': 'ScheduleDay'})
 
-    values: List[float] = Schema(
+    values: List[float] = Field(
         ...,
         description='A list of floats or integers for the values of the schedule. '
             'The length of this list must match the length of the times list.'
     )
 
-    times: List[List[float]] = Schema(
+    times: List[List[float]] = Field(
         [0, 0],
         description='A list of lists with each sub-list possesing 2 values for '
             '[hour, minute]. The length of the master list must match the length '
@@ -73,20 +73,22 @@ class ScheduleDay(NamedEnergyBaseModel):
             'EnergyPlus, which uses "time until".'
     )
 
-    @validator('times', whole=True)
+    @validator('times')
     def check_len_times(cls, v):
         for i in v:
             assert len(i) == 2, \
                 'Schedule times must each have two values for [hour, minute].'
         return v
     
-    @validator('times', whole=True)
-    def check_times_values_match(cls, v, values):
-        assert len(v) == len(values['values']), 'Length of schedule times must match ' \
+    @root_validator
+    def check_times_values_match(cls, values): 
+        "Ensure the length of the times matches the length of the values."
+        times, vals = values.get('times'), values.get('values')
+        assert len(times) == len(vals), 'Length of schedule times must match ' \
             'the schedule values. {} != {}.'.format(len(v), len(values['values']))
-        return v
+        return values
 
-    interpolate: bool = Schema(
+    interpolate: bool = Field(
         False,
         description='Boolean to note whether values in between times should be '
             'linearly interpolated or whether successive values should take effect '
@@ -99,76 +101,68 @@ class ScheduleRuleAbridged(BaseModel):
 
     type: Enum('ScheduleRuleAbridged', {'type': 'ScheduleRuleAbridged'})
 
-    schedule_day: str = Schema(
+    schedule_day: str = Field(
         ...,
         min_length=1,
         max_length=100,
         description='A ScheduleDay object associated with this rule.'
     )
 
-    apply_sunday: bool = Schema(
+    apply_sunday: bool = Field(
         False,
         description='Boolean noting whether to apply schedule_day on Sundays.'
     )
 
-    apply_monday: bool = Schema(
+    apply_monday: bool = Field(
         False,
         description='Boolean noting whether to apply schedule_day on Mondays.'
     )
 
-    apply_tuesday: bool = Schema(
+    apply_tuesday: bool = Field(
         False,
         description='Boolean noting whether to apply schedule_day on Tuesdays.'
     )
 
-    apply_wednesday: bool = Schema(
+    apply_wednesday: bool = Field(
         False,
         description='Boolean noting whether to apply schedule_day on Wednesdays.'
     )
 
-    apply_thursday: bool = Schema(
+    apply_thursday: bool = Field(
         False,
         description='Boolean noting whether to apply schedule_day on Thursdays.'
     )
 
-    apply_friday: bool = Schema(
+    apply_friday: bool = Field(
         False,
         description='Boolean noting whether to apply schedule_day on Fridays.'
     )
 
-    apply_saturday: bool = Schema(
+    apply_saturday: bool = Field(
         False,
         description='Boolean noting whether to apply schedule_day on Saturdays.'
     )
 
-    apply_holiday: bool = Schema(
+    apply_holiday: bool = Field(
         False,
         description='Boolean noting whether to apply schedule_day on Holidays.'
     )
 
-    start_date: List[float] = Schema(
+    start_date: List[float] = Field(
         [1, 1],
+        min_items=2,
+        max_items=2,
         description='A list of two integers for [month, day], representing the date '
             'for the start of the period over which the schedule_day will be applied.'
     )
 
-    @validator('start_date', whole=True)
-    def check_len_start_date(cls, v):
-        assert len(v) == 2, 'Schedule Rule start_date must each have two ' \
-            'values for [month, day].'
-        return v
-
-    end_date: List[float] = Schema(
+    end_date: List[float] = Field(
         [12, 31],
+        min_items=2,
+        max_items=2,
         description='A list of two integers for [month, day], representing the date '
             'for the end of the period over which the schedule_day will be applied.'
     )
-
-    @validator('end_date', whole=True)
-    def check_len_end_date(cls, v):
-        assert len(v) == 2, 'Schedule Rule end_date must each have two ' \
-            'values for [month, day].'
-        return v
 
 
 class ScheduleRulesetAbridged(NamedEnergyBaseModel):
@@ -178,7 +172,7 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
 
     day_schedules: List[ScheduleDay]
 
-    default_day_schedule: str = Schema(
+    default_day_schedule: str = Field(
         ...,
         min_length=1,
         max_length=100,
@@ -186,14 +180,14 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
             'no ScheduleRule is applied. This ScheduleDay must be in the day_schedules.'
     )
 
-    schedule_rules: List[ScheduleRuleAbridged] = Schema(
+    schedule_rules: List[ScheduleRuleAbridged] = Field(
         default=None,
         description='A list of ScheduleRuleAbridged that note exceptions to the '
             'default_day_schedule. These rules should be ordered from highest to '
             'lowest priority.'
     )
 
-    summer_designday_schedule: str = Schema(
+    summer_designday_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -201,7 +195,7 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
             'day. This ScheduleDay must be in the day_schedules.'
     )
 
-    winter_designday_schedule: str = Schema(
+    winter_designday_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -209,7 +203,7 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
             'day. This ScheduleDay must be in the day_schedules.'
     )
 
-    schedule_type_limit: str = Schema(
+    schedule_type_limit: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -225,16 +219,15 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
     type: Enum('ScheduleFixedIntervalAbridged', {
                'type': 'ScheduleFixedIntervalAbridged'})
 
-    values: List[float] = Schema(
+    values: List[float] = Field(
         ...,
-        minItems=24,
-        maxItems=527040,
-        multiple_of=24,
+        min_items=24,
+        max_items=527040,
         description='A list of timeseries values occuring at each timestep over '
             'the course of the simulation.'
     )
 
-    schedule_type_limit: str = Schema(
+    schedule_type_limit: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -243,52 +236,59 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
             'schedule values. If None, no validation will occur.'
     )
 
-    timestep: int = Schema(
+    timestep: int = Field(
         1,
         description='An integer for the number of steps per hour that the input '
             'values correspond to.  For example, if each value represents 30 '
             'minutes, the timestep is 2. For 15 minutes, it is 4.'
     )
 
-    start_date: Date = Schema(
+    @validator('timestep')
+    def check_timestep(cls, v):
+        "Ensure the timestep is acceptable by EnergyPlus."
+        valid_timesteps = (1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60)
+        assert v in valid_timesteps, '"{}" is not a valid timestep. ' \
+            'Choose from {}'.format(v, valid_timesteps)
+        return v
+
+    start_date: Date = Field(
         None,
         description='Date to note when the input values begin to take effect. If None, '
             'the start date will be [1 Jan].'
     )
 
-    placeholder_value: float = Schema(
+    placeholder_value: float = Field(
         0,
         description=' A value that will be used for all times not covered by the '
             'input values. Typically, your simulation should not need to use this '
             'value if the input values completely cover the simulation period.'
     )
 
-    interpolate: bool = Schema(
+    interpolate: bool = Field(
         False,
         description='Boolean to note whether values in between intervals should be '
             'linearly interpolated or whether successive values should take effect '
             'immediately upon the beginning time corrsponding to them.'
     )
 
-    @validator('start_date', whole=True)
-    def check_range(cls, v, values):
-        "Ensure a correct number of schedule values."
-        valid_timesteps = (1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60)
-        assert values['timestep'] in valid_timesteps, '"{}" is not a valid timestep. ' \
-            'Choose from {}'.format(values['timestep'], valid_timesteps)
-
-        if len(values['values']) < 24 * values['timestep']:
+    @root_validator
+    def check_number_of_values(cls, values):
+        "Ensure an acceptable number of schedule values."
+        vals = values.get('values')
+        timestep = values.get('timestep')
+        start_date = values.get('start_date')
+        if len(vals) < 24 * timestep:
              raise ValueError('Number of schedule values must be for at least one day, '
                               'with a length greater than 24 * timestep.')
-        max_l = values['timestep'] * 8760 if v is None or not v.is_leap_year \
-            else values['timestep'] * 8784
-        if len(values['values']) > max_l:
+        max_l = timestep * 8760 if start_date is None or not \
+            start_date.is_leap_year else timestep * 8784
+        if len(vals) > max_l:
              raise ValueError('Number of schedule values must not exceed a full year, '
                               'with a length greater than 8760 * timestep.')
-        if len(values['values']) % (24 * values['timestep']) != 0:
+        if len(vals) % (24 * timestep) != 0:
             raise ValueError(
                 'Number of schedule values must be for a whole number of days.')
-        return v
+        return values
 
 
 if __name__ == '__main__':

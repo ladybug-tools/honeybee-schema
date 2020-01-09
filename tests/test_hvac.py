@@ -1,4 +1,4 @@
-from honeybee_model_schema.energy.idealair import IdealAirSystem
+from honeybee_model_schema.energy.hvac import IdealAirSystem
 import os
 
 # target folder where all of the samples live

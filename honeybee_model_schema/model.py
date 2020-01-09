@@ -1,61 +1,64 @@
-"""Model schema."""
-from pydantic import BaseModel, Schema, validator, ValidationError, constr
+"""Model schema and the 5 geometry objects that define it."""
+from pydantic import BaseModel, Schema, validator, constr
 from typing import List, Union
 from enum import Enum
-from uuid import UUID, uuid4
-from datetime import datetime
-from .energy.constructionset import ConstructionSetAbridged
-from .energy.construction import OpaqueConstructionAbridged, \
-    WindowConstructionAbridged, ShadeConstruction
-from .energy.materials import EnergyMaterial, EnergyMaterialNoMass, \
-    EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
-    EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
-        EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
-from .energy.programtype import ProgramTypeAbridged, PeopleAbridged, \
-    LightingAbridged, ElectricEquipmentAbridged, GasEquipmentAbridged, \
-        InfiltrationAbridged, VentilationAbridged, SetpointAbridged
-from .energy.scheduleruleset import ScheduleRulesetAbridged
-from .energy.schedulefixedinterval import ScheduleFixedIntervalAbridged
-from .energy.schedulebase import ScheduleTypeLimit
-from .energy.idealair import IdealAirSystem
+
+from ._base import NamedBaseModel
+from .bc import Outdoors, Surface, Ground, Adiabatic
+from .energy.properties import ShadeEnergyPropertiesAbridged, \
+    DoorEnergyPropertiesAbridged, ApertureEnergyPropertiesAbridged, \
+    FaceEnergyPropertiesAbridged, RoomEnergyPropertiesAbridged, \
+    ModelEnergyProperties
 
 
 class Plane(BaseModel):
 
     n: List[float] = Schema(
         ...,
-        description="Plane Normal",
+        description="Plane normal as 3 (x, y, z) values.",
         minItems=3,
         maxItems=3
     )
 
     o: List[float] = Schema(
         ...,
-        description="Plane Origin",
+        description="Plane origin as 3 (x, y, z) values",
         minItems=3,
         maxItems=3
     )
 
     x: List[float] = Schema(
         default=None,
-        description="Plane X-axis",
+        description="Plane x-axis as 3 (x, y, z) values",
         minItems=3,
         maxItems=3
     )
 
 
 class Face3D(BaseModel):
+    """A single planar face in 3D space."""
 
     type: Enum('Face3D', {'type': 'Face3D'})
 
-    boundary: List[List[float]]
+    boundary: List[List[float]] = Schema(
+        ...,
+        description='A list of points representing the outer boundary vertices of '
+            'the face. The list should include at least 3 points and each point '
+            'should be a list of 3 (x, y, z) values.'
+    )
 
     holes: List[List[List[float]]] = Schema(
-        default=None
+        default=None,
+        description='Optional list of lists with one list for each hole in the face.'
+            'Each hole should be a list of at least 3 points and each point a list '
+            'of 3 (x, y, z) values. If None, it will be assumed that there are no '
+            'holes in the face.'
     )
 
     plane: Plane = Schema(
-        default=None
+        default=None,
+        description='Optional Plane indicating the plane in which the face exists.'
+            'If None, the plane will usually be derived from the boundary points.'
     )
 
     @validator('boundary', whole=True)
@@ -78,24 +81,6 @@ class Face3D(BaseModel):
         return v
 
 
-class ShadeEnergyPropertiesAbridged(BaseModel):
-
-    type: Enum('ShadeEnergyPropertiesAbridged', {
-               'type': 'ShadeEnergyPropertiesAbridged'})
-
-    transmittance_schedule: str = Schema(
-        default=None,
-        min_length=1,
-        max_length=100
-    )
-
-    construction:  str = Schema(
-        default=None,
-        min_length=1,
-        max_length=100
-    )
-
-
 class ShadePropertiesAbridged(BaseModel):
 
     type: Enum('ShadePropertiesAbridged', {'type': 'ShadePropertiesAbridged'})
@@ -105,77 +90,59 @@ class ShadePropertiesAbridged(BaseModel):
     )
 
 
-class Shade(BaseModel):
+class Shade(NamedBaseModel):
 
     type: Enum('Shade', {'type': 'Shade'})
 
-    name: str = Schema(
+    geometry: Face3D = Schema(
         ...,
-        regex=r'[A-Za-z0-9_-]',
-        min_length=1,
-        max_length=100
+        description='Planar Face3D for the geometry.'
     )
 
-    display_name: str = Schema(
-        default=None,
-        min_length=1,
-        max_length=100
+    properties: ShadePropertiesAbridged = Schema(
+        ...,
+        description='Extension properties for particular simulation engines '
+            '(Radiance, EnergyPlus).'
     )
 
-    geometry: Face3D
 
-    properties: ShadePropertiesAbridged
+class DoorPropertiesAbridged(BaseModel):
 
+    type: Enum('DoorPropertiesAbridged', {'type': 'DoorPropertiesAbridged'})
 
-class Outdoors(BaseModel):
-
-    type: Enum('Outdoors', {'type': 'Outdoors'})
-
-    sun_exposure: bool = Schema(
+    energy: DoorEnergyPropertiesAbridged = Schema(
         default=None
     )
 
-    wind_exposure: bool = Schema(
-        default=None
-    )
 
-    view_factor: Union[str, float] = Schema(
-        'autocalculate',
-        ge=0,
-        le=1
-    )
+class Door(NamedBaseModel):
 
+    type: Enum('Door', {'type': 'Door'})
 
-class Ground(BaseModel):
-
-    type: Enum('Ground', {'type': 'Ground'})
-
-
-class Adiabatic(BaseModel):
-
-    type: Enum('Adiabatic', {'type': 'Adiabatic'})
-
-
-class Surface(BaseModel):
-
-    type: Enum('Surface', {'type': 'Surface'})
-
-    boundary_condition_objects: List[str] = Schema(
+    geometry: Face3D = Schema(
         ...,
-        minItems=2,
-        maxItems=3
+        description='Planar Face3D for the geometry.'
     )
 
+    boundary_condition: Union[Outdoors, Surface]
 
-class ApertureEnergyPropertiesAbridged(BaseModel):
+    @validator('boundary_condition')
+    def suface_bc_objects(cls, v):
+        if v.type == 'Surface':
+            assert len(v.boundary_condition_objects) == 3, 'Door Surface boundary ' \
+                'condition must have 3 boundary_condition_objects.'
+        return v
 
-    type: Enum('ApertureEnergyPropertiesAbridged', {
-               'type': 'ApertureEnergyPropertiesAbridged'})
+    is_glass: bool = Schema(
+        False,
+        description='Boolean to note whether this object is a glass door as opposed '
+            'to an opaque door.'
+    )
 
-    construction: str = Schema(
-        default=None,
-        min_length=1,
-        max_length=100
+    properties: DoorPropertiesAbridged = Schema(
+        ...,
+        description='Extension properties for particular simulation engines '
+            '(Radiance, EnergyPlus).'
     )
 
 
@@ -189,100 +156,45 @@ class AperturePropertiesAbridged(BaseModel):
     )
 
 
-class Aperture(BaseModel):
+class Aperture(NamedBaseModel):
 
     type: Enum('Aperture', {'type': 'Aperture'})
 
-    name: str = Schema(
+    geometry: Face3D = Schema(
         ...,
-        regex=r'[A-Za-z0-9_-]',
-        min_length=1,
-        max_length=100
+        description='Planar Face3D for the geometry.'
     )
-
-    display_name: str = Schema(
-        default=None,
-        min_length=1,
-        max_length=100
-    )
-
-    geometry: Face3D
 
     boundary_condition: Union[Outdoors, Surface]
 
+    @validator('boundary_condition')
+    def suface_bc_objects(cls, v):
+        if v.type == 'Surface':
+            assert len(v.boundary_condition_objects) == 3, 'Aperture Surface boundary ' \
+                'condition must have 3 boundary_condition_objects.'
+        return v
+
     is_operable: bool = Schema(
-        False
+        False,
+        description='Boolean to note whether the Aperture can be opened for ventilation.'
     )
 
     indoor_shades: List[Shade] = Schema(
-        default=None
+        default=None,
+        description='Shades assigned to the interior side of this object '
+            '(eg. window sill, light shelf).'
     )
 
     outdoor_shades: List[Shade] = Schema(
-        default=None
-    )
-
-    properties: AperturePropertiesAbridged
-
-
-class DoorEnergyPropertiesAbridged(BaseModel):
-
-    type: Enum('DoorEnergyPropertiesAbridged', {
-               'type': 'DoorEnergyPropertiesAbridged'})
-
-    construction: str = Schema(
         default=None,
-        min_length=1,
-        max_length=100
+        description='Shades assigned to the exterior side of this object '
+            '(eg. mullions, louvers).'
     )
 
-
-class DoorPropertiesAbridged(BaseModel):
-
-    type: Enum('DoorPropertiesAbridged', {'type': 'DoorPropertiesAbridged'})
-
-    energy: DoorEnergyPropertiesAbridged = Schema(
-        default=None
-    )
-
-
-class Door(BaseModel):
-
-    type: Enum('Door', {'type': 'Door'})
-
-    name: str = Schema(
+    properties: AperturePropertiesAbridged = Schema(
         ...,
-        regex=r'[A-Za-z0-9_-]',
-        min_length=1,
-        max_length=100
-    )
-
-    display_name: str = Schema(
-        default=None,
-        min_length=1,
-        max_length=100
-    )
-
-    geometry: Face3D
-
-    boundary_condition: Union[Outdoors, Surface]
-
-    is_glass: bool = Schema(
-        False
-    )
-
-    properties: DoorPropertiesAbridged
-
-
-class FaceEnergyPropertiesAbridged(BaseModel):
-
-    type: Enum('FaceEnergyPropertiesAbridged', {
-               'type': 'FaceEnergyPropertiesAbridged'})
-
-    construction: str = Schema(
-        default=None,
-        min_length=1,
-        max_length=100
+        description='Extension properties for particular simulation engines '
+            '(Radiance, EnergyPlus).'
     )
 
 
@@ -303,97 +215,55 @@ class FaceType(str, Enum):
     air_wall = 'AirWall'
 
 
-class Face(BaseModel):
+class Face(NamedBaseModel):
 
     type: Enum('Face', {'type': 'Face'})
 
-    name: str = Schema(
+    geometry: Face3D = Schema(
         ...,
-        regex=r'[A-Za-z0-9_-]',
-        min_length=1,
-        max_length=100
+        description='Planar Face3D for the geometry.'
     )
-
-    display_name: str = Schema(
-        default=None,
-        regex=r'^[\s.A-Za-z0-9_-]*$',
-        min_length=1,
-        max_length=100
-    )
-
-    geometry: Face3D
-
-    properties: FacePropertiesAbridged
 
     face_type: FaceType
 
     boundary_condition: Union[Ground, Outdoors, Adiabatic, Surface]
 
+    @validator('boundary_condition')
+    def suface_bc_objects(cls, v):
+        if v.type == 'Surface':
+            assert len(v.boundary_condition_objects) == 2, 'Face Surface boundary ' \
+                'condition must have 2 boundary_condition_objects.'
+        return v
+
     apertures: List[Aperture] = Schema(
-        default=None
+        default=None,
+        description='Apertures assigned to this Face. Should be coplanar with this '
+            'Face and completely within the boundary of the Face to be valid.'
     )
 
     doors: List[Door] = Schema(
-        default=None
+        default=None,
+        description='Doors assigned to this Face. Should be coplanar with this '
+            'Face and completely within the boundary of the Face to be valid.'
     )
 
     indoor_shades: List[Shade] = Schema(
-        default=None
+        default=None,
+        description='Shades assigned to the interior side of this object.'
     )
 
     outdoor_shades: List[Shade] = Schema(
-        default=None
-    )
-
-
-class RoomEnergyPropertiesAbridged(BaseModel):
-
-    type: Enum('RoomEnergyPropertiesAbridged', {
-               'type': 'RoomEnergyPropertiesAbridged'})
-
-    construction_set: str = Schema(
         default=None,
-        min_length=1,
-        max_length=100
+        description='Shades assigned to the exterior side of this object '
+            '(eg. balcony, overhang).'
     )
 
-    program_type: str = Schema(
-        default=None,
-        min_length=1,
-        max_length=100
+    properties: FacePropertiesAbridged = Schema(
+        ...,
+        description='Extension properties for particular simulation engines '
+            '(Radiance, EnergyPlus).'
     )
 
-    people: PeopleAbridged = Schema(
-        default=None
-    )
-    
-    lighting: LightingAbridged = Schema(
-        default=None
-    )
-
-    electric_equipment: ElectricEquipmentAbridged = Schema(
-        default=None
-    )
-
-    gas_equipment: GasEquipmentAbridged = Schema(
-        default=None
-    )
-
-    infiltration: InfiltrationAbridged = Schema(
-        default=None
-    )
-
-    ventilation: VentilationAbridged = Schema(
-        default=None
-    )
-
-    setpoint: SetpointAbridged = Schema(
-        default=None
-    )
-
-    hvac: IdealAirSystem = Schema(
-        default=None
-    )
 
 class RoomPropertiesAbridged(BaseModel):
 
@@ -402,68 +272,34 @@ class RoomPropertiesAbridged(BaseModel):
     energy: RoomEnergyPropertiesAbridged
 
 
-class Room(BaseModel):
+class Room(NamedBaseModel):
 
     type: Enum('Room', {'type': 'Room'})
 
-    name: str = Schema(
-        ...,
-        regex=r'[A-Za-z0-9_-]',
-        min_length=1,
-        max_length=100
-    )
-
-    display_name: str = Schema(
-        default=None,
-        regex=r'^[\s.A-Za-z0-9_-]*$',
-        min_length=1,
-        max_length=100
-    )
-
-    properties: RoomPropertiesAbridged
-
     faces: List[Face] = Schema(
-        ...
+        ...,
+        min_items=4,
+        description='Faces that together form the closed volume of a room.'
     )
 
     indoor_shades:  List[Shade] = Schema(
-        default=None)
+        default=None,
+        description='Shades assigned to the interior side of this object '
+            '(eg. partitions, tables).'
+    )
 
     outdoor_shades: List[Shade] = Schema(
-        default=None)
-
-
-class ModelEnergyProperties(BaseModel):
-
-    type: Enum('ModelEnergyProperties', {'type': 'ModelEnergyProperties'})
-
-    construction_sets: List[ConstructionSetAbridged] = Schema(
-        default=None
-    )
-
-    global_construction_set: str = Schema(
         default=None,
-        min_length=1,
-        max_length=100
+        description='Shades assigned to the exterior side of this object '
+            '(eg. trees, landscaping).'
     )
 
-    constructions: List[Union[OpaqueConstructionAbridged,
-                              WindowConstructionAbridged, ShadeConstruction]]
-
-    materials: List[Union[EnergyMaterial, EnergyMaterialNoMass, EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, EnergyWindowMaterialGasMixture,
-                          EnergyWindowMaterialSimpleGlazSys, EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade]]
-
-    program_types: List[ProgramTypeAbridged] = Schema(
-        default=None
+    properties: RoomPropertiesAbridged = Schema(
+        ...,
+        description='Extension properties for particular simulation engines '
+            '(Radiance, EnergyPlus).'
     )
 
-    schedules: List[Union[ScheduleRulesetAbridged, ScheduleFixedIntervalAbridged]] = Schema(
-        default=None
-    )
-
-    schedule_type_limits: List[ScheduleTypeLimit] = Schema(
-        default=None
-    )
 
 class ModelProperties(BaseModel):
 
@@ -472,50 +308,52 @@ class ModelProperties(BaseModel):
     energy: ModelEnergyProperties
 
 
-class Model(BaseModel):
+class Model(NamedBaseModel):
 
     type: Enum('Model', {'type': 'Model'})
 
-    name: str = Schema(
-        ...,
-        regex=r'[A-Za-z0-9_-]',
-        min_length=1,
-        max_length=100
-    )
-
-    display_name: str = Schema(
-        default=None,
-        regex=r'^[\s.A-Za-z0-9_-]*$',
-        min_length=1,
-        max_length=100
-    )
-
-    properties: ModelProperties
-
     rooms: List[Room] = Schema(
-        default=None
+        default=None,
+        description='A list of Rooms in the model.'
     )
 
     orphaned_faces: List[Face] = Schema(
-        default=None
+        default=None,
+        description='A list of Faces in the model that lack a parent Room. Note that '
+            'orphaned Faces are not acceptable for Models that are to be exported '
+            'for energy simulation.'
     )
 
     orphaned_shades: List[Shade] = Schema(
-        default=None
+        default=None,
+        description='A list of Shades in the model that lack a parent.'
     )
 
     orphaned_apertures: List[Aperture] = Schema(
-        default=None
+        default=None,
+        description='A list of Apertures in the model that lack a parent Face. '
+            'Note that orphaned Apertures are not acceptable for Models that are '
+            'to be exported for energy simulation.'
     )
 
     orphaned_doors: List[Door] = Schema(
-        default=None
+        default=None,
+        description='A list of Doors in the model that lack a parent Face. '
+            'Note that orphaned Doors are not acceptable for Models that are '
+            'to be exported for energy simulation.'
     )
 
     north_angle: float = Schema(
-        default=None,
+        default=0,
         ge=0,
-        lt=360
+        lt=360,
+        description='The clockwise north direction in degrees.'
+    )
+
+    properties: ModelProperties = Schema(
+        ...,
+        description='Extension properties for particular simulation engines '
+            '(Radiance, EnergyPlus).'
     )
 
 

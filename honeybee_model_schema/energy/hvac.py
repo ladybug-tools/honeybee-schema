@@ -51,4 +51,7 @@ class IdealAirSystem(BaseModel):
         ge=0,
         le=1
     )
-    
+
+
+if __name__ == '__main__':
+    print(IdealAirSystem.schema_json(indent=2))

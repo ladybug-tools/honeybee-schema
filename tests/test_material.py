@@ -1,4 +1,4 @@
-from honeybee_model_schema.energy.materials import EnergyMaterial, EnergyMaterialNoMass, \
+from honeybee_model_schema.energy.material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasMixture, \
     EnergyWindowMaterialGasCustom, EnergyWindowMaterialBlind, \
     EnergyWindowMaterialGlazing, EnergyWindowMaterialShade, \

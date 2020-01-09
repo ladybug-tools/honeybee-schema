@@ -11,39 +11,38 @@ class Date(BaseModel):
 
     month: int = Schema(
         1,
-        description='A value for month between `1`-`12`. Default is `1`.',
         ge=1,
-        le=12
+        le=12,
+        description='An integer for the month between [1-12]. Default is 1.'
     )
 
     day: int = Schema(
         1,
-        description='A value for day between `1`-`31`. Default is `1`.',
         ge=1,
-        le=31
+        le=31,
+        description='An integer for day of the month [1-31]. Default is 1.'
     )
 
     is_leap_year: bool = Schema(
-        False
+        False,
+        description='Optional boolean to note whether the date is for a leap year.'
     )
 
     @validator('is_leap_year')
     def check_date(cls, v, values):
         "Ensure valid start date in case of leap year."
-        if v == True:
+        if v:
             try:
                 datetime.date(2016, values['month'] , values['day'])
             except ValueError:
                 raise ValueError(
                     '{}/{} is not a valid date.'.format(values['month'], values['day']))
-        elif v == False:
+        else:
             try:
                 datetime.date(2017, values['month'], values['day'])
             except ValueError:
                 raise ValueError(
                     '{}/{} is not a valid date.'.format(values['month'], values['day']))
-        else:
-            return v
 
 
 class Time(BaseModel):
@@ -51,30 +50,14 @@ class Time(BaseModel):
 
     hour: int = Schema(
         0,
-        description='A value for hour between `0`-`24`. Default is `0`.',
         ge=0,
-        le=24
+        le=23,
+        description='An integer for the hour between [0-23]. Default is 0.'
     )
 
     minute: int = Schema(
         0,
-        description='A value for minutes between `0`-`59`. Default is `0`.',
         ge=0,
-        le=59
+        le=59,
+        description='An integer for minutes between [0-59]. Default is 0.'
     )
-
-    @validator('minute')
-    def check_time(cls, v, values):
-        if not 'hour' in values:
-            return v
-        try:
-            datetime.time(values['hour'], v)
-
-        except:
-            if values['hour'] == 24 and v == 00:
-                return v
-            else:
-                raise ValueError(
-                    '{}:{} is not a valid time.'.format(values['hour'], v))
-        else:
-            return v

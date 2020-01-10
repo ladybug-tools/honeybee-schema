@@ -13,7 +13,7 @@ _base_open_api = {
         "contact": {
             "name": "Ladybug Tools",
             "email": "info@ladybug.tools",
-            "url": "https://github.com/ladybug-tools/honeybee"
+            "url": "https://github.com/ladybug-tools/honeybee-core"
         },
         "x-logo": {
             "url": "https://www.ladybug.tools/assets/img/honeybee-large.png",
@@ -21,7 +21,7 @@ _base_open_api = {
         },
         "license": {
             "name": "BSD",
-            "url": "https://github.com/ladybug-tools-in2/honeybee-model-schema/blob/master/LICENSE"
+            "url": "https://github.com/ladybug-tools-in2/honeybee-schema/blob/master/LICENSE"
         }
     },
     "externalDocs": {

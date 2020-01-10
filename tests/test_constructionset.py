@@ -1,11 +1,11 @@
-from honeybee_model_schema.energy.constructionset import ConstructionSetAbridged, \
+from honeybee_schema.energy.constructionset import ConstructionSetAbridged, \
     WallSetAbridged, RoofCeilingSetAbridged, FloorSetAbridged, ApertureSetAbridged, \
     DoorSetAbridged
 import os
 
 # target folder where all of the samples live
 root = os.path.dirname(os.path.dirname(__file__))
-target_folder = os.path.join(root, 'honeybee_model_schema', 'samples')
+target_folder = os.path.join(root, 'honeybee_schema', 'samples')
 
 
 def test_construction_set():

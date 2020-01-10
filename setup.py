@@ -8,7 +8,7 @@ with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 setuptools.setup(
-    name="honeybee-model-schema",
+    name="honeybee-schema",
     use_scm_version = True,
     setup_requires=['setuptools_scm'],
     author="Ladybug Tools",
@@ -16,7 +16,7 @@ setuptools.setup(
     description="Honeybee Data-Model Objects",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ladybug-tools-in2/honeybee-model-schema",
+    url="https://github.com/ladybug-tools-in2/honeybee-schema",
     packages=setuptools.find_packages(exclude=["tests"]),
     install_requires=requirements,
     classifiers=[

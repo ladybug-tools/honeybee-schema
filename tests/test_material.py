@@ -1,4 +1,4 @@
-from honeybee_model_schema.energy.material import EnergyMaterial, EnergyMaterialNoMass, \
+from honeybee_schema.energy.material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasMixture, \
     EnergyWindowMaterialGasCustom, EnergyWindowMaterialBlind, \
     EnergyWindowMaterialGlazing, EnergyWindowMaterialShade, \
@@ -11,7 +11,7 @@ import json
 
 # target folder where all of the samples live
 root = os.path.dirname(os.path.dirname(__file__))
-target_folder = os.path.join(root, 'honeybee_model_schema', 'samples')
+target_folder = os.path.join(root, 'honeybee_schema', 'samples')
 
 
 def test_windowglazing():

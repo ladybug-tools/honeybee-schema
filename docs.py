@@ -1,7 +1,7 @@
 """generate openapi docs."""
-from honeybee_model_schema._openapi import get_openapi
-from honeybee_model_schema.model import Model
-from honeybee_model_schema.energy.simulation import SimulationParameter
+from honeybee_schema._openapi import get_openapi
+from honeybee_schema.model import Model
+from honeybee_schema.energy.simulation import SimulationParameter
 
 import json
 

@@ -2,9 +2,9 @@
 from pydantic import BaseModel, Field, validator, root_validator, constr
 from typing import List
 from enum import Enum
+import datetime
 
-from ._base import NamedEnergyBaseModel
-from ..datetime import Date
+from ._base import NamedEnergyBaseModel, DatedBaseModel
 
 
 class ScheduleNumericType (str, Enum):
@@ -97,7 +97,7 @@ class ScheduleDay(NamedEnergyBaseModel):
     )
 
 
-class ScheduleRuleAbridged(BaseModel):
+class ScheduleRuleAbridged(DatedBaseModel):
     """Schedule rule including a ScheduleDay and when it should be applied.."""
 
     type: constr(regex='^ScheduleRuleAbridged$') = 'ScheduleRuleAbridged'
@@ -149,21 +149,33 @@ class ScheduleRuleAbridged(BaseModel):
         description='Boolean noting whether to apply schedule_day on Holidays.'
     )
 
-    start_date: List[float] = Field(
+    start_date: List[int] = Field(
         [1, 1],
         min_items=2,
-        max_items=2,
-        description='A list of two integers for [month, day], representing the date '
-            'for the start of the period over which the schedule_day will be applied.'
+        max_items=3,
+        description='A list of two integers for [month, day], representing the start '
+            'date of the period over which the schedule_day will be applied.'
+            'A third integer may be added to denote whether the date should be '
+            're-serialized for a leap year (it should be a 1 in this case).'
     )
 
-    end_date: List[float] = Field(
+    @validator('start_date')
+    def check_start_date(cls, v):
+        return cls.check_date(v)
+
+    end_date: List[int] = Field(
         [12, 31],
         min_items=2,
-        max_items=2,
-        description='A list of two integers for [month, day], representing the date '
-            'for the end of the period over which the schedule_day will be applied.'
+        max_items=3,
+        description='A list of two integers for [month, day], representing the end '
+            'date of the period over which the schedule_day will be applied.'
+            'A third integer may be added to denote whether the date should be '
+            're-serialized for a leap year (it should be a 1 in this case).'
     )
+
+    @validator('end_date')
+    def check_end_date(cls, v):
+        return cls.check_date(v)
 
 
 class ScheduleRulesetAbridged(NamedEnergyBaseModel):
@@ -255,12 +267,30 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
         assert v in valid_timesteps, '"{}" is not a valid timestep. ' \
             'Choose from {}'.format(v, valid_timesteps)
         return v
-
-    start_date: Date = Field(
-        None,
-        description='Date to note when the input values begin to take effect. If None, '
-            'the start date will be [1 Jan].'
+    
+    start_date: List[int] = Field(
+        [1, 1],
+        min_items=2,
+        max_items=3,
+        description='A list of two integers for [month, day], representing the start '
+            'date when the schedule values begin to take effect.'
+            'A third integer may be added to denote whether the date should be '
+            're-serialized for a leap year (it should be a 1 in this case).'
     )
+
+    @validator('start_date')
+    def check_start_date(cls, v):
+        if len(v) == 3 and v[2]:
+            try:
+                datetime.date(2016, v[0] , v[1])
+            except ValueError:
+                raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
+        else:
+            try:
+                datetime.date(2017, v[0] , v[1])
+            except ValueError:
+                raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
+        return v
 
     placeholder_value: float = Field(
         0,
@@ -285,8 +315,8 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
         if len(vals) < 24 * timestep:
              raise ValueError('Number of schedule values must be for at least one day, '
                               'with a length greater than 24 * timestep.')
-        max_l = timestep * 8760 if start_date is None or not \
-            start_date.is_leap_year else timestep * 8784
+        max_l = timestep * 8760 if len(start_date) == 3 and start_date[2] \
+            else timestep * 8784
         if len(vals) > max_l:
              raise ValueError('Number of schedule values must not exceed a full year, '
                               'with a length greater than 8760 * timestep.')

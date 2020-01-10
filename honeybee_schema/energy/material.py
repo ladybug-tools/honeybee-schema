@@ -1,5 +1,5 @@
 """Material Schema"""
-from pydantic import BaseModel, Field, validator, constr
+from pydantic import BaseModel, Field, validator, root_validator, constr
 from typing import List
 from enum import Enum
 
@@ -271,24 +271,13 @@ class EnergyWindowMaterialGas(NamedEnergyBaseModel):
 
     type: constr(regex='^EnergyWindowMaterialGas$') = 'EnergyWindowMaterialGas'
 
-    gas_type: GasType = GasType.air
-
     thickness: float = Field(
         0.0125,
         gt=0,
         description='Thickness of the gas layer in meters. Default value is 0.0125.'
     )
 
-
-class GasTypeAndFraction(BaseModel):
-
-    gas_type: GasType
-
-    gas_fraction: float = Field(
-        ...,
-        gt=0,
-        lt=1
-    )
+    gas_type: GasType = GasType.air
 
 
 class EnergyWindowMaterialGasMixture(NamedEnergyBaseModel):
@@ -299,21 +288,48 @@ class EnergyWindowMaterialGasMixture(NamedEnergyBaseModel):
         'EnergyWindowMaterialGasMixture'
 
     thickness: float = Field(
-        ...,
+        0.0125,
+        gt=0,
         description='The thickness of the gas mixture layer in meters.'
     )
 
-    gas_type_fraction: List[GasTypeAndFraction] = Field(
+    gas_types: List[GasType] = Field(
         ...,
-        description='List of gases and their fractions in a mixture.'
+        min_items=2,
+        max_items=4,
+        description='List of gases in the gas mixture.'
     )
 
-    @validator('gas_type_fraction')
-    def check_sum(cls, v):
-        total = sum(f.gas_fraction for f in v)
-        if total != 1:
-            raise ValueError('Sum of gas fractions must be 1.')
+    gas_fractions: List[float] = Field(
+        ...,
+        min_items=2,
+        max_items=4,
+        description='A list of fractional numbers describing the volumetric fractions '
+            'of gas types in the mixture. This list must align with the gas_types '
+            'list and must sum to 1.'
+    )
+
+    @validator('gas_fractions')
+    def check_fractions(cls, v):
+        """Check that all of the fractions are fractional."""
+        for f in v:
+            assert 0 < f < 1, 'gas_fraction must be between 0 and 1. Not {}.'.format(f)
         return v
+    
+    @validator('gas_fractions')
+    def check_sum(cls, v):
+        """Check that fractions sum to 1."""
+        assert abs(1 - sum(v)) < 0.001, 'gas_fractions must sum to 1.'
+        return v
+    
+    @root_validator
+    def check_types_fractions_match(cls, values):
+        "Ensure the gas types and fractions match."
+        gas_types = values.get('gas_types')
+        gas_fractions = values.get('gas_fractions')
+        assert len(gas_types) == len(gas_fractions), 'Length of gas_types must match ' \
+            'length of gas_fractions. {} != {}'.format(len(gas_types), len(gas_fractions))
+        return values
 
 
 class EnergyWindowMaterialGasCustom(NamedEnergyBaseModel):
@@ -728,20 +744,6 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         le=1,
         description='The effective area for air flow at the right side of the shade,'
         ' divided by the vertical area between glass and shade. The default value is 0.5.'
-    )
-
-    minimum_slat_angle: float = Field(
-        0,
-        ge=0,
-        le=180,
-        description='The minimum allowed slat angle in degrees. The default value is 0.'
-    )
-
-    maximum_slat_angle: float = Field(
-        180,
-        ge=0,
-        le=180,
-        description='The maximum allowed slat angle in degrees. The default value is 180.'
     )
 
 

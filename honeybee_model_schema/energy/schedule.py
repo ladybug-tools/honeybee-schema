@@ -1,5 +1,5 @@
 """Schedule Type Limit Schema"""
-from pydantic import BaseModel, Field, validator, root_validator
+from pydantic import BaseModel, Field, validator, root_validator, constr
 from typing import List
 from enum import Enum
 
@@ -33,7 +33,7 @@ class ScheduleUnitType (str, Enum):
 class ScheduleTypeLimit(NamedEnergyBaseModel):
     """Specifies the data types and limits for values contained in schedules."""
 
-    type: Enum('ScheduleTypeLimit', {'type': 'ScheduleTypeLimit'})
+    type: constr(regex='^ScheduleTypeLimit$') = 'ScheduleTypeLimit'
 
     lower_limit: float = Field(
         default=None,
@@ -52,7 +52,8 @@ class ScheduleTypeLimit(NamedEnergyBaseModel):
 
 class ScheduleDay(NamedEnergyBaseModel):
     """Used to describe the daily schedule for a single simulation day."""
-    type: Enum('ScheduleDay', {'type': 'ScheduleDay'})
+
+    type: constr(regex='^ScheduleDay$') = 'ScheduleDay'
 
     values: List[float] = Field(
         ...,
@@ -99,7 +100,7 @@ class ScheduleDay(NamedEnergyBaseModel):
 class ScheduleRuleAbridged(BaseModel):
     """Schedule rule including a ScheduleDay and when it should be applied.."""
 
-    type: Enum('ScheduleRuleAbridged', {'type': 'ScheduleRuleAbridged'})
+    type: constr(regex='^ScheduleRuleAbridged$') = 'ScheduleRuleAbridged'
 
     schedule_day: str = Field(
         ...,
@@ -168,9 +169,13 @@ class ScheduleRuleAbridged(BaseModel):
 class ScheduleRulesetAbridged(NamedEnergyBaseModel):
     """Used to define a schedule for a default day, further described by ScheduleRule."""
 
-    type: Enum('ScheduleRulesetAbridged', {'type': 'ScheduleRulesetAbridged'})
+    type: constr(regex='^ScheduleRulesetAbridged$') = 'ScheduleRulesetAbridged'
 
-    day_schedules: List[ScheduleDay]
+    day_schedules: List[ScheduleDay] = Field(
+        ...,
+        description='A list of ScheduleDays that are referenced in the other keys of '
+            'this ScheduleRulesetAbridged.'
+    )
 
     default_day_schedule: str = Field(
         ...,
@@ -216,8 +221,8 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
 class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
     """Used to specify a start date and a list of values for a period of analysis."""
 
-    type: Enum('ScheduleFixedIntervalAbridged', {
-               'type': 'ScheduleFixedIntervalAbridged'})
+    type: constr(regex='^ScheduleFixedIntervalAbridged$') = \
+        'ScheduleFixedIntervalAbridged'
 
     values: List[float] = Field(
         ...,

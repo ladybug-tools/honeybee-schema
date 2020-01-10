@@ -1,7 +1,6 @@
 """DateTime Schema"""
 from pydantic import BaseModel, Field, validator
 from typing import List, Union
-from enum import Enum
 from uuid import UUID, uuid4
 import datetime
 

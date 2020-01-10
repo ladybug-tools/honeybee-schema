@@ -1,5 +1,5 @@
 """Model energy properties."""
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, constr
 from typing import List, Union
 from enum import Enum
 
@@ -20,8 +20,8 @@ from .hvac import IdealAirSystem
 
 class ShadeEnergyPropertiesAbridged(BaseModel):
 
-    type: Enum('ShadeEnergyPropertiesAbridged', {
-               'type': 'ShadeEnergyPropertiesAbridged'})
+    type: constr(regex='^ShadeEnergyPropertiesAbridged$') = \
+        'ShadeEnergyPropertiesAbridged'
 
     transmittance_schedule: str = Field(
         default=None,
@@ -44,8 +44,8 @@ class ShadeEnergyPropertiesAbridged(BaseModel):
 
 class DoorEnergyPropertiesAbridged(BaseModel):
 
-    type: Enum('DoorEnergyPropertiesAbridged', {
-               'type': 'DoorEnergyPropertiesAbridged'})
+    type: constr(regex='^DoorEnergyPropertiesAbridged$') = \
+        'DoorEnergyPropertiesAbridged'
 
     construction: str = Field(
         default=None,
@@ -60,8 +60,8 @@ class DoorEnergyPropertiesAbridged(BaseModel):
 
 class ApertureEnergyPropertiesAbridged(BaseModel):
 
-    type: Enum('ApertureEnergyPropertiesAbridged', {
-               'type': 'ApertureEnergyPropertiesAbridged'})
+    type: constr(regex='^ApertureEnergyPropertiesAbridged$') = \
+        'ApertureEnergyPropertiesAbridged'
 
     construction: str = Field(
         default=None,
@@ -75,8 +75,8 @@ class ApertureEnergyPropertiesAbridged(BaseModel):
 
 class FaceEnergyPropertiesAbridged(BaseModel):
 
-    type: Enum('FaceEnergyPropertiesAbridged', {
-               'type': 'FaceEnergyPropertiesAbridged'})
+    type: constr(regex='^FaceEnergyPropertiesAbridged$') = \
+        'FaceEnergyPropertiesAbridged'
 
     construction: str = Field(
         default=None,
@@ -90,8 +90,8 @@ class FaceEnergyPropertiesAbridged(BaseModel):
 
 class RoomEnergyPropertiesAbridged(BaseModel):
 
-    type: Enum('RoomEnergyPropertiesAbridged', {
-               'type': 'RoomEnergyPropertiesAbridged'})
+    type: constr(regex='^RoomEnergyPropertiesAbridged$') = \
+        'RoomEnergyPropertiesAbridged'
 
     construction_set: str = Field(
         default=None,
@@ -160,7 +160,8 @@ class TerrianTypes(str, Enum):
 
 class ModelEnergyProperties(BaseModel):
 
-    type: Enum('ModelEnergyProperties', {'type': 'ModelEnergyProperties'})
+    type: constr(regex='^ModelEnergyProperties$') = \
+        'ModelEnergyProperties'
 
     terrain_type: TerrianTypes = TerrianTypes.city
 

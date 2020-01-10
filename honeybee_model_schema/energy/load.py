@@ -1,14 +1,13 @@
 """Programtype Schema"""
-from pydantic import BaseModel, Field, validator, root_validator
+from pydantic import BaseModel, Field, validator, root_validator, constr
 from typing import Union
-from enum import Enum
 
 from ._base import NamedEnergyBaseModel
 
 
 class PeopleAbridged(NamedEnergyBaseModel):
 
-    type: Enum('PeopleAbridged', {'type': 'PeopleAbridged'})
+    type: constr(regex='^PeopleAbridged$') = 'PeopleAbridged'
 
     people_per_area: float = Field(
         ...,
@@ -70,7 +69,7 @@ class PeopleAbridged(NamedEnergyBaseModel):
 
 class LightingAbridged(NamedEnergyBaseModel):
 
-    type: Enum('LightingAbridged', {'type': 'LightingAbridged'})
+    type: constr(regex='^LightingAbridged$') = 'LightingAbridged'
 
     watts_per_area: float = Field(
         ...,
@@ -178,17 +177,17 @@ class _EquipmentBase(NamedEnergyBaseModel):
 
 class ElectricEquipmentAbridged(_EquipmentBase):
 
-    type: Enum('ElectricEquipmentAbridged', {'type': 'ElectricEquipmentAbridged'})
+    type: constr(regex='^ElectricEquipmentAbridged$') = 'ElectricEquipmentAbridged'
 
 
 class GasEquipmentAbridged(_EquipmentBase):
 
-    type: Enum('GasEquipmentAbridged', {'type': 'GasEquipmentAbridged'})
+    type: constr(regex='^GasEquipmentAbridged$') = 'GasEquipmentAbridged'
 
 
 class InfiltrationAbridged(NamedEnergyBaseModel):
 
-    type: Enum('InfiltrationAbridged', {'type': 'InfiltrationAbridged'})
+    type: constr(regex='^InfiltrationAbridged$') = 'InfiltrationAbridged'
 
     flow_per_exterior_area: float = Field(
         ...,
@@ -224,7 +223,7 @@ class InfiltrationAbridged(NamedEnergyBaseModel):
 
 class VentilationAbridged(NamedEnergyBaseModel):
 
-    type: Enum('VentilationAbridged', {'type': 'VentilationAbridged'})
+    type: constr(regex='^VentilationAbridged$') = 'VentilationAbridged'
 
     flow_per_person: float = Field(
         0,
@@ -268,7 +267,7 @@ class VentilationAbridged(NamedEnergyBaseModel):
 class SetpointAbridged(NamedEnergyBaseModel):
     """Used to specify information about the setpoint schedule."""
 
-    type: Enum('SetpointAbridged', {'type': 'SetpointAbridged'})   
+    type: constr(regex='^SetpointAbridged$') = 'SetpointAbridged'
 
     cooling_schedule: str = Field(
         ...,

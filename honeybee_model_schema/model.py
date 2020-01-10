@@ -13,6 +13,8 @@ from .energy.properties import ShadeEnergyPropertiesAbridged, \
 
 class Plane(BaseModel):
 
+    type: constr(regex='^Plane$') = 'Plane'
+
     n: List[float] = Field(
         ...,
         description="Plane normal as 3 (x, y, z) values.",
@@ -38,7 +40,7 @@ class Plane(BaseModel):
 class Face3D(BaseModel):
     """A single planar face in 3D space."""
 
-    type: Enum('Face3D', {'type': 'Face3D'})
+    type: constr(regex='^Face3D$') = 'Face3D'
 
     boundary: List[List[float]] = Field(
         ...,
@@ -77,7 +79,7 @@ class Face3D(BaseModel):
 
 class ShadePropertiesAbridged(BaseModel):
 
-    type: Enum('ShadePropertiesAbridged', {'type': 'ShadePropertiesAbridged'})
+    type: constr(regex='^ShadePropertiesAbridged$') = 'ShadePropertiesAbridged'
 
     energy: ShadeEnergyPropertiesAbridged = Field(
         default=None
@@ -86,7 +88,7 @@ class ShadePropertiesAbridged(BaseModel):
 
 class Shade(NamedBaseModel):
 
-    type: Enum('Shade', {'type': 'Shade'})
+    type: constr(regex='^Shade$') = 'Shade'
 
     geometry: Face3D = Field(
         ...,
@@ -102,7 +104,7 @@ class Shade(NamedBaseModel):
 
 class DoorPropertiesAbridged(BaseModel):
 
-    type: Enum('DoorPropertiesAbridged', {'type': 'DoorPropertiesAbridged'})
+    type: constr(regex='^DoorPropertiesAbridged$') = 'DoorPropertiesAbridged'
 
     energy: DoorEnergyPropertiesAbridged = Field(
         default=None
@@ -111,7 +113,7 @@ class DoorPropertiesAbridged(BaseModel):
 
 class Door(NamedBaseModel):
 
-    type: Enum('Door', {'type': 'Door'})
+    type: constr(regex='^Door$') = 'Door'
 
     geometry: Face3D = Field(
         ...,
@@ -142,8 +144,7 @@ class Door(NamedBaseModel):
 
 class AperturePropertiesAbridged(BaseModel):
 
-    type: Enum('AperturePropertiesAbridged', {
-               'type': 'AperturePropertiesAbridged'})
+    type: constr(regex='^AperturePropertiesAbridged$') = 'AperturePropertiesAbridged'
 
     energy: ApertureEnergyPropertiesAbridged = Field(
         default=None
@@ -152,7 +153,7 @@ class AperturePropertiesAbridged(BaseModel):
 
 class Aperture(NamedBaseModel):
 
-    type: Enum('Aperture', {'type': 'Aperture'})
+    type: constr(regex='^Aperture$') = 'Aperture'
 
     geometry: Face3D = Field(
         ...,
@@ -194,7 +195,7 @@ class Aperture(NamedBaseModel):
 
 class FacePropertiesAbridged(BaseModel):
 
-    type: Enum('FacePropertiesAbridged', {'type': 'FacePropertiesAbridged'})
+    type: constr(regex='^FacePropertiesAbridged$') = 'FacePropertiesAbridged'
 
     energy: FaceEnergyPropertiesAbridged = Field(
         default=None
@@ -211,7 +212,7 @@ class FaceType(str, Enum):
 
 class Face(NamedBaseModel):
 
-    type: Enum('Face', {'type': 'Face'})
+    type: constr(regex='^Face$') = 'Face'
 
     geometry: Face3D = Field(
         ...,
@@ -261,14 +262,14 @@ class Face(NamedBaseModel):
 
 class RoomPropertiesAbridged(BaseModel):
 
-    type: Enum('RoomPropertiesAbridged', {'type': 'RoomPropertiesAbridged'})
+    type: constr(regex='^RoomPropertiesAbridged$') = 'RoomPropertiesAbridged'
 
     energy: RoomEnergyPropertiesAbridged
 
 
 class Room(NamedBaseModel):
 
-    type: Enum('Room', {'type': 'Room'})
+    type: constr(regex='^Room$') = 'Room'
 
     faces: List[Face] = Field(
         ...,
@@ -297,14 +298,14 @@ class Room(NamedBaseModel):
 
 class ModelProperties(BaseModel):
 
-    type: Enum('ModelProperties', {'type': 'ModelProperties'})
+    type: constr(regex='^ModelProperties$') = 'ModelProperties'
 
     energy: ModelEnergyProperties
 
 
 class Model(NamedBaseModel):
 
-    type: Enum('Model', {'type': 'Model'})
+    type: constr(regex='^Model$') = 'Model'
 
     rooms: List[Room] = Field(
         default=None,

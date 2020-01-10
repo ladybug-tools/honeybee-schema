@@ -1,6 +1,5 @@
 """ConstructionSet Schema"""
-from pydantic import BaseModel, Field
-from enum import Enum
+from pydantic import BaseModel, Field, constr
 
 from ._base import NamedEnergyBaseModel
 
@@ -8,7 +7,7 @@ from ._base import NamedEnergyBaseModel
 class WallSetAbridged(BaseModel):
     """A set of constructions for wall assemblies."""
 
-    type: Enum('WallSetAbridged', {'type': 'WallSetAbridged'})
+    type: constr(regex='^WallSetAbridged$') = 'WallSetAbridged'
 
     interior_construction: str = Field(
         default=None,
@@ -38,7 +37,7 @@ class WallSetAbridged(BaseModel):
 class FloorSetAbridged(BaseModel):
     """A set of constructions for floor assemblies."""
 
-    type: Enum('FloorSetAbridged', {'type': 'FloorSetAbridged'})
+    type: constr(regex='^FloorSetAbridged$') = 'FloorSetAbridged'
 
     interior_construction: str = Field(
         default=None,
@@ -68,7 +67,7 @@ class FloorSetAbridged(BaseModel):
 class RoofCeilingSetAbridged(BaseModel):
     """A set of constructions for roof and ceiling assemblies."""
 
-    type: Enum('RoofCeilingSetAbridged', {'type': 'RoofCeilingSetAbridged'})
+    type: constr(regex='^RoofCeilingSetAbridged$') = 'RoofCeilingSetAbridged'
 
     interior_construction: str = Field(
         default=None,
@@ -98,7 +97,7 @@ class RoofCeilingSetAbridged(BaseModel):
 class ApertureSetAbridged(BaseModel):
     """A set of constructions for aperture assemblies."""
 
-    type: Enum('ApertureSetAbridged', {'type': 'ApertureSetAbridged'})
+    type: constr(regex='^ApertureSetAbridged$') = 'ApertureSetAbridged'
 
     interior_construction: str = Field(
         default=None,
@@ -138,7 +137,7 @@ class ApertureSetAbridged(BaseModel):
 class DoorSetAbridged(BaseModel):
     """A set of constructions for door assemblies."""
 
-    type: Enum('DoorSetAbridged', {'type': 'DoorSetAbridged'})
+    type: constr(regex='^DoorSetAbridged$') = 'DoorSetAbridged'
 
     interior_construction: str = Field(
         default=None,
@@ -184,7 +183,7 @@ class DoorSetAbridged(BaseModel):
 class ConstructionSetAbridged(NamedEnergyBaseModel):
     """A set of constructions for different surface types and boundary conditions."""
 
-    type: Enum('ConstructionSetAbridged', {'type': 'ConstructionSetAbridged'})
+    type: constr(regex='^ConstructionSetAbridged$') = 'ConstructionSetAbridged'
 
     wall_set: WallSetAbridged = Field(
         default=None,

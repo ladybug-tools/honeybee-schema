@@ -1,5 +1,5 @@
 """Simulation Parameter Schema"""
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, constr
 from typing import Union
 from enum import Enum
 from ..datetime import Date
@@ -10,7 +10,7 @@ from ._base import NamedEnergyBaseModel
 class DryBulbCondition(BaseModel):
     """Used to specify dry bulb conditions on a design day."""
 
-    type: Enum('DryBulbCondition', {'type': 'DryBulbCondition'})
+    type: constr(regex='^DryBulbCondition$') = 'DryBulbCondition'
 
     dry_bulb_max: float = Field(
         ...,
@@ -37,7 +37,7 @@ class HumidityTypes(str, Enum):
 class HumidityCondition(BaseModel):
     """Used to specify humidity conditions on a design day."""
 
-    type: Enum('HumidityCondition', {'type': 'HumidityCondition'})
+    type: constr(regex='^HumidityCondition$') = 'HumidityCondition'
 
     humidity_type: HumidityTypes
 
@@ -67,7 +67,7 @@ class HumidityCondition(BaseModel):
 class WindCondition(BaseModel):
     """Used to specify wind conditions on a design day."""
 
-    type: Enum('WindCondition', {'type': 'WindCondition'})
+    type: constr(regex='^WindCondition$') = 'WindCondition'
 
     wind_speed: float = Field(
         ...,
@@ -87,7 +87,7 @@ class WindCondition(BaseModel):
 class ASHRAEClearSky(BaseModel):
     """Used to specify sky conditions on a design day."""
 
-    type: Enum('ASHRAEClearSky', {'type': 'ASHRAEClearSky'})
+    type: constr(regex='^ASHRAEClearSky$') = 'ASHRAEClearSky'
 
     date: Date = Field(
         ...,
@@ -112,7 +112,7 @@ class ASHRAEClearSky(BaseModel):
 class ASHRAETau(BaseModel):
     """Used to specify sky conditions on a design day."""
 
-    type: Enum('ASHRAETau', {'type': 'ASHRAETau'})
+    type: constr(regex='^ASHRAETau$') = 'ASHRAETau'
 
     date: Date = Field(
         ...,
@@ -157,7 +157,7 @@ class DesignDayTypes(str, Enum):
 class DesignDay(NamedEnergyBaseModel):
     """An object representing design day conditions."""
 
-    type: Enum('DesignDay', {'type': 'DesignDay'})
+    type: constr(regex='^DesignDay$') = 'DesignDay'
 
     day_type: DesignDayTypes
 

@@ -11,16 +11,14 @@
     },
     "run_period": {
         "type": "RunPeriod",
-        "start_date": {
-            "month": 1,
-            "day": 1,
-            "type": "Date"
-        },
-        "end_date": {
-            "month": 12,
-            "day": 31,
-            "type": "Date"
-        },
+        "start_date": [
+            1,
+            1
+        ],
+        "end_date": [
+            12,
+            31
+        ],
         "start_day_of_week": "Sunday"
     },
     "timestep": 6,

@@ -148,10 +148,10 @@
         1.0
     ],
     "timestep": 6,
-    "start_date": {
-        "month": 6,
-        "day": 21
-    },
+    "start_date": [
+        6,
+        21
+    ],
     "placeholder_value": 0.0,
     "interpolate": false,
     "schedule_type_limit": "Fractional"

@@ -1,10 +1,10 @@
 """Simulation Parameter Schema"""
-from pydantic import BaseModel, Field, validator, constr
+from pydantic import BaseModel, Field, validator, root_validator, constr
 from typing import List
 from enum import Enum
 
+from ._base import DatedBaseModel
 from .designday import DesignDay
-from ..datetime import Date
 
 
 class ReportingFrequency(str, Enum):
@@ -128,34 +128,97 @@ class DaysOfWeek(str, Enum):
     saturday = 'Saturday'
 
 
-class DaylightSavingTime(BaseModel):
+class DaylightSavingTime(DatedBaseModel):
     """Used to describe the daylight savings time for the simulation."""
 
     type: constr(regex='^DaylightSavingTime$') = 'DaylightSavingTime'
 
-    start_date: Date
+    start_date: List[int] = Field(
+        [3, 12],
+        min_items=2,
+        max_items=3,
+        description='A list of two integers for [month, day], representing the date '
+            'for the start of daylight savings time. Default: 12 Mar (daylight savings '
+            'in the US in 2017).'
+    )
 
-    end_date: Date
+    @validator('start_date')
+    def check_start_date(cls, v):
+        return cls.check_date(v)
+
+    end_date: List[int] = Field(
+        [11, 5],
+        min_items=2,
+        max_items=3,
+        description='A list of two integers for [month, day], representing the date '
+            'for the end of daylight savings time. Default: 5 Nov (daylight savings '
+            'in the US in 2017).'
+    )
+
+    @validator('end_date')
+    def check_end_date(cls, v):
+        return cls.check_date(v)
 
 
-class RunPeriod(BaseModel):
+class RunPeriod(DatedBaseModel):
     """Used to describe the time period over which to run the simulation."""
 
     type: constr(regex='^RunPeriod$') = 'RunPeriod'
 
-    start_date: Date
+    start_date: List[int] = Field(
+        [1, 1],
+        min_items=2,
+        max_items=2,
+        description='A list of two integers for [month, day], representing the date '
+            'for the start of the run period. Must be before the end date.'
+    )
 
-    end_date: Date
 
-    start_day_of_week: DaysOfWeek = DaysOfWeek.sunday
+    end_date: List[int] = Field(
+        [12, 31],
+        min_items=2,
+        max_items=2,
+        description='A list of two integers for [month, day], representing the date '
+            'for the end of the run period. Must be after the start date.'
+    )
 
-    holidays: List[Date] = Field(
-        default=None
+    start_day_of_week: DaysOfWeek = Field(
+        default=DaysOfWeek.sunday,
+        description='Text for the day of the week on which the simulation starts.'
+    )
+
+    holidays: List[List[int]] = Field(
+        default=None,
+        description='A list of lists where each sub-list consists of two integers '
+            'for [month, day], representing a date which is a holiday within the '
+            'simulation. If None, no holidays are applied.'
     )
 
     daylight_savings_time: DaylightSavingTime = Field(
-        default=None
+        default=None,
+        description='A DaylightSavingTime to dictate the start and end dates '
+            'of daylight saving time. If None, no daylight saving time is applied '
+            'to the simulation.'
     )
+
+    leap_year: bool = Field(
+        default=False,
+        description='Boolean noting whether the simulation will be run for a leap year.'
+    )
+
+    @root_validator
+    def chack_dates(cls, values):
+        """Check that all of the input dates are valid."""
+        start_date = values.get('start_date')
+        end_date = values.get('end_date')
+        holidays = values.get('holidays')
+        leap_year = values.get('leap_year')
+        cls.check_date(start_date, leap_year)
+        cls.check_date(end_date, leap_year)
+        if holidays is not None:
+            for hol in holidays:
+                cls.check_date(hol, leap_year)
+        return values
 
 
 class SizingParameter(BaseModel):

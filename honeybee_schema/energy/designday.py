@@ -1,8 +1,8 @@
 """Simulation Parameter Schema"""
-from pydantic import BaseModel, Field, constr
-from typing import Union
+from pydantic import BaseModel, Field, constr, validator
+from typing import Union, List
 from enum import Enum
-from ..datetime import Date
+import datetime
 
 from ._base import NamedEnergyBaseModel
 
@@ -84,15 +84,45 @@ class WindCondition(BaseModel):
     )
 
 
-class ASHRAEClearSky(BaseModel):
+class _SkyCondition(BaseModel):
+    """Used to specify sky conditions on a design day."""
+    
+    date: List[int] = Field(
+        ...,
+        min_items=2,
+        max_items=3,
+        description='A list of two integers for [month, day], representing the date '
+            'for the day of the year on which the design day occurs.'
+            'A third integer may be added to denote whether the date should be '
+            're-serialized for a leap year (it should be a 1 in this case).'
+    )
+
+    @validator('date')
+    def check_date(cls, v):
+        "Ensure valid date."
+        if len(v) == 3 and v[2]:
+            try:
+                datetime.date(2016, v[0] , v[1])
+            except ValueError:
+                raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
+        else:
+            try:
+                datetime.date(2017, v[0] , v[1])
+            except ValueError:
+                raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
+        return v
+    
+    daylight_savings: bool = Field(
+        default=False,
+        description='Boolean to indicate whether daylight savings time is active '
+            'on the design day.'
+    )
+
+
+class ASHRAEClearSky(_SkyCondition):
     """Used to specify sky conditions on a design day."""
 
     type: constr(regex='^ASHRAEClearSky$') = 'ASHRAEClearSky'
-
-    date: Date = Field(
-        ...,
-        description='Date for the day of the year on which the design day occurs.'
-    )
 
     clearness: float = Field(
         ...,
@@ -102,22 +132,11 @@ class ASHRAEClearSky(BaseModel):
             'irradinace to correct for factors like elevation above sea level.'
     )
 
-    daylight_savings: bool = Field(
-        default=False,
-        description='Boolean to indicate whether daylight savings time is active '
-            'on the design day.'
-    )
 
-
-class ASHRAETau(BaseModel):
+class ASHRAETau(_SkyCondition):
     """Used to specify sky conditions on a design day."""
 
     type: constr(regex='^ASHRAETau$') = 'ASHRAETau'
-
-    date: Date = Field(
-        ...,
-        description='Date for the day of the year on which the design day occurs.'
-    )
 
     tau_b: float = Field(
         ...,
@@ -131,12 +150,6 @@ class ASHRAETau(BaseModel):
         ge=0,
         le=3,
         description='Value for the diffuse optical depth. Typically found in .stat files.'
-    )
-
-    daylight_savings: bool = Field(
-        default=False,
-        description='Boolean to indicate whether daylight savings time is active '
-            'on the design day.'
     )
 
 

@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/ladybug-tools-in2/honeybee-schema.svg?branch=master)](https://travis-ci.org/ladybug-tools-in2/honeybee-schema)
 [![Coverage Status](https://coveralls.io/repos/github/ladybug-tools-in2/honeybee-schema/badge.svg?branch=master)](https://coveralls.io/github/ladybug-tools-in2/honeybee-schema)
 
-[![Python 2.7](https://img.shields.io/badge/python-2.7-green.svg)](https://www.python.org/downloads/release/python-270/) [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 
 # honeybee-schema
 

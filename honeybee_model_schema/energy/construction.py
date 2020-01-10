@@ -1,7 +1,6 @@
 """Construction Schema"""
 from pydantic import BaseModel, Field, constr
 from typing import List, Union
-from enum import Enum
 
 from ._base import NamedEnergyBaseModel
 from .material import EnergyMaterial, EnergyMaterialNoMass, \
@@ -13,8 +12,7 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
 class WindowConstructionAbridged(NamedEnergyBaseModel):
     """Construction for window objects (Aperture, Door)."""
 
-    type: Enum('WindowConstructionAbridged', {
-               'type': 'WindowConstructionAbridged'})
+    type: constr(regex='^WindowConstructionAbridged$') = 'WindowConstructionAbridged'
 
     layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
@@ -28,8 +26,7 @@ class WindowConstructionAbridged(NamedEnergyBaseModel):
 class WindowConstruction(WindowConstructionAbridged):
     """Construction for window objects (Aperture, Door)."""
 
-    type: Enum('WindowConstruction', {
-               'type': 'WindowConstruction'})
+    type: constr(regex='^WindowConstruction$') = 'WindowConstruction'
 
     materials: List[
         Union[
@@ -49,8 +46,7 @@ class WindowConstruction(WindowConstructionAbridged):
 class OpaqueConstructionAbridged(NamedEnergyBaseModel):
     """Construction for opaque objects (Face, Shade, Door)."""
 
-    type: Enum('OpaqueConstructionAbridged', {
-               'type': 'OpaqueConstructionAbridged'})
+    type: constr(regex='^OpaqueConstructionAbridged$') = 'OpaqueConstructionAbridged'
 
     layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
@@ -64,8 +60,7 @@ class OpaqueConstructionAbridged(NamedEnergyBaseModel):
 class OpaqueConstruction(OpaqueConstructionAbridged):
     """Construction for opaque objects (Face, Shade, Door)."""
 
-    type: Enum('OpaqueConstruction', {
-               'type': 'OpaqueConstruction'})
+    type: constr(regex='^OpaqueConstruction$') = 'OpaqueConstruction'
 
     materials: List[Union[EnergyMaterial, EnergyMaterialNoMass]] = Field(
         ...,
@@ -79,8 +74,7 @@ class OpaqueConstruction(OpaqueConstructionAbridged):
 class ShadeConstruction(NamedEnergyBaseModel):
     """Construction for Shade objects."""
 
-    type: Enum('ShadeConstruction', {
-               'type': 'ShadeConstruction'})
+    type: constr(regex='^ShadeConstruction$') = 'ShadeConstruction'
 
     solar_reflectance: float = Field(
         0.2,

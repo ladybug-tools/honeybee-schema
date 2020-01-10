@@ -1,5 +1,5 @@
 """Material Schema"""
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, validator, constr
 from typing import List
 from enum import Enum
 
@@ -16,9 +16,51 @@ class Roughness(str, Enum):
     very_smooth = 'VerySmooth'
 
 
+class EnergyMaterialNoMass(NamedEnergyBaseModel):
+    """No mass opaque material representing a layer within an opaque construction.
+
+    Used when only the thermal resistance (R value) of the material is known.
+    """
+
+    type: constr(regex='^EnergyMaterialNoMass$') = 'EnergyMaterialNoMass'
+
+    r_value: float = Field(
+        ...,
+        ge=0.001,
+        description='The thermal resistance (R-value) of the material layer [m2-K/W].'
+    )
+
+    roughness: Roughness = Roughness.medium_rough
+
+    thermal_absorptance: float = Field(
+        0.9,
+        gt=0,
+        le=0.99999,
+        description='Fraction of incident long wavelength radiation that is absorbed by'
+            ' the material. Default value is 0.9.'
+    )
+
+    solar_absorptance: float = Field(
+        0.7,
+        ge=0,
+        le=1,
+        description='Fraction of incident solar radiation absorbed by the material.'
+        ' Default value is 0.7.'
+    )
+
+    visible_absorptance: float = Field(
+        0.7,
+        ge=0,
+        le=1,
+        description='Fraction of incident visible wavelength radiation absorbed by the'
+        ' material. Default value is 0.7.'
+    )
+
+
 class EnergyMaterial(NamedEnergyBaseModel):
     """Opaque material representing a layer within an opaque construction."""
-    type: Enum('EnergyMaterial', {'type': 'EnergyMaterial'})
+
+    type: constr(regex='^EnergyMaterial$') = 'EnergyMaterial'
 
     roughness: Roughness = Roughness.medium_rough
 
@@ -72,44 +114,145 @@ class EnergyMaterial(NamedEnergyBaseModel):
     )
 
 
-class EnergyMaterialNoMass(NamedEnergyBaseModel):
-    """No mass opaque material representing a layer within an opaque construction.
+class EnergyWindowMaterialSimpleGlazSys(NamedEnergyBaseModel):
+    """Describe an entire glazing system rather than individual layers.
 
-    Used when only the thermal resistance (R value) of the material is known.
+    Used when only very limited information is available on the glazing layers or when
+    specific performance levels are being targeted.
     """
 
-    type: Enum('EnergyMaterialNoMass', {'type': 'EnergyMaterialNoMass'})
+    type: constr(regex='^EnergyWindowMaterialSimpleGlazSys$') = \
+        'EnergyWindowMaterialSimpleGlazSys'
 
-    r_value: float = Field(
+    u_factor: float = Field(
         ...,
-        ge=0.001,
-        description='The thermal resistance (R-value) of the material layer [m2-K/W].'
+        gt=0,
+        le=5.8,
+        description='Used to describe the value for window system U-Factor, or overall'
+        ' heat transfer coefficient in W/(m2-K).'
     )
 
-    roughness: Roughness = Roughness.medium_rough
+    shgc: float = Field(
+        ...,
+        gt=0,
+        lt=1,
+        description='Unitless  quantity describing Solar Heat Gain Coefficient for'
+        ' normal incidence and vertical orientation.'
+    )
 
-    thermal_absorptance: float = Field(
+    vt: float = Field(
+        0.54,
+        gt=0,
+        lt=1,
+        description='The fraction of visible light falling on the window that makes it'
+        ' through the glass at normal incidence.'
+    )
+
+
+class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
+    """Describe a single glass pane corresponding to a layer in a window construction."""
+
+    type: constr(regex='^EnergyWindowMaterialGlazing$') = 'EnergyWindowMaterialGlazing'
+
+    thickness: float = Field(
+        0.003,
+        gt=0,
+        description='The surface-to-surface of the glass in meters. Default value is'
+        ' 0.003.'
+    )
+
+    solar_transmittance: float = Field(
+        0.85,
+        ge=0,
+        le=1,
+        description='Transmittance of solar radiation through the glass at normal'
+        ' incidence. Default value is 0.85 for clear glass.'
+    )
+
+    solar_reflectance: float = Field(
+        0.075,
+        ge=0,
+        le=1,
+        description='Reflectance of solar radiation off of the front side of the glass'
+        ' at normal incidence, averaged over the solar spectrum. Default value is 0.075'
+        ' for clear glass.'
+    )
+
+    solar_reflectance_back: float = Field(
+        default=None,
+        description='Reflectance of solar radiation off of the back side of the glass at'
+        ' normal incidence, averaged over the solar spectrum.'
+    )
+
+    visible_transmittance: float = Field(
+        0.9,
+        ge=0,
+        le=1,
+        description='Transmittance of visible light through the glass at normal incidence.'
+        ' Default value is 0.9 for clear glass.'
+    )
+
+    visible_reflectance: float = Field(
+        0.075,
+        ge=0,
+        le=1,
+        description='Reflectance of visible light off of the front side of the glass at'
+        ' normal incidence. Default value is 0.075 for clear glass.'
+    )
+
+    visible_reflectance_back: float = Field(
+        default=None,
+        ge=0,
+        le=1,
+        description='Reflectance of visible light off of the back side of the glass at'
+        ' normal incidence averaged over the solar spectrum and weighted by the response'
+        ' of the human eye.'
+    )
+
+    infrared_transmittance: float = Field(
+        0,
+        ge=0,
+        le=1,
+        description='Long-wave transmittance at normal incidence.'
+    )
+
+    emissivity: float = Field(
+        0.84,
+        ge=0,
+        le=1,
+        description='Infrared hemispherical emissivity of the front (outward facing)'
+        ' side of the glass.  Default value is 0.84, which is typical for clear glass'
+        ' without a low-e coating.'
+    )
+
+    emissivity_back: float = Field(
+        0.84,
+        ge=0,
+        le=1,
+        description='Infrared hemispherical emissivity of the back (inward facing) side'
+        ' of the glass.  Default value is 0.84, which is typical for clear glass without'
+        ' a low-e coating.'
+    )
+
+    conductivity: float = Field(
         0.9,
         gt=0,
-        le=0.99999,
-        description='Fraction of incident long wavelength radiation that is absorbed by'
-            ' the material. Default value is 0.9.'
+        description='Thermal conductivity of the glass in W/(m-K). Default value is 0.9,'
+        ' which is  typical for clear glass without a low-e coating.'
     )
 
-    solar_absorptance: float = Field(
-        0.7,
-        ge=0,
-        le=1,
-        description='Fraction of incident solar radiation absorbed by the material.'
-        ' Default value is 0.7.'
+    dirt_correction: float = Field(
+        1,
+        description='Factor that corrects for the presence of dirt on the glass. A'
+        ' default value of 1 indicates the glass is clean.'
     )
 
-    visible_absorptance: float = Field(
-        0.7,
-        ge=0,
-        le=1,
-        description='Fraction of incident visible wavelength radiation absorbed by the'
-        ' material. Default value is 0.7.'
+    solar_diffusing: bool = Field(
+        False,
+        description='Takes values True and False. If False (default), the beam solar radiation'
+        ' incident on the glass is transmitted as beam radiation with no diffuse component.'
+        'If True, the beam  solar radiation incident on the glass is transmitted as '
+        'hemispherical diffuse radiation with no beam component.'
     )
 
 
@@ -126,7 +269,7 @@ class EnergyWindowMaterialGas(NamedEnergyBaseModel):
     Can be combined with EnergyWindowMaterialGlazing to make multi-pane windows.
     """
 
-    type: Enum('EnergyWindowMaterialGas', {'type': 'EnergyWindowMaterialGas'})
+    type: constr(regex='^EnergyWindowMaterialGas$') = 'EnergyWindowMaterialGas'
 
     gas_type: GasType = GasType.air
 
@@ -137,11 +280,47 @@ class EnergyWindowMaterialGas(NamedEnergyBaseModel):
     )
 
 
+class GasTypeAndFraction(BaseModel):
+
+    gas_type: GasType
+
+    gas_fraction: float = Field(
+        ...,
+        gt=0,
+        lt=1
+    )
+
+
+class EnergyWindowMaterialGasMixture(NamedEnergyBaseModel):
+    """Create a mixture of two to four different gases to fill the panes of multiple
+    pane windows."""
+
+    type: constr(regex='^EnergyWindowMaterialGasMixture$') = \
+        'EnergyWindowMaterialGasMixture'
+
+    thickness: float = Field(
+        ...,
+        description='The thickness of the gas mixture layer in meters.'
+    )
+
+    gas_type_fraction: List[GasTypeAndFraction] = Field(
+        ...,
+        description='List of gases and their fractions in a mixture.'
+    )
+
+    @validator('gas_type_fraction')
+    def check_sum(cls, v):
+        total = sum(f.gas_fraction for f in v)
+        if total != 1:
+            raise ValueError('Sum of gas fractions must be 1.')
+        return v
+
+
 class EnergyWindowMaterialGasCustom(NamedEnergyBaseModel):
     """Create single layer of custom gas."""
 
-    type: Enum('EnergyWindowMaterialGasCustom', {
-               'type': 'EnergyWindowMaterialGasCustom'})
+    type: constr(regex='^EnergyWindowMaterialGasCustom$') = \
+        'EnergyWindowMaterialGasCustom'
 
     thickness: float = Field(
         0.0125,
@@ -210,74 +389,123 @@ class EnergyWindowMaterialGasCustom(NamedEnergyBaseModel):
     )
 
 
-class GasTypeAndFraction(BaseModel):
+class EnergyWindowMaterialShade (NamedEnergyBaseModel):
+    """This object specifies the properties of window shade materials."""
 
-    gas_type: GasType
+    type: constr(regex='^EnergyWindowMaterialShade$') = 'EnergyWindowMaterialShade'
 
-    gas_fraction: float = Field(
-        ...,
-        gt=0,
-        lt=1
+    solar_transmittance: float = Field(
+        0.4,
+        ge=0,
+        lt=1,
+        description='The transmittance averaged over the solar spectrum. It is assumed'
+        ' independent of incidence angle. Default value is 0.4.'
     )
 
+    solar_reflectance: float = Field(
+        0.5,
+        ge=0,
+        lt=1,
+        description='The reflectance averaged over the solar spectrum. It us assumed'
+        ' same on both sides of shade and independent of incidence angle. Default'
+        ' value is 0.5'
+    )
 
-class EnergyWindowMaterialGasMixture(NamedEnergyBaseModel):
-    """Create a mixture of two to four different gases to fill the panes of multiple
-    pane windows."""
+    visible_transmittance: float = Field(
+        0.4,
+        ge=0,
+        lt=1,
+        description='The transmittance averaged over the solar spectrum and weighted by'
+        ' the response of the human eye. It is assumed independent of incidence angle.'
+        ' Default value is 0.4.'
+    )
 
-    type: Enum('EnergyWindowMaterialGasMixture', {
-        'type': 'EnergyWindowMaterialGasMixture'})
+    visible_reflectance: float = Field(
+        0.4,
+        ge=0,
+        lt=1,
+        description='The transmittance averaged over the solar spectrum and weighted by'
+        ' the response of the human eye. It is assumed independent of incidence angle.'
+        ' Default value is 0.4'
+    )
+
+    emissivity: float = Field(
+        0.9,
+        gt=0,
+        lt=1,
+        description='The effective long-wave infrared hemispherical emissivity. It is'
+        ' assumed same on both sides of shade. Default value is 0.9.'
+    )
+
+    infrared_transmittance: float = Field(
+        0,
+        ge=0,
+        lt=1,
+        description='The effective long-wave transmittance. It is assumed independent'
+        ' of incidence angle. Default value is 0.'
+    )
 
     thickness: float = Field(
-        ...,
-        description='The thickness of the gas mixture layer in meters.'
-    )
-
-    gas_type_fraction: List[GasTypeAndFraction] = Field(
-        ...,
-        description='List of gases and their fractions in a mixture.'
-    )
-
-    @validator('gas_type_fraction')
-    def check_sum(cls, v):
-        total = sum(f.gas_fraction for f in v)
-        if total != 1:
-            raise ValueError('Sum of gas fractions must be 1.')
-        return v
-
-
-class EnergyWindowMaterialSimpleGlazSys(NamedEnergyBaseModel):
-    """Describe an entire glazing system rather than individual layers.
-
-    Used when only very limited information is available on the glazing layers or when
-    specific performance levels are being targeted.
-    """
-
-    type: Enum('EnergyWindowMaterialSimpleGlazSys', {
-               'type': 'EnergyWindowMaterialSimpleGlazSys'})
-
-    u_factor: float = Field(
-        ...,
+        0.005,
         gt=0,
-        le=5.8,
-        description='Used to describe the value for window system U-Factor, or overall'
-        ' heat transfer coefficient in W/(m2-K).'
+        description='The thickness of the shade material in meters. Default value is'
+        ' 0.005.'
     )
 
-    shgc: float = Field(
-        ...,
+    conductivity: float = Field(
+        0.1,
         gt=0,
-        lt=1,
-        description='Unitless  quantity describing Solar Heat Gain Coefficient for'
-        ' normal incidence and vertical orientation.'
+        description='The conductivity of the shade material in W/(m-K). Default value'
+        ' is 0.1.'
     )
 
-    vt: float = Field(
-        0.54,
-        gt=0,
-        lt=1,
-        description='The fraction of visible light falling on the window that makes it'
-        ' through the glass at normal incidence.'
+    distance_to_glass: float = Field(
+        0.05,
+        ge=0.001,
+        le=1,
+        description='The distance from shade to adjacent glass in meters. Default value'
+        ' is 0.05'
+    )
+
+    top_opening_multiplier: float = Field(
+        0.5,
+        ge=0,
+        le=1,
+        description='The effective area for air flow at the top of the shade, divided by'
+        ' the horizontal area between glass and shade. Default value is 0.5.'
+    )
+
+    bottom_opening_multiplier: float = Field(
+        0.5,
+        ge=0,
+        le=1,
+        description='The effective area for air flow at the bottom of the shade, divided'
+        ' by the horizontal area between glass and shade. Default value is 0.5.'
+    )
+
+    left_opening_multiplier: float = Field(
+        0.5,
+        ge=0,
+        le=1,
+        description='The effective area for air flow at the left side of the shade,'
+        ' divided by the vertical area between glass and shade. Default value is 0.5.'
+    )
+
+    right_opening_multiplier: float = Field(
+        0.5,
+        ge=0,
+        le=1,
+        description='The effective area for air flow at the right side of the shade,'
+        ' divided by the vertical area between glass and shade. Default value is 0.5.'
+    )
+
+    airflow_permeability: float = Field(
+        0,
+        ge=0,
+        le=0.8,
+        description='The fraction of the shade surface that is open to air flow.'
+        ' If air cannot pass through the shade material, airflow_permeability = 0.'
+        ' Default value is 0.'
     )
 
 
@@ -295,8 +523,7 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
     Window blind properties consist of flat, equally-spaced slats.
     """
 
-    type: Enum('EnergyWindowMaterialBlind', {
-               'type': 'EnergyWindowMaterialBlind'})
+    type: constr(regex='^EnergyWindowMaterialBlind$') = 'EnergyWindowMaterialBlind'
 
     slat_orientation: SlatOrientation = SlatOrientation.horizontal
 
@@ -515,235 +742,6 @@ class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
         ge=0,
         le=180,
         description='The maximum allowed slat angle in degrees. The default value is 180.'
-    )
-
-
-class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
-    """Describe a single glass pane corresponding to a layer in a window construction."""
-
-    type: Enum('EnergyWindowMaterialGlazing', {
-               'type': 'EnergyWindowMaterialGlazing'})
-
-    thickness: float = Field(
-        0.003,
-        gt=0,
-        description='The surface-to-surface of the glass in meters. Default value is'
-        ' 0.003.'
-    )
-
-    solar_transmittance: float = Field(
-        0.85,
-        ge=0,
-        le=1,
-        description='Transmittance of solar radiation through the glass at normal'
-        ' incidence. Default value is 0.85 for clear glass.'
-    )
-
-    solar_reflectance: float = Field(
-        0.075,
-        ge=0,
-        le=1,
-        description='Reflectance of solar radiation off of the front side of the glass'
-        ' at normal incidence, averaged over the solar spectrum. Default value is 0.075'
-        ' for clear glass.'
-    )
-
-    solar_reflectance_back: float = Field(
-        default=None,
-        description='Reflectance of solar radiation off of the back side of the glass at'
-        ' normal incidence, averaged over the solar spectrum.'
-    )
-
-    visible_transmittance: float = Field(
-        0.9,
-        ge=0,
-        le=1,
-        description='Transmittance of visible light through the glass at normal incidence.'
-        ' Default value is 0.9 for clear glass.'
-    )
-
-    visible_reflectance: float = Field(
-        0.075,
-        ge=0,
-        le=1,
-        description='Reflectance of visible light off of the front side of the glass at'
-        ' normal incidence. Default value is 0.075 for clear glass.'
-    )
-
-    visible_reflectance_back: float = Field(
-        default=None,
-        ge=0,
-        le=1,
-        description='Reflectance of visible light off of the back side of the glass at'
-        ' normal incidence averaged over the solar spectrum and weighted by the response'
-        ' of the human eye.'
-    )
-
-    infrared_transmittance: float = Field(
-        0,
-        ge=0,
-        le=1,
-        description='Long-wave transmittance at normal incidence.'
-    )
-
-    emissivity: float = Field(
-        0.84,
-        ge=0,
-        le=1,
-        description='Infrared hemispherical emissivity of the front (outward facing)'
-        ' side of the glass.  Default value is 0.84, which is typical for clear glass'
-        ' without a low-e coating.'
-    )
-
-    emissivity_back: float = Field(
-        0.84,
-        ge=0,
-        le=1,
-        description='Infrared hemispherical emissivity of the back (inward facing) side'
-        ' of the glass.  Default value is 0.84, which is typical for clear glass without'
-        ' a low-e coating.'
-    )
-
-    conductivity: float = Field(
-        0.9,
-        gt=0,
-        description='Thermal conductivity of the glass in W/(m-K). Default value is 0.9,'
-        ' which is  typical for clear glass without a low-e coating.'
-    )
-
-    dirt_correction: float = Field(
-        1,
-        description='Factor that corrects for the presence of dirt on the glass. A'
-        ' default value of 1 indicates the glass is clean.'
-    )
-
-    solar_diffusing: bool = Field(
-        False,
-        description='Takes values True and False. If False (default), the beam solar radiation'
-        ' incident on the glass is transmitted as beam radiation with no diffuse component.'
-        'If True, the beam  solar radiation incident on the glass is transmitted as '
-        'hemispherical diffuse radiation with no beam component.'
-    )
-
-
-class EnergyWindowMaterialShade (NamedEnergyBaseModel):
-    """This object specifies the properties of window shade materials."""
-
-    type: Enum('EnergyWindowMaterialShade', {
-               'type': 'EnergyWindowMaterialShade'})
-
-    solar_transmittance: float = Field(
-        0.4,
-        ge=0,
-        lt=1,
-        description='The transmittance averaged over the solar spectrum. It is assumed'
-        ' independent of incidence angle. Default value is 0.4.'
-    )
-
-    solar_reflectance: float = Field(
-        0.5,
-        ge=0,
-        lt=1,
-        description='The reflectance averaged over the solar spectrum. It us assumed'
-        ' same on both sides of shade and independent of incidence angle. Default'
-        ' value is 0.5'
-    )
-
-    visible_transmittance: float = Field(
-        0.4,
-        ge=0,
-        lt=1,
-        description='The transmittance averaged over the solar spectrum and weighted by'
-        ' the response of the human eye. It is assumed independent of incidence angle.'
-        ' Default value is 0.4.'
-    )
-
-    visible_reflectance: float = Field(
-        0.4,
-        ge=0,
-        lt=1,
-        description='The transmittance averaged over the solar spectrum and weighted by'
-        ' the response of the human eye. It is assumed independent of incidence angle.'
-        ' Default value is 0.4'
-    )
-
-    emissivity: float = Field(
-        0.9,
-        gt=0,
-        lt=1,
-        description='The effective long-wave infrared hemispherical emissivity. It is'
-        ' assumed same on both sides of shade. Default value is 0.9.'
-    )
-
-    infrared_transmittance: float = Field(
-        0,
-        ge=0,
-        lt=1,
-        description='The effective long-wave transmittance. It is assumed independent'
-        ' of incidence angle. Default value is 0.'
-    )
-
-    thickness: float = Field(
-        0.005,
-        gt=0,
-        description='The thickness of the shade material in meters. Default value is'
-        ' 0.005.'
-    )
-
-    conductivity: float = Field(
-        0.1,
-        gt=0,
-        description='The conductivity of the shade material in W/(m-K). Default value'
-        ' is 0.1.'
-    )
-
-    distance_to_glass: float = Field(
-        0.05,
-        ge=0.001,
-        le=1,
-        description='The distance from shade to adjacent glass in meters. Default value'
-        ' is 0.05'
-    )
-
-    top_opening_multiplier: float = Field(
-        0.5,
-        ge=0,
-        le=1,
-        description='The effective area for air flow at the top of the shade, divided by'
-        ' the horizontal area between glass and shade. Default value is 0.5.'
-    )
-
-    bottom_opening_multiplier: float = Field(
-        0.5,
-        ge=0,
-        le=1,
-        description='The effective area for air flow at the bottom of the shade, divided'
-        ' by the horizontal area between glass and shade. Default value is 0.5.'
-    )
-
-    left_opening_multiplier: float = Field(
-        0.5,
-        ge=0,
-        le=1,
-        description='The effective area for air flow at the left side of the shade,'
-        ' divided by the vertical area between glass and shade. Default value is 0.5.'
-    )
-
-    right_opening_multiplier: float = Field(
-        0.5,
-        ge=0,
-        le=1,
-        description='The effective area for air flow at the right side of the shade,'
-        ' divided by the vertical area between glass and shade. Default value is 0.5.'
-    )
-
-    airflow_permeability: float = Field(
-        0,
-        ge=0,
-        le=0.8,
-        description='The fraction of the shade surface that is open to air flow.'
-        ' If air cannot pass through the shade material, airflow_permeability = 0.'
-        ' Default value is 0.'
     )
 
 

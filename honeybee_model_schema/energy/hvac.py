@@ -1,5 +1,5 @@
 """Ideal Air Schema"""
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, validator, constr
 from typing import Union
 from enum import Enum
 
@@ -11,7 +11,8 @@ class EconomizerType(str, Enum):
 
 class IdealAirSystem(BaseModel):
     """ Provides a model for an ideal HVAC system."""
-    type: Enum('IdealAirSystem', {'type': 'IdealAirSystem'})
+
+    type: constr(regex='^IdealAirSystem$') = 'IdealAirSystem'
 
     heating_limit: Union[float, str] = Field(
         'autosize',

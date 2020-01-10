@@ -1,5 +1,5 @@
 """Simulation Parameter Schema"""
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, validator, constr
 from typing import List
 from enum import Enum
 
@@ -18,7 +18,7 @@ class ReportingFrequency(str, Enum):
 class SimulationOutput(BaseModel):
     """Lists the outputs to report from the simulation and their format."""
 
-    type: Enum('SimulationOutput', {'type': 'SimulationOutput'})
+    type: constr(regex='^SimulationOutput$') = 'SimulationOutput'
 
     reporting_frequency: ReportingFrequency = ReportingFrequency.hourly
 
@@ -49,7 +49,7 @@ class SimulationOutput(BaseModel):
 class SimulationControl(BaseModel):
     """Used to specify which types of calculations to run."""
 
-    type: Enum('SimulationControl', {'type': 'SimulationControl'})
+    type: constr(regex='^SimulationControl$') = 'SimulationControl'
 
     do_zone_sizing: bool = Field(
         default=True,
@@ -95,7 +95,7 @@ class CalculationMethod(str, Enum):
 class ShadowCalculation(BaseModel):
     """Used to describe settings for EnergyPlus shadow calculation."""
 
-    type: Enum('ShadowCalculation', {'type': 'ShadowCalculation'})
+    type: constr(regex='^ShadowCalculation$') = 'ShadowCalculation'
 
     solar_distribution: SolarDistribution = \
         SolarDistribution.full_interior_and_exterior_with_reflections
@@ -130,7 +130,8 @@ class DaysOfWeek(str, Enum):
 
 class DaylightSavingTime(BaseModel):
     """Used to describe the daylight savings time for the simulation."""
-    type: Enum('DaylightSavingTime', {'type': 'DaylightSavingTime'})
+
+    type: constr(regex='^DaylightSavingTime$') = 'DaylightSavingTime'
 
     start_date: Date
 
@@ -140,7 +141,7 @@ class DaylightSavingTime(BaseModel):
 class RunPeriod(BaseModel):
     """Used to describe the time period over which to run the simulation."""
 
-    type: Enum('RunPeriod', {'type': 'RunPeriod'})
+    type: constr(regex='^RunPeriod$') = 'RunPeriod'
 
     start_date: Date
 
@@ -160,7 +161,7 @@ class RunPeriod(BaseModel):
 class SizingParameter(BaseModel):
     """Used to specify heating and cooling sizing criteria and safety factors."""
 
-    type: Enum('SizingParameter', {'type': 'SizingParameter'})
+    type: constr(regex='^SizingParameter$') = 'SizingParameter'
 
     design_days: List[DesignDay] = Field(
         default=None,
@@ -186,7 +187,7 @@ class SizingParameter(BaseModel):
 class SimulationParameter(BaseModel):
     """The complete set of EnergyPlus Simulation Settings."""
 
-    type: Enum('SimulationParameter', {'type': 'SimulationParameter'})
+    type: constr(regex='^SimulationParameter$') = 'SimulationParameter'
 
     output: SimulationOutput = Field(
         default=None,

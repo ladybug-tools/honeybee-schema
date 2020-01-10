@@ -1,6 +1,5 @@
 """Programtype Schema"""
-from pydantic import Field
-from enum import Enum
+from pydantic import Field, constr
 
 from ._base import NamedEnergyBaseModel
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
@@ -9,7 +8,7 @@ from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
 
 class ProgramTypeAbridged(NamedEnergyBaseModel):
 
-    type: Enum('ProgramTypeAbridged', {'type': 'ProgramTypeAbridged'})
+    type: constr(regex='^ProgramTypeAbridged$') = 'ProgramTypeAbridged'
     
     people: PeopleAbridged = Field(
         default = None,

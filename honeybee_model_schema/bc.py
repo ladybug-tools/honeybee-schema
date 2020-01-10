@@ -1,12 +1,11 @@
 """Boundary condition schemas."""
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, constr
 from typing import List, Union
-from enum import Enum
 
 
 class Outdoors(BaseModel):
 
-    type: Enum('Outdoors', {'type': 'Outdoors'})
+    type: constr(regex='^Outdoors$') = 'Outdoors'
 
     sun_exposure: bool = Field(
         True,
@@ -28,7 +27,7 @@ class Outdoors(BaseModel):
 
 class Surface(BaseModel):
 
-    type: Enum('Surface', {'type': 'Surface'})
+    type: constr(regex='^Surface$') = 'Surface'
 
     boundary_condition_objects: List[str] = Field(
         ...,
@@ -47,9 +46,9 @@ class Surface(BaseModel):
 
 class Ground(BaseModel):
 
-    type: Enum('Ground', {'type': 'Ground'})
+    type: constr(regex='^Ground$') = 'Ground'
 
 
 class Adiabatic(BaseModel):
 
-    type: Enum('Adiabatic', {'type': 'Adiabatic'})
+    type: constr(regex='^Adiabatic$') = 'Adiabatic'

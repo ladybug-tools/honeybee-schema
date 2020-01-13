@@ -1,4 +1,4 @@
-from honeybee_schema.energy.hvac import IdealAirSystem
+from honeybee_schema.energy.hvac import IdealAirSystemAbridged
 import os
 
 # target folder where all of the samples live
@@ -8,4 +8,4 @@ target_folder = os.path.join(root, 'honeybee_schema', 'samples')
 
 def test_detailed_air():
     file_path = os.path.join(target_folder, 'ideal_air_detailed.json')
-    IdealAirSystem.parse_file(file_path)
+    IdealAirSystemAbridged.parse_file(file_path)

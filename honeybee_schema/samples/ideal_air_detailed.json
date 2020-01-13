@@ -1,9 +1,14 @@
 {
-    "type": "IdealAirSystem",
-    "heating_limit": 2000.0,
-    "cooling_limit": 3500.0,
+    "type": "IdealAirSystemAbridged",
+    "name": "Passive House HVAC System",
     "economizer_type": "DifferentialEnthalpy",
     "demand_controlled_ventilation": true,
     "sensible_heat_recovery": 0.75,
-    "latent_heat_recovery": 0.6
+    "latent_heat_recovery": 0.6,
+    "heating_air_temperature": 40.0,
+    "cooling_air_temperature": 15.0,
+    "heating_limit": 2000.0,
+    "cooling_limit": 3500.0,
+    "heating_availability": "HVAC Control",
+    "cooling_availability": "HVAC Control"
 }

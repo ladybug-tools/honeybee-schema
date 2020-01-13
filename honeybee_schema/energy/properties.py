@@ -15,7 +15,7 @@ from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, InfiltrationAbridged, VentilationAbridged, SetpointAbridged
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
     ScheduleFixedIntervalAbridged
-from .hvac import IdealAirSystem
+from .hvac import IdealAirSystemAbridged
 
 
 class ShadeEnergyPropertiesAbridged(BaseModel):
@@ -110,8 +110,13 @@ class RoomEnergyPropertiesAbridged(BaseModel):
             'for the Room. If None, the Room will have no loads or setpoints.'
     )
 
-    hvac: IdealAirSystem = Field(
-        default=None
+    hvac: str = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description='An optional name of a HVAC system (such as an IdealAirSystem) '
+            'that specifies how the Room is conditioned. If None, it will be assumed '
+            'that the Room is not conditioned.'
     )
 
     people: PeopleAbridged = Field(
@@ -165,11 +170,6 @@ class ModelEnergyProperties(BaseModel):
 
     terrain_type: TerrianTypes = TerrianTypes.city
 
-    construction_sets: List[ConstructionSetAbridged] = Field(
-        default=None,
-        description='List of all ConstructionSets in the Model.'
-    )
-
     global_construction_set: str = Field(
         default=None,
         min_length=1,
@@ -177,6 +177,11 @@ class ModelEnergyProperties(BaseModel):
         description='Name for the ConstructionSet to be used for all objects lacking '
             'their own construction or a parent Room construction_set. This '
             'ConstructionSet must appear under the Model construction_sets.'
+    )
+
+    construction_sets: List[ConstructionSetAbridged] = Field(
+        default=None,
+        description='List of all ConstructionSets in the Model.'
     )
 
     constructions: List[Union[OpaqueConstructionAbridged, WindowConstructionAbridged,
@@ -197,15 +202,20 @@ class ModelEnergyProperties(BaseModel):
             'materials needed to make the Model constructions.'
     )
 
-    program_types: List[ProgramTypeAbridged] = Field(
+    hvacs: List[IdealAirSystemAbridged] = Field(
         default=None,
         description='List of all ProgramTypes in the Model.'
+    )
+
+    program_types: List[ProgramTypeAbridged] = Field(
+        default=None,
+        description='List of all HVAC systems in the Model.'
     )
 
     schedules: List[Union[ScheduleRulesetAbridged, ScheduleFixedIntervalAbridged]] = Field(
         default=None,
         description='A list of all unique schedules in the model. This includes '
-            'schedules across all ProgramTypes, Rooms, and Shades.'
+            'schedules across all HVAC systems, ProgramTypes, Rooms, and Shades.'
     )
 
     schedule_type_limits: List[ScheduleTypeLimit] = Field(

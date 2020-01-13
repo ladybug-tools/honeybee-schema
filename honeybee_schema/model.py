@@ -295,6 +295,15 @@ class Room(NamedBaseModel):
             '(Radiance, EnergyPlus).'
     )
 
+    multiplier: int = Field(
+        1,
+        ge=1,
+        description='Get or set an integer noting how many times this Room is repeated. '
+            'Multipliers are used to speed up the calculation when similar Rooms are '
+            'repeated more than once. Essentially, a given simulation with the '
+            'Room is run once and then the result is mutliplied by the multiplier.'
+    )
+
 
 class ModelProperties(BaseModel):
 

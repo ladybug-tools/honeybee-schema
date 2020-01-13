@@ -1,7 +1,10 @@
 """Ideal Air Schema"""
-from pydantic import BaseModel, Field, validator, constr
+from pydantic import Field, validator, root_validator, constr
 from typing import Union
 from enum import Enum
+
+from ._base import NamedEnergyBaseModel
+
 
 class EconomizerType(str, Enum):
     no_economizer = 'NoEconomizer'
@@ -9,49 +12,111 @@ class EconomizerType(str, Enum):
     differential_enthalpy = 'DifferentialEnthalpy'
 
 
-class IdealAirSystem(BaseModel):
+class IdealAirSystemAbridged(NamedEnergyBaseModel):
     """ Provides a model for an ideal HVAC system."""
 
-    type: constr(regex='^IdealAirSystem$') = 'IdealAirSystem'
+    type: constr(regex='^IdealAirSystemAbridged$') = 'IdealAirSystemAbridged'
 
-    heating_limit: Union[float, str] = Field(
-        'autosize',
-        ge=0
+    economizer_type: EconomizerType = Field(
+        EconomizerType.differential_dry_bulb,
+        description='Text to indicate the type of air-side economizer used on the '
+            'ideal air system. Economizers will mix in a greater amount of outdoor '
+            'air to cool the zone (rather than running the cooling system) when '
+            'the zone needs cooling and the outdoor air is cooler than the zone.'
     )
-
-    @validator('heating_limit')
-    def check_string_heating_limit(cls, v):
-        if not isinstance(v ,float) and v != 'autosize' and v != 'NoLimit':
-            raise ValueError( 'This is not a valid entry for heating_limit')
-
-
-    cooling_limit: Union[float, str] = Field(
-        'autosize',
-        ge=0
-    )
-
-    @validator('cooling_limit')
-    def check_string_cooling_limit(cls, v):
-        if not isinstance(v, float) and v != 'autosize' and v != 'NoLimit':
-            raise ValueError( 'This is not a valid entry for cooling_limit')
-
-    economizer_type: EconomizerType = EconomizerType.differential_dry_bulb
 
     demand_control_ventilation: bool = Field(
-        False
+        False,
+        description='Boolean to note whether demand controlled ventilation should '
+            'be used on the system, which will vary the amount of ventilation air '
+            'according to the occupancy schedule of the zone.'
     )
 
     sensible_heat_recovery: float = Field(
         0,
         ge=0,
-        le=1
+        le=1,
+        description='A number between 0 and 1 for the effectiveness of sensible '
+            'heat recovery within the system.'
     )
 
     latent_heat_recovery: float = Field(
         0,
         ge=0,
-        le=1
+        le=1,
+        description='A number between 0 and 1 for the effectiveness of latent '
+            'heat recovery within the system.'
     )
+
+    heating_air_temperature: float = Field(
+        50,
+        gt=0,
+        lt=100,
+        description='A number for the maximum heating supply air temperature [C].'
+    )
+
+    cooling_air_temperature: float = Field(
+        13,
+        gt=-100,
+        lt=50,
+        description='A number for the minimum cooling supply air temperature [C].'
+    )
+
+    heating_limit: Union[float, str] = Field(
+        'autosize',
+        ge=0,
+        description='A number for the maximum heating capacity in Watts. This '
+            'can also be the text "autosize" to indicate that the capacity should '
+            'be determined during the EnergyPlus sizing calculation. This can also '
+            'be the text "NoLimit" to indicate no upper limit to the heating capacity. '
+            'Note that setting this to None will trigger the default ("autosize").'
+    )
+
+    @validator('heating_limit')
+    def check_heating_limit(cls, v):
+        if v is not None and not isinstance(v ,float) and v != 'autosize':
+            raise ValueError( '"{}" is not a valid entry for heating_limit'.format(v))
+
+
+    cooling_limit: Union[float, str] = Field(
+        'autosize',
+        ge=0,
+        description='A number for the maximum cooling capacity in Watts. This '
+            'can also be the text "autosize" to indicate that the capacity should '
+            'be determined during the sizing calculation. This can also '
+            'be the text "NoLimit" to indicate no upper limit to the cooling capacity. '
+            'Note that setting this to None will trigger the default ("autosize").'
+    )
+
+    @validator('cooling_limit')
+    def check_cooling_limit(cls, v):
+        if v is not None and not isinstance(v, float) and v != 'autosize':
+            raise ValueError( '"{}" is not a valid entry for cooling_limit'.format(v))
+
+    heating_availability: str = Field(
+        None,
+        min_length=1,
+        max_length=100,
+        description='An optional name of a schedule to set the availability of '
+            'heating over the course of the simulation.'
+    )
+
+    cooling_availability: str = Field(
+        None,
+        min_length=1,
+        max_length=100,
+        description='An optional name of a schedule to set the availability of '
+            'cooling over the course of the simulation.'
+    )
+
+    @root_validator
+    def check_heating_temp_gt_cooling_temp(cls, values):
+        "Ensure that the heating_air_temperature > cooling_air_temperature."
+        heat_temp = values.get('heating_air_temperature')
+        cool_temp = values.get('cooling_air_temperature')
+        assert heat_temp > cool_temp, 'IdealAirSystem heating_air_temperature must be ' \
+            'greater than cooling_air_temperature.'
+        return values
 
 
 if __name__ == '__main__':

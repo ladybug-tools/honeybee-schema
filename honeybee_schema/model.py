@@ -71,9 +71,10 @@ class Face3D(BaseModel):
 
     @validator('holes')
     def check_num_items_holes(cls, v):
-        for pt_list in v:
-            for pt in pt_list:
-                assert len(pt) == 3, 'Number of floats must be 3 for (x, y, z).'
+        if v is not None:
+            for pt_list in v:
+                for pt in pt_list:
+                    assert len(pt) == 3, 'Number of floats must be 3 for (x, y, z).'
         return v
 
 
@@ -264,7 +265,9 @@ class RoomPropertiesAbridged(BaseModel):
 
     type: constr(regex='^RoomPropertiesAbridged$') = 'RoomPropertiesAbridged'
 
-    energy: RoomEnergyPropertiesAbridged
+    energy: RoomEnergyPropertiesAbridged = Field(
+        default=None
+    )
 
 
 class Room(NamedBaseModel):
@@ -277,7 +280,7 @@ class Room(NamedBaseModel):
         description='Faces that together form the closed volume of a room.'
     )
 
-    indoor_shades:  List[Shade] = Field(
+    indoor_shades: List[Shade] = Field(
         default=None,
         description='Shades assigned to the interior side of this object '
             '(eg. partitions, tables).'
@@ -298,7 +301,7 @@ class Room(NamedBaseModel):
     multiplier: int = Field(
         1,
         ge=1,
-        description='Get or set an integer noting how many times this Room is repeated. '
+        description='An integer noting how many times this Room is repeated. '
             'Multipliers are used to speed up the calculation when similar Rooms are '
             'repeated more than once. Essentially, a given simulation with the '
             'Room is run once and then the result is mutliplied by the multiplier.'
@@ -309,7 +312,9 @@ class ModelProperties(BaseModel):
 
     type: constr(regex='^ModelProperties$') = 'ModelProperties'
 
-    energy: ModelEnergyProperties
+    energy: ModelEnergyProperties = Field(
+        default=None
+    )
 
 
 class Model(NamedBaseModel):

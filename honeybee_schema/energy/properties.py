@@ -23,16 +23,18 @@ class ShadeEnergyPropertiesAbridged(BaseModel):
     type: constr(regex='^ShadeEnergyPropertiesAbridged$') = \
         'ShadeEnergyPropertiesAbridged'
 
-    transmittance_schedule: str = Field(
+    construction:  str = Field(
         default=None,
         min_length=1,
         max_length=100,
         description='Name of a ShadeConstruction to set the reflectance and '
             'specularity of the Shade. If None, the construction is set by the'
-            'parent Room construction_set or the Model global_construction_set.'
+            'parent Room construction_set, the Model global_construction_set or '
+            '(in the case fo an orphaned shade) the EnergyPlus default of 0.2 '
+            'diffuse reflectance.'
     )
 
-    construction:  str = Field(
+    transmittance_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -131,12 +133,12 @@ class RoomEnergyPropertiesAbridged(BaseModel):
 
     electric_equipment: ElectricEquipmentAbridged = Field(
         default=None,
-        description='ElectricEquipment object to describe the equipment usage.'
+        description='ElectricEquipment object to describe the electric equipment usage.'
     )
 
     gas_equipment: GasEquipmentAbridged = Field(
         default=None,
-        description='GasEquipment object to describe the equipment usage.'
+        description='GasEquipment object to describe the gas equipment usage.'
     )
 
     infiltration: InfiltrationAbridged = Field(
@@ -168,7 +170,11 @@ class ModelEnergyProperties(BaseModel):
     type: constr(regex='^ModelEnergyProperties$') = \
         'ModelEnergyProperties'
 
-    terrain_type: TerrianTypes = TerrianTypes.city
+    terrain_type: TerrianTypes = Field(
+        default=TerrianTypes.city,
+        description='Text for the terrain in which the model sits. This is used '
+            'to determine the wind profile over the height of the rooms.'
+    )
 
     global_construction_set: str = Field(
         default=None,
@@ -202,14 +208,14 @@ class ModelEnergyProperties(BaseModel):
             'materials needed to make the Model constructions.'
     )
 
-    hvacs: List[IdealAirSystemAbridged] = Field(
+    hvacs: List[Union[IdealAirSystemAbridged]] = Field(
         default=None,
-        description='List of all ProgramTypes in the Model.'
+        description='List of all HVAC systems in the Model.'
     )
 
     program_types: List[ProgramTypeAbridged] = Field(
         default=None,
-        description='List of all HVAC systems in the Model.'
+        description='List of all ProgramTypes in the Model.'
     )
 
     schedules: List[Union[ScheduleRulesetAbridged, ScheduleFixedIntervalAbridged]] = Field(

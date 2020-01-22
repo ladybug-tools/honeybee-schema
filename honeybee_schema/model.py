@@ -1,5 +1,5 @@
 """Model schema and the 5 geometry objects that define it."""
-from pydantic import BaseModel, Field, validator, constr
+from pydantic import BaseModel, Field, validator, constr, conlist
 from typing import List, Union
 from enum import Enum
 
@@ -31,7 +31,7 @@ class Plane(BaseModel):
 
     x: List[float] = Field(
         default=None,
-        description="Plane x-axis as 3 (x, y, z) values",
+        description="Plane x-axis as 3 (x, y, z) values. If None, it is autocalculated.",
         min_items=3,
         max_items=3
     )
@@ -42,14 +42,15 @@ class Face3D(BaseModel):
 
     type: constr(regex='^Face3D$') = 'Face3D'
 
-    boundary: List[List[float]] = Field(
+    boundary: List[conlist(float, min_items=3, max_items=3)] = Field(
         ...,
+        min_items=3,
         description='A list of points representing the outer boundary vertices of '
             'the face. The list should include at least 3 points and each point '
             'should be a list of 3 (x, y, z) values.'
     )
 
-    holes: List[List[List[float]]] = Field(
+    holes: List[conlist(conlist(float, min_items=3, max_items=3), min_items=3)] = Field(
         default=None,
         description='Optional list of lists with one list for each hole in the face.'
             'Each hole should be a list of at least 3 points and each point a list '
@@ -62,20 +63,6 @@ class Face3D(BaseModel):
         description='Optional Plane indicating the plane in which the face exists.'
             'If None, the plane will usually be derived from the boundary points.'
     )
-
-    @validator('boundary')
-    def check_num_items(cls, v):
-        for i in v:
-            assert len(i) == 3, 'Number of floats must be 3 for (x, y, z).'
-        return v
-
-    @validator('holes')
-    def check_num_items_holes(cls, v):
-        if v is not None:
-            for pt_list in v:
-                for pt in pt_list:
-                    assert len(pt) == 3, 'Number of floats must be 3 for (x, y, z).'
-        return v
 
 
 class ShadePropertiesAbridged(BaseModel):

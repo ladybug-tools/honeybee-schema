@@ -1,5 +1,5 @@
 """Simulation Parameter Schema"""
-from pydantic import BaseModel, Field, validator, root_validator, constr
+from pydantic import BaseModel, Field, validator, root_validator, constr, conlist
 from typing import List
 from enum import Enum
 
@@ -187,7 +187,7 @@ class RunPeriod(DatedBaseModel):
         description='Text for the day of the week on which the simulation starts.'
     )
 
-    holidays: List[List[int]] = Field(
+    holidays: List[conlist(int, min_items=2, max_items=2)] = Field(
         default=None,
         description='A list of lists where each sub-list consists of two integers '
             'for [month, day], representing a date which is a holiday within the '
@@ -273,7 +273,7 @@ class SimulationParameter(BaseModel):
     )
 
     @validator('timestep')
-    def check_values(cls, v):
+    def check_timestep(cls, v):
         valid_timesteps = (1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60)
         assert v in valid_timesteps, \
             '"{}" is not a valid timestep. Choose from {}'.format(v, valid_timesteps)

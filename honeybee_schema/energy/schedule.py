@@ -1,5 +1,5 @@
 """Schedule Type Limit Schema"""
-from pydantic import BaseModel, Field, validator, root_validator, constr
+from pydantic import BaseModel, Field, validator, root_validator, constr, conlist
 from typing import List
 from enum import Enum
 import datetime
@@ -61,7 +61,7 @@ class ScheduleDay(NamedEnergyBaseModel):
             'The length of this list must match the length of the times list.'
     )
 
-    times: List[List[float]] = Field(
+    times: List[conlist(float, min_items=2, max_items=2)] = Field(
         [0, 0],
         description='A list of lists with each sub-list possesing 2 values for '
             '[hour, minute]. The length of the master list must match the length '
@@ -73,13 +73,6 @@ class ScheduleDay(NamedEnergyBaseModel):
             'of times as the "time of beginning" is a different convention than '
             'EnergyPlus, which uses "time until".'
     )
-
-    @validator('times')
-    def check_len_times(cls, v):
-        for i in v:
-            assert len(i) == 2, \
-                'Schedule times must each have two values for [hour, minute].'
-        return v
     
     @root_validator
     def check_times_values_match(cls, values): 

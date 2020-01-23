@@ -81,6 +81,25 @@ def get_openapi(
         }
         tags.append(tag)
 
+        # sort properties order: put required parameters at begining of the list
+        s = schemas[name]
+        if not 'required' in s:
+            continue
+        properties = s['properties']
+        required = s['required']
+
+        sorted_props = {}
+        optional = {}
+        for prop, value in properties.items():
+            if prop in required:
+                sorted_props[prop] = value
+            else:
+                optional[prop] = value
+
+        sorted_props.update(optional)
+
+        s['properties'] = sorted_props
+
     tag_names.sort()
     open_api['tags'] = tags
     open_api['x-tagGroups'][0]['tags'] = tag_names

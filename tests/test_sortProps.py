@@ -1,8 +1,7 @@
 
 from honeybee_schema.model import Model
 from pydantic.schema import schema
-import pytest
-
+import pytest 
 
 def test_sort_required_params():
     definitions = schema([Model], ref_prefix='#/components/schemas/')
@@ -13,25 +12,23 @@ def test_sort_required_params():
 
     for name in schema_names:
         s = schemas[name]
+        if not 'required' in s:
+            continue
+        properties = s['properties']
+        required = s['required']
 
-        if 'required' in s:
-            props = s['properties']
-            required = s['required']
+        sorted_props = {}
+        optional = {}
+        for prop, value in properties.items():
+            if prop in required:
+                sorted_props[prop] = value
+            else:
+                optional[prop] = value
 
-            propKeys = props.keys()
+        sorted_props.update(optional)
 
-            sortedProps = {}
-            optional = {}
-            for r in propKeys:
-                if r in required:
-                    sortedProps[r] = props[r]
-                else:
-                    optional[r] = props[r]
+        if not list(sorted_props.keys())[0:len(required)] == required:
+            pytest.fail("Class %s: in this object, not all required parameters are at top of the list"%name)
 
-            sortedProps.update(optional)
-
-            s['properties'] = sortedProps
-
-    return schemas
 
 

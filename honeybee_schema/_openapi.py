@@ -83,22 +83,22 @@ def get_openapi(
 
         # sort properties order: put required parameters at begining of the list
         s = schemas[name]
-        if 'required' in s:
-            props = s['properties']
-            required = s['required']
+        if not 'required' in s:
+            continue
+        properties = s['properties']
+        required = s['required']
 
-            propKeys = props.keys()
-            sortedProps = {}
-            optional = {}
-            for r in propKeys:
-                if r in required:
-                    sortedProps[r] = props[r]
-                else:
-                    optional[r] = props[r]
+        sorted_props = {}
+        optional = {}
+        for prop, value in properties.items():
+            if prop in required:
+                sorted_props[prop] = value
+            else:
+                optional[prop] = value
 
-            sortedProps.update(optional)
+        sorted_props.update(optional)
 
-            s['properties'] = sortedProps
+        s['properties'] = sorted_props
 
     tag_names.sort()
     open_api['tags'] = tags
@@ -107,6 +107,7 @@ def get_openapi(
     open_api['components']['schemas'] = schemas
 
     return open_api
+
 
 
 if __name__ == '__main__':

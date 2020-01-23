@@ -1,5 +1,5 @@
 """Model schema and the 5 geometry objects that define it."""
-from pydantic import BaseModel, Field, validator, constr, conlist
+from pydantic import BaseModel, Field, validator, root_validator, constr, conlist
 from typing import List, Union
 from enum import Enum
 
@@ -246,6 +246,15 @@ class Face(NamedBaseModel):
         description='Extension properties for particular simulation engines '
             '(Radiance, EnergyPlus).'
     )
+
+    @root_validator
+    def chack_air_walls_are_interior(cls, values):
+        """Check that all air wall faces have a Surface boundary condition."""
+        face_type, bc = values.get('face_type'), values.get('boundary_condition')
+        if face_type == 'AirWall':
+            assert bc.type == 'Surface', \
+                'AirWalls must have "Surface" boundary conditions.'
+        return values
 
 
 class RoomPropertiesAbridged(BaseModel):

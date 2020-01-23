@@ -61,7 +61,7 @@ class ScheduleDay(NamedEnergyBaseModel):
             'The length of this list must match the length of the times list.'
     )
 
-    times: List[conlist(float, min_items=2, max_items=2)] = Field(
+    times: List[conlist(int, min_items=2, max_items=2)] = Field(
         [0, 0],
         description='A list of lists with each sub-list possesing 2 values for '
             '[hour, minute]. The length of the master list must match the length '

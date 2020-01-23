@@ -9,3 +9,5 @@ test.db
 test.py
 out.txt
 docs/*.json
+.eggs
+.pytest_cache

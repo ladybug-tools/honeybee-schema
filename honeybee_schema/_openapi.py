@@ -109,6 +109,5 @@ def get_openapi(
     return open_api
 
 
-
 if __name__ == '__main__':
     get_openapi()

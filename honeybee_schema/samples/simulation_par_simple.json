@@ -19,7 +19,8 @@
             12,
             31
         ],
-        "start_day_of_week": "Sunday"
+        "start_day_of_week": "Sunday",
+        "leap_year": false
     },
     "timestep": 6,
     "simulation_control": {

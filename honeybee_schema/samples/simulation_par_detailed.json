@@ -31,6 +31,7 @@
             21
         ],
         "start_day_of_week": "Monday",
+        "leap_year": false,
         "holidays": [
             [
                 1,

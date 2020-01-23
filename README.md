@@ -49,3 +49,18 @@ python -m pytest tests/
 ```python
 python ./docs.py
 ```
+
+5. Generate Sample Files:
+```python
+python ./scripts/export_samples.py
+```
+
+6. Validate a Model:
+```python
+python ./validate_model.py ./honeybee_schema/samples/model_complete_multi_zone_office.json
+```
+Note that `./honeybee_schema/samples/model_complete_multi_zone_office.json` should be
+replaced with the path to the specific model JSON that you would like to validate.
+
+Note that you should have honeybee and its extensions installed in order to run
+a complete validation that includes re-serialization of the Model.

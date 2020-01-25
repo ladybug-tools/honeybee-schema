@@ -1,0 +1,2 @@
+[run]
+omit = tests/*, scripts/*, docs/*, honeybee_schema/_openapi.py, docs.py

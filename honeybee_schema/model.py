@@ -123,6 +123,17 @@ class Door(NamedBaseModel):
             'to an opaque door.'
     )
 
+    indoor_shades: List[Shade] = Field(
+        default=None,
+        description='Shades assigned to the interior side of this object.'
+    )
+
+    outdoor_shades: List[Shade] = Field(
+        default=None,
+        description='Shades assigned to the exterior side of this object '
+            '(eg. entryway awning).'
+    )
+
     properties: DoorPropertiesAbridged = Field(
         ...,
         description='Extension properties for particular simulation engines '

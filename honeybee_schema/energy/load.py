@@ -148,7 +148,7 @@ class _EquipmentBase(NamedEnergyBaseModel):
         ' by electric equipment. Default value is 0.'
     )
 
-    latent_fraction: Union[float, str] = Field(
+    latent_fraction: float = Field(
         0,
         ge=0,
         le=1,

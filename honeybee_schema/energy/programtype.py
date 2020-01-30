@@ -22,7 +22,7 @@ class ProgramTypeAbridged(NamedEnergyBaseModel):
             'If None, no lighting will be assumed for the program.'
     )
 
-    electrical_equipment: ElectricEquipmentAbridged = Field(
+    electric_equipment: ElectricEquipmentAbridged = Field(
         default = None,
         description='ElectricEquipment to describe the usage of electric equipment '
             'within the program. If None, no electric equipment will be assumed.'

@@ -191,11 +191,7 @@ class DesignDay(NamedEnergyBaseModel):
         description='A WindCondition describing wind conditions on the design day.'
     )
 
-    sky_condition: Union[ASHRAEClearSky, ASHRAETau] = Field(
-        ...,
-        description='A SkyCondition (either ASHRAEClearSky or ASHRAETau) describing '
-            'solar irradiance conditions on the design day.'
-    )
+    sky_condition: Union[ASHRAEClearSky, ASHRAETau]
 
 
 if __name__ == '__main__':

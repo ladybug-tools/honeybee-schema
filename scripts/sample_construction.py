@@ -55,7 +55,7 @@ def construction_window_blinds(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'honeybee_schema', 'samples')
+sample_directory = os.path.join(master_dir, 'samples')
 
 construction_opaque_door(sample_directory)
 construction_opaque_roof(sample_directory)

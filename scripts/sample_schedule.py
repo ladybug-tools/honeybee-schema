@@ -6,7 +6,10 @@ from honeybee_energy.schedule.day import ScheduleDay
 from honeybee_energy.schedule.rule import ScheduleRule
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
+from honeybee_energy.lib.schedules import schedule_by_name
 import honeybee_energy.lib.scheduletypelimits as schedule_types
+
+import honeybee_energy_standards  # make sure the standards data is there
 
 from ladybug.dt import Date, Time
 
@@ -66,13 +69,8 @@ def schedule_primary_school_occupancy(directory):
         json.dump(schedule.to_dict(True), fp, indent=4)
 
 
-def schedule_ruleset_office_occupancy():
-    filename = './scripts/standards/OpenStudio_Standards_schedule.json'
-    if filename:
-        with open(filename, 'r') as f:
-            data_store = json.load(f)
-    office_sch = ScheduleRuleset.from_standards_dict(data_store['Large Office Bldg Occ'])
-
+def schedule_ruleset_office_occupancy(directory):
+    office_sch = schedule_by_name('OfficeLarge BLDG_OCC_SCH')
     dest_file = os.path.join(directory, 'schedule_ruleset_office_occupancy.json')
     with open(dest_file, 'w') as fp:
         json.dump(office_sch.to_dict(True), fp, indent=4)
@@ -125,9 +123,10 @@ def schedule_fixedinterval_leap_year(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'honeybee_schema', 'samples')
+sample_directory = os.path.join(master_dir, 'samples')
 
 scheduletypelimit_temperature(sample_directory)
+schedule_ruleset_office_occupancy(sample_directory)
 schedule_ruleset_simple_repeating(sample_directory)
 schedule_primary_school_occupancy(sample_directory)
 schedule_fixedinterval_increasing_single_day(sample_directory)

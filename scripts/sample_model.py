@@ -334,7 +334,7 @@ def model_energy_properties_office(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'honeybee_schema', 'samples')
+sample_directory = os.path.join(master_dir, 'samples')
 
 model_complete_single_zone_office(sample_directory)
 model_complete_multi_zone_office(sample_directory)

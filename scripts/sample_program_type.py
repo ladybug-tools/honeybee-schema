@@ -49,7 +49,7 @@ def program_type_patient_room(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'honeybee_schema', 'samples')
+sample_directory = os.path.join(master_dir, 'samples')
 
 program_type_plenum(sample_directory)
 program_type_office(sample_directory)

@@ -8,7 +8,7 @@ import json
 
 # target folder where all of the samples live
 root = os.path.dirname(os.path.dirname(__file__))
-target_folder = os.path.join(root, 'honeybee_schema', 'samples')
+target_folder = os.path.join(root, 'samples')
 
 
 def test_construction_window_double():

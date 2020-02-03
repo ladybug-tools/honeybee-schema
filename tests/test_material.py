@@ -14,73 +14,73 @@ root = os.path.dirname(os.path.dirname(__file__))
 target_folder = os.path.join(root, 'honeybee_schema', 'samples')
 
 
-def test_windowglazing():
-    file_path = os.path.join(target_folder, 'window_glazing.json')
-    EnergyWindowMaterialGlazing.parse_file(file_path)
-
-
-def test_window_blind():
-    file_path = os.path.join(target_folder, 'window_blind.json')
-    EnergyWindowMaterialBlind.parse_file(file_path)
-
-
-def test_energymaterial_gypsum():
-    file_path = os.path.join(target_folder, 'material_gypsum.json')
+def test_material_opaque_gypsum():
+    file_path = os.path.join(target_folder, 'material_opaque_gypsum.json')
     EnergyMaterial.parse_file(file_path)
 
 
-def test_energymaterial_stucco():
-    file_path = os.path.join(target_folder, 'material_stucco.json')
+def test_material_opaque_insulation():
+    file_path = os.path.join(target_folder, 'material_opaque_insulation.json')
     EnergyMaterial.parse_file(file_path)
 
 
-def test_energymaterial_insulation():
-    file_path = os.path.join(target_folder, 'material_insulation.json')
+def test_material_opaque_concrete():
+    file_path = os.path.join(target_folder, 'material_opaque_concrete.json')
     EnergyMaterial.parse_file(file_path)
 
 
-def test_energymaterial_roofinsulation():
-    file_path = os.path.join(target_folder, 'material_roof_insulation.json')
+def test_material_opaque_brick():
+    file_path = os.path.join(target_folder, 'material_opaque_brick.json')
     EnergyMaterial.parse_file(file_path)
 
 
-def test_energymaterial_metaldecking():
-    file_path = os.path.join(target_folder, 'material_metal_decking.json')
-    EnergyMaterial.parse_file(file_path)
-
-
-def test_materialnomass():
-    file_path = os.path.join(target_folder, 'material_no_mass.json')
+def test_material_opaque_wall_gap():
+    file_path = os.path.join(target_folder, 'material_opaque_wall_gap.json')
     EnergyMaterialNoMass.parse_file(file_path)
 
 
-def test_windowgas():
-    file_path = os.path.join(target_folder, 'window_gas.json')
+def material_window_glazing_clear():
+    file_path = os.path.join(target_folder, 'material_window_glazing_clear.json')
+    EnergyWindowMaterialGlazing.parse_file(file_path)
+
+
+def material_window_glazing_lowe():
+    file_path = os.path.join(target_folder, 'material_window_glazing_lowe.json')
+    EnergyWindowMaterialGlazing.parse_file(file_path)
+
+
+def test_material_window_blind():
+    file_path = os.path.join(target_folder, 'material_window_blind.json')
+    EnergyWindowMaterialBlind.parse_file(file_path)
+
+
+def test_material_window_gas():
+    file_path = os.path.join(target_folder, 'material_window_gas.json')
     EnergyWindowMaterialGas.parse_file(file_path)
 
 
-def test_windowgasmixture():
-    file_path = os.path.join(target_folder, 'window_gas_mixture.json')
+def test_material_window_gas_mixture():
+    file_path = os.path.join(target_folder, 'material_window_gas_mixture.json')
     EnergyWindowMaterialGasMixture.parse_file(file_path)
 
 
-def test_windowgascustom():
-    file_path = os.path.join(target_folder, 'window_gas_custom.json')
+def test_material_window_gas_custom():
+    file_path = os.path.join(target_folder, 'material_window_gas_custom.json')
     EnergyWindowMaterialGasCustom.parse_file(file_path)
 
 
-def test_windowsimpleglazing():
-    file_path = os.path.join(target_folder, 'window_simpleglazing.json')
+def test_material_window_glazing_system():
+    file_path = os.path.join(target_folder, 'material_window_glazing_system.json')
     EnergyWindowMaterialSimpleGlazSys.parse_file(file_path)
 
 
-def test_windowshade():
-    file_path = os.path.join(target_folder, 'window_shade.json')
+def test_material_window_shade():
+    file_path = os.path.join(target_folder, 'material_window_shade.json')
     EnergyWindowMaterialShade.parse_file(file_path)
 
 
 def test_material_wrong():
-    file_path = os.path.join(target_folder, 'material_gypsum.json')
+    file_path = os.path.join(target_folder, 'material_opaque_gypsum.json')
     with open(file_path) as json_file:
         material_gypsum = json.load(json_file)
     wrong_name = copy(material_gypsum)
@@ -98,7 +98,7 @@ def test_material_wrong():
 
 
 def test_materialnomass_wrong():
-    file_path = os.path.join(target_folder, 'material_no_mass.json')
+    file_path = os.path.join(target_folder, 'material_opaque_wall_gap.json')
     with open(file_path) as json_file:
         material_no_mass = json.load(json_file)
     wrong_r_value = copy(material_no_mass)
@@ -112,7 +112,7 @@ def test_materialnomass_wrong():
 
 
 def test_window_simpleglaz_wrong():
-    file_path = os.path.join(target_folder, 'window_simpleglazing.json')
+    file_path = os.path.join(target_folder, 'material_window_glazing_system.json')
     with open(file_path) as json_file:
         window_simpleglazing = json.load(json_file)
     wrong_values = copy(window_simpleglazing)
@@ -125,7 +125,7 @@ def test_window_simpleglaz_wrong():
 
 
 def test_windowshade_wrong():
-    file_path = os.path.join(target_folder, 'window_shade.json')
+    file_path = os.path.join(target_folder, 'material_window_shade.json')
     with open(file_path) as json_file:
         window_shade = json.load(json_file)
     wrong_type = copy(window_shade)

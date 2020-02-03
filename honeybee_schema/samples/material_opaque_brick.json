@@ -1,0 +1,12 @@
+{
+    "type": "EnergyMaterial",
+    "name": "Generic Brick",
+    "roughness": "MediumRough",
+    "thickness": 0.1,
+    "conductivity": 0.9,
+    "density": 1920.0,
+    "specific_heat": 790.0,
+    "thermal_absorptance": 0.9,
+    "solar_absorptance": 0.65,
+    "visible_absorptance": 0.65
+}

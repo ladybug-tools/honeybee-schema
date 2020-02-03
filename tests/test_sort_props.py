@@ -3,6 +3,7 @@ from honeybee_schema.model import Model
 from honeybee_schema._openapi import get_openapi
 
 def test_sort_required_params():
+    """Check that all objects have required properties first."""
     openapi = get_openapi(
     [Model],
     title='Honeybee Model Schema',

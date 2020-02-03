@@ -1,0 +1,17 @@
+{
+    "type": "EnergyWindowMaterialGlazing",
+    "name": "Generic Low-e Glass",
+    "thickness": 0.006,
+    "solar_transmittance": 0.45,
+    "solar_reflectance": 0.36,
+    "solar_reflectance_back": 0.36,
+    "visible_transmittance": 0.71,
+    "visible_reflectance": 0.21,
+    "visible_reflectance_back": 0.21,
+    "infrared_transmittance": 0.0,
+    "emissivity": 0.84,
+    "emissivity_back": 0.047,
+    "conductivity": 1.0,
+    "dirt_correction": 1.0,
+    "solar_diffusing": false
+}

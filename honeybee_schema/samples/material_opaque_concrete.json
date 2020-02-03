@@ -1,0 +1,12 @@
+{
+    "type": "EnergyMaterial",
+    "name": "Generic LW Concrete",
+    "roughness": "MediumRough",
+    "thickness": 0.1,
+    "conductivity": 0.53,
+    "density": 1280.0,
+    "specific_heat": 840.0,
+    "thermal_absorptance": 0.9,
+    "solar_absorptance": 0.8,
+    "visible_absorptance": 0.8
+}

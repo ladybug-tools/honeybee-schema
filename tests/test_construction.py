@@ -11,41 +11,41 @@ root = os.path.dirname(os.path.dirname(__file__))
 target_folder = os.path.join(root, 'honeybee_schema', 'samples')
 
 
-def test_construction_window():
-    file_path = os.path.join(target_folder, 'construction_window.json')
+def test_construction_window_double():
+    file_path = os.path.join(target_folder, 'construction_window_double.json')
     WindowConstructionAbridged.parse_file(file_path)
 
 
-def test_construction_window2():
-    file_path = os.path.join(target_folder, 'construction_window2.json')
+def test_construction_window_triple():
+    file_path = os.path.join(target_folder, 'construction_window_triple.json')
     WindowConstructionAbridged.parse_file(file_path)
 
 
-def test_construction_window_blind():
-    file_path = os.path.join(target_folder, 'construction_window_blind.json')
+def test_construction_window_blinds():
+    file_path = os.path.join(target_folder, 'construction_window_blinds.json')
     WindowConstructionAbridged.parse_file(file_path)
 
 
-def test_construction_opaqueroof():
-    file_path = os.path.join(target_folder, 'construction_roof.json')
+def test_construction_opaque_door():
+    file_path = os.path.join(target_folder, 'construction_opaque_door.json')
     OpaqueConstructionAbridged.parse_file(file_path)
 
 
-def test_construction_opaquewall():
-    file_path = os.path.join(target_folder, 'construction_wall.json')
+def test_construction_opaque_roof():
+    file_path = os.path.join(target_folder, 'construction_opaque_roof.json')
     OpaqueConstructionAbridged.parse_file(file_path)
 
 
-def test_construction_internal_floor():
-    file_path = os.path.join(target_folder, 'construction_internal_floor.json')
+def test_construction_opaque_wall():
+    file_path = os.path.join(target_folder, 'construction_opaque_wall.json')
     OpaqueConstructionAbridged.parse_file(file_path)
 
 
 def test_length_opaque():
-    file_path = os.path.join(target_folder, 'construction_internal_floor.json')
+    file_path = os.path.join(target_folder, 'construction_opaque_wall.json')
     with open(file_path) as json_file:
-        construction_internal_floor = json.load(json_file)
-    cons_length_test = copy(construction_internal_floor)
+        construction_wall = json.load(json_file)
+    cons_length_test = copy(construction_wall)
     for i in range(10):
         cons_length_test['layers'].append('material_{}'.format(i))
     with pytest.raises(ValidationError):
@@ -55,8 +55,8 @@ def test_length_opaque():
         OpaqueConstructionAbridged.parse_obj(cons_length_test)
 
 
-def test_cons_wind():
-    file_path = os.path.join(target_folder, 'construction_window.json')
+def test_length_window():
+    file_path = os.path.join(target_folder, 'construction_window_double.json')
     with open(file_path) as json_file:
         construction_window = json.load(json_file)
     cons_length_test = copy(construction_window)

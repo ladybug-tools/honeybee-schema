@@ -1,0 +1,12 @@
+{
+    "type": "EnergyMaterial",
+    "name": "Generic Gypsum Board",
+    "roughness": "MediumSmooth",
+    "thickness": 0.0127,
+    "conductivity": 0.16,
+    "density": 800.0,
+    "specific_heat": 1090.0,
+    "thermal_absorptance": 0.9,
+    "solar_absorptance": 0.5,
+    "visible_absorptance": 0.5
+}

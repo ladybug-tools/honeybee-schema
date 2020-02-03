@@ -1,0 +1,11 @@
+{
+    "type": "OpaqueConstructionAbridged",
+    "name": "Generic Roof",
+    "layers": [
+        "Generic Roof Membrane",
+        "Generic 50mm Insulation",
+        "Generic LW Concrete",
+        "Generic Ceiling Air Gap",
+        "Generic Acoustic Tile"
+    ]
+}

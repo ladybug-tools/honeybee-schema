@@ -1,0 +1,10 @@
+{
+    "type": "WindowConstructionAbridged",
+    "name": "Triple Pane Argon",
+    "layers": [
+        "Generic Low-e Glass",
+        "Generic Window Argon Gap",
+        "Generic Low-e Glass",
+        "Generic Aluminium Blinds"
+    ]
+}

@@ -1,6 +1,0 @@
-{
-    "type": "ElectricalEquipmentAbridged",
-    "name": "Electrical Equipment Definition",
-    "watts_per_area": 12.5,
-    "schedule": "Schedule-Equipment"
-}

@@ -1,0 +1,9 @@
+{
+    "type": "EnergyMaterialNoMass",
+    "name": "Generic Wall Air Gap",
+    "r_value": 0.15,
+    "roughness": "Smooth",
+    "thermal_absorptance": 0.9,
+    "solar_absorptance": 0.7,
+    "visible_absorptance": 0.7
+}

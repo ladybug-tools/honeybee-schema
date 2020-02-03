@@ -105,7 +105,7 @@ def material_window_shade(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'honeybee_schema', 'samples')
+sample_directory = os.path.join(master_dir, 'samples')
 
 material_opaque_brick(sample_directory)
 material_opaque_concrete(sample_directory)

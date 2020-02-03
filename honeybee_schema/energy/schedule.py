@@ -5,6 +5,7 @@ from enum import Enum
 import datetime
 
 from ._base import NamedEnergyBaseModel, DatedBaseModel
+from ..altnumber import NoLimit
 
 
 class ScheduleNumericType (str, Enum):
@@ -35,14 +36,14 @@ class ScheduleTypeLimit(NamedEnergyBaseModel):
 
     type: constr(regex='^ScheduleTypeLimit$') = 'ScheduleTypeLimit'
 
-    lower_limit: float = Field(
-        default=None,
-        description='Lower limit for the schedule type is entered.'
+    lower_limit: Union[NoLimit, float] = Field(
+        default=NoLimit(),
+        description='Lower limit for the schedule type or NoLimit.'
     )
 
-    upper_limit: float = Field(
-        default=None,
-        description='Upper limit for the schedule type is entered.'
+    upper_limit: Union[NoLimit, float] = Field(
+        default=NoLimit(),
+        description='Upper limit for the schedule type or NoLimit.'
     )
 
     numeric_type: ScheduleNumericType = ScheduleNumericType.continuous

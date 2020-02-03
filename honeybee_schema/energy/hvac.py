@@ -4,6 +4,7 @@ from typing import Union
 from enum import Enum
 
 from ._base import NamedEnergyBaseModel
+from ..altnumber import NoLimit, Autosize
 
 
 class EconomizerType(str, Enum):
@@ -62,36 +63,23 @@ class IdealAirSystemAbridged(NamedEnergyBaseModel):
         description='A number for the minimum cooling supply air temperature [C].'
     )
 
-    heating_limit: Union[float, str] = Field(
-        'autosize',
+    heating_limit: Union[float, Autosize, NoLimit] = Field(
+        Autosize(),
         ge=0,
         description='A number for the maximum heating capacity in Watts. This '
-            'can also be the text "autosize" to indicate that the capacity should '
+            'can also be an Autosize object to indicate that the capacity should '
             'be determined during the EnergyPlus sizing calculation. This can also '
-            'be the text "NoLimit" to indicate no upper limit to the heating capacity. '
-            'Note that setting this to None will trigger the default ("autosize").'
+            'be a NoLimit boject to indicate no upper limit to the heating capacity.'
     )
 
-    @validator('heating_limit')
-    def check_heating_limit(cls, v):
-        if v is not None and not isinstance(v ,float) and v != 'autosize':
-            raise ValueError( '"{}" is not a valid entry for heating_limit'.format(v))
-
-
-    cooling_limit: Union[float, str] = Field(
-        'autosize',
+    cooling_limit: Union[float, Autosize, NoLimit] = Field(
+        Autosize(),
         ge=0,
         description='A number for the maximum cooling capacity in Watts. This '
-            'can also be the text "autosize" to indicate that the capacity should '
-            'be determined during the sizing calculation. This can also '
-            'be the text "NoLimit" to indicate no upper limit to the cooling capacity. '
-            'Note that setting this to None will trigger the default ("autosize").'
+            'can also be an Autosize object to indicate that the capacity should '
+            'be determined during the EnergyPlus sizing calculation. This can also '
+            'be a NoLimit boject to indicate no upper limit to the cooling capacity.'
     )
-
-    @validator('cooling_limit')
-    def check_cooling_limit(cls, v):
-        if v is not None and not isinstance(v, float) and v != 'autosize':
-            raise ValueError( '"{}" is not a valid entry for cooling_limit'.format(v))
 
     heating_availability: str = Field(
         None,

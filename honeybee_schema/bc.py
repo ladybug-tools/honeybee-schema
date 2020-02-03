@@ -2,6 +2,8 @@
 from pydantic import BaseModel, Field, constr
 from typing import List, Union
 
+from .altnumber import Autocalculate
+
 
 class Outdoors(BaseModel):
 
@@ -17,12 +19,12 @@ class Outdoors(BaseModel):
         description='A boolean noting whether the boundary is exposed to wind.'
     )
 
-    view_factor: Union[str, float] = Field(
-        'autocalculate',
+    view_factor: Union[Autocalculate, float] = Field(
+        Autocalculate(),
         ge=0,
         le=1,
         description='A number for the view factor to the ground. This can also be '
-            'the word "autocalculate" to have the view factor automatically calculated.'
+            'an Autocalculate object to have the view factor automatically calculated.'
     )
 
 class Surface(BaseModel):

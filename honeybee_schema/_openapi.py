@@ -1,3 +1,4 @@
+from pkg_resources import get_distribution
 from pydantic.schema import schema
 from typing import Dict
 
@@ -8,7 +9,7 @@ _base_open_api = {
     "servers": [],
     "info": {
         "description": "",
-        "version": "1.3.0",
+        "version": '.'.join(get_distribution('honeybee_schema').version.split('.')[:3]),
         "title": "",
         "contact": {
             "name": "Ladybug Tools",

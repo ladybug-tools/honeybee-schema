@@ -1,0 +1,13 @@
+{
+    "type": "EnergyWindowMaterialGasMixture",
+    "name": "Argon Air Mixture",
+    "thickness": 0.0125,
+    "gas_types": [
+        "Argon",
+        "Air"
+    ],
+    "gas_fractions": [
+        0.9,
+        0.1
+    ]
+}

@@ -62,7 +62,7 @@ class PeopleAbridged(NamedEnergyBaseModel):
         rad = values.get('radiant_fraction')
         latent = values.get('latent_fraction')
         if latent is not None and latent != 'autocalculate':
-            assert rad + latent < 1, \
+            assert rad + latent <= 1, \
                 'Sum of radiant and latent fractions cannot be greater than 1.'
         return values
 
@@ -117,7 +117,7 @@ class LightingAbridged(NamedEnergyBaseModel):
         return_air = values.get('return_air_fraction')
         vis = values.get('visible_fraction')
         rad = values.get('radiant_fraction')
-        assert sum((return_air, vis, rad)) < 1, \
+        assert sum((return_air, vis, rad)) <= 1, \
             'Sum of visible, radiant, and return air fractions cannot be greater than 1.'
         return values
 
@@ -171,7 +171,7 @@ class _EquipmentBase(NamedEnergyBaseModel):
         rad = values.get('radiant_fraction')
         latent = values.get('latent_fraction')
         lost = values.get('lost_fraction')
-        assert sum((rad, latent, lost)) < 1, \
+        assert sum((rad, latent, lost)) <= 1, \
             'Sum of radiant, latent, and lost fractions cannot be greater than 1.'
         return values
 

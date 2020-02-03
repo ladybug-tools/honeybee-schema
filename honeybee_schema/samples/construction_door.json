@@ -1,8 +1,0 @@
-{
-    "type": "OpaqueConstructionAbridged",
-    "name": "Exterior Door",
-    "layers": [
-        "Metal Surface",
-        "Insulation Board"
-    ]
-}

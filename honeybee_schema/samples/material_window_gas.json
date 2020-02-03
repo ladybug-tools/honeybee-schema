@@ -1,0 +1,6 @@
+{
+    "type": "EnergyWindowMaterialGas",
+    "name": "Generic Window Air Gap",
+    "thickness": 0.0127,
+    "gas_type": "Air"
+}

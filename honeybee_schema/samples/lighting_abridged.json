@@ -1,6 +1,0 @@
-{
-    "type": "LightingAbridged",
-    "name": "Generic Lighting Definition",
-    "watts_per_area": 11,
-    "schedule": "Schedule-Lighting"
-}

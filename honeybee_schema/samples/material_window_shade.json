@@ -1,0 +1,18 @@
+{
+    "type": "EnergyWindowMaterialShade",
+    "name": "White Diffusing Roller Shade",
+    "thickness": 0.005,
+    "solar_transmittance": 0.4,
+    "solar_reflectance": 0.5,
+    "visible_transmittance": 0.4,
+    "visible_reflectance": 0.4,
+    "infrared_transmittance": 0.0,
+    "emissivity": 0.9,
+    "conductivity": 0.05,
+    "distance_to_glass": 0.05,
+    "top_opening_multiplier": 0.5,
+    "bottom_opening_multiplier": 0.5,
+    "left_opening_multiplier": 0.5,
+    "right_opening_multiplier": 0.5,
+    "airflow_permeability": 0.0
+}

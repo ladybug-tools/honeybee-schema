@@ -111,6 +111,18 @@ def schedule_fixedinterval_random_annual(directory):
         json.dump(occ_sched.to_dict(True), fp, indent=4)
 
 
+def schedule_fixedinterval_leap_year(directory):
+    test_vals = [15, 15, 15, 15, 15, 15, 20, 20, 20, 20, 20, 20,
+                 20, 20, 20, 20, 20, 20, 20, 20, 15, 15, 15, 15]
+    sched = ScheduleFixedInterval(
+        'Weekly Temperature', test_vals * 7,
+        schedule_types.temperature, start_date=Date(2, 29, True))
+
+    dest_file = os.path.join(directory, 'schedule_fixedinterval_leap_year.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(sched.to_dict(True), fp, indent=4)
+
+
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
 sample_directory = os.path.join(master_dir, 'honeybee_schema', 'samples')
@@ -121,3 +133,4 @@ schedule_primary_school_occupancy(sample_directory)
 schedule_fixedinterval_increasing_single_day(sample_directory)
 schedule_fixedinterval_increasing_fine_timestep(sample_directory)
 schedule_fixedinterval_random_annual(sample_directory)
+schedule_fixedinterval_leap_year(sample_directory)

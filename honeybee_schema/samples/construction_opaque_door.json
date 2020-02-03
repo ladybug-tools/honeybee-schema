@@ -1,0 +1,9 @@
+{
+    "type": "OpaqueConstructionAbridged",
+    "name": "Generic Exterior Door",
+    "layers": [
+        "Generic Painted Metal",
+        "Generic 25mm Insulation",
+        "Generic Painted Metal"
+    ]
+}

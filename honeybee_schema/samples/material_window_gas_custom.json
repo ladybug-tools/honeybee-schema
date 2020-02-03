@@ -1,0 +1,16 @@
+{
+    "type": "EnergyWindowMaterialGasCustom",
+    "name": "CO2",
+    "thickness": 0.0125,
+    "conductivity_coeff_a": 0.0146,
+    "viscosity_coeff_a": 1.4e-05,
+    "specific_heat_coeff_a": 827.73,
+    "conductivity_coeff_b": 0.0,
+    "viscosity_coeff_b": 0.0,
+    "specific_heat_coeff_b": 0.0,
+    "conductivity_coeff_c": 0.0,
+    "viscosity_coeff_c": 0.0,
+    "specific_heat_coeff_c": 0.0,
+    "specific_heat_ratio": 1.4,
+    "molecular_weight": 44.0
+}

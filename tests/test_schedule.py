@@ -25,6 +25,12 @@ def test_ruleset_simple_repeating():
     ScheduleRulesetAbridged.parse_file(file_path)
 
 
+def test_fixedinterval_simple():
+    file_path = os.path.join(
+        target_folder, 'schedule_fixedinterval_simple.json')
+    ScheduleFixedIntervalAbridged.parse_file(file_path)
+
+
 def test_fixedinterval_increasing_fine_timestep():
     file_path = os.path.join(
         target_folder, 'schedule_fixedinterval_increasing_fine_timestep.json')
@@ -43,7 +49,7 @@ def test_fixedinterval_random_annual():
     ScheduleFixedIntervalAbridged.parse_file(file_path)
 
 
-def test_fixedinterval_simple():
+def test_fixedinterval_leap_year():
     file_path = os.path.join(
-        target_folder, 'schedule_fixedinterval_simple.json')
+        target_folder, 'schedule_fixedinterval_leap_year.json')
     ScheduleFixedIntervalAbridged.parse_file(file_path)

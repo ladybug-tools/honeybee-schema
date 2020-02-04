@@ -6,6 +6,11 @@ root = os.path.dirname(os.path.dirname(__file__))
 target_folder = os.path.join(root, 'samples')
 
 
-def test_detailed_air():
+def test_ideal_air_default():
+    file_path = os.path.join(target_folder, 'ideal_air_default.json')
+    IdealAirSystemAbridged.parse_file(file_path)
+
+
+def test_ideal_air_detailed():
     file_path = os.path.join(target_folder, 'ideal_air_detailed.json')
     IdealAirSystemAbridged.parse_file(file_path)

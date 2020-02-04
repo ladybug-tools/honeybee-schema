@@ -6,7 +6,9 @@
         "name": "2013::Hospital::ICU_PatRm_People",
         "people_per_area": 0.05381957525591208,
         "radiant_fraction": 0.3,
-        "latent_fraction": "autocalculate",
+        "latent_fraction": {
+            "type": "Autocalculate"
+        },
         "occupancy_schedule": "Hospital BLDG_OCC_EXTD_SCH",
         "activity_schedule": "Hospital ACTIVITY_SCH"
     },

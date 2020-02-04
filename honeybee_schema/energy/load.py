@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field, validator, root_validator, constr
 from typing import Union
 
 from ._base import NamedEnergyBaseModel
+from ..altnumber import Autocalculate
 
 
 class PeopleAbridged(NamedEnergyBaseModel):
@@ -43,25 +44,20 @@ class PeopleAbridged(NamedEnergyBaseModel):
         'value is 0.30.'
     )
 
-    latent_fraction: Union[float, str] = Field(
-        'autocalculate',
+    latent_fraction: Union[float, Autocalculate] = Field(
+        Autocalculate(),
         ge=0,
         le=1,
         description='Number for the latent fraction of heat gain due to people or '
-            'simply the word "autocalculate".'
+            'an Autocalculate object.'
     )
-
-    @validator('latent_fraction')
-    def check_string_latent_fraction(cls, v):
-        if not isinstance(v, float) and v != 'autocalculate':
-            raise ValueError('"{}" is not a valid entry for latent_fraction'.format(v))
     
     @root_validator
     def check_sum_fractions(cls, values): 
         "Ensure sum is less than 1."
         rad = values.get('radiant_fraction')
         latent = values.get('latent_fraction')
-        if latent is not None and latent != 'autocalculate':
+        if latent is not None and isinstance(latent, float):
             assert rad + latent <= 1, \
                 'Sum of radiant and latent fractions cannot be greater than 1.'
         return values

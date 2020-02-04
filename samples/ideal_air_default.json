@@ -1,0 +1,16 @@
+{
+    "type": "IdealAirSystemAbridged",
+    "name": "Default HVAC System",
+    "economizer_type": "DifferentialDryBulb",
+    "demand_controlled_ventilation": false,
+    "sensible_heat_recovery": 0.0,
+    "latent_heat_recovery": 0.0,
+    "heating_air_temperature": 50.0,
+    "cooling_air_temperature": 13.0,
+    "heating_limit": {
+        "type": "Autosize"
+    },
+    "cooling_limit": {
+        "type": "Autosize"
+    }
+}

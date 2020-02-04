@@ -1,6 +1,6 @@
 """Schedule Type Limit Schema"""
 from pydantic import BaseModel, Field, validator, root_validator, constr, conlist
-from typing import List
+from typing import List, Union
 from enum import Enum
 import datetime
 
@@ -36,12 +36,12 @@ class ScheduleTypeLimit(NamedEnergyBaseModel):
 
     type: constr(regex='^ScheduleTypeLimit$') = 'ScheduleTypeLimit'
 
-    lower_limit: Union[NoLimit, float] = Field(
+    lower_limit: Union[float, NoLimit] = Field(
         default=NoLimit(),
         description='Lower limit for the schedule type or NoLimit.'
     )
 
-    upper_limit: Union[NoLimit, float] = Field(
+    upper_limit: Union[float, NoLimit] = Field(
         default=NoLimit(),
         description='Upper limit for the schedule type or NoLimit.'
     )

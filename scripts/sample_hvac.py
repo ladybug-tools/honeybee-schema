@@ -10,6 +10,13 @@ import os
 import json
 
 
+def ideal_air_default(directory):
+    ideal_air = IdealAirSystem('Default HVAC System')
+    dest_file = os.path.join(directory, 'ideal_air_default.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(ideal_air.to_dict(abridged=True), fp, indent=4)
+
+
 def ideal_air_detailed(directory):
     ideal_air = IdealAirSystem('Passive House HVAC System')
     
@@ -26,8 +33,6 @@ def ideal_air_detailed(directory):
     ideal_air.heating_availability = schedule
     ideal_air.cooling_availability = schedule
 
-    ideal_air_dict = ideal_air.to_dict(abridged=True)
-
     dest_file = os.path.join(directory, 'ideal_air_detailed.json')
     with open(dest_file, 'w') as fp:
         json.dump(ideal_air.to_dict(abridged=True), fp, indent=4)
@@ -37,5 +42,6 @@ def ideal_air_detailed(directory):
 master_dir = os.path.split(os.path.dirname(__file__))[0]
 sample_directory = os.path.join(master_dir, 'samples')
 
+ideal_air_default(sample_directory)
 ideal_air_detailed(sample_directory)
 

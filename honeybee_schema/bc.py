@@ -19,7 +19,7 @@ class Outdoors(BaseModel):
         description='A boolean noting whether the boundary is exposed to wind.'
     )
 
-    view_factor: Union[Autocalculate, float] = Field(
+    view_factor: Union[float, Autocalculate] = Field(
         Autocalculate(),
         ge=0,
         le=1,

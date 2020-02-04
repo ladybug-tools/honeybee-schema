@@ -6,7 +6,9 @@
         "name": "2013::FullServiceRestaurant::Kitchen_People",
         "people_per_area": 0.05381957525591208,
         "radiant_fraction": 0.3,
-        "latent_fraction": "autocalculate",
+        "latent_fraction": {
+            "type": "Autocalculate"
+        },
         "occupancy_schedule": "RestaurantSitDown BLDG_OCC_SCH",
         "activity_schedule": "RestaurantSitDown ACTIVITY_SCH"
     },

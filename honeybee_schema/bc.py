@@ -19,13 +19,21 @@ class Outdoors(BaseModel):
         description='A boolean noting whether the boundary is exposed to wind.'
     )
 
-    view_factor: Union[float, Autocalculate] = Field(
+    view_factor: Union[Autocalculate, float] = Field(
         Autocalculate(),
         ge=0,
         le=1,
         description='A number for the view factor to the ground. This can also be '
             'an Autocalculate object to have the view factor automatically calculated.'
     )
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['view_factor']['anyOf'] = [
+                    {"$ref": "#/components/schemas/Autocalculate"},
+                    {"type": "number", "minimum": 0, "maximum": 1}
+                ]
 
 class Surface(BaseModel):
 

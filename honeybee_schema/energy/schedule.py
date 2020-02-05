@@ -36,12 +36,12 @@ class ScheduleTypeLimit(NamedEnergyBaseModel):
 
     type: constr(regex='^ScheduleTypeLimit$') = 'ScheduleTypeLimit'
 
-    lower_limit: Union[float, NoLimit] = Field(
+    lower_limit: Union[NoLimit, float] = Field(
         default=NoLimit(),
         description='Lower limit for the schedule type or NoLimit.'
     )
 
-    upper_limit: Union[float, NoLimit] = Field(
+    upper_limit: Union[NoLimit, float] = Field(
         default=NoLimit(),
         description='Upper limit for the schedule type or NoLimit.'
     )
@@ -49,6 +49,18 @@ class ScheduleTypeLimit(NamedEnergyBaseModel):
     numeric_type: ScheduleNumericType = ScheduleNumericType.continuous
 
     unit_type: ScheduleUnitType = ScheduleUnitType.dimensionless
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['lower_limit']['anyOf'] = [
+                    {"$ref": "#/components/schemas/NoLimit"},
+                    {"type": "number"}
+                ]
+            schema['properties']['upper_limit']['anyOf'] = [
+                    {"$ref": "#/components/schemas/NoLimit"},
+                    {"type": "number"}
+                ]
 
 
 class ScheduleDay(NamedEnergyBaseModel):

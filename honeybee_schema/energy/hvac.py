@@ -63,7 +63,7 @@ class IdealAirSystemAbridged(NamedEnergyBaseModel):
         description='A number for the minimum cooling supply air temperature [C].'
     )
 
-    heating_limit: Union[float, Autosize, NoLimit] = Field(
+    heating_limit: Union[Autosize, NoLimit, float] = Field(
         Autosize(),
         ge=0,
         description='A number for the maximum heating capacity in Watts. This '
@@ -72,7 +72,7 @@ class IdealAirSystemAbridged(NamedEnergyBaseModel):
             'be a NoLimit boject to indicate no upper limit to the heating capacity.'
     )
 
-    cooling_limit: Union[float, Autosize, NoLimit] = Field(
+    cooling_limit: Union[Autosize, NoLimit, float] = Field(
         Autosize(),
         ge=0,
         description='A number for the maximum cooling capacity in Watts. This '
@@ -105,6 +105,20 @@ class IdealAirSystemAbridged(NamedEnergyBaseModel):
         assert heat_temp > cool_temp, 'IdealAirSystem heating_air_temperature must be ' \
             'greater than cooling_air_temperature.'
         return values
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['heating_limit']['anyOf'] = [
+                    {"$ref": "#/components/schemas/NoLimit"},
+                    {"$ref": "#/components/schemas/Autosize"},
+                    {"type": "number", "minimum": 0}
+                ]
+            schema['properties']['cooling_limit']['anyOf'] = [
+                    {"$ref": "#/components/schemas/NoLimit"},
+                    {"$ref": "#/components/schemas/Autosize"},
+                    {"type": "number", "minimum": 0}
+                ]
 
 
 if __name__ == '__main__':

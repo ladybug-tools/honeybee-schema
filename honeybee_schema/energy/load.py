@@ -44,7 +44,7 @@ class PeopleAbridged(NamedEnergyBaseModel):
         'value is 0.30.'
     )
 
-    latent_fraction: Union[float, Autocalculate] = Field(
+    latent_fraction: Union[Autocalculate, float] = Field(
         Autocalculate(),
         ge=0,
         le=1,
@@ -61,6 +61,14 @@ class PeopleAbridged(NamedEnergyBaseModel):
             assert rad + latent <= 1, \
                 'Sum of radiant and latent fractions cannot be greater than 1.'
         return values
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['latent_fraction']['anyOf'] = [
+                    {"$ref": "#/components/schemas/Autocalculate"},
+                    {"type": "number", "minimum": 0, "maximum": 1}
+                ]
 
 
 class LightingAbridged(NamedEnergyBaseModel):

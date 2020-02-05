@@ -315,7 +315,7 @@ class Room(NamedBaseModel):
     )
 
 
-class UnitsSystems(str, Enum):
+class Units(str, Enum):
     meters = 'Meters'
     millimeters = 'Millimeters'
     feet = 'Feet'
@@ -374,34 +374,34 @@ class Model(NamedBaseModel):
         description='The clockwise north direction in degrees.'
     )
 
-    units_system: UnitsSystems = Field(
-        default=UnitsSystems.meters,
-        description='Text for the units system in which the model geometry exists. '
+    units: Units = Field(
+        default=Units.meters,
+        description='Text indicating the units in which the model geometry exists. '
             'This is used to scale the geometry to the correct units for simulation '
             'engines like EnergyPlus, which requires all geometry be in meters.'
     )
 
     tolerance: float = Field(
-        default=-1,
+        default=0,
         description='The maximum difference between x, y, and z values at which '
             'vertices are considered equivalent. This value should be in the Model '
-            'units_system and is used in a variety of checks, including checks for '
+            'units and it is used in a variety of checks, including checks for '
             'whether Room faces form a closed volume and subsequently correcting all '
-            'face normals point outward from the Room. Any negative values will result '
-            'in no attempt to evaluate whether the Room volumes is closed or check '
+            'face normals point outward from the Room. A value of 0 will result '
+            'in no attempt to evaluate whether Room volumes are closed or check '
             'face direction. So it is recommended that this always be a positive '
-            'number when such checks have not been performed on a given Model. '
+            'number when such checks have not been performed on a Model. '
             'Typical tolerances for builing geometry range from 0.1 to 0.0001 '
-            'depending on the units system.'
+            'depending on the units of the geometry.'
     )
 
     angle_tolerance: float = Field(
-        default=-1,
+        default=0,
         description='The max angle difference in degrees that vertices are '
             'allowed to differ from one another in order to consider them colinear. '
             'This value is used in a variety of checks, including checks for '
             'whether Room faces form a closed volume and subsequently correcting all '
-            'face normals point outward from the Room. Any negative values will result '
+            'face normals point outward from the Room. A value of 0 will result '
             'in no attempt to evaluate whether the Room volumes is closed or check '
             'face direction. So it is recommended that this always be a positive '
             'number when such checks have not been performed on a given Model. '

@@ -25,7 +25,7 @@ def constructionset_partial_exterior(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'samples')
+sample_directory = os.path.join(master_dir, 'samples', 'construction_set')
 
 constructionset_complete(sample_directory)
 constructionset_partial_exterior(sample_directory)

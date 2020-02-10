@@ -40,7 +40,7 @@ def ideal_air_detailed(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'samples')
+sample_directory = os.path.join(master_dir, 'samples', 'hvac')
 
 ideal_air_default(sample_directory)
 ideal_air_detailed(sample_directory)

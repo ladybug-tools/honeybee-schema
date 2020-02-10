@@ -34,5 +34,6 @@
         "interior_glass_construction": "Generic Single Pane",
         "overhead_construction": "Generic Exterior Door"
     },
-    "shade_construction": "Generic Shade"
+    "shade_construction": "Generic Shade",
+    "air_boundary_construction": "Generic Air Boundary"
 }

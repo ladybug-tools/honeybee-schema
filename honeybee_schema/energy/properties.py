@@ -4,8 +4,8 @@ from typing import List, Union
 from enum import Enum
 
 from .constructionset import ConstructionSetAbridged
-from .construction import OpaqueConstructionAbridged, \
-    WindowConstructionAbridged, ShadeConstruction
+from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged, \
+    ShadeConstruction, AirBoundaryConstructionAbridged
 from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
@@ -190,8 +190,9 @@ class ModelEnergyProperties(BaseModel):
         description='List of all ConstructionSets in the Model.'
     )
 
-    constructions: List[Union[OpaqueConstructionAbridged, WindowConstructionAbridged,
-                              ShadeConstruction]] = Field(
+    constructions: List[Union[
+        OpaqueConstructionAbridged, WindowConstructionAbridged,
+        ShadeConstruction, AirBoundaryConstructionAbridged]] = Field(
         ...,
         description='A list of all unique constructions in the model. This includes '
             'constructions across all Faces, Apertures, Doors, Shades, Room '

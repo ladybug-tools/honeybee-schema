@@ -123,7 +123,7 @@ def schedule_fixedinterval_leap_year(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'samples')
+sample_directory = os.path.join(master_dir, 'samples', 'schedule')
 
 scheduletypelimit_temperature(sample_directory)
 schedule_ruleset_office_occupancy(sample_directory)

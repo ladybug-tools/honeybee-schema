@@ -214,8 +214,17 @@ class ConstructionSetAbridged(NamedEnergyBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='A ShadeConstruction to set the reflectance properties of all '
-            'outdoor shades to which this ConstructionSet is assigned.'
+        description='The name of a ShadeConstruction to set the reflectance properties '
+            'of all outdoor shades of all objects to which this ConstructionSet '
+            'is assigned.'
+    )
+
+    air_boundary_construction: str = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description='The name of an AirBoundaryConstruction to set the properties '
+            'of Faces with an AirBoundary type.'
     )
 
 

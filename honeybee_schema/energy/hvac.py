@@ -26,7 +26,7 @@ class IdealAirSystemAbridged(NamedEnergyBaseModel):
             'the zone needs cooling and the outdoor air is cooler than the zone.'
     )
 
-    demand_control_ventilation: bool = Field(
+    demand_controlled_ventilation: bool = Field(
         False,
         description='Boolean to note whether demand controlled ventilation should '
             'be used on the system, which will vary the amount of ventilation air '

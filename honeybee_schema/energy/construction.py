@@ -1,5 +1,5 @@
 """Construction Schema"""
-from pydantic import BaseModel, Field, constr
+from pydantic import Field, constr
 from typing import List, Union
 
 from ._base import NamedEnergyBaseModel

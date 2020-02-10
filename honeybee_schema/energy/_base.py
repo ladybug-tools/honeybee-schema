@@ -1,9 +1,11 @@
 """Base classs used by various schema objects."""
-from pydantic import BaseModel, Field, validator
+from pydantic import Field, validator
 import datetime
 
+from .._base import NoExtraBaseModel
 
-class NamedEnergyBaseModel(BaseModel):
+
+class NamedEnergyBaseModel(NoExtraBaseModel):
     """Base class for all objects requiring a valid EnergyPlus name."""
 
     name: str = Field(
@@ -22,7 +24,7 @@ class NamedEnergyBaseModel(BaseModel):
         return v
 
 
-class DatedBaseModel(BaseModel):
+class DatedBaseModel(NoExtraBaseModel):
     """Base class for all objects needing to check for a valid Date."""
 
     @staticmethod

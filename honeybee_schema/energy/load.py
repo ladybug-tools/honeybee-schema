@@ -1,5 +1,5 @@
 """Programtype Schema"""
-from pydantic import BaseModel, Field, validator, root_validator, constr
+from pydantic import Field, validator, root_validator, constr
 from typing import Union
 
 from ._base import NamedEnergyBaseModel
@@ -289,7 +289,7 @@ class SetpointAbridged(NamedEnergyBaseModel):
             'this schedule should be temperature in [C].'
     )
 
-    humidification_schedule: str = Field(
+    humidifying_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -297,7 +297,7 @@ class SetpointAbridged(NamedEnergyBaseModel):
             'in this schedule should be in [%].'
     )
 
-    dehumidification_schedule: str = Field(
+    dehumidifying_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -308,14 +308,14 @@ class SetpointAbridged(NamedEnergyBaseModel):
     @root_validator
     def check_both_himd_sch(cls, values): 
         "Ensure that the other humidity schedule is included when one is."
-        humid = values.get('humidification_schedule')
-        dehumid = values.get('dehumidification_schedule')
+        humid = values.get('humidifying_schedule')
+        dehumid = values.get('dehumidifying_schedule')
         if humid is not None:
-            assert dehumid is not None, 'When humidification_schedule is specified, ' \
-                'dehumidification_schedule must also be specified.'
+            assert dehumid is not None, 'When humidifying_schedule is specified, ' \
+                'dehumidifying_schedule must also be specified.'
         if dehumid is not None:
-            assert humid is not None, 'When dehumidification_schedule is specified, ' \
-                'humidification_schedule must also be specified.'
+            assert humid is not None, 'When dehumidifying_schedule is specified, ' \
+                'humidifying_schedule must also be specified.'
         return values
 
 

@@ -1,10 +1,11 @@
 """ConstructionSet Schema"""
-from pydantic import BaseModel, Field, constr
+from pydantic import Field, constr
 
+from .._base import NoExtraBaseModel
 from ._base import NamedEnergyBaseModel
 
 
-class WallSetAbridged(BaseModel):
+class WallSetAbridged(NoExtraBaseModel):
     """A set of constructions for wall assemblies."""
 
     type: constr(regex='^WallSetAbridged$') = 'WallSetAbridged'
@@ -34,7 +35,7 @@ class WallSetAbridged(BaseModel):
     )
 
 
-class FloorSetAbridged(BaseModel):
+class FloorSetAbridged(NoExtraBaseModel):
     """A set of constructions for floor assemblies."""
 
     type: constr(regex='^FloorSetAbridged$') = 'FloorSetAbridged'
@@ -64,7 +65,7 @@ class FloorSetAbridged(BaseModel):
     )
 
 
-class RoofCeilingSetAbridged(BaseModel):
+class RoofCeilingSetAbridged(NoExtraBaseModel):
     """A set of constructions for roof and ceiling assemblies."""
 
     type: constr(regex='^RoofCeilingSetAbridged$') = 'RoofCeilingSetAbridged'
@@ -94,7 +95,7 @@ class RoofCeilingSetAbridged(BaseModel):
     )
 
 
-class ApertureSetAbridged(BaseModel):
+class ApertureSetAbridged(NoExtraBaseModel):
     """A set of constructions for aperture assemblies."""
 
     type: constr(regex='^ApertureSetAbridged$') = 'ApertureSetAbridged'
@@ -134,7 +135,7 @@ class ApertureSetAbridged(BaseModel):
     )
 
 
-class DoorSetAbridged(BaseModel):
+class DoorSetAbridged(NoExtraBaseModel):
     """A set of constructions for door assemblies."""
 
     type: constr(regex='^DoorSetAbridged$') = 'DoorSetAbridged'

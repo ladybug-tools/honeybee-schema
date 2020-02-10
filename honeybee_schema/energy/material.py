@@ -1,5 +1,5 @@
 """Material Schema"""
-from pydantic import BaseModel, Field, validator, root_validator, constr
+from pydantic import Field, validator, root_validator, constr
 from typing import List
 from enum import Enum
 

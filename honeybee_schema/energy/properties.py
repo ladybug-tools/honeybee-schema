@@ -1,8 +1,9 @@
 """Model energy properties."""
-from pydantic import BaseModel, Field, constr
+from pydantic import Field, constr
 from typing import List, Union
 from enum import Enum
 
+from .._base import NoExtraBaseModel
 from .constructionset import ConstructionSetAbridged
 from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged, \
     ShadeConstruction, AirBoundaryConstructionAbridged
@@ -18,7 +19,7 @@ from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
 from .hvac import IdealAirSystemAbridged
 
 
-class ShadeEnergyPropertiesAbridged(BaseModel):
+class ShadeEnergyPropertiesAbridged(NoExtraBaseModel):
 
     type: constr(regex='^ShadeEnergyPropertiesAbridged$') = \
         'ShadeEnergyPropertiesAbridged'
@@ -44,7 +45,7 @@ class ShadeEnergyPropertiesAbridged(BaseModel):
     )
 
 
-class DoorEnergyPropertiesAbridged(BaseModel):
+class DoorEnergyPropertiesAbridged(NoExtraBaseModel):
 
     type: constr(regex='^DoorEnergyPropertiesAbridged$') = \
         'DoorEnergyPropertiesAbridged'
@@ -60,7 +61,7 @@ class DoorEnergyPropertiesAbridged(BaseModel):
     )
 
 
-class ApertureEnergyPropertiesAbridged(BaseModel):
+class ApertureEnergyPropertiesAbridged(NoExtraBaseModel):
 
     type: constr(regex='^ApertureEnergyPropertiesAbridged$') = \
         'ApertureEnergyPropertiesAbridged'
@@ -75,7 +76,7 @@ class ApertureEnergyPropertiesAbridged(BaseModel):
     )
 
 
-class FaceEnergyPropertiesAbridged(BaseModel):
+class FaceEnergyPropertiesAbridged(NoExtraBaseModel):
 
     type: constr(regex='^FaceEnergyPropertiesAbridged$') = \
         'FaceEnergyPropertiesAbridged'
@@ -90,7 +91,7 @@ class FaceEnergyPropertiesAbridged(BaseModel):
     )
 
 
-class RoomEnergyPropertiesAbridged(BaseModel):
+class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
 
     type: constr(regex='^RoomEnergyPropertiesAbridged$') = \
         'RoomEnergyPropertiesAbridged'
@@ -165,7 +166,7 @@ class TerrianTypes(str, Enum):
     city = 'City'
 
 
-class ModelEnergyProperties(BaseModel):
+class ModelEnergyProperties(NoExtraBaseModel):
 
     type: constr(regex='^ModelEnergyProperties$') = \
         'ModelEnergyProperties'

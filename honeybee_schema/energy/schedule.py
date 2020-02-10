@@ -1,5 +1,5 @@
 """Schedule Type Limit Schema"""
-from pydantic import BaseModel, Field, validator, root_validator, constr, conlist
+from pydantic import Field, validator, root_validator, constr, conlist
 from typing import List, Union
 from enum import Enum
 import datetime

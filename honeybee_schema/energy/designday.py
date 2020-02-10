@@ -1,13 +1,14 @@
 """Simulation Parameter Schema"""
-from pydantic import BaseModel, Field, constr, validator
+from pydantic import Field, constr, validator
 from typing import Union, List
 from enum import Enum
 import datetime
 
+from .._base import NoExtraBaseModel
 from ._base import NamedEnergyBaseModel
 
 
-class DryBulbCondition(BaseModel):
+class DryBulbCondition(NoExtraBaseModel):
     """Used to specify dry bulb conditions on a design day."""
 
     type: constr(regex='^DryBulbCondition$') = 'DryBulbCondition'
@@ -34,7 +35,7 @@ class HumidityTypes(str, Enum):
     enthalpy = 'Enthalpy'
 
 
-class HumidityCondition(BaseModel):
+class HumidityCondition(NoExtraBaseModel):
     """Used to specify humidity conditions on a design day."""
 
     type: constr(regex='^HumidityCondition$') = 'HumidityCondition'
@@ -64,7 +65,7 @@ class HumidityCondition(BaseModel):
     )
 
 
-class WindCondition(BaseModel):
+class WindCondition(NoExtraBaseModel):
     """Used to specify wind conditions on a design day."""
 
     type: constr(regex='^WindCondition$') = 'WindCondition'
@@ -84,7 +85,7 @@ class WindCondition(BaseModel):
     )
 
 
-class _SkyCondition(BaseModel):
+class _SkyCondition(NoExtraBaseModel):
     """Used to specify sky conditions on a design day."""
     
     date: List[int] = Field(

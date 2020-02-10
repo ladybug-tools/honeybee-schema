@@ -1,11 +1,12 @@
 """Boundary condition schemas."""
-from pydantic import BaseModel, Field, constr
+from pydantic import Field, constr
 from typing import List, Union
 
+from ._base import NoExtraBaseModel
 from .altnumber import Autocalculate
 
 
-class Outdoors(BaseModel):
+class Outdoors(NoExtraBaseModel):
 
     type: constr(regex='^Outdoors$') = 'Outdoors'
 
@@ -35,7 +36,7 @@ class Outdoors(BaseModel):
                     {"type": "number", "minimum": 0, "maximum": 1}
                 ]
 
-class Surface(BaseModel):
+class Surface(NoExtraBaseModel):
 
     type: constr(regex='^Surface$') = 'Surface'
 
@@ -54,11 +55,11 @@ class Surface(BaseModel):
     )
 
 
-class Ground(BaseModel):
+class Ground(NoExtraBaseModel):
 
     type: constr(regex='^Ground$') = 'Ground'
 
 
-class Adiabatic(BaseModel):
+class Adiabatic(NoExtraBaseModel):
 
     type: constr(regex='^Adiabatic$') = 'Adiabatic'

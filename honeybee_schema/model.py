@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field, validator, root_validator, constr, conlis
 from typing import List, Union
 from enum import Enum
 
-from ._base import NamedBaseModel
+from ._base import NamedBaseModel, NoExtraBaseModel
 from .bc import Outdoors, Surface, Ground, Adiabatic
 from .energy.properties import ShadeEnergyPropertiesAbridged, \
     DoorEnergyPropertiesAbridged, ApertureEnergyPropertiesAbridged, \
@@ -11,7 +11,7 @@ from .energy.properties import ShadeEnergyPropertiesAbridged, \
     ModelEnergyProperties
 
 
-class Plane(BaseModel):
+class Plane(NoExtraBaseModel):
 
     type: constr(regex='^Plane$') = 'Plane'
 
@@ -37,7 +37,7 @@ class Plane(BaseModel):
     )
 
 
-class Face3D(BaseModel):
+class Face3D(NoExtraBaseModel):
     """A single planar face in 3D space."""
 
     type: constr(regex='^Face3D$') = 'Face3D'

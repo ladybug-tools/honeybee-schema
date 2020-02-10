@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field, validator, root_validator, constr, conlis
 from typing import List
 from enum import Enum
 
+from .._base import NoExtraBaseModel
 from ._base import DatedBaseModel
 from .designday import DesignDay
 
@@ -15,7 +16,7 @@ class ReportingFrequency(str, Enum):
     annual = 'Annual'
 
 
-class SimulationOutput(BaseModel):
+class SimulationOutput(NoExtraBaseModel):
     """Lists the outputs to report from the simulation and their format."""
 
     type: constr(regex='^SimulationOutput$') = 'SimulationOutput'
@@ -46,7 +47,7 @@ class SimulationOutput(BaseModel):
     )
 
 
-class SimulationControl(BaseModel):
+class SimulationControl(NoExtraBaseModel):
     """Used to specify which types of calculations to run."""
 
     type: constr(regex='^SimulationControl$') = 'SimulationControl'
@@ -92,7 +93,7 @@ class CalculationMethod(str, Enum):
     timestep_frequency = 'TimestepFrequency'
 
 
-class ShadowCalculation(BaseModel):
+class ShadowCalculation(NoExtraBaseModel):
     """Used to describe settings for EnergyPlus shadow calculation."""
 
     type: constr(regex='^ShadowCalculation$') = 'ShadowCalculation'
@@ -194,7 +195,7 @@ class RunPeriod(DatedBaseModel):
             'simulation. If None, no holidays are applied.'
     )
 
-    daylight_savings_time: DaylightSavingTime = Field(
+    daylight_saving_time: DaylightSavingTime = Field(
         default=None,
         description='A DaylightSavingTime to dictate the start and end dates '
             'of daylight saving time. If None, no daylight saving time is applied '
@@ -221,7 +222,7 @@ class RunPeriod(DatedBaseModel):
         return values
 
 
-class SizingParameter(BaseModel):
+class SizingParameter(NoExtraBaseModel):
     """Used to specify heating and cooling sizing criteria and safety factors."""
 
     type: constr(regex='^SizingParameter$') = 'SizingParameter'
@@ -247,7 +248,7 @@ class SizingParameter(BaseModel):
     )
 
 
-class SimulationParameter(BaseModel):
+class SimulationParameter(NoExtraBaseModel):
     """The complete set of EnergyPlus Simulation Settings."""
 
     type: constr(regex='^SimulationParameter$') = 'SimulationParameter'

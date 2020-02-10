@@ -34,5 +34,6 @@
         "interior_glass_construction": null,
         "overhead_construction": "Typical Overhead Door-R2"
     },
-    "shade_construction": null
+    "shade_construction": null,
+    "air_boundary_construction": null
 }

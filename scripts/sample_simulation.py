@@ -54,7 +54,7 @@ def simulation_par_detailed(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'samples')
+sample_directory = os.path.join(master_dir, 'samples', 'simulation_parameter')
 
 simulation_par_simple(sample_directory)
 simulation_par_detailed(sample_directory)

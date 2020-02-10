@@ -6,11 +6,13 @@ from honeybee.shade import Shade
 from honeybee.aperture import Aperture
 from honeybee.door import Door
 from honeybee.boundarycondition import boundary_conditions
+from honeybee.facetype import face_types, Floor, RoofCeiling
 
 from honeybee_energy.constructionset import ConstructionSet
 from honeybee_energy.construction.opaque import OpaqueConstruction
 from honeybee_energy.construction.window import WindowConstruction
 from honeybee_energy.construction.shade import ShadeConstruction
+from honeybee_energy.construction.air import AirBoundaryConstruction
 from honeybee_energy.material.opaque import EnergyMaterial
 from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
 
@@ -25,6 +27,7 @@ from honeybee_energy.lib.constructions import generic_exterior_wall, \
 from ladybug_geometry.geometry3d.pointvector import Point3D, Vector3D
 from ladybug_geometry.geometry3d.plane import Plane
 from ladybug_geometry.geometry3d.face import Face3D
+from ladybug_geometry.geometry3d.polyface import Polyface3D
 
 import os
 import json
@@ -161,6 +164,36 @@ def model_complete_patient_room(directory):
     model = Model('Patient Room Test Box', [room])
 
     dest_file = os.path.join(directory, 'model_complete_patient_room.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(), fp, indent=4)
+
+
+def model_complete_office_floor(directory):
+    pts_1 = [Point3D(0, 0), Point3D(30, 0), Point3D(20, 10), Point3D(10, 10)]
+    pts_2 = [Point3D(0, 0), Point3D(10, 10), Point3D(10, 20), Point3D(0, 30)]
+    pts_3 = [Point3D(10, 20), Point3D(20, 20), Point3D(30, 30), Point3D(0, 30)]
+    pts_4 = [Point3D(30, 0), Point3D(30, 30), Point3D(20, 20), Point3D(20, 10)]
+    verts = [pts_1, pts_2, pts_3, pts_4]
+    rooms = []
+    for i, f_vert in enumerate(verts):
+        pface = Polyface3D.from_offset_face(Face3D(f_vert), 3)
+        room = Room.from_polyface3d('PerimeterRoom{}'.format(i), pface)
+        room.properties.energy.program_type = prog_type_lib.office_program
+        room.properties.energy.add_default_ideal_air()
+        rooms.append(room)
+    rooms.append(Room.from_box('CoreRoom', 10, 10, 3, origin=Point3D(10, 10)))
+    adj_info = Room.solve_adjacency(rooms, 0.01)
+    for face_pair in adj_info['adjacent_faces']:
+        face_pair[0].type = face_types.air_boundary
+        face_pair[1].type = face_types.air_boundary
+    for room in rooms:
+        for face in room:
+            if isinstance(face.type, (Floor, RoofCeiling)):
+                face.boundary_condition = boundary_conditions.adiabatic
+
+    model = Model('Core Perimeter Office Floor', rooms)
+
+    dest_file = os.path.join(directory, 'model_complete_office_floor.json')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -334,11 +367,12 @@ def model_energy_properties_office(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'samples')
+sample_directory = os.path.join(master_dir, 'samples', 'model')
 
 model_complete_single_zone_office(sample_directory)
 model_complete_multi_zone_office(sample_directory)
 model_complete_patient_room(sample_directory)
+model_complete_office_floor(sample_directory)
 
 model_energy_shoe_box(sample_directory)
 model_energy_detailed_loads(sample_directory)

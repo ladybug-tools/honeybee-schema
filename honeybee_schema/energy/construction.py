@@ -98,6 +98,30 @@ class ShadeConstruction(NamedEnergyBaseModel):
     )
 
 
+class AirBoundaryConstructionAbridged(NamedEnergyBaseModel):
+    """Construction for Shade objects."""
+
+    type: constr(regex='^AirBoundaryConstructionAbridged$') = \
+        'AirBoundaryConstructionAbridged'
+
+    air_mixing_per_area: float = Field(
+        0.1,
+        ge=0,
+        description='A positive number for the amount of air mixing between Rooms '
+            'across the air boundary surface [m3/s-m2]. Default: 0.1 corresponds '
+            'to average indoor air speeds of 0.1 m/s (roughly 20 fpm), which is '
+            'typical of what would be induced by a HVAC system.'
+    )
+
+    air_mixing_schedule: str = Field(
+        ...,
+        min_length=1,
+        max_length=100,
+        description='Name of A fractional schedule for the air mixing schedule '
+            'across the construction.'
+    )
+
+
 if __name__ == '__main__':
     print(WindowConstructionAbridged.schema_json(indent=2))
     print(WindowConstruction.schema_json(indent=2))

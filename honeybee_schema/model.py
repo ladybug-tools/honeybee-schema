@@ -206,7 +206,7 @@ class FaceType(str, Enum):
     wall = 'Wall'
     floor = 'Floor'
     roof_ceiling = 'RoofCeiling'
-    air_wall = 'AirWall'
+    air_boundary = 'AirBoundary'
 
 
 class Face(NamedBaseModel):
@@ -259,12 +259,12 @@ class Face(NamedBaseModel):
     )
 
     @root_validator
-    def chack_air_walls_are_interior(cls, values):
+    def chack_air_boundarys_are_interior(cls, values):
         """Check that all air wall faces have a Surface boundary condition."""
         face_type, bc = values.get('face_type'), values.get('boundary_condition')
-        if face_type == 'AirWall':
+        if face_type == 'AirBoundary':
             assert bc.type == 'Surface', \
-                'AirWalls must have "Surface" boundary conditions.'
+                'AirBoundarys must have "Surface" boundary conditions.'
         return values
 
 

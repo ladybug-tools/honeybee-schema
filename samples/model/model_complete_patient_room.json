@@ -53,15 +53,6 @@
             "constructions": [
                 {
                     "type": "OpaqueConstructionAbridged",
-                    "name": "Generic Interior Ceiling",
-                    "layers": [
-                        "Generic LW Concrete",
-                        "Generic Ceiling Air Gap",
-                        "Generic Acoustic Tile"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
                     "name": "Generic Exterior Wall",
                     "layers": [
                         "Generic Brick",
@@ -69,25 +60,6 @@
                         "Generic 50mm Insulation",
                         "Generic Wall Air Gap",
                         "Generic Gypsum Board"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "name": "Generic Underground Wall",
-                    "layers": [
-                        "Generic 50mm Insulation",
-                        "Generic HW Concrete",
-                        "Generic Wall Air Gap",
-                        "Generic Gypsum Board"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "name": "Generic Interior Floor",
-                    "layers": [
-                        "Generic Acoustic Tile",
-                        "Generic Ceiling Air Gap",
-                        "Generic LW Concrete"
                     ]
                 },
                 {
@@ -113,36 +85,9 @@
                 },
                 {
                     "type": "OpaqueConstructionAbridged",
-                    "name": "Generic Underground Roof",
+                    "name": "Generic Interior Door",
                     "layers": [
-                        "Generic 50mm Insulation",
-                        "Generic HW Concrete",
-                        "Generic Ceiling Air Gap",
-                        "Generic Acoustic Tile"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "name": "Generic Ground Slab",
-                    "layers": [
-                        "Generic 50mm Insulation",
-                        "Generic HW Concrete"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "name": "Generic Interior Wall",
-                    "layers": [
-                        "Generic Gypsum Board",
-                        "Generic Wall Air Gap",
-                        "Generic Gypsum Board"
-                    ]
-                },
-                {
-                    "type": "WindowConstructionAbridged",
-                    "name": "Generic Single Pane",
-                    "layers": [
-                        "Generic Clear Glass"
+                        "Generic 25mm Wood"
                     ]
                 },
                 {
@@ -156,9 +101,44 @@
                 },
                 {
                     "type": "OpaqueConstructionAbridged",
-                    "name": "Generic Interior Door",
+                    "name": "Generic Underground Roof",
                     "layers": [
-                        "Generic 25mm Wood"
+                        "Generic 50mm Insulation",
+                        "Generic HW Concrete",
+                        "Generic Ceiling Air Gap",
+                        "Generic Acoustic Tile"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "name": "Generic Interior Floor",
+                    "layers": [
+                        "Generic Acoustic Tile",
+                        "Generic Ceiling Air Gap",
+                        "Generic LW Concrete"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "name": "Generic Ground Slab",
+                    "layers": [
+                        "Generic 50mm Insulation",
+                        "Generic HW Concrete"
+                    ]
+                },
+                {
+                    "type": "AirBoundaryConstructionAbridged",
+                    "name": "Generic Air Boundary",
+                    "air_mixing_per_area": 0.1,
+                    "air_mixing_schedule": "Always On"
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "name": "Generic Interior Ceiling",
+                    "layers": [
+                        "Generic LW Concrete",
+                        "Generic Ceiling Air Gap",
+                        "Generic Acoustic Tile"
                     ]
                 },
                 {
@@ -171,6 +151,22 @@
                     ]
                 },
                 {
+                    "type": "WindowConstructionAbridged",
+                    "name": "Generic Single Pane",
+                    "layers": [
+                        "Generic Clear Glass"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "name": "Generic Interior Wall",
+                    "layers": [
+                        "Generic Gypsum Board",
+                        "Generic Wall Air Gap",
+                        "Generic Gypsum Board"
+                    ]
+                },
+                {
                     "type": "ShadeConstruction",
                     "name": "Generic Shade",
                     "solar_reflectance": 0.35,
@@ -178,155 +174,17 @@
                     "is_specular": false
                 },
                 {
-                    "type": "AirBoundaryConstructionAbridged",
-                    "name": "Generic Air Boundary",
-                    "air_mixing_per_area": 0.1,
-                    "air_mixing_schedule": "Always On"
+                    "type": "OpaqueConstructionAbridged",
+                    "name": "Generic Underground Wall",
+                    "layers": [
+                        "Generic 50mm Insulation",
+                        "Generic HW Concrete",
+                        "Generic Wall Air Gap",
+                        "Generic Gypsum Board"
+                    ]
                 }
             ],
             "materials": [
-                {
-                    "type": "EnergyMaterial",
-                    "name": "Generic Painted Metal",
-                    "roughness": "Smooth",
-                    "thickness": 0.0015,
-                    "conductivity": 45.0,
-                    "density": 7690.0,
-                    "specific_heat": 410.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.5,
-                    "visible_absorptance": 0.5
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "name": "Generic 25mm Wood",
-                    "roughness": "MediumSmooth",
-                    "thickness": 0.0254,
-                    "conductivity": 0.15,
-                    "density": 608.0,
-                    "specific_heat": 1630.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.5,
-                    "visible_absorptance": 0.5
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "name": "Generic Wall Air Gap",
-                    "roughness": "Smooth",
-                    "thickness": 0.1,
-                    "conductivity": 0.667,
-                    "density": 1.28,
-                    "specific_heat": 1000.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "name": "Generic 25mm Insulation",
-                    "roughness": "MediumRough",
-                    "thickness": 0.05,
-                    "conductivity": 0.03,
-                    "density": 43.0,
-                    "specific_heat": 1210.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "name": "Generic Ceiling Air Gap",
-                    "roughness": "Smooth",
-                    "thickness": 0.1,
-                    "conductivity": 0.556,
-                    "density": 1.28,
-                    "specific_heat": 1000.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "name": "Generic HW Concrete",
-                    "roughness": "MediumRough",
-                    "thickness": 0.2,
-                    "conductivity": 1.95,
-                    "density": 2240.0,
-                    "specific_heat": 900.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.8,
-                    "visible_absorptance": 0.8
-                },
-                {
-                    "type": "EnergyWindowMaterialGlazing",
-                    "name": "Generic Clear Glass",
-                    "thickness": 0.006,
-                    "solar_transmittance": 0.77,
-                    "solar_reflectance": 0.07,
-                    "solar_reflectance_back": 0.07,
-                    "visible_transmittance": 0.88,
-                    "visible_reflectance": 0.08,
-                    "visible_reflectance_back": 0.08,
-                    "infrared_transmittance": 0.0,
-                    "emissivity": 0.84,
-                    "emissivity_back": 0.84,
-                    "conductivity": 1.0,
-                    "dirt_correction": 1.0,
-                    "solar_diffusing": false
-                },
-                {
-                    "type": "EnergyWindowMaterialGlazing",
-                    "name": "Generic Low-e Glass",
-                    "thickness": 0.006,
-                    "solar_transmittance": 0.45,
-                    "solar_reflectance": 0.36,
-                    "solar_reflectance_back": 0.36,
-                    "visible_transmittance": 0.71,
-                    "visible_reflectance": 0.21,
-                    "visible_reflectance_back": 0.21,
-                    "infrared_transmittance": 0.0,
-                    "emissivity": 0.84,
-                    "emissivity_back": 0.047,
-                    "conductivity": 1.0,
-                    "dirt_correction": 1.0,
-                    "solar_diffusing": false
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "name": "Generic Acoustic Tile",
-                    "roughness": "MediumSmooth",
-                    "thickness": 0.02,
-                    "conductivity": 0.06,
-                    "density": 368.0,
-                    "specific_heat": 590.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.2,
-                    "visible_absorptance": 0.2
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "name": "Generic LW Concrete",
-                    "roughness": "MediumRough",
-                    "thickness": 0.1,
-                    "conductivity": 0.53,
-                    "density": 1280.0,
-                    "specific_heat": 840.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.8,
-                    "visible_absorptance": 0.8
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "name": "Generic Brick",
-                    "roughness": "MediumRough",
-                    "thickness": 0.1,
-                    "conductivity": 0.9,
-                    "density": 1920.0,
-                    "specific_heat": 790.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.65,
-                    "visible_absorptance": 0.65
-                },
                 {
                     "type": "EnergyMaterial",
                     "name": "Generic Gypsum Board",
@@ -353,6 +211,142 @@
                 },
                 {
                     "type": "EnergyMaterial",
+                    "name": "Generic Acoustic Tile",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.02,
+                    "conductivity": 0.06,
+                    "density": 368.0,
+                    "specific_heat": 590.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.2,
+                    "visible_absorptance": 0.2
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "name": "Generic Low-e Glass",
+                    "thickness": 0.006,
+                    "solar_transmittance": 0.45,
+                    "solar_reflectance": 0.36,
+                    "solar_reflectance_back": 0.36,
+                    "visible_transmittance": 0.71,
+                    "visible_reflectance": 0.21,
+                    "visible_reflectance_back": 0.21,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.047,
+                    "conductivity": 1.0,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic HW Concrete",
+                    "roughness": "MediumRough",
+                    "thickness": 0.2,
+                    "conductivity": 1.95,
+                    "density": 2240.0,
+                    "specific_heat": 900.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.8,
+                    "visible_absorptance": 0.8
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic 25mm Insulation",
+                    "roughness": "MediumRough",
+                    "thickness": 0.05,
+                    "conductivity": 0.03,
+                    "density": 43.0,
+                    "specific_heat": 1210.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic Ceiling Air Gap",
+                    "roughness": "Smooth",
+                    "thickness": 0.1,
+                    "conductivity": 0.556,
+                    "density": 1.28,
+                    "specific_heat": 1000.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "name": "Generic Window Air Gap",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic Brick",
+                    "roughness": "MediumRough",
+                    "thickness": 0.1,
+                    "conductivity": 0.9,
+                    "density": 1920.0,
+                    "specific_heat": 790.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.65,
+                    "visible_absorptance": 0.65
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic LW Concrete",
+                    "roughness": "MediumRough",
+                    "thickness": 0.1,
+                    "conductivity": 0.53,
+                    "density": 1280.0,
+                    "specific_heat": 840.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.8,
+                    "visible_absorptance": 0.8
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "name": "Generic Clear Glass",
+                    "thickness": 0.006,
+                    "solar_transmittance": 0.77,
+                    "solar_reflectance": 0.07,
+                    "solar_reflectance_back": 0.07,
+                    "visible_transmittance": 0.88,
+                    "visible_reflectance": 0.08,
+                    "visible_reflectance_back": 0.08,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.84,
+                    "conductivity": 1.0,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic Wall Air Gap",
+                    "roughness": "Smooth",
+                    "thickness": 0.1,
+                    "conductivity": 0.667,
+                    "density": 1.28,
+                    "specific_heat": 1000.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "name": "Generic 25mm Wood",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.0254,
+                    "conductivity": 0.15,
+                    "density": 608.0,
+                    "specific_heat": 1630.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.5,
+                    "visible_absorptance": 0.5
+                },
+                {
+                    "type": "EnergyMaterial",
                     "name": "Generic 50mm Insulation",
                     "roughness": "MediumRough",
                     "thickness": 0.05,
@@ -364,10 +358,16 @@
                     "visible_absorptance": 0.7
                 },
                 {
-                    "type": "EnergyWindowMaterialGas",
-                    "name": "Generic Window Air Gap",
-                    "thickness": 0.0127,
-                    "gas_type": "Air"
+                    "type": "EnergyMaterial",
+                    "name": "Generic Painted Metal",
+                    "roughness": "Smooth",
+                    "thickness": 0.0015,
+                    "conductivity": 45.0,
+                    "density": 7690.0,
+                    "specific_heat": 410.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.5,
+                    "visible_absorptance": 0.5
                 }
             ],
             "hvacs": [
@@ -443,450 +443,11 @@
             "schedules": [
                 {
                     "type": "ScheduleRulesetAbridged",
-                    "name": "Always On",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Always On_Day Schedule",
-                            "values": [
-                                1.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Always On_Day Schedule",
-                    "schedule_type_limit": "Fractional"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital INFIL_SCH_PNNL",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital INFIL_SCH_PNNL_Default",
-                            "values": [
-                                0.25
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital INFIL_SCH_PNNL_SmrDsn",
-                            "values": [
-                                0.25
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital INFIL_SCH_PNNL_WntrDsn",
-                            "values": [
-                                0.25
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital INFIL_SCH_PNNL_Sat|Wkdy",
-                            "values": [
-                                0.25
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital INFIL_SCH_PNNL_Default",
-                    "schedule_rules": [
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital INFIL_SCH_PNNL_Sat|Wkdy",
-                            "apply_sunday": false,
-                            "apply_monday": true,
-                            "apply_tuesday": true,
-                            "apply_wednesday": true,
-                            "apply_thursday": true,
-                            "apply_friday": true,
-                            "apply_saturday": true,
-                            "apply_holiday": false,
-                            "start_date": [
-                                1,
-                                1
-                            ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        }
-                    ],
-                    "summer_designday_schedule": "Hospital INFIL_SCH_PNNL_SmrDsn",
-                    "winter_designday_schedule": "Hospital INFIL_SCH_PNNL_WntrDsn",
-                    "schedule_type_limit": "Fractional"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital BLDG_EQUIP_EXTD_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_Default",
-                            "values": [
-                                0.4,
-                                0.6,
-                                0.4
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_SmrDsn",
-                            "values": [
-                                1.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_WntrDsn",
-                            "values": [
-                                0.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_Sat",
-                            "values": [
-                                0.4,
-                                0.5,
-                                0.65,
-                                0.4
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    18,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_Wkdy",
-                            "values": [
-                                0.4,
-                                0.7,
-                                0.9,
-                                0.6,
-                                0.4
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ],
-                                [
-                                    23,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital BLDG_EQUIP_EXTD_SCH_Default",
-                    "schedule_rules": [
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_EQUIP_EXTD_SCH_Sat",
-                            "apply_sunday": false,
-                            "apply_monday": false,
-                            "apply_tuesday": false,
-                            "apply_wednesday": false,
-                            "apply_thursday": false,
-                            "apply_friday": false,
-                            "apply_saturday": true,
-                            "apply_holiday": false,
-                            "start_date": [
-                                1,
-                                1
-                            ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        },
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_EQUIP_EXTD_SCH_Wkdy",
-                            "apply_sunday": false,
-                            "apply_monday": true,
-                            "apply_tuesday": true,
-                            "apply_wednesday": true,
-                            "apply_thursday": true,
-                            "apply_friday": true,
-                            "apply_saturday": false,
-                            "apply_holiday": false,
-                            "start_date": [
-                                1,
-                                1
-                            ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        }
-                    ],
-                    "summer_designday_schedule": "Hospital BLDG_EQUIP_EXTD_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital BLDG_EQUIP_EXTD_SCH_WntrDsn",
-                    "schedule_type_limit": "Fractional"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital HTGSETP_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital HTGSETP_SCH_Default",
-                            "values": [
-                                21.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital HTGSETP_SCH_SmrDsn",
-                            "values": [
-                                21.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital HTGSETP_SCH_WntrDsn",
-                            "values": [
-                                21.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital HTGSETP_SCH_Default",
-                    "summer_designday_schedule": "Hospital HTGSETP_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital HTGSETP_SCH_WntrDsn",
-                    "schedule_type_limit": "Temperature"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Humidity Controlled PatRm Setpt_DeHumidSetp",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
-                            "values": [
-                                30.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
-                    "schedule_type_limit": "Humidity"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital ACTIVITY_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital ACTIVITY_SCH_Default",
-                            "values": [
-                                120.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital ACTIVITY_SCH_SmrDsn",
-                            "values": [
-                                120.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital ACTIVITY_SCH_WntrDsn",
-                            "values": [
-                                120.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital ACTIVITY_SCH_Default",
-                    "summer_designday_schedule": "Hospital ACTIVITY_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital ACTIVITY_SCH_WntrDsn",
-                    "schedule_type_limit": "Activity Level"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Humidity Controlled PatRm Setpt_ClgSetp",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Humidity Controlled PatRm Setpt_ClgSetp_Day Schedule",
-                            "values": [
-                                24.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Humidity Controlled PatRm Setpt_ClgSetp_Day Schedule",
-                    "schedule_type_limit": "Temperature"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
                     "name": "Hospital CLGSETP_SCH",
                     "day_schedules": [
                         {
                             "type": "ScheduleDay",
                             "name": "Hospital CLGSETP_SCH_Default",
-                            "values": [
-                                24.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital CLGSETP_SCH_SmrDsn",
                             "values": [
                                 24.0
                             ],
@@ -911,22 +472,12 @@
                                 ]
                             ],
                             "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital CLGSETP_SCH_Default",
-                    "summer_designday_schedule": "Hospital CLGSETP_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital CLGSETP_SCH_WntrDsn",
-                    "schedule_type_limit": "Temperature"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Humidity Controlled PatRm Setpt_DeHumidSetp",
-                    "day_schedules": [
+                        },
                         {
                             "type": "ScheduleDay",
-                            "name": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
+                            "name": "Hospital CLGSETP_SCH_SmrDsn",
                             "values": [
-                                55.0
+                                24.0
                             ],
                             "times": [
                                 [
@@ -937,181 +488,9 @@
                             "interpolate": false
                         }
                     ],
-                    "default_day_schedule": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
-                    "schedule_type_limit": "Humidity"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital BLDG_LIGHT_EXTD_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_Default",
-                            "values": [
-                                0.5,
-                                0.7,
-                                0.5
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_SmrDsn",
-                            "values": [
-                                1.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_WntrDsn",
-                            "values": [
-                                0.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_Sat",
-                            "values": [
-                                0.5,
-                                0.8,
-                                0.5
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    18,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_Wkdy",
-                            "values": [
-                                0.5,
-                                0.9,
-                                0.5
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital BLDG_LIGHT_EXTD_SCH_Default",
-                    "schedule_rules": [
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_LIGHT_EXTD_SCH_Sat",
-                            "apply_sunday": false,
-                            "apply_monday": false,
-                            "apply_tuesday": false,
-                            "apply_wednesday": false,
-                            "apply_thursday": false,
-                            "apply_friday": false,
-                            "apply_saturday": true,
-                            "apply_holiday": false,
-                            "start_date": [
-                                1,
-                                1
-                            ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        },
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_LIGHT_EXTD_SCH_Wkdy",
-                            "apply_sunday": false,
-                            "apply_monday": true,
-                            "apply_tuesday": true,
-                            "apply_wednesday": true,
-                            "apply_thursday": true,
-                            "apply_friday": true,
-                            "apply_saturday": false,
-                            "apply_holiday": false,
-                            "start_date": [
-                                1,
-                                1
-                            ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        }
-                    ],
-                    "summer_designday_schedule": "Hospital BLDG_LIGHT_EXTD_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital BLDG_LIGHT_EXTD_SCH_WntrDsn",
-                    "schedule_type_limit": "Fractional"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Humidity Controlled PatRm Setpt_HtgSetp",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Humidity Controlled PatRm Setpt_HtgSetp_Day Schedule",
-                            "values": [
-                                21.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Humidity Controlled PatRm Setpt_HtgSetp_Day Schedule",
+                    "default_day_schedule": "Hospital CLGSETP_SCH_Default",
+                    "holiday_schedule": "Hospital CLGSETP_SCH_SmrDsn",
+                    "summer_designday_schedule": "Hospital CLGSETP_SCH_WntrDsn",
                     "schedule_type_limit": "Temperature"
                 },
                 {
@@ -1144,9 +523,9 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_OCC_EXTD_SCH_SmrDsn",
+                            "name": "Hospital BLDG_OCC_EXTD_SCH_WntrDsn",
                             "values": [
-                                1.0
+                                0.0
                             ],
                             "times": [
                                 [
@@ -1158,9 +537,9 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_OCC_EXTD_SCH_WntrDsn",
+                            "name": "Hospital BLDG_OCC_EXTD_SCH_SmrDsn",
                             "values": [
-                                0.0
+                                1.0
                             ],
                             "times": [
                                 [
@@ -1261,7 +640,6 @@
                             "apply_thursday": false,
                             "apply_friday": false,
                             "apply_saturday": true,
-                            "apply_holiday": false,
                             "start_date": [
                                 1,
                                 1
@@ -1281,7 +659,6 @@
                             "apply_thursday": true,
                             "apply_friday": true,
                             "apply_saturday": false,
-                            "apply_holiday": false,
                             "start_date": [
                                 1,
                                 1
@@ -1292,30 +669,628 @@
                             ]
                         }
                     ],
-                    "summer_designday_schedule": "Hospital BLDG_OCC_EXTD_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital BLDG_OCC_EXTD_SCH_WntrDsn",
+                    "holiday_schedule": "Hospital BLDG_OCC_EXTD_SCH_SmrDsn",
+                    "summer_designday_schedule": "Hospital BLDG_OCC_EXTD_SCH_WntrDsn",
                     "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Humidity Controlled PatRm Setpt_ClgSetp",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Humidity Controlled PatRm Setpt_ClgSetp_Day Schedule",
+                            "values": [
+                                24.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Humidity Controlled PatRm Setpt_ClgSetp_Day Schedule",
+                    "schedule_type_limit": "Temperature"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Hospital BLDG_EQUIP_EXTD_SCH",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_Default",
+                            "values": [
+                                0.4,
+                                0.6,
+                                0.4
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    16,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_WntrDsn",
+                            "values": [
+                                0.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_SmrDsn",
+                            "values": [
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_Sat",
+                            "values": [
+                                0.4,
+                                0.5,
+                                0.65,
+                                0.4
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_Wkdy",
+                            "values": [
+                                0.4,
+                                0.7,
+                                0.9,
+                                0.6,
+                                0.4
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    16,
+                                    0
+                                ],
+                                [
+                                    23,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Hospital BLDG_EQUIP_EXTD_SCH_Default",
+                    "schedule_rules": [
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "Hospital BLDG_EQUIP_EXTD_SCH_Sat",
+                            "apply_sunday": false,
+                            "apply_monday": false,
+                            "apply_tuesday": false,
+                            "apply_wednesday": false,
+                            "apply_thursday": false,
+                            "apply_friday": false,
+                            "apply_saturday": true,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        },
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "Hospital BLDG_EQUIP_EXTD_SCH_Wkdy",
+                            "apply_sunday": false,
+                            "apply_monday": true,
+                            "apply_tuesday": true,
+                            "apply_wednesday": true,
+                            "apply_thursday": true,
+                            "apply_friday": true,
+                            "apply_saturday": false,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        }
+                    ],
+                    "holiday_schedule": "Hospital BLDG_EQUIP_EXTD_SCH_SmrDsn",
+                    "summer_designday_schedule": "Hospital BLDG_EQUIP_EXTD_SCH_WntrDsn",
+                    "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Humidity Controlled PatRm Setpt_HtgSetp",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Humidity Controlled PatRm Setpt_HtgSetp_Day Schedule",
+                            "values": [
+                                21.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Humidity Controlled PatRm Setpt_HtgSetp_Day Schedule",
+                    "schedule_type_limit": "Temperature"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Hospital BLDG_LIGHT_EXTD_SCH",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_Default",
+                            "values": [
+                                0.5,
+                                0.7,
+                                0.5
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    16,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_WntrDsn",
+                            "values": [
+                                0.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_SmrDsn",
+                            "values": [
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_Sat",
+                            "values": [
+                                0.5,
+                                0.8,
+                                0.5
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_Wkdy",
+                            "values": [
+                                0.5,
+                                0.9,
+                                0.5
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    16,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Hospital BLDG_LIGHT_EXTD_SCH_Default",
+                    "schedule_rules": [
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "Hospital BLDG_LIGHT_EXTD_SCH_Sat",
+                            "apply_sunday": false,
+                            "apply_monday": false,
+                            "apply_tuesday": false,
+                            "apply_wednesday": false,
+                            "apply_thursday": false,
+                            "apply_friday": false,
+                            "apply_saturday": true,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        },
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "Hospital BLDG_LIGHT_EXTD_SCH_Wkdy",
+                            "apply_sunday": false,
+                            "apply_monday": true,
+                            "apply_tuesday": true,
+                            "apply_wednesday": true,
+                            "apply_thursday": true,
+                            "apply_friday": true,
+                            "apply_saturday": false,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        }
+                    ],
+                    "holiday_schedule": "Hospital BLDG_LIGHT_EXTD_SCH_SmrDsn",
+                    "summer_designday_schedule": "Hospital BLDG_LIGHT_EXTD_SCH_WntrDsn",
+                    "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Always On",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Always On_Day Schedule",
+                            "values": [
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Always On_Day Schedule",
+                    "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Hospital HTGSETP_SCH",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital HTGSETP_SCH_Default",
+                            "values": [
+                                21.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital HTGSETP_SCH_WntrDsn",
+                            "values": [
+                                21.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital HTGSETP_SCH_SmrDsn",
+                            "values": [
+                                21.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Hospital HTGSETP_SCH_Default",
+                    "holiday_schedule": "Hospital HTGSETP_SCH_SmrDsn",
+                    "summer_designday_schedule": "Hospital HTGSETP_SCH_WntrDsn",
+                    "schedule_type_limit": "Temperature"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Hospital INFIL_SCH_PNNL",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital INFIL_SCH_PNNL_Default",
+                            "values": [
+                                0.25
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital INFIL_SCH_PNNL_WntrDsn",
+                            "values": [
+                                0.25
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital INFIL_SCH_PNNL_SmrDsn",
+                            "values": [
+                                0.25
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital INFIL_SCH_PNNL_Sat|Wkdy",
+                            "values": [
+                                0.25
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Hospital INFIL_SCH_PNNL_Default",
+                    "schedule_rules": [
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "Hospital INFIL_SCH_PNNL_Sat|Wkdy",
+                            "apply_sunday": false,
+                            "apply_monday": true,
+                            "apply_tuesday": true,
+                            "apply_wednesday": true,
+                            "apply_thursday": true,
+                            "apply_friday": true,
+                            "apply_saturday": true,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        }
+                    ],
+                    "holiday_schedule": "Hospital INFIL_SCH_PNNL_SmrDsn",
+                    "summer_designday_schedule": "Hospital INFIL_SCH_PNNL_WntrDsn",
+                    "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Hospital ACTIVITY_SCH",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital ACTIVITY_SCH_Default",
+                            "values": [
+                                120.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital ACTIVITY_SCH_WntrDsn",
+                            "values": [
+                                120.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Hospital ACTIVITY_SCH_SmrDsn",
+                            "values": [
+                                120.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Hospital ACTIVITY_SCH_Default",
+                    "holiday_schedule": "Hospital ACTIVITY_SCH_SmrDsn",
+                    "summer_designday_schedule": "Hospital ACTIVITY_SCH_WntrDsn",
+                    "schedule_type_limit": "Activity Level"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Humidity Controlled PatRm Setpt_DeHumidSetp",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
+                            "values": [
+                                55.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
+                    "schedule_type_limit": "Humidity"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Humidity Controlled PatRm Setpt_DeHumidSetp",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
+                            "values": [
+                                30.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
+                    "schedule_type_limit": "Humidity"
                 }
             ],
             "schedule_type_limits": [
-                {
-                    "type": "ScheduleTypeLimit",
-                    "name": "Activity Level",
-                    "lower_limit": 0.0,
-                    "upper_limit": {
-                        "type": "NoLimit"
-                    },
-                    "numeric_type": "Continuous",
-                    "unit_type": "ActivityLevel"
-                },
-                {
-                    "type": "ScheduleTypeLimit",
-                    "name": "Humidity",
-                    "lower_limit": 0.0,
-                    "upper_limit": 100.0,
-                    "numeric_type": "Continuous",
-                    "unit_type": "Percent"
-                },
                 {
                     "type": "ScheduleTypeLimit",
                     "name": "Temperature",
@@ -1333,6 +1308,24 @@
                     "upper_limit": 1.0,
                     "numeric_type": "Continuous",
                     "unit_type": "Dimensionless"
+                },
+                {
+                    "type": "ScheduleTypeLimit",
+                    "name": "Humidity",
+                    "lower_limit": 0.0,
+                    "upper_limit": 100.0,
+                    "numeric_type": "Continuous",
+                    "unit_type": "Percent"
+                },
+                {
+                    "type": "ScheduleTypeLimit",
+                    "name": "Activity Level",
+                    "lower_limit": 0.0,
+                    "upper_limit": {
+                        "type": "NoLimit"
+                    },
+                    "numeric_type": "Continuous",
+                    "unit_type": "ActivityLevel"
                 }
             ]
         },
@@ -1343,120 +1336,45 @@
                     "type": "ModifierSetAbridged",
                     "name": "Generic_Interior_Visible_Modifier_Set",
                     "wall_set": {
-                        "exterior_modifier": "generic_wall_0.50",
                         "interior_modifier": "generic_wall_0.50",
+                        "exterior_modifier": "generic_wall_0.50",
                         "type": "WallSetAbridged"
                     },
                     "floor_set": {
-                        "exterior_modifier": "generic_floor_0.20",
                         "interior_modifier": "generic_floor_0.20",
+                        "exterior_modifier": "generic_floor_0.20",
                         "type": "FloorSetAbridged"
                     },
                     "roof_ceiling_set": {
-                        "exterior_modifier": "generic_ceiling_0.80",
                         "interior_modifier": "generic_ceiling_0.80",
+                        "exterior_modifier": "generic_ceiling_0.80",
                         "type": "RoofCeilingSetAbridged"
                     },
                     "aperture_set": {
+                        "operable_modifier": "generic_exterior_window_vis_0.64",
                         "interior_modifier": "generic_interior_window_vis_0.88",
                         "skylight_modifier": "generic_exterior_window_vis_0.64",
-                        "operable_modifier": "generic_exterior_window_vis_0.64",
                         "type": "ApertureSetAbridged",
                         "window_modifier": "generic_exterior_window_vis_0.64"
                     },
                     "door_set": {
-                        "exterior_glass_modifier": "generic_exterior_window_vis_0.64",
                         "interior_modifier": "generic_opaque_door_0.50",
-                        "interior_glass_modifier": "generic_interior_window_vis_0.88",
                         "exterior_modifier": "generic_opaque_door_0.50",
+                        "exterior_glass_modifier": "generic_exterior_window_vis_0.64",
+                        "interior_glass_modifier": "generic_interior_window_vis_0.88",
                         "overhead_modifier": "generic_opaque_door_0.50",
                         "type": "DoorSetAbridged"
                     },
                     "shade_set": {
-                        "exterior_modifier": "generic_exterior_shade_0.35",
                         "interior_modifier": "generic_interior_shade_0.50",
+                        "exterior_modifier": "generic_exterior_shade_0.35",
                         "type": "ShadeSetAbridged"
                     },
-                    "air_wall_modifier": "air_wall"
+                    "air_boundary_modifier": "air_boundary"
                 }
             ],
             "global_modifier_set": "Generic_Interior_Visible_Modifier_Set",
             "modifiers": [
-                {
-                    "modifier": "void",
-                    "type": "plastic",
-                    "name": "generic_opaque_door_0.50",
-                    "r_reflectance": 0.5,
-                    "g_reflectance": 0.5,
-                    "b_reflectance": 0.5,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": "void",
-                    "type": "glass",
-                    "name": "air_wall",
-                    "r_transmissivity": 1.0,
-                    "g_transmissivity": 1.0,
-                    "b_transmissivity": 1.0,
-                    "refraction_index": null,
-                    "dependencies": []
-                },
-                {
-                    "modifier": "void",
-                    "type": "plastic",
-                    "name": "generic_ceiling_0.80",
-                    "r_reflectance": 0.8,
-                    "g_reflectance": 0.8,
-                    "b_reflectance": 0.8,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": "void",
-                    "type": "plastic",
-                    "name": "generic_interior_shade_0.50",
-                    "r_reflectance": 0.5,
-                    "g_reflectance": 0.5,
-                    "b_reflectance": 0.5,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": "void",
-                    "type": "plastic",
-                    "name": "generic_exterior_shade_0.35",
-                    "r_reflectance": 0.35,
-                    "g_reflectance": 0.35,
-                    "b_reflectance": 0.35,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": "void",
-                    "type": "glass",
-                    "name": "generic_exterior_window_vis_0.64",
-                    "r_transmissivity": 0.6975761815384331,
-                    "g_transmissivity": 0.6975761815384331,
-                    "b_transmissivity": 0.6975761815384331,
-                    "refraction_index": null,
-                    "dependencies": []
-                },
-                {
-                    "modifier": "void",
-                    "type": "plastic",
-                    "name": "generic_floor_0.20",
-                    "r_reflectance": 0.2,
-                    "g_reflectance": 0.2,
-                    "b_reflectance": 0.2,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
                 {
                     "modifier": "void",
                     "type": "glass",
@@ -1474,6 +1392,81 @@
                     "r_reflectance": 0.5,
                     "g_reflectance": 0.5,
                     "b_reflectance": 0.5,
+                    "specularity": 0.0,
+                    "roughness": 0.0,
+                    "dependencies": []
+                },
+                {
+                    "modifier": "void",
+                    "type": "plastic",
+                    "name": "generic_ceiling_0.80",
+                    "r_reflectance": 0.8,
+                    "g_reflectance": 0.8,
+                    "b_reflectance": 0.8,
+                    "specularity": 0.0,
+                    "roughness": 0.0,
+                    "dependencies": []
+                },
+                {
+                    "modifier": "void",
+                    "type": "plastic",
+                    "name": "generic_opaque_door_0.50",
+                    "r_reflectance": 0.5,
+                    "g_reflectance": 0.5,
+                    "b_reflectance": 0.5,
+                    "specularity": 0.0,
+                    "roughness": 0.0,
+                    "dependencies": []
+                },
+                {
+                    "modifier": "void",
+                    "type": "glass",
+                    "name": "generic_exterior_window_vis_0.64",
+                    "r_transmissivity": 0.6975761815384331,
+                    "g_transmissivity": 0.6975761815384331,
+                    "b_transmissivity": 0.6975761815384331,
+                    "refraction_index": null,
+                    "dependencies": []
+                },
+                {
+                    "modifier": "void",
+                    "type": "plastic",
+                    "name": "generic_exterior_shade_0.35",
+                    "r_reflectance": 0.35,
+                    "g_reflectance": 0.35,
+                    "b_reflectance": 0.35,
+                    "specularity": 0.0,
+                    "roughness": 0.0,
+                    "dependencies": []
+                },
+                {
+                    "modifier": "void",
+                    "type": "plastic",
+                    "name": "generic_interior_shade_0.50",
+                    "r_reflectance": 0.5,
+                    "g_reflectance": 0.5,
+                    "b_reflectance": 0.5,
+                    "specularity": 0.0,
+                    "roughness": 0.0,
+                    "dependencies": []
+                },
+                {
+                    "modifier": "void",
+                    "type": "glass",
+                    "name": "air_boundary",
+                    "r_transmissivity": 1.0,
+                    "g_transmissivity": 1.0,
+                    "b_transmissivity": 1.0,
+                    "refraction_index": null,
+                    "dependencies": []
+                },
+                {
+                    "modifier": "void",
+                    "type": "plastic",
+                    "name": "generic_floor_0.20",
+                    "r_reflectance": 0.2,
+                    "g_reflectance": 0.2,
+                    "b_reflectance": 0.2,
                     "specularity": 0.0,
                     "roughness": 0.0,
                     "dependencies": []

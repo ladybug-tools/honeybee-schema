@@ -50,10 +50,8 @@ def schedule_primary_school_occupancy(directory):
     summer_weekend_rule = ScheduleRule(
         weekend_summer, start_date=Date(7, 1), end_date=Date(9, 1))
     summer_weekend_rule.apply_weekend = True
-    summer_weekend_rule.apply_holiday = True
     school_weekend_rule = ScheduleRule(weekend_school)
     school_weekend_rule.apply_weekend = True
-    school_weekend_rule.apply_holiday = True
 
     summer_design = ScheduleDay('School Summer Design', [0, 1, 0.25],
                                 [Time(0, 0), Time(6, 0), Time(18, 0)])
@@ -61,8 +59,8 @@ def schedule_primary_school_occupancy(directory):
 
     schedule = ScheduleRuleset('School Occupancy', weekday_school,
                                [summer_weekday_rule, summer_weekend_rule,
-                                school_weekend_rule],
-                               schedule_types.fractional, summer_design, winter_design)
+                                school_weekend_rule], schedule_types.fractional,
+                                weekend_summer, summer_design, winter_design)
 
     dest_file = os.path.join(directory, 'schedule_primary_school_occupancy.json')
     with open(dest_file, 'w') as fp:

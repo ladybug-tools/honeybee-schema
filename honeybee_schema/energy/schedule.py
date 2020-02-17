@@ -150,11 +150,6 @@ class ScheduleRuleAbridged(DatedBaseModel):
         description='Boolean noting whether to apply schedule_day on Saturdays.'
     )
 
-    apply_holiday: bool = Field(
-        False,
-        description='Boolean noting whether to apply schedule_day on Holidays.'
-    )
-
     start_date: List[int] = Field(
         [1, 1],
         min_items=2,
@@ -208,6 +203,14 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
         description='A list of ScheduleRuleAbridged that note exceptions to the '
             'default_day_schedule. These rules should be ordered from highest to '
             'lowest priority.'
+    )
+
+    holiday_schedule: str = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description='A name for the ScheduleDay that will be used for holidays. '
+            'This ScheduleDay must be in the day_schedules.'
     )
 
     summer_designday_schedule: str = Field(

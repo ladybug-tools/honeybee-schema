@@ -1,0 +1,32 @@
+name: CD
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  dispatchSchema:
+    name: "Dispatch Schema to Clients"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        client_repo:
+          - ladybug-tools/honeybee-schema-dotnet
+          - ladybug-tools/dragonfly-schema
+  
+    steps:
+    - name: "send repo dispatch to apiary"
+      env:
+        DISPATCH_URL: https://api.github.com/repos/${{ matrix.client_repo }}/dispatches
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        curl -X POST $DISPATCH_URL \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          -d '{
+            "event_type": "honeybee_schema_release",
+            "client_payload": {
+              "version" : $GITHUB_REF
+            }
+          }' \
+          -u ladybugbot:$GH_TOKEN 

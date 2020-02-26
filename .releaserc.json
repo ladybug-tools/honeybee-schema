@@ -19,7 +19,7 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "python docs.py ${nextRelease.version}",
+                "prepareCmd": "python docs.py --version ${nextRelease.version}",
                 "publishCmd": "bash deploy.sh"
             }
         ]

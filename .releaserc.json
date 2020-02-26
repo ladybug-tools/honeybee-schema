@@ -2,10 +2,24 @@
     "plugins": [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
-        "@semantic-release/github",
+        [
+            "@semantic-release/github",
+            {
+                "assets": [{
+                        "path": "docs/model.json",
+                        "label": "Model Schema"
+                    },
+                    {
+                        "path": "docs/simulation-parameter.json",
+                        "label": "Simulation Parameters Schema"
+                    }
+                ]
+            }
+        ],
         [
             "@semantic-release/exec",
             {
+                "prepareCmd": "python docs.py ${nextRelease.version}",
                 "publishCmd": "bash deploy.sh"
             }
         ]

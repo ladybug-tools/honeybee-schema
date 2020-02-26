@@ -2,6 +2,12 @@ from pkg_resources import get_distribution
 from pydantic.schema import schema
 from typing import Dict
 
+VERSION = None
+
+try:
+    VERSION = '.'.join(get_distribution('honeybee_schema').version.split('.')[:3]),
+except:
+    pass
 
 # base open api dictionary for all schemas
 _base_open_api = {
@@ -9,7 +15,7 @@ _base_open_api = {
     "servers": [],
     "info": {
         "description": "",
-        "version": '.'.join(get_distribution('honeybee_schema').version.split('.')[:3]),
+        "version": VERSION,
         "title": "",
         "contact": {
             "name": "Ladybug Tools",
@@ -55,6 +61,9 @@ def get_openapi(
 
     if title:
         open_api['info']['title'] = title
+
+    if not version and not VERSION:
+        raise ValueError('Schema version must be specified as argument or from distribution metadata')
 
     if version:
         open_api['info']['version'] = version

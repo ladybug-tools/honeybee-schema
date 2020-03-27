@@ -89,6 +89,11 @@ class Shade(NamedBaseModel):
             '(Radiance, EnergyPlus).'
     )
 
+    user_data: dict = Field(
+        default={},
+        description='Optional dictionary of user data associated with the object.'
+    )
+
 
 class DoorPropertiesAbridged(BaseModel):
 
@@ -140,6 +145,11 @@ class Door(NamedBaseModel):
             '(Radiance, EnergyPlus).'
     )
 
+    user_data: dict = Field(
+        default={},
+        description='Optional dictionary of user data associated with the object.'
+    )
+
 
 class AperturePropertiesAbridged(BaseModel):
 
@@ -189,6 +199,11 @@ class Aperture(NamedBaseModel):
         ...,
         description='Extension properties for particular simulation engines '
             '(Radiance, EnergyPlus).'
+    )
+
+    user_data: dict = Field(
+        default={},
+        description='Optional dictionary of user data associated with the object.'
     )
 
 
@@ -258,6 +273,11 @@ class Face(NamedBaseModel):
             '(Radiance, EnergyPlus).'
     )
 
+    user_data: dict = Field(
+        default={},
+        description='Optional dictionary of user data associated with the object.'
+    )
+
     @root_validator
     def chack_air_boundarys_are_interior(cls, values):
         """Check that all air wall faces have a Surface boundary condition."""
@@ -312,6 +332,11 @@ class Room(NamedBaseModel):
             'Multipliers are used to speed up the calculation when similar Rooms are '
             'repeated more than once. Essentially, a given simulation with the '
             'Room is run once and then the result is mutliplied by the multiplier.'
+    )
+
+    user_data: dict = Field(
+        default={},
+        description='Optional dictionary of user data associated with the object.'
     )
 
 
@@ -412,6 +437,11 @@ class Model(NamedBaseModel):
         ...,
         description='Extension properties for particular simulation engines '
             '(Radiance, EnergyPlus).'
+    )
+
+    user_data: dict = Field(
+        default={},
+        description='Optional dictionary of user data associated with the object.'
     )
 
 

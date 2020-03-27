@@ -1,7 +1,7 @@
 {
     "type": "Model",
-    "name": "PatientRoomTestBox",
-    "display_name": "Patient Room Test Box",
+    "name": "TinyHouse",
+    "display_name": "Tiny House",
     "units": "Meters",
     "properties": {
         "type": "ModelProperties",
@@ -56,6 +56,13 @@
                     "name": "Generic Shade",
                     "solar_reflectance": 0.35,
                     "visible_reflectance": 0.35,
+                    "is_specular": false
+                },
+                {
+                    "type": "ShadeConstruction",
+                    "name": "Outdoor Light Shelf",
+                    "solar_reflectance": 0.5,
+                    "visible_reflectance": 0.5,
                     "is_specular": false
                 },
                 {
@@ -159,6 +166,13 @@
                         "Generic Ceiling Air Gap",
                         "Generic LW Concrete"
                     ]
+                },
+                {
+                    "type": "ShadeConstruction",
+                    "name": "Indoor Light Shelf",
+                    "solar_reflectance": 0.7,
+                    "visible_reflectance": 0.7,
+                    "is_specular": false
                 },
                 {
                     "type": "AirBoundaryConstructionAbridged",
@@ -373,11 +387,11 @@
             "hvacs": [
                 {
                     "type": "IdealAirSystemAbridged",
-                    "name": "HospitalPatientRoom_IdealAir",
-                    "economizer_type": "DifferentialEnthalpy",
+                    "name": "TinyHouseOffice_IdealAir",
+                    "economizer_type": "DifferentialDryBulb",
                     "demand_controlled_ventilation": false,
-                    "sensible_heat_recovery": 0.81,
-                    "latent_heat_recovery": 0.68,
+                    "sensible_heat_recovery": 0.0,
+                    "latent_heat_recovery": 0.0,
                     "heating_air_temperature": 50.0,
                     "cooling_air_temperature": 13.0,
                     "heating_limit": {
@@ -391,267 +405,68 @@
             "program_types": [
                 {
                     "type": "ProgramTypeAbridged",
-                    "name": "2013::Hospital::ICU_PatRm",
+                    "name": "Generic Office Program",
                     "people": {
                         "type": "PeopleAbridged",
-                        "name": "2013::Hospital::ICU_PatRm_People",
-                        "people_per_area": 0.05381957525591208,
+                        "name": "Generic Office People",
+                        "people_per_area": 0.0565,
                         "radiant_fraction": 0.3,
                         "latent_fraction": {
                             "type": "Autocalculate"
                         },
-                        "occupancy_schedule": "Hospital BLDG_OCC_EXTD_SCH",
-                        "activity_schedule": "Hospital ACTIVITY_SCH"
+                        "occupancy_schedule": "Generic Office Occupancy",
+                        "activity_schedule": "Generic Office Activity"
                     },
                     "lighting": {
                         "type": "LightingAbridged",
-                        "name": "2013::Hospital::ICU_PatRm_Lighting",
-                        "watts_per_area": 6.673617999999999,
+                        "name": "Generic Office Lighting",
+                        "watts_per_area": 10.55,
                         "return_air_fraction": 0.0,
                         "radiant_fraction": 0.7,
                         "visible_fraction": 0.2,
-                        "schedule": "Hospital BLDG_LIGHT_EXTD_SCH"
+                        "schedule": "Generic Office Lighting"
                     },
                     "electric_equipment": {
                         "type": "ElectricEquipmentAbridged",
-                        "name": "2013::Hospital::ICU_PatRm_Electric",
-                        "watts_per_area": 32.2917,
+                        "name": "Generic Office Equipment",
+                        "watts_per_area": 10.33,
                         "radiant_fraction": 0.5,
                         "latent_fraction": 0.0,
                         "lost_fraction": 0.0,
-                        "schedule": "Hospital BLDG_EQUIP_EXTD_SCH"
+                        "schedule": "Generic Office Equipment"
                     },
                     "infiltration": {
                         "type": "InfiltrationAbridged",
-                        "name": "2013::Hospital::ICU_PatRm_Infiltration",
-                        "flow_per_exterior_area": 0.00022656800000000002,
-                        "schedule": "Hospital INFIL_SCH_PNNL"
+                        "name": "Generic Office Infiltration",
+                        "flow_per_exterior_area": 0.0002266,
+                        "schedule": "Generic Office Infiltration"
                     },
                     "ventilation": {
                         "type": "VentilationAbridged",
-                        "name": "2013::Hospital::ICU_PatRm_Ventilation",
-                        "air_changes_per_hour": 2.0
+                        "name": "Generic Office Ventilation",
+                        "flow_per_person": 0.00236,
+                        "flow_per_area": 0.000305
                     },
                     "setpoint": {
                         "type": "SetpointAbridged",
-                        "name": "2013::Hospital::ICU_PatRm_Setpoint",
-                        "heating_schedule": "Hospital HTGSETP_SCH",
-                        "cooling_schedule": "Hospital CLGSETP_SCH"
+                        "name": "Generic Office Setpoints",
+                        "heating_schedule": "Generic Office Heating",
+                        "cooling_schedule": "Generic Office Cooling"
                     }
                 }
             ],
             "schedules": [
                 {
                     "type": "ScheduleRulesetAbridged",
-                    "name": "Humidity Controlled PatRm Setpt_HtgSetp",
+                    "name": "Generic Office Lighting",
                     "day_schedules": [
                         {
                             "type": "ScheduleDay",
-                            "name": "Humidity Controlled PatRm Setpt_HtgSetp_Day Schedule",
+                            "name": "OfficeMedium BLDG_LIGHT_SCH_2013_Sun",
                             "values": [
-                                21.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Humidity Controlled PatRm Setpt_HtgSetp_Day Schedule",
-                    "schedule_type_limit": "Temperature"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital CLGSETP_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital CLGSETP_SCH_Default",
-                            "values": [
-                                24.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital CLGSETP_SCH_SmrDsn",
-                            "values": [
-                                24.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital CLGSETP_SCH_WntrDsn",
-                            "values": [
-                                24.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital CLGSETP_SCH_Default",
-                    "summer_designday_schedule": "Hospital CLGSETP_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital CLGSETP_SCH_WntrDsn",
-                    "schedule_type_limit": "Temperature"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Humidity Controlled PatRm Setpt_DeHumidSetp",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
-                            "values": [
-                                55.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
-                    "schedule_type_limit": "Humidity"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital HTGSETP_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital HTGSETP_SCH_Default",
-                            "values": [
-                                21.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital HTGSETP_SCH_SmrDsn",
-                            "values": [
-                                21.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital HTGSETP_SCH_WntrDsn",
-                            "values": [
-                                21.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital HTGSETP_SCH_Default",
-                    "summer_designday_schedule": "Hospital HTGSETP_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital HTGSETP_SCH_WntrDsn",
-                    "schedule_type_limit": "Temperature"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital ACTIVITY_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital ACTIVITY_SCH_Default",
-                            "values": [
-                                120.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital ACTIVITY_SCH_SmrDsn",
-                            "values": [
-                                120.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital ACTIVITY_SCH_WntrDsn",
-                            "values": [
-                                120.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital ACTIVITY_SCH_Default",
-                    "summer_designday_schedule": "Hospital ACTIVITY_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital ACTIVITY_SCH_WntrDsn",
-                    "schedule_type_limit": "Activity Level"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital BLDG_LIGHT_EXTD_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_Default",
-                            "values": [
-                                0.5,
-                                0.7,
-                                0.5
+                                0.05,
+                                0.04311628,
+                                0.05
                             ],
                             "times": [
                                 [
@@ -659,11 +474,11 @@
                                     0
                                 ],
                                 [
-                                    8,
+                                    6,
                                     0
                                 ],
                                 [
-                                    16,
+                                    18,
                                     0
                                 ]
                             ],
@@ -671,7 +486,7 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_SmrDsn",
+                            "name": "OfficeMedium BLDG_LIGHT_SCH_2013_SmrDsn",
                             "values": [
                                 1.0
                             ],
@@ -685,7 +500,7 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_WntrDsn",
+                            "name": "OfficeMedium BLDG_LIGHT_SCH_2013_WntrDsn",
                             "values": [
                                 0.0
                             ],
@@ -699,15 +514,22 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_Sat",
+                            "name": "OfficeMedium BLDG_LIGHT_SCH_2013_Sat",
                             "values": [
-                                0.5,
-                                0.8,
-                                0.5
+                                0.05,
+                                0.08623256,
+                                0.25869768,
+                                0.12934884,
+                                0.04311628,
+                                0.05
                             ],
                             "times": [
                                 [
                                     0,
+                                    0
+                                ],
+                                [
+                                    6,
                                     0
                                 ],
                                 [
@@ -715,7 +537,15 @@
                                     0
                                 ],
                                 [
-                                    18,
+                                    12,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    19,
                                     0
                                 ]
                             ],
@@ -723,11 +553,18 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_LIGHT_EXTD_SCH_Wkdy",
+                            "name": "OfficeMedium BLDG_LIGHT_SCH_2013_Wkdy",
                             "values": [
-                                0.5,
-                                0.9,
-                                0.5
+                                0.05,
+                                0.1,
+                                0.08623256,
+                                0.25869768,
+                                0.77609304,
+                                0.4311628,
+                                0.25869768,
+                                0.17246512,
+                                0.08623256,
+                                0.04311628
                             ],
                             "times": [
                                 [
@@ -735,174 +572,11 @@
                                     0
                                 ],
                                 [
-                                    8,
+                                    5,
                                     0
                                 ],
                                 [
-                                    16,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital BLDG_LIGHT_EXTD_SCH_Default",
-                    "schedule_rules": [
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_LIGHT_EXTD_SCH_Sat",
-                            "apply_sunday": false,
-                            "apply_monday": false,
-                            "apply_tuesday": false,
-                            "apply_wednesday": false,
-                            "apply_thursday": false,
-                            "apply_friday": false,
-                            "apply_saturday": true,
-                            "start_date": [
-                                1,
-                                1
-                            ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        },
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_LIGHT_EXTD_SCH_Wkdy",
-                            "apply_sunday": false,
-                            "apply_monday": true,
-                            "apply_tuesday": true,
-                            "apply_wednesday": true,
-                            "apply_thursday": true,
-                            "apply_friday": true,
-                            "apply_saturday": false,
-                            "start_date": [
-                                1,
-                                1
-                            ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        }
-                    ],
-                    "summer_designday_schedule": "Hospital BLDG_LIGHT_EXTD_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital BLDG_LIGHT_EXTD_SCH_WntrDsn",
-                    "schedule_type_limit": "Fractional"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Humidity Controlled PatRm Setpt_DeHumidSetp",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
-                            "values": [
-                                30.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Humidity Controlled PatRm Setpt_DeHumidSetp_Day Schedule",
-                    "schedule_type_limit": "Humidity"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Humidity Controlled PatRm Setpt_ClgSetp",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Humidity Controlled PatRm Setpt_ClgSetp_Day Schedule",
-                            "values": [
-                                24.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Humidity Controlled PatRm Setpt_ClgSetp_Day Schedule",
-                    "schedule_type_limit": "Temperature"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital BLDG_EQUIP_EXTD_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_Default",
-                            "values": [
-                                0.4,
-                                0.6,
-                                0.4
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_SmrDsn",
-                            "values": [
-                                1.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_WntrDsn",
-                            "values": [
-                                0.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_Sat",
-                            "values": [
-                                0.4,
-                                0.5,
-                                0.65,
-                                0.4
-                            ],
-                            "times": [
-                                [
-                                    0,
+                                    6,
                                     0
                                 ],
                                 [
@@ -914,37 +588,19 @@
                                     0
                                 ],
                                 [
+                                    17,
+                                    0
+                                ],
+                                [
                                     18,
                                     0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_EQUIP_EXTD_SCH_Wkdy",
-                            "values": [
-                                0.4,
-                                0.7,
-                                0.9,
-                                0.6,
-                                0.4
-                            ],
-                            "times": [
+                                ],
                                 [
-                                    0,
+                                    20,
                                     0
                                 ],
                                 [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    16,
+                                    22,
                                     0
                                 ],
                                 [
@@ -955,30 +611,11 @@
                             "interpolate": false
                         }
                     ],
-                    "default_day_schedule": "Hospital BLDG_EQUIP_EXTD_SCH_Default",
+                    "default_day_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_Sun",
                     "schedule_rules": [
                         {
                             "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_EQUIP_EXTD_SCH_Sat",
-                            "apply_sunday": false,
-                            "apply_monday": false,
-                            "apply_tuesday": false,
-                            "apply_wednesday": false,
-                            "apply_thursday": false,
-                            "apply_friday": false,
-                            "apply_saturday": true,
-                            "start_date": [
-                                1,
-                                1
-                            ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        },
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_EQUIP_EXTD_SCH_Wkdy",
+                            "schedule_day": "OfficeMedium BLDG_LIGHT_SCH_2013_Wkdy",
                             "apply_sunday": false,
                             "apply_monday": true,
                             "apply_tuesday": true,
@@ -994,10 +631,603 @@
                                 12,
                                 31
                             ]
+                        },
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium BLDG_LIGHT_SCH_2013_Sat",
+                            "apply_sunday": false,
+                            "apply_monday": false,
+                            "apply_tuesday": false,
+                            "apply_wednesday": false,
+                            "apply_thursday": false,
+                            "apply_friday": false,
+                            "apply_saturday": true,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
                         }
                     ],
-                    "summer_designday_schedule": "Hospital BLDG_EQUIP_EXTD_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital BLDG_EQUIP_EXTD_SCH_WntrDsn",
+                    "holiday_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_Sat",
+                    "summer_designday_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_SmrDsn",
+                    "winter_designday_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_WntrDsn",
+                    "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Generic Office Cooling",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
+                            "values": [
+                                26.7
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
+                            "values": [
+                                26.7,
+                                25.7,
+                                25.0,
+                                24.0,
+                                26.7
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
+                            "values": [
+                                26.7
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
+                            "values": [
+                                26.7,
+                                25.6,
+                                25.0,
+                                24.0,
+                                26.7
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
+                            "values": [
+                                26.7,
+                                25.7,
+                                25.0,
+                                24.0,
+                                26.7
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
+                    "schedule_rules": [
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
+                            "apply_sunday": false,
+                            "apply_monday": true,
+                            "apply_tuesday": true,
+                            "apply_wednesday": true,
+                            "apply_thursday": true,
+                            "apply_friday": true,
+                            "apply_saturday": false,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        },
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
+                            "apply_sunday": false,
+                            "apply_monday": false,
+                            "apply_tuesday": false,
+                            "apply_wednesday": false,
+                            "apply_thursday": false,
+                            "apply_friday": false,
+                            "apply_saturday": true,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        }
+                    ],
+                    "holiday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
+                    "summer_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
+                    "winter_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
+                    "schedule_type_limit": "Temperature"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Generic Office Occupancy",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_OCC_SCH_Default",
+                            "values": [
+                                0.0,
+                                0.05,
+                                0.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_OCC_SCH_SmrDsn",
+                            "values": [
+                                0.0,
+                                1.0,
+                                0.05
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_OCC_SCH_WntrDsn",
+                            "values": [
+                                0.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_OCC_SCH_Wkdy",
+                            "values": [
+                                0.0,
+                                0.1,
+                                0.2,
+                                0.95,
+                                0.5,
+                                0.95,
+                                0.3,
+                                0.1,
+                                0.05
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    12,
+                                    0
+                                ],
+                                [
+                                    13,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_OCC_SCH_Sat",
+                            "values": [
+                                0.0,
+                                0.1,
+                                0.3,
+                                0.1,
+                                0.05,
+                                0.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    12,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    19,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "OfficeMedium BLDG_OCC_SCH_Default",
+                    "schedule_rules": [
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium BLDG_OCC_SCH_Wkdy",
+                            "apply_sunday": false,
+                            "apply_monday": true,
+                            "apply_tuesday": true,
+                            "apply_wednesday": true,
+                            "apply_thursday": true,
+                            "apply_friday": true,
+                            "apply_saturday": false,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        },
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium BLDG_OCC_SCH_Sat",
+                            "apply_sunday": false,
+                            "apply_monday": false,
+                            "apply_tuesday": false,
+                            "apply_wednesday": false,
+                            "apply_thursday": false,
+                            "apply_friday": false,
+                            "apply_saturday": true,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        }
+                    ],
+                    "holiday_schedule": "OfficeMedium BLDG_OCC_SCH_Default",
+                    "summer_designday_schedule": "OfficeMedium BLDG_OCC_SCH_SmrDsn",
+                    "winter_designday_schedule": "OfficeMedium BLDG_OCC_SCH_WntrDsn",
+                    "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Generic Office Equipment",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_EQUIP_SCH_2013_Sun",
+                            "values": [
+                                0.2307553806,
+                                0.288107175,
+                                0.2307553806
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_EQUIP_SCH_2013_SmrDsn",
+                            "values": [
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_EQUIP_SCH_2013_WntrDsn",
+                            "values": [
+                                0.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_EQUIP_SCH_2013_Sat",
+                            "values": [
+                                0.2307553806,
+                                0.381234796,
+                                0.476543495,
+                                0.3335804465,
+                                0.285926097,
+                                0.2307553806
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    12,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    19,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium BLDG_EQUIP_SCH_2013_Wkdy",
+                            "values": [
+                                0.3076738408,
+                                0.381234796,
+                                0.857778291,
+                                0.762469592,
+                                0.857778291,
+                                0.476543495,
+                                0.381234796
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    12,
+                                    0
+                                ],
+                                [
+                                    13,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_Sun",
+                    "schedule_rules": [
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium BLDG_EQUIP_SCH_2013_Wkdy",
+                            "apply_sunday": false,
+                            "apply_monday": true,
+                            "apply_tuesday": true,
+                            "apply_wednesday": true,
+                            "apply_thursday": true,
+                            "apply_friday": true,
+                            "apply_saturday": false,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        },
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium BLDG_EQUIP_SCH_2013_Sat",
+                            "apply_sunday": false,
+                            "apply_monday": false,
+                            "apply_tuesday": false,
+                            "apply_wednesday": false,
+                            "apply_thursday": false,
+                            "apply_friday": false,
+                            "apply_saturday": true,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        }
+                    ],
+                    "holiday_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_Sat",
+                    "summer_designday_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_SmrDsn",
+                    "winter_designday_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_WntrDsn",
                     "schedule_type_limit": "Fractional"
                 },
                 {
@@ -1024,27 +1254,17 @@
                 },
                 {
                     "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital BLDG_OCC_EXTD_SCH",
+                    "name": "Generic Office Activity",
                     "day_schedules": [
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_OCC_EXTD_SCH_Default",
+                            "name": "OfficeMedium ACTIVITY_SCH_Default",
                             "values": [
-                                0.4,
-                                0.6,
-                                0.4
+                                120.0
                             ],
                             "times": [
                                 [
                                     0,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    16,
                                     0
                                 ]
                             ],
@@ -1052,7 +1272,46 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_OCC_EXTD_SCH_SmrDsn",
+                            "name": "OfficeMedium ACTIVITY_SCH_Default_SmrDsn",
+                            "values": [
+                                120.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium ACTIVITY_SCH_Default_WntrDsn",
+                            "values": [
+                                120.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "OfficeMedium ACTIVITY_SCH_Default",
+                    "holiday_schedule": "OfficeMedium ACTIVITY_SCH_Default",
+                    "summer_designday_schedule": "OfficeMedium ACTIVITY_SCH_Default_SmrDsn",
+                    "winter_designday_schedule": "OfficeMedium ACTIVITY_SCH_Default_WntrDsn",
+                    "schedule_type_limit": "Activity Level"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Generic Office Infiltration",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium INFIL_SCH_PNNL_Default",
                             "values": [
                                 1.0
                             ],
@@ -1066,13 +1325,23 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_OCC_EXTD_SCH_WntrDsn",
+                            "name": "OfficeMedium INFIL_SCH_PNNL_Wkdy_SmrDsn",
                             "values": [
-                                0.0
+                                1.0,
+                                0.25,
+                                1.0
                             ],
                             "times": [
                                 [
                                     0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    22,
                                     0
                                 ]
                             ],
@@ -1080,13 +1349,11 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "name": "Hospital BLDG_OCC_EXTD_SCH_Sat",
+                            "name": "OfficeMedium INFIL_SCH_PNNL_Sat_WntrDsn",
                             "values": [
-                                0.4,
-                                0.5,
-                                0.6,
-                                0.5,
-                                0.4
+                                1.0,
+                                0.25,
+                                1.0
                             ],
                             "times": [
                                 [
@@ -1094,93 +1361,70 @@
                                     0
                                 ],
                                 [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    17,
-                                    0
-                                ],
-                                [
-                                    19,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital BLDG_OCC_EXTD_SCH_Wkdy",
-                            "values": [
-                                0.4,
-                                0.5,
-                                0.6,
-                                0.8,
-                                0.6,
-                                0.5,
-                                0.4
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    9,
-                                    0
-                                ],
-                                [
-                                    17,
+                                    6,
                                     0
                                 ],
                                 [
                                     18,
                                     0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium INFIL_SCH_PNNL_Wkdy",
+                            "values": [
+                                1.0,
+                                0.25,
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
                                 ],
                                 [
-                                    20,
+                                    6,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium INFIL_SCH_PNNL_Sat",
+                            "values": [
+                                1.0,
+                                0.25,
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    18,
                                     0
                                 ]
                             ],
                             "interpolate": false
                         }
                     ],
-                    "default_day_schedule": "Hospital BLDG_OCC_EXTD_SCH_Default",
+                    "default_day_schedule": "OfficeMedium INFIL_SCH_PNNL_Default",
                     "schedule_rules": [
                         {
                             "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_OCC_EXTD_SCH_Sat",
-                            "apply_sunday": false,
-                            "apply_monday": false,
-                            "apply_tuesday": false,
-                            "apply_wednesday": false,
-                            "apply_thursday": false,
-                            "apply_friday": false,
-                            "apply_saturday": true,
-                            "start_date": [
-                                1,
-                                1
-                            ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        },
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital BLDG_OCC_EXTD_SCH_Wkdy",
+                            "schedule_day": "OfficeMedium INFIL_SCH_PNNL_Wkdy",
                             "apply_sunday": false,
                             "apply_monday": true,
                             "apply_tuesday": true,
@@ -1196,84 +1440,16 @@
                                 12,
                                 31
                             ]
-                        }
-                    ],
-                    "summer_designday_schedule": "Hospital BLDG_OCC_EXTD_SCH_SmrDsn",
-                    "winter_designday_schedule": "Hospital BLDG_OCC_EXTD_SCH_WntrDsn",
-                    "schedule_type_limit": "Fractional"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "name": "Hospital INFIL_SCH_PNNL",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital INFIL_SCH_PNNL_Default",
-                            "values": [
-                                0.25
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
                         },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital INFIL_SCH_PNNL_SmrDsn",
-                            "values": [
-                                0.25
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital INFIL_SCH_PNNL_WntrDsn",
-                            "values": [
-                                0.25
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "name": "Hospital INFIL_SCH_PNNL_Sat|Wkdy",
-                            "values": [
-                                0.25
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Hospital INFIL_SCH_PNNL_Default",
-                    "schedule_rules": [
                         {
                             "type": "ScheduleRuleAbridged",
-                            "schedule_day": "Hospital INFIL_SCH_PNNL_Sat|Wkdy",
+                            "schedule_day": "OfficeMedium INFIL_SCH_PNNL_Sat",
                             "apply_sunday": false,
-                            "apply_monday": true,
-                            "apply_tuesday": true,
-                            "apply_wednesday": true,
-                            "apply_thursday": true,
-                            "apply_friday": true,
+                            "apply_monday": false,
+                            "apply_tuesday": false,
+                            "apply_wednesday": false,
+                            "apply_thursday": false,
+                            "apply_friday": false,
                             "apply_saturday": true,
                             "start_date": [
                                 1,
@@ -1285,28 +1461,194 @@
                             ]
                         }
                     ],
-                    "summer_designday_schedule": "Hospital INFIL_SCH_PNNL_SmrDsn",
-                    "winter_designday_schedule": "Hospital INFIL_SCH_PNNL_WntrDsn",
+                    "holiday_schedule": "OfficeMedium INFIL_SCH_PNNL_Default",
+                    "summer_designday_schedule": "OfficeMedium INFIL_SCH_PNNL_Wkdy_SmrDsn",
+                    "winter_designday_schedule": "OfficeMedium INFIL_SCH_PNNL_Sat_WntrDsn",
                     "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "name": "Generic Office Heating",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default",
+                            "values": [
+                                15.6
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default_SmrDsn",
+                            "values": [
+                                15.6
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_WntrDsn",
+                            "values": [
+                                15.6,
+                                17.6,
+                                19.6,
+                                21.0,
+                                15.6
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Wkdy",
+                            "values": [
+                                15.6,
+                                17.8,
+                                20.0,
+                                21.0,
+                                15.6
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "name": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Sat",
+                            "values": [
+                                15.6,
+                                17.8,
+                                20.0,
+                                21.0,
+                                15.6
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default",
+                    "schedule_rules": [
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Wkdy",
+                            "apply_sunday": false,
+                            "apply_monday": true,
+                            "apply_tuesday": true,
+                            "apply_wednesday": true,
+                            "apply_thursday": true,
+                            "apply_friday": true,
+                            "apply_saturday": false,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        },
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Sat",
+                            "apply_sunday": false,
+                            "apply_monday": false,
+                            "apply_tuesday": false,
+                            "apply_wednesday": false,
+                            "apply_thursday": false,
+                            "apply_friday": false,
+                            "apply_saturday": true,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        }
+                    ],
+                    "holiday_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default",
+                    "summer_designday_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default_SmrDsn",
+                    "winter_designday_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_WntrDsn",
+                    "schedule_type_limit": "Temperature"
                 }
             ],
             "schedule_type_limits": [
-                {
-                    "type": "ScheduleTypeLimit",
-                    "name": "Fractional",
-                    "lower_limit": 0.0,
-                    "upper_limit": 1.0,
-                    "numeric_type": "Continuous",
-                    "unit_type": "Dimensionless"
-                },
-                {
-                    "type": "ScheduleTypeLimit",
-                    "name": "Humidity",
-                    "lower_limit": 0.0,
-                    "upper_limit": 100.0,
-                    "numeric_type": "Continuous",
-                    "unit_type": "Percent"
-                },
                 {
                     "type": "ScheduleTypeLimit",
                     "name": "Activity Level",
@@ -1316,6 +1658,14 @@
                     },
                     "numeric_type": "Continuous",
                     "unit_type": "ActivityLevel"
+                },
+                {
+                    "type": "ScheduleTypeLimit",
+                    "name": "Fractional",
+                    "lower_limit": 0.0,
+                    "upper_limit": 1.0,
+                    "numeric_type": "Continuous",
+                    "unit_type": "Dimensionless"
                 },
                 {
                     "type": "ScheduleTypeLimit",
@@ -1477,22 +1827,14 @@
     "rooms": [
         {
             "type": "Room",
-            "name": "HospitalPatientRoom",
-            "display_name": "Hospital Patient Room",
+            "name": "TinyHouseOffice",
+            "display_name": "Tiny House Office",
             "properties": {
                 "type": "RoomPropertiesAbridged",
                 "energy": {
                     "type": "RoomEnergyPropertiesAbridged",
-                    "program_type": "2013::Hospital::ICU_PatRm",
-                    "hvac": "HospitalPatientRoom_IdealAir",
-                    "setpoint": {
-                        "type": "SetpointAbridged",
-                        "name": "Humidity Controlled PatRm Setpt",
-                        "heating_schedule": "Humidity Controlled PatRm Setpt_HtgSetp",
-                        "cooling_schedule": "Humidity Controlled PatRm Setpt_ClgSetp",
-                        "humidifying_schedule": "Humidity Controlled PatRm Setpt_DeHumidSetp",
-                        "dehumidifying_schedule": "Humidity Controlled PatRm Setpt_DeHumidSetp"
-                    }
+                    "program_type": "Generic Office Program",
+                    "hvac": "TinyHouseOffice_IdealAir"
                 },
                 "radiance": {
                     "type": "RoomRadiancePropertiesAbridged"
@@ -1501,8 +1843,8 @@
             "faces": [
                 {
                     "type": "Face",
-                    "name": "HospitalPatientRoom_Bottom",
-                    "display_name": "Hospital Patient Room_Bottom",
+                    "name": "TinyHouseOffice_Bottom",
+                    "display_name": "Tiny House Office_Bottom",
                     "properties": {
                         "type": "FacePropertiesAbridged",
                         "energy": {
@@ -1539,13 +1881,13 @@
                     },
                     "face_type": "Floor",
                     "boundary_condition": {
-                        "type": "Adiabatic"
+                        "type": "Ground"
                     }
                 },
                 {
                     "type": "Face",
-                    "name": "HospitalPatientRoom_Front",
-                    "display_name": "Hospital Patient Room_Front",
+                    "name": "TinyHouseOffice_Front",
+                    "display_name": "Tiny House Office_Front",
                     "properties": {
                         "type": "FacePropertiesAbridged",
                         "energy": {
@@ -1582,13 +1924,159 @@
                     },
                     "face_type": "Wall",
                     "boundary_condition": {
-                        "type": "Adiabatic"
-                    }
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    },
+                    "apertures": [
+                        {
+                            "type": "Aperture",
+                            "name": "FrontAperture",
+                            "display_name": "Front Aperture",
+                            "properties": {
+                                "type": "AperturePropertiesAbridged",
+                                "energy": {
+                                    "type": "ApertureEnergyPropertiesAbridged"
+                                },
+                                "radiance": {
+                                    "type": "ApertureRadiancePropertiesAbridged"
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        4.5,
+                                        10.0,
+                                        2.5
+                                    ],
+                                    [
+                                        4.5,
+                                        10.0,
+                                        1.0
+                                    ],
+                                    [
+                                        2.5,
+                                        10.0,
+                                        1.0
+                                    ],
+                                    [
+                                        2.5,
+                                        10.0,
+                                        2.5
+                                    ]
+                                ]
+                            },
+                            "is_operable": false,
+                            "boundary_condition": {
+                                "type": "Outdoors",
+                                "sun_exposure": true,
+                                "wind_exposure": true,
+                                "view_factor": {
+                                    "type": "Autocalculate"
+                                }
+                            }
+                        }
+                    ],
+                    "doors": [
+                        {
+                            "type": "Door",
+                            "name": "FrontDoor",
+                            "display_name": "Front Door",
+                            "properties": {
+                                "type": "DoorPropertiesAbridged",
+                                "energy": {
+                                    "type": "DoorEnergyPropertiesAbridged"
+                                },
+                                "radiance": {
+                                    "type": "DoorRadiancePropertiesAbridged"
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        2.0,
+                                        10.0,
+                                        2.5
+                                    ],
+                                    [
+                                        2.0,
+                                        10.0,
+                                        0.1
+                                    ],
+                                    [
+                                        1.0,
+                                        10.0,
+                                        0.1
+                                    ],
+                                    [
+                                        1.0,
+                                        10.0,
+                                        2.5
+                                    ]
+                                ]
+                            },
+                            "is_glass": false,
+                            "boundary_condition": {
+                                "type": "Outdoors",
+                                "sun_exposure": true,
+                                "wind_exposure": true,
+                                "view_factor": {
+                                    "type": "Autocalculate"
+                                }
+                            }
+                        }
+                    ],
+                    "outdoor_shades": [
+                        {
+                            "type": "Shade",
+                            "name": "TinyHouseOffice_Front_OutOverhang0",
+                            "display_name": "Tiny House Office_Front_OutOverhang0",
+                            "properties": {
+                                "type": "ShadePropertiesAbridged",
+                                "energy": {
+                                    "type": "ShadeEnergyPropertiesAbridged"
+                                },
+                                "radiance": {
+                                    "type": "ShadeRadiancePropertiesAbridged"
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        0.0,
+                                        10.0,
+                                        2.9999998999999997
+                                    ],
+                                    [
+                                        5.0,
+                                        10.0,
+                                        2.9999998999999997
+                                    ],
+                                    [
+                                        5.0,
+                                        10.25,
+                                        2.9999998999999997
+                                    ],
+                                    [
+                                        0.0,
+                                        10.25,
+                                        2.9999998999999997
+                                    ]
+                                ]
+                            }
+                        }
+                    ]
                 },
                 {
                     "type": "Face",
-                    "name": "HospitalPatientRoom_Right",
-                    "display_name": "Hospital Patient Room_Right",
+                    "name": "TinyHouseOffice_Right",
+                    "display_name": "Tiny House Office_Right",
                     "properties": {
                         "type": "FacePropertiesAbridged",
                         "energy": {
@@ -1625,13 +2113,18 @@
                     },
                     "face_type": "Wall",
                     "boundary_condition": {
-                        "type": "Adiabatic"
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
                     }
                 },
                 {
                     "type": "Face",
-                    "name": "HospitalPatientRoom_Back",
-                    "display_name": "Hospital Patient Room_Back",
+                    "name": "TinyHouseOffice_Back",
+                    "display_name": "Tiny House Office_Back",
                     "properties": {
                         "type": "FacePropertiesAbridged",
                         "energy": {
@@ -1678,8 +2171,8 @@
                     "apertures": [
                         {
                             "type": "Aperture",
-                            "name": "HospitalPatientRoom_Back_Glz0",
-                            "display_name": "Hospital Patient Room_Back_Glz0",
+                            "name": "TinyHouseOffice_Back_Glz0",
+                            "display_name": "Tiny House Office_Back_Glz0",
                             "properties": {
                                 "type": "AperturePropertiesAbridged",
                                 "energy": {
@@ -1726,12 +2219,13 @@
                             "outdoor_shades": [
                                 {
                                     "type": "Shade",
-                                    "name": "HospitalPatientRoom_Back_Glz0_OutOverhang0",
-                                    "display_name": "Hospital Patient Room_Back_Glz0_OutOverhang0",
+                                    "name": "TinyHouseOffice_Back_Glz0_OutOverhang0",
+                                    "display_name": "Tiny House Office_Back_Glz0_OutOverhang0",
                                     "properties": {
                                         "type": "ShadePropertiesAbridged",
                                         "energy": {
-                                            "type": "ShadeEnergyPropertiesAbridged"
+                                            "type": "ShadeEnergyPropertiesAbridged",
+                                            "construction": "Outdoor Light Shelf"
                                         },
                                         "radiance": {
                                             "type": "ShadeRadiancePropertiesAbridged"
@@ -1763,14 +2257,56 @@
                                         ]
                                     }
                                 }
+                            ],
+                            "indoor_shades": [
+                                {
+                                    "type": "Shade",
+                                    "name": "TinyHouseOffice_Back_Glz0_InOverhang0",
+                                    "display_name": "Tiny House Office_Back_Glz0_InOverhang0",
+                                    "properties": {
+                                        "type": "ShadePropertiesAbridged",
+                                        "energy": {
+                                            "type": "ShadeEnergyPropertiesAbridged",
+                                            "construction": "Indoor Light Shelf"
+                                        },
+                                        "radiance": {
+                                            "type": "ShadeRadiancePropertiesAbridged"
+                                        }
+                                    },
+                                    "geometry": {
+                                        "type": "Face3D",
+                                        "boundary": [
+                                            [
+                                                4.08113883008419,
+                                                0.0,
+                                                2.4486831980505137
+                                            ],
+                                            [
+                                                0.91886116991581,
+                                                0.0,
+                                                2.4486831980505137
+                                            ],
+                                            [
+                                                0.91886116991581,
+                                                0.5,
+                                                2.4486831980505137
+                                            ],
+                                            [
+                                                4.08113883008419,
+                                                0.5,
+                                                2.4486831980505137
+                                            ]
+                                        ]
+                                    }
+                                }
                             ]
                         }
                     ]
                 },
                 {
                     "type": "Face",
-                    "name": "HospitalPatientRoom_Left",
-                    "display_name": "Hospital Patient Room_Left",
+                    "name": "TinyHouseOffice_Left",
+                    "display_name": "Tiny House Office_Left",
                     "properties": {
                         "type": "FacePropertiesAbridged",
                         "energy": {
@@ -1807,13 +2343,18 @@
                     },
                     "face_type": "Wall",
                     "boundary_condition": {
-                        "type": "Adiabatic"
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
                     }
                 },
                 {
                     "type": "Face",
-                    "name": "HospitalPatientRoom_Top",
-                    "display_name": "Hospital Patient Room_Top",
+                    "name": "TinyHouseOffice_Top",
+                    "display_name": "Tiny House Office_Top",
                     "properties": {
                         "type": "FacePropertiesAbridged",
                         "energy": {
@@ -1850,7 +2391,12 @@
                     },
                     "face_type": "RoofCeiling",
                     "boundary_condition": {
-                        "type": "Adiabatic"
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
                     }
                 }
             ]

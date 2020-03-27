@@ -17,6 +17,11 @@ def test_model_complete_single_zone_office():
     Model.parse_file(file_path)
 
 
+def test_model_complete_user_data():
+    file_path  = os.path.join(target_folder, 'model_complete_user_data.json')
+    Model.parse_file(file_path)
+
+
 def test_model_complete_patient_room():
     file_path  = os.path.join(target_folder, 'model_complete_patient_room.json')
     Model.parse_file(file_path) 

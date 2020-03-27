@@ -87,6 +87,51 @@ def model_complete_single_zone_office(directory):
         json.dump(model.to_dict(), fp, indent=4)
 
 
+def model_complete_single_zone_office_user_data(directory):
+    room = Room.from_box('Tiny House Office', 5, 10, 3)
+    room.properties.energy.program_type = prog_type_lib.office_program
+    room.properties.energy.add_default_ideal_air()
+
+    south_face = room[3]
+    south_face.apertures_by_ratio(0.4, 0.01)
+    south_face.apertures[0].overhang(0.5, indoor=False)
+    south_face.apertures[0].overhang(0.5, indoor=True)
+    south_face.move_shades(Vector3D(0, 0, -0.5))
+    light_shelf_out = ShadeConstruction('Outdoor Light Shelf', 0.5, 0.5)
+    light_shelf_in = ShadeConstruction('Indoor Light Shelf', 0.7, 0.7)
+    south_face.apertures[0].outdoor_shades[0].properties.energy.construction = light_shelf_out
+    south_face.apertures[0].indoor_shades[0].properties.energy.construction = light_shelf_in
+
+    north_face = room[1]
+    north_face.overhang(0.25, indoor=False)
+    door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1),
+                  Point3D(1, 10, 2.5), Point3D(2, 10, 2.5)]
+    door = Door('Front Door', Face3D(door_verts))
+    north_face.add_door(door)
+
+    aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1),
+                      Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
+    aperture = Aperture('Front Aperture', Face3D(aperture_verts))
+    north_face.add_aperture(aperture)
+    
+    model = Model('Tiny House', [room])
+    model_dict = model.to_dict()
+
+    model_dict['user_data'] = {'site': 'The backyard'}
+    model_dict['rooms'][0]['user_data'] = {'alt_name': 'Little old tiny house'}
+    model_dict['rooms'][0]['faces'][0]['user_data'] = {'alt_name': 'The floor'}
+    model_dict['rooms'][0]['faces'][3]['apertures'][0]['user_data'] = \
+        {'alt_name': 'Picture window'}
+    model_dict['rooms'][0]['faces'][1]['doors'][0]['user_data'] = \
+        {'alt_name': 'Front door'}
+    model_dict['rooms'][0]['faces'][3]['apertures'][0]['outdoor_shades'][0]['user_data'] = \
+        {'alt_name': 'Awning'}
+
+    dest_file = os.path.join(directory, 'model_complete_user_data.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(), fp, indent=4)
+
+
 def model_complete_multi_zone_office(directory):
     first_floor = Room.from_box('First Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
     second_floor = Room.from_box('Second Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
@@ -370,6 +415,7 @@ master_dir = os.path.split(os.path.dirname(__file__))[0]
 sample_directory = os.path.join(master_dir, 'samples', 'model')
 
 model_complete_single_zone_office(sample_directory)
+model_complete_single_zone_office_user_data(sample_directory)
 model_complete_multi_zone_office(sample_directory)
 model_complete_patient_room(sample_directory)
 model_complete_office_floor(sample_directory)

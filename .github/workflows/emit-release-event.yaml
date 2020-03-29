@@ -18,6 +18,7 @@ jobs:
     steps:
     - name: "send repo dispatch to apiary"
       env:
+        RELEASE_TAG: ${{ github.event.release.tag_name }}
         DISPATCH_URL: https://api.github.com/repos/${{ matrix.client_repo }}/dispatches
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
@@ -26,7 +27,7 @@ jobs:
           -d '{
             "event_type": "honeybee_schema_release",
             "client_payload": {
-              "version" : $GITHUB_REF
+              "version" : "'$RELEASE_TAG'"
             }
           }' \
-          -u ladybugbot:$GH_TOKEN 
+          -u ladybugbot:$GH_TOKEN

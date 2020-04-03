@@ -3,6 +3,7 @@ from pydantic import Field, validator, root_validator, constr
 from typing import Union
 
 from ._base import NamedEnergyBaseModel
+from .schedule import ScheduleRuleset, ScheduleFixedInterval
 from ..altnumber import Autocalculate
 
 
@@ -51,9 +52,9 @@ class PeopleAbridged(NamedEnergyBaseModel):
         description='Number for the latent fraction of heat gain due to people or '
             'an Autocalculate object.'
     )
-    
+
     @root_validator
-    def check_sum_fractions(cls, values): 
+    def check_sum_fractions(cls, values):
         "Ensure sum is less than 1."
         rad = values.get('radiant_fraction')
         latent = values.get('latent_fraction')
@@ -69,6 +70,27 @@ class PeopleAbridged(NamedEnergyBaseModel):
                     {"$ref": "#/components/schemas/Autocalculate"},
                     {"type": "number", "minimum": 0, "maximum": 1}
                 ]
+
+
+class People(PeopleAbridged):
+
+    type: constr(regex='^People$') = 'People'
+
+    occupancy_schedule:  Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='A schedule for the occupancy over the course of the '
+            'year. The type of this schedule should be Fractional and the fractional '
+            'values will get multiplied by the people_per_area to yield a complete '
+            'occupancy profile.'
+    )
+
+    activity_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='A schedule for the activity of the occupants over the '
+            'course of the year. The type of this schedule should be Power and the '
+            'values of the schedule equal to the number of Watts given off by an '
+            'individual person in the room.'
+    )
 
 
 class LightingAbridged(NamedEnergyBaseModel):
@@ -116,7 +138,7 @@ class LightingAbridged(NamedEnergyBaseModel):
     )
 
     @root_validator
-    def check_sum_fractions(cls, values): 
+    def check_sum_fractions(cls, values):
         "Ensure sum is less than 1."
         return_air = values.get('return_air_fraction')
         vis = values.get('visible_fraction')
@@ -124,6 +146,19 @@ class LightingAbridged(NamedEnergyBaseModel):
         assert sum((return_air, vis, rad)) <= 1, \
             'Sum of visible, radiant, and return air fractions cannot be greater than 1.'
         return values
+
+
+class Lighting(LightingAbridged):
+
+    type: constr(regex='^Lighting$') = 'Lighting'
+
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='The schedule for the use of lights over the course of '
+            'the year. The type of this schedule should be Fractional and the '
+            'fractional values will get multiplied by the watts_per_area to yield a '
+            'complete lighting profile.'
+    )
 
 
 class _EquipmentBase(NamedEnergyBaseModel):
@@ -156,7 +191,7 @@ class _EquipmentBase(NamedEnergyBaseModel):
         0,
         ge=0,
         le=1,
-        description='Number for the amount of latent heat given off by electric' 
+        description='Number for the amount of latent heat given off by electric'
         'equipment. Default value is 0.'
 
     )
@@ -170,7 +205,7 @@ class _EquipmentBase(NamedEnergyBaseModel):
     )
 
     @root_validator
-    def check_sum_fractions(cls, values): 
+    def check_sum_fractions(cls, values):
         "Ensure sum is less than 1."
         rad = values.get('radiant_fraction')
         latent = values.get('latent_fraction')
@@ -179,14 +214,41 @@ class _EquipmentBase(NamedEnergyBaseModel):
             'Sum of radiant, latent, and lost fractions cannot be greater than 1.'
         return values
 
+
 class ElectricEquipmentAbridged(_EquipmentBase):
 
     type: constr(regex='^ElectricEquipmentAbridged$') = 'ElectricEquipmentAbridged'
 
 
+class ElectricEquipment(ElectricEquipmentAbridged):
+
+    type: constr(regex='^ElectricEquipment$') = 'ElectricEquipment'
+
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='The schedule for the use of equipment over the course '
+            'of the year. The type of this schedule should be Fractional and the '
+            'fractional values will get multiplied by the watts_per_area to yield '
+            'a complete equipment profile.'
+    )
+
+
 class GasEquipmentAbridged(_EquipmentBase):
 
     type: constr(regex='^GasEquipmentAbridged$') = 'GasEquipmentAbridged'
+
+
+class GasEquipment(GasEquipmentAbridged):
+
+    type: constr(regex='^GasEquipment$') = 'GasEquipment'
+
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='The schedule for the use of equipment over the course '
+            'of the year. The type of this schedule should be Fractional and the '
+            'fractional values will get multiplied by the watts_per_area to yield '
+            'a complete equipment profile.'
+    )
 
 
 class InfiltrationAbridged(NamedEnergyBaseModel):
@@ -222,6 +284,19 @@ class InfiltrationAbridged(NamedEnergyBaseModel):
     velocity_coefficient: float = Field(
         0,
         ge=0
+    )
+
+
+class Infiltration(InfiltrationAbridged):
+
+    type: constr(regex='^Infiltration$') = 'Infiltration'
+
+    schedule: str = Field(
+        ...,
+        description='The schedule for the infiltration over the course of '
+            'the year. The type of this schedule should be Fractional and the '
+            'fractional values will get multiplied by the flow_per_exterior_area '
+            'to yield a complete infiltration profile.'
     )
 
 
@@ -268,6 +343,23 @@ class VentilationAbridged(NamedEnergyBaseModel):
             'ventilation profile.'
     )
 
+
+class Ventilation(VentilationAbridged):
+
+    type: constr(regex='^Ventilation$') = 'Ventilation'
+
+    schedule: str = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description='Schedule for the ventilation over the course of '
+            'the year. The type of this schedule should be Fractional and the '
+            'fractional values will get multiplied by the total design flow rate '
+            '(determined from the sum of the other 4 fields) to yield a complete '
+            'ventilation profile.'
+    )
+
+
 class SetpointAbridged(NamedEnergyBaseModel):
     """Used to specify information about the setpoint schedule."""
 
@@ -306,7 +398,7 @@ class SetpointAbridged(NamedEnergyBaseModel):
     )
 
     @root_validator
-    def check_both_himd_sch(cls, values): 
+    def check_both_himd_sch(cls, values):
         "Ensure that the other humidity schedule is included when one is."
         humid = values.get('humidifying_schedule')
         dehumid = values.get('dehumidifying_schedule')
@@ -317,6 +409,36 @@ class SetpointAbridged(NamedEnergyBaseModel):
             assert humid is not None, 'When dehumidifying_schedule is specified, ' \
                 'humidifying_schedule must also be specified.'
         return values
+
+
+class Setpoint(SetpointAbridged):
+    """Used to specify information about the setpoint schedule."""
+
+    type: constr(regex='^Setpoint$') = 'Setpoint'
+
+    cooling_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='Schedule for the cooling setpoint. The values in '
+            'this schedule should be temperature in [C].'
+    )
+
+    heating_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='Schedule for the heating setpoint. The values in '
+            'this schedule should be temperature in [C].'
+    )
+
+    humidifying_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        default=None,
+        description='Schedule for the humidification setpoint. The values '
+            'in this schedule should be in [%].'
+    )
+
+    dehumidifying_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        default=None,
+        description='Schedule for the dehumidification setpoint. The values '
+            'in this schedule should be in [%].'
+    )
 
 
 if __name__ == '__main__':

@@ -1,8 +1,15 @@
 """ConstructionSet Schema"""
 from pydantic import Field, constr
+from typing import List, Union
 
 from .._base import NoExtraBaseModel
 from ._base import NamedEnergyBaseModel
+from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged, \
+    ShadeConstruction, AirBoundaryConstructionAbridged
+from .material import EnergyMaterial, EnergyMaterialNoMass, \
+    EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
+    EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
+    EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
 
 
 class WallSetAbridged(NoExtraBaseModel):
@@ -229,5 +236,36 @@ class ConstructionSetAbridged(NamedEnergyBaseModel):
     )
 
 
+class ConstructionSet(ConstructionSetAbridged):
+    """A set of constructions for different surface types and boundary conditions."""
+
+    type: constr(regex='^ConstructionSet$') = 'ConstructionSet'
+
+    materials: List[
+        Union[
+            EnergyMaterial, EnergyMaterialNoMass,
+            EnergyWindowMaterialGas, EnergyWindowMaterialGasMixture,
+            EnergyWindowMaterialGasCustom, EnergyWindowMaterialBlind,
+            EnergyWindowMaterialGlazing, EnergyWindowMaterialShade,
+            EnergyWindowMaterialSimpleGlazSys]
+        ] = Field(
+                ...,
+                description='List of materials. The order of the materials is from '
+                    'outside to inside.',
+                min_items=1,
+                max_items=8
+            )
+
+    constructions:  List[
+        Union[
+            OpaqueConstructionAbridged, WindowConstructionAbridged,
+            ShadeConstruction, AirBoundaryConstructionAbridged
+        ]] = Field(
+                ...,
+                description='List of abridged Construction objects.',
+            )
+
+
 if __name__ == '__main__':
     print(ConstructionSetAbridged.schema_json(indent=2))
+    print(ConstructionSet.schema_json(indent=2))

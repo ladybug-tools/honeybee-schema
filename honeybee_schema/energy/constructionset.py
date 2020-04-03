@@ -4,7 +4,8 @@ from typing import List, Union
 
 from .._base import NoExtraBaseModel
 from ._base import NamedEnergyBaseModel
-from .construction import OpaqueConstruction, WindowConstruction
+from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged, \
+    ShadeConstruction, AirBoundaryConstructionAbridged
 from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
@@ -41,30 +42,6 @@ class WallSetAbridged(NoExtraBaseModel):
     )
 
 
-class WallSet(WallSetAbridged):
-    """A set of constructions for wall assemblies."""
-
-    type: constr(regex='^WallSet$') = 'WallSet'
-
-    interior_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for walls with a Surface or '
-            'Adiabatic boundary condition.'
-    )
-
-    exterior_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for walls with an Outdoors '
-            'boundary condition.'
-    )
-
-    ground_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for walls with a Ground '
-            'boundary condition.'
-    )
-
-
 class FloorSetAbridged(NoExtraBaseModel):
     """A set of constructions for floor assemblies."""
 
@@ -95,30 +72,6 @@ class FloorSetAbridged(NoExtraBaseModel):
     )
 
 
-class FloorSet(FloorSetAbridged):
-    """A set of constructions for floor assemblies."""
-
-    type: constr(regex='^FloorSet$') = 'FloorSet'
-
-    interior_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for floors with a Surface or '
-            'Adiabatic boundary condition.'
-    )
-
-    exterior_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for floors with an Outdoors '
-            'boundary condition.'
-    )
-
-    ground_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for floors with a Ground '
-            'boundary condition.'
-    )
-
-
 class RoofCeilingSetAbridged(NoExtraBaseModel):
     """A set of constructions for roof and ceiling assemblies."""
 
@@ -145,30 +98,6 @@ class RoofCeilingSetAbridged(NoExtraBaseModel):
         min_length=1,
         max_length=100,
         description='Name for an OpaqueConstruction for roofs with a Ground '
-            'boundary condition.'
-    )
-
-
-class RoofCeilingSet(RoofCeilingSetAbridged):
-    """A set of constructions for roof and ceiling assemblies."""
-
-    type: constr(regex='^RoofCeilingSet$') = 'RoofCeilingSet'
-
-    interior_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for ceilings with a Surface or '
-            'Adiabatic boundary condition.'
-    )
-
-    exterior_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for roofs with an Outdoors '
-            'boundary condition.'
-    )
-
-    ground_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for roofs with a Ground '
             'boundary condition.'
     )
 
@@ -209,38 +138,6 @@ class ApertureSetAbridged(NoExtraBaseModel):
         min_length=1,
         max_length=100,
         description='Name for a WindowConstruction for all apertures with an '
-            'Outdoors boundary condition and True is_operable property..'
-    )
-
-
-class ApertureSet(ApertureSetAbridged):
-    """A set of constructions for aperture assemblies."""
-
-    type: constr(regex='^ApertureSet$') = 'ApertureSet'
-
-    interior_construction: WindowConstruction = Field(
-        default=None,
-        description='A WindowConstruction for apertures with an '
-            'Outdoors boundary condition, False is_operable property, and a Wall '
-            'face type for their parent face.'
-    )
-
-    window_construction: WindowConstruction = Field(
-        default=None,
-        description='A WindowConstruction for all apertures with a '
-            'Surface boundary condition.'
-    )
-
-    skylight_construction: WindowConstruction = Field(
-        default=None,
-        description='A WindowConstruction for apertures with a Outdoors '
-            'boundary condition, False is_operable property, and a RoofCeiling or '
-            'Floor face type for their parent face.'
-    )
-
-    operable_construction: WindowConstruction = Field(
-        default=None,
-        description='A WindowConstruction for all apertures with an '
             'Outdoors boundary condition and True is_operable property..'
     )
 
@@ -287,42 +184,6 @@ class DoorSetAbridged(NoExtraBaseModel):
         min_length=1,
         max_length=100,
         description='Name for an WindowConstruction for all glass doors with a '
-            'Surface boundary condition.'
-    )
-
-
-class DoorSet(DoorSetAbridged):
-    """A set of constructions for door assemblies."""
-
-    type: constr(regex='^DoorSet$') = 'DoorSet'
-
-    interior_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for all opaque doors with a '
-            'Surface boundary condition.'
-    )
-
-    exterior_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for opaque doors with an Outdoors '
-            'boundary condition and a Wall face type for their parent face.'
-    )
-
-    overhead_construction: OpaqueConstruction = Field(
-        default=None,
-        description='An OpaqueConstruction for opaque doors with an Outdoors '
-            'boundary condition and a RoofCeiling or Floor type for their parent face.'
-    )
-
-    exterior_glass_construction: WindowConstruction = Field(
-        default=None,
-        description='A WindowConstruction for all glass doors with an '
-            'Outdoors boundary condition.'
-    )
-
-    interior_glass_construction: WindowConstruction = Field(
-        default=None,
-        description='A WindowConstruction for all glass doors with a '
             'Surface boundary condition.'
     )
 
@@ -380,31 +241,6 @@ class ConstructionSet(ConstructionSetAbridged):
 
     type: constr(regex='^ConstructionSet$') = 'ConstructionSet'
 
-    wall_set: WallSet = Field(
-        default=None,
-        description='A WallSet object for this ConstructionSet.'
-    )
-
-    floor_set: FloorSet = Field(
-        default=None,
-        description='A FloorSet object for this ConstructionSet.'
-    )
-
-    roof_ceiling_set: RoofCeilingSet = Field(
-        default=None,
-        description='A RoofCeilingSet object for this ConstructionSet.'
-    )
-
-    aperture_set: ApertureSet = Field(
-        default=None,
-        description='A ApertureSet object for this ConstructionSet.'
-    )
-
-    door_set: DoorSet = Field(
-        default=None,
-        description='A DoorSet object for this ConstructionSet.'
-    )
-
     materials: List[
         Union[
             EnergyMaterial, EnergyMaterialNoMass,
@@ -414,19 +250,20 @@ class ConstructionSet(ConstructionSetAbridged):
             EnergyWindowMaterialSimpleGlazSys]
         ] = Field(
                 ...,
-                description='List of materials. The order of the materials is from outside '
-                    'to inside.',
+                description='List of materials. The order of the materials is from '
+                    'outside to inside.',
                 min_items=1,
                 max_items=8
             )
 
-    layers: List[constr(min_length=1, max_length=100)] = Field(
-        ...,
-        description='List of strings for material names. The order of the materials '
-            'is from exterior to interior.',
-        min_items=1,
-        max_items=8
-    )
+    constructions:  List[
+        Union[
+            OpaqueConstructionAbridged, WindowConstructionAbridged,
+            ShadeConstruction, AirBoundaryConstructionAbridged
+        ]] = Field(
+                ...,
+                description='List of abridged Construction objects.',
+            )
 
 
 if __name__ == '__main__':

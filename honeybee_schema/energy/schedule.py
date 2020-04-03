@@ -179,17 +179,6 @@ class ScheduleRuleAbridged(DatedBaseModel):
         return cls.check_date(v)
 
 
-class ScheduleRule(ScheduleRuleAbridged):
-    """Schedule rule including a ScheduleDay and when it should be applied.."""
-
-    type: constr(regex='^ScheduleRule$') = 'ScheduleRule'
-
-    schedule_day: ScheduleDay = Field(
-        ...,
-        description='A ScheduleDay object associated with this rule.'
-    )
-
-
 class ScheduleRulesetAbridged(NamedEnergyBaseModel):
     """Used to define a schedule for a default day, further described by ScheduleRule."""
 
@@ -259,13 +248,6 @@ class ScheduleRuleset(ScheduleRulesetAbridged):
         ...,
         description='A list of ScheduleDays that are referenced in the other keys of '
         'this ScheduleRuleset.'
-    )
-
-    schedule_rules: List[ScheduleRule] = Field(
-        default=None,
-        description='A list of ScheduleRule that note exceptions to the '
-        'default_day_schedule. These rules should be ordered from highest to '
-        'lowest priority.'
     )
 
     schedule_type_limit: ScheduleTypeLimit = Field(
@@ -388,6 +370,5 @@ class ScheduleFixedInterval(ScheduleFixedIntervalAbridged):
 if __name__ == '__main__':
     print(ScheduleFixedIntervalAbridged.schema_json(indent=2))
     print(ScheduleRulesetAbridged.schema_json(indent=2))
-    print(ScheduleRule.schema_json(indent=2))
     print(ScheduleFixedInterval.schema_json(indent=2))
     print(ScheduleRuleset.schema_json(indent=2))

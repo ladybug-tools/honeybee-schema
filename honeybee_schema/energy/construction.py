@@ -7,6 +7,7 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
     EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
+from .schedule import ScheduleRuleset, ScheduleFixedInterval
 
 
 class WindowConstructionAbridged(NamedEnergyBaseModel):
@@ -99,7 +100,7 @@ class ShadeConstruction(NamedEnergyBaseModel):
 
 
 class AirBoundaryConstructionAbridged(NamedEnergyBaseModel):
-    """Construction for Shade objects."""
+    """Construction for Air Boundary objects."""
 
     type: constr(regex='^AirBoundaryConstructionAbridged$') = \
         'AirBoundaryConstructionAbridged'
@@ -117,9 +118,24 @@ class AirBoundaryConstructionAbridged(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of A fractional schedule for the air mixing schedule '
+        description='Name of a fractional schedule for the air mixing schedule '
             'across the construction.'
     )
+
+
+class AirBoundaryConstruction(AirBoundaryConstructionAbridged):
+    """Construction for Air Boundary objects."""
+
+    type: constr(regex='^AirBoundaryConstruction$') = 'AirBoundaryConstruction'
+
+    air_mixing_schedule: Union[
+        ScheduleRuleset, ScheduleFixedInterval
+        ] = Field(
+            ...,
+            description='A fractional schedule as a ScheduleRuleset or '
+                'ScheduleFixedInterval for the air mixing schedule across '
+                'the construction.'
+        )
 
 
 if __name__ == '__main__':
@@ -128,3 +144,4 @@ if __name__ == '__main__':
     print(OpaqueConstructionAbridged.schema_json(indent=2))
     print(OpaqueConstruction.schema_json(indent=2))
     print(ShadeConstruction.schema_json(indent=2))
+    print(AirBoundaryConstruction.schema_json(indent=2))

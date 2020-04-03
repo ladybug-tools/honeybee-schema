@@ -86,9 +86,9 @@ class ScheduleDay(NamedEnergyBaseModel):
             'of times as the "time of beginning" is a different convention than '
             'EnergyPlus, which uses "time until".'
     )
-    
+
     @root_validator
-    def check_times_values_match(cls, values): 
+    def check_times_values_match(cls, values):
         "Ensure the length of the times matches the length of the values."
         times, vals = values.get('times'), values.get('values')
         assert len(times) == len(vals), 'Length of schedule times must match ' \
@@ -112,7 +112,7 @@ class ScheduleRuleAbridged(DatedBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='A ScheduleDay object associated with this rule.'
+        description='The name of a ScheduleDay object associated with this rule.'
     )
 
     apply_sunday: bool = Field(
@@ -179,6 +179,17 @@ class ScheduleRuleAbridged(DatedBaseModel):
         return cls.check_date(v)
 
 
+class ScheduleRule(ScheduleRuleAbridged):
+    """Schedule rule including a ScheduleDay and when it should be applied.."""
+
+    type: constr(regex='^ScheduleRule$') = 'ScheduleRule'
+
+    schedule_day: ScheduleDay = Field(
+        ...,
+        description='A ScheduleDay object associated with this rule.'
+    )
+
+
 class ScheduleRulesetAbridged(NamedEnergyBaseModel):
     """Used to define a schedule for a default day, further described by ScheduleRule."""
 
@@ -239,6 +250,32 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
     )
 
 
+class ScheduleRuleset(ScheduleRulesetAbridged):
+    """Used to define a schedule for a default day, further described by ScheduleRule."""
+
+    type: constr(regex='^ScheduleRuleset$') = 'ScheduleRuleset'
+
+    day_schedules: List[ScheduleDay] = Field(
+        ...,
+        description='A list of ScheduleDays that are referenced in the other keys of '
+        'this ScheduleRuleset.'
+    )
+
+    schedule_rules: List[ScheduleRule] = Field(
+        default=None,
+        description='A list of ScheduleRule that note exceptions to the '
+        'default_day_schedule. These rules should be ordered from highest to '
+        'lowest priority.'
+    )
+
+    schedule_type_limit: ScheduleTypeLimit = Field(
+        default=None,
+        description='ScheduleTypeLimit object that will be used to validate '
+            'schedule values against upper/lower limits and assign units to the '
+            'schedule values. If None, no validation will occur.',
+    )
+
+
 class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
     """Used to specify a start date and a list of values for a period of analysis."""
 
@@ -276,7 +313,7 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
         assert v in valid_timesteps, '"{}" is not a valid timestep. ' \
             'Choose from {}'.format(v, valid_timesteps)
         return v
-    
+
     start_date: List[int] = Field(
         [1, 1],
         min_items=2,
@@ -335,6 +372,22 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
         return values
 
 
+class ScheduleFixedInterval(ScheduleFixedIntervalAbridged):
+    """Used to specify a start date and a list of values for a period of analysis."""
+
+    type: constr(regex='^ScheduleFixedInterval$') = 'ScheduleFixedInterval'
+
+    schedule_type_limit: ScheduleTypeLimit = Field(
+        default=None,
+        description='ScheduleTypeLimit object that will be used to validate '
+            'schedule values against upper/lower limits and assign units to the '
+            'schedule values. If None, no validation will occur.',
+    )
+
+
 if __name__ == '__main__':
     print(ScheduleFixedIntervalAbridged.schema_json(indent=2))
     print(ScheduleRulesetAbridged.schema_json(indent=2))
+    print(ScheduleRule.schema_json(indent=2))
+    print(ScheduleFixedInterval.schema_json(indent=2))
+    print(ScheduleRuleset.schema_json(indent=2))

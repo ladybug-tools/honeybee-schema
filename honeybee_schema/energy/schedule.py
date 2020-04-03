@@ -244,12 +244,6 @@ class ScheduleRuleset(ScheduleRulesetAbridged):
 
     type: constr(regex='^ScheduleRuleset$') = 'ScheduleRuleset'
 
-    day_schedules: List[ScheduleDay] = Field(
-        ...,
-        description='A list of ScheduleDays that are referenced in the other keys of '
-        'this ScheduleRuleset.'
-    )
-
     schedule_type_limit: ScheduleTypeLimit = Field(
         default=None,
         description='ScheduleTypeLimit object that will be used to validate '

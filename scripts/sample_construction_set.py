@@ -2,9 +2,7 @@
 from __future__ import division
 
 from honeybee_energy.lib.constructionsets import generic_construction_set, \
-    construction_set_by_name
-
-import honeybee_energy_standards  # make sure the standards data is there
+    construction_set_by_identifier
 
 import os
 import json
@@ -17,7 +15,7 @@ def constructionset_complete(directory):
 
 
 def constructionset_partial_exterior(directory):
-    exterior_set = construction_set_by_name('2013::ClimateZone5::SteelFramed')
+    exterior_set = construction_set_by_identifier('2013::ClimateZone5::SteelFramed')
     dest_file = os.path.join(directory, 'constructionset_partial_exterior.json')
     with open(dest_file, 'w') as fp:
         json.dump(exterior_set.to_dict(True, True), fp, indent=4)

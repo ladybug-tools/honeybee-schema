@@ -35,7 +35,7 @@ import random
 
 
 def model_complete_single_zone_office(directory):
-    room = Room.from_box('Tiny House Office', 5, 10, 3)
+    room = Room.from_box('Tiny_House_Office', 5, 10, 3)
     room.properties.energy.program_type = prog_type_lib.office_program
     room.properties.energy.add_default_ideal_air()
 
@@ -49,8 +49,8 @@ def model_complete_single_zone_office(directory):
     south_face.apertures[0].overhang(0.5, indoor=False)
     south_face.apertures[0].overhang(0.5, indoor=True)
     south_face.move_shades(Vector3D(0, 0, -0.5))
-    light_shelf_out = ShadeConstruction('Outdoor Light Shelf', 0.5, 0.5)
-    light_shelf_in = ShadeConstruction('Indoor Light Shelf', 0.7, 0.7)
+    light_shelf_out = ShadeConstruction('Outdoor_Light_Shelf', 0.5, 0.5)
+    light_shelf_in = ShadeConstruction('Indoor_Light_Shelf', 0.7, 0.7)
     south_face.apertures[0].outdoor_shades[0].properties.energy.construction = light_shelf_out
     south_face.apertures[0].indoor_shades[0].properties.energy.construction = light_shelf_in
 
@@ -58,12 +58,12 @@ def model_complete_single_zone_office(directory):
     north_face.overhang(0.25, indoor=False)
     door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1),
                   Point3D(1, 10, 2.5), Point3D(2, 10, 2.5)]
-    door = Door('Front Door', Face3D(door_verts))
+    door = Door('Front_Door', Face3D(door_verts))
     north_face.add_door(door)
 
     aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1),
                       Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
-    aperture = Aperture('Front Aperture', Face3D(aperture_verts))
+    aperture = Aperture('Front_Aperture', Face3D(aperture_verts))
     triple_pane = WindowConstruction(
         'Triple Pane Window', [clear_glass, air_gap, clear_glass, air_gap, clear_glass])
     aperture.properties.energy.construction = triple_pane
@@ -71,13 +71,13 @@ def model_complete_single_zone_office(directory):
 
     tree_canopy_geo = Face3D.from_regular_polygon(
         6, 2, Plane(Vector3D(0, 0, 1), Point3D(5, -3, 4)))
-    tree_canopy = Shade('Tree Canopy', tree_canopy_geo)
+    tree_canopy = Shade('Tree_Canopy', tree_canopy_geo)
 
     table_geo = Face3D.from_rectangle(2, 2, Plane(o=Point3D(1.5, 4, 1)))
     table = Shade('Table', table_geo)
     room.add_indoor_shade(table)
 
-    model = Model('Tiny House', [room], orphaned_shades=[tree_canopy])
+    model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
     model.north_angle = 15
 
     model_dict = model.to_dict()
@@ -88,7 +88,7 @@ def model_complete_single_zone_office(directory):
 
 
 def model_complete_single_zone_office_user_data(directory):
-    room = Room.from_box('Tiny House Office', 5, 10, 3)
+    room = Room.from_box('Tiny_House_Office', 5, 10, 3)
     room.properties.energy.program_type = prog_type_lib.office_program
     room.properties.energy.add_default_ideal_air()
 
@@ -97,8 +97,8 @@ def model_complete_single_zone_office_user_data(directory):
     south_face.apertures[0].overhang(0.5, indoor=False)
     south_face.apertures[0].overhang(0.5, indoor=True)
     south_face.move_shades(Vector3D(0, 0, -0.5))
-    light_shelf_out = ShadeConstruction('Outdoor Light Shelf', 0.5, 0.5)
-    light_shelf_in = ShadeConstruction('Indoor Light Shelf', 0.7, 0.7)
+    light_shelf_out = ShadeConstruction('Outdoor_Light_Shelf', 0.5, 0.5)
+    light_shelf_in = ShadeConstruction('Indoor_Light_Shelf', 0.7, 0.7)
     south_face.apertures[0].outdoor_shades[0].properties.energy.construction = light_shelf_out
     south_face.apertures[0].indoor_shades[0].properties.energy.construction = light_shelf_in
 
@@ -106,15 +106,15 @@ def model_complete_single_zone_office_user_data(directory):
     north_face.overhang(0.25, indoor=False)
     door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1),
                   Point3D(1, 10, 2.5), Point3D(2, 10, 2.5)]
-    door = Door('Front Door', Face3D(door_verts))
+    door = Door('Front_Door', Face3D(door_verts))
     north_face.add_door(door)
 
     aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1),
                       Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
-    aperture = Aperture('Front Aperture', Face3D(aperture_verts))
+    aperture = Aperture('Front_Aperture', Face3D(aperture_verts))
     north_face.add_aperture(aperture)
     
-    model = Model('Tiny House', [room])
+    model = Model('Tiny_House', [room])
     model_dict = model.to_dict()
 
     model_dict['user_data'] = {'site': 'The backyard'}
@@ -133,8 +133,8 @@ def model_complete_single_zone_office_user_data(directory):
 
 
 def model_complete_multi_zone_office(directory):
-    first_floor = Room.from_box('First Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
-    second_floor = Room.from_box('Second Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
+    first_floor = Room.from_box('First_Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
+    second_floor = Room.from_box('Second_Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
     first_floor.properties.energy.program_type = prog_type_lib.office_program
     second_floor.properties.energy.program_type = prog_type_lib.office_program
     first_floor.properties.energy.add_default_ideal_air()
@@ -149,11 +149,11 @@ def model_complete_multi_zone_office(directory):
     pts_3 = [Point3D(10, 0, 6), Point3D(10, 10, 6), Point3D(5, 10, 9), Point3D(5, 0, 9)]
     pts_4 = [Point3D(0, 0, 6), Point3D(10, 0, 6), Point3D(5, 0, 9)]
     pts_5 = [Point3D(10, 10, 6), Point3D(0, 10, 6), Point3D(5, 10, 9)]
-    face_1 = Face('Attic Face 1', Face3D(pts_1))
-    face_2 = Face('Attic Face 2', Face3D(pts_2))
-    face_3 = Face('Attic Face 3', Face3D(pts_3))
-    face_4 = Face('Attic Face 4', Face3D(pts_4))
-    face_5 = Face('Attic Face 5', Face3D(pts_5))
+    face_1 = Face('AtticFace1', Face3D(pts_1))
+    face_2 = Face('AtticFace2', Face3D(pts_2))
+    face_3 = Face('AtticFace3', Face3D(pts_3))
+    face_4 = Face('AtticFace4', Face3D(pts_4))
+    face_5 = Face('AtticFace5', Face3D(pts_5))
     attic = Room('Attic', [face_1, face_2, face_3, face_4, face_5], 0.01, 1)
 
     constr_set = ConstructionSet('Attic Construction Set')
@@ -168,7 +168,7 @@ def model_complete_multi_zone_office(directory):
 
     Room.solve_adjacency([first_floor, second_floor, attic], 0.01)
 
-    model = Model('Multi Zone Single Family House', [first_floor, second_floor, attic])
+    model = Model('Multi_Zone_Single_Family_House', [first_floor, second_floor, attic])
 
     dest_file = os.path.join(directory, 'model_complete_multi_zone_office.json')
     with open(dest_file, 'w') as fp:
@@ -176,8 +176,9 @@ def model_complete_multi_zone_office(directory):
 
 
 def model_complete_patient_room(directory):
-    pat_room_program = prog_type_lib.program_type_by_name('2013::Hospital::ICU_PatRm')
-    room = Room.from_box('Hospital Patient Room', 5, 10, 3)
+    pat_room_program = \
+        prog_type_lib.program_type_by_identifier('2013::Hospital::ICU_PatRm')
+    room = Room.from_box('Hospital_Patient_Room', 5, 10, 3)
     room.properties.energy.program_type = pat_room_program
 
     room.properties.energy.add_default_ideal_air()
@@ -188,7 +189,7 @@ def model_complete_patient_room(directory):
     room.properties.energy.hvac = ideal_air
 
     pat_rm_setpoint = room.properties.energy.setpoint.duplicate()
-    pat_rm_setpoint.name = 'Humidity Controlled PatRm Setpt'
+    pat_rm_setpoint.identifier = 'Humidity Controlled PatRm Setpt'
     pat_rm_setpoint.heating_setpoint = 21
     pat_rm_setpoint.cooling_setpoint = 24
     pat_rm_setpoint.humidifying_setpoint = 30
@@ -206,7 +207,7 @@ def model_complete_patient_room(directory):
     room[4].boundary_condition = boundary_conditions.adiabatic
     room[5].boundary_condition = boundary_conditions.adiabatic
 
-    model = Model('Patient Room Test Box', [room])
+    model = Model('Patient_Room_Test_Box', [room])
 
     dest_file = os.path.join(directory, 'model_complete_patient_room.json')
     with open(dest_file, 'w') as fp:
@@ -236,7 +237,7 @@ def model_complete_office_floor(directory):
             if isinstance(face.type, (Floor, RoofCeiling)):
                 face.boundary_condition = boundary_conditions.adiabatic
 
-    model = Model('Core Perimeter Office Floor', rooms)
+    model = Model('Core_Perimeter_Office_Floor', rooms)
 
     dest_file = os.path.join(directory, 'model_complete_office_floor.json')
     with open(dest_file, 'w') as fp:
@@ -244,7 +245,7 @@ def model_complete_office_floor(directory):
 
 
 def model_energy_shoe_box(directory):
-    room = Room.from_box('Simple Shoe Box Zone', 5, 10, 3)
+    room = Room.from_box('Simple_Shoe_Box_Zone', 5, 10, 3)
     room[0].boundary_condition = boundary_conditions.adiabatic
     for face in room[2:]:
         face.boundary_condition = boundary_conditions.adiabatic
@@ -260,7 +261,7 @@ def model_energy_shoe_box(directory):
     constr_set.aperture_set.window_construction = generic_double_pane
     room.properties.energy.construction_set = constr_set
 
-    model = Model('Shoe Box', [room])
+    model = Model('Shoe_Box', [room])
 
     dest_file = os.path.join(directory, 'model_energy_shoe_box.json')
     with open(dest_file, 'w') as fp:
@@ -268,7 +269,7 @@ def model_energy_shoe_box(directory):
 
 
 def model_energy_detailed_loads(directory):
-    room = Room.from_box('Office Test Box', 5, 10, 3)
+    room = Room.from_box('Office_Test_Box', 5, 10, 3)
     room.properties.energy.program_type = prog_type_lib.plenum_program
     room.properties.energy.add_default_ideal_air()
 
@@ -285,7 +286,7 @@ def model_energy_detailed_loads(directory):
     room[4].boundary_condition = boundary_conditions.adiabatic
     room[5].boundary_condition = boundary_conditions.adiabatic
 
-    model = Model('Office Model', [room])
+    model = Model('Office_Model', [room])
 
     dest_file = os.path.join(
         directory, 'model_energy_detailed_loads.json')
@@ -294,7 +295,7 @@ def model_energy_detailed_loads(directory):
 
 
 def model_energy_fixed_interval(directory):
-    room = Room.from_box('Tiny House Office', 5, 10, 3)
+    room = Room.from_box('Tiny_House_Office', 5, 10, 3)
     room.properties.energy.program_type = prog_type_lib.office_program
     room.properties.energy.add_default_ideal_air()
 
@@ -310,8 +311,8 @@ def model_energy_fixed_interval(directory):
     south_face.apertures[0].overhang(0.5, indoor=False)
     south_face.apertures[0].overhang(0.5, indoor=True)
     south_face.move_shades(Vector3D(0, 0, -0.5))
-    light_shelf_out = ShadeConstruction('Outdoor Light Shelf', 0.5, 0.5)
-    light_shelf_in = ShadeConstruction('Indoor Light Shelf', 0.7, 0.7)
+    light_shelf_out = ShadeConstruction('Outdoor_Light_Shelf', 0.5, 0.5)
+    light_shelf_in = ShadeConstruction('Indoor_Light_Shelf', 0.7, 0.7)
     south_face.apertures[0].outdoor_shades[0].properties.energy.construction = light_shelf_out
     south_face.apertures[0].indoor_shades[0].properties.energy.construction = light_shelf_in
 
@@ -319,17 +320,17 @@ def model_energy_fixed_interval(directory):
     north_face.overhang(0.25, indoor=False)
     door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1),
                   Point3D(1, 10, 2.5), Point3D(2, 10, 2.5)]
-    door = Door('Front Door', Face3D(door_verts))
+    door = Door('Front_Door', Face3D(door_verts))
     north_face.add_door(door)
 
     aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1),
                       Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
-    aperture = Aperture('Front Aperture', Face3D(aperture_verts))
+    aperture = Aperture('Front_Aperture', Face3D(aperture_verts))
     north_face.add_aperture(aperture)
 
     tree_canopy_geo = Face3D.from_regular_polygon(
         6, 2, Plane(Vector3D(0, 0, 1), Point3D(5, -3, 4)))
-    tree_canopy = Shade('Tree Canopy', tree_canopy_geo)
+    tree_canopy = Shade('Tree_Canopy', tree_canopy_geo)
     winter = [0.75] * 2190
     spring = [0.75 - ((x / 2190) * 0.5) for x in range(2190)]
     summer = [0.25] * 2190
@@ -339,7 +340,7 @@ def model_energy_fixed_interval(directory):
         schedule_types.fractional)
     tree_canopy.properties.energy.transmittance_schedule = trans_sched
 
-    model = Model('Tiny House', [room], orphaned_shades=[tree_canopy])
+    model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
     model.north_angle = 15
 
     dest_file = os.path.join(
@@ -349,7 +350,7 @@ def model_energy_fixed_interval(directory):
     
 
 def model_energy_no_program(directory):
-    room = Room.from_box('Abandoned Tiny House', 5, 10, 3)
+    room = Room.from_box('Abandoned_Tiny_House', 5, 10, 3)
 
     stone = EnergyMaterial('Thick Stone', 0.3, 2.31, 2322, 832, 'Rough',
                            0.95, 0.75, 0.8)
@@ -361,8 +362,8 @@ def model_energy_no_program(directory):
     south_face.apertures[0].overhang(0.5, indoor=False)
     south_face.apertures[0].overhang(0.5, indoor=True)
     south_face.move_shades(Vector3D(0, 0, -0.5))
-    light_shelf_out = ShadeConstruction('Outdoor Light Shelf', 0.5, 0.5)
-    light_shelf_in = ShadeConstruction('Indoor Light Shelf', 0.7, 0.7)
+    light_shelf_out = ShadeConstruction('Outdoor_Light_Shelf', 0.5, 0.5)
+    light_shelf_in = ShadeConstruction('Indoor_Light_Shelf', 0.7, 0.7)
     south_face.apertures[0].outdoor_shades[0].properties.energy.construction = light_shelf_out
     south_face.apertures[0].indoor_shades[0].properties.energy.construction = light_shelf_in
 
@@ -370,12 +371,12 @@ def model_energy_no_program(directory):
     north_face.overhang(0.25, indoor=False)
     door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1),
                   Point3D(1, 10, 2.5), Point3D(2, 10, 2.5)]
-    door = Door('Front Door', Face3D(door_verts))
+    door = Door('Front_Door', Face3D(door_verts))
     north_face.add_door(door)
 
     aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1),
                       Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
-    aperture = Aperture('Front Aperture', Face3D(aperture_verts))
+    aperture = Aperture('Front_Aperture', Face3D(aperture_verts))
     triple_pane = WindowConstruction(
         'Triple Pane Window', [clear_glass, air_gap, clear_glass, air_gap, clear_glass])
     aperture.properties.energy.construction = triple_pane
@@ -383,13 +384,13 @@ def model_energy_no_program(directory):
 
     tree_canopy_geo = Face3D.from_regular_polygon(
         6, 2, Plane(Vector3D(0, 0, 1), Point3D(5, -3, 4)))
-    tree_canopy = Shade('Tree Canopy', tree_canopy_geo)
+    tree_canopy = Shade('Tree_Canopy', tree_canopy_geo)
 
     table_geo = Face3D.from_rectangle(2, 2, Plane(o=Point3D(1.5, 4, 1)))
     table = Shade('Table', table_geo)
     room.add_indoor_shade(table)
 
-    model = Model('Tiny House', [room], orphaned_shades=[tree_canopy])
+    model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
     model.north_angle = 15
 
     dest_file = os.path.join(directory, 'model_energy_no_program.json')
@@ -398,11 +399,11 @@ def model_energy_no_program(directory):
 
 
 def model_energy_properties_office(directory):
-    room = Room.from_box('Closed Office', 5, 10, 3)
+    room = Room.from_box('Closed_Office', 5, 10, 3)
     room.properties.energy.program_type = prog_type_lib.office_program
     room.properties.energy.add_default_ideal_air()
 
-    model = Model('Office Test Box', [room])
+    model = Model('Office_Test_Box', [room])
     model_dict = model.to_dict()
 
     dest_file = os.path.join(directory, 'model_energy_properties_office.json')

@@ -1,6 +1,6 @@
 {
     "type": "WindowConstructionAbridged",
-    "name": "Triple Pane Argon",
+    "identifier": "Triple Pane Argon",
     "layers": [
         "Generic Low-e Glass",
         "Generic Window Argon Gap",

@@ -1,6 +1,6 @@
 {
     "type": "WindowConstructionAbridged",
-    "name": "Generic Double Pane",
+    "identifier": "Generic Double Pane",
     "layers": [
         "Generic Low-e Glass",
         "Generic Window Air Gap",

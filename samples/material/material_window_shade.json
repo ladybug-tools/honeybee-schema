@@ -1,6 +1,6 @@
 {
     "type": "EnergyWindowMaterialShade",
-    "name": "White Diffusing Roller Shade",
+    "identifier": "White Diffusing Roller Shade",
     "thickness": 0.005,
     "solar_transmittance": 0.4,
     "solar_reflectance": 0.5,

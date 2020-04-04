@@ -1,6 +1,6 @@
 {
     "type": "ScheduleTypeLimit",
-    "name": "Temperature",
+    "identifier": "Temperature",
     "lower_limit": -273.15,
     "upper_limit": {
         "type": "NoLimit"

@@ -1,6 +1,6 @@
 {
     "type": "OpaqueConstructionAbridged",
-    "name": "Generic Exterior Wall",
+    "identifier": "Generic Exterior Wall",
     "layers": [
         "Generic Brick",
         "Generic LW Concrete",

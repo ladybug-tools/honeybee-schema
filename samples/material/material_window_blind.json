@@ -1,6 +1,6 @@
 {
     "type": "EnergyWindowMaterialBlind",
-    "name": "Generic Aluminium Blinds",
+    "identifier": "Generic Aluminium Blinds",
     "slat_orientation": "Horizontal",
     "slat_width": 0.025,
     "slat_separation": 0.01875,

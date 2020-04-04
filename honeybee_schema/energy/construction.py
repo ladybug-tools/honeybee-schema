@@ -2,7 +2,7 @@
 from pydantic import Field, constr
 from typing import List, Union
 
-from ._base import NamedEnergyBaseModel
+from ._base import IDdEnergyBaseModel
 from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
@@ -10,15 +10,15 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
 from .schedule import ScheduleRuleset, ScheduleFixedInterval
 
 
-class WindowConstructionAbridged(NamedEnergyBaseModel):
+class WindowConstructionAbridged(IDdEnergyBaseModel):
     """Construction for window objects (Aperture, Door)."""
 
     type: constr(regex='^WindowConstructionAbridged$') = 'WindowConstructionAbridged'
 
     layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
-        description='List of strings for material names. The order of the materials '
-            'is from exterior to interior.',
+        description='List of strings for material identifiers. The order of the '
+            'materials is from exterior to interior.',
         min_items=1,
         max_items=8
     )
@@ -44,14 +44,14 @@ class WindowConstruction(WindowConstructionAbridged):
     )
 
 
-class OpaqueConstructionAbridged(NamedEnergyBaseModel):
+class OpaqueConstructionAbridged(IDdEnergyBaseModel):
     """Construction for opaque objects (Face, Shade, Door)."""
 
     type: constr(regex='^OpaqueConstructionAbridged$') = 'OpaqueConstructionAbridged'
 
     layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
-        description='List of strings for material names. The order of the materials '
+        description='List of strings for material identifiers. The order of the materials '
             'is from exterior to interior.',
         min_items=1,
         max_items=10
@@ -72,7 +72,7 @@ class OpaqueConstruction(OpaqueConstructionAbridged):
     )
 
 
-class ShadeConstruction(NamedEnergyBaseModel):
+class ShadeConstruction(IDdEnergyBaseModel):
     """Construction for Shade objects."""
 
     type: constr(regex='^ShadeConstruction$') = 'ShadeConstruction'
@@ -99,7 +99,7 @@ class ShadeConstruction(NamedEnergyBaseModel):
     )
 
 
-class AirBoundaryConstructionAbridged(NamedEnergyBaseModel):
+class AirBoundaryConstructionAbridged(IDdEnergyBaseModel):
     """Construction for Air Boundary objects."""
 
     type: constr(regex='^AirBoundaryConstructionAbridged$') = \
@@ -118,7 +118,7 @@ class AirBoundaryConstructionAbridged(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of a fractional schedule for the air mixing schedule '
+        description='Identifier of a fractional schedule for the air mixing schedule '
             'across the construction.'
     )
 

@@ -1,6 +1,6 @@
 {
     "type": "ScheduleFixedIntervalAbridged",
-    "name": "Weekly Temperature",
+    "identifier": "Weekly Temperature",
     "values": [
         15.0,
         15.0,

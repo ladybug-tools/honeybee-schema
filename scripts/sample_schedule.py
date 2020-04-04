@@ -6,10 +6,8 @@ from honeybee_energy.schedule.day import ScheduleDay
 from honeybee_energy.schedule.rule import ScheduleRule
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
-from honeybee_energy.lib.schedules import schedule_by_name
+from honeybee_energy.lib.schedules import schedule_by_identifier
 import honeybee_energy.lib.scheduletypelimits as schedule_types
-
-import honeybee_energy_standards  # make sure the standards data is there
 
 from ladybug.dt import Date, Time
 
@@ -68,7 +66,7 @@ def schedule_primary_school_occupancy(directory):
 
 
 def schedule_ruleset_office_occupancy(directory):
-    office_sch = schedule_by_name('OfficeLarge BLDG_OCC_SCH')
+    office_sch = schedule_by_identifier('OfficeLarge BLDG_OCC_SCH')
     dest_file = os.path.join(directory, 'schedule_ruleset_office_occupancy.json')
     with open(dest_file, 'w') as fp:
         json.dump(office_sch.to_dict(True), fp, indent=4)

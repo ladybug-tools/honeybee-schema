@@ -3,7 +3,7 @@ from pydantic import Field, validator, root_validator, constr
 from typing import List
 from enum import Enum
 
-from ._base import NamedEnergyBaseModel
+from ._base import IDdEnergyBaseModel
 
 
 class Roughness(str, Enum):
@@ -16,7 +16,7 @@ class Roughness(str, Enum):
     very_smooth = 'VerySmooth'
 
 
-class EnergyMaterialNoMass(NamedEnergyBaseModel):
+class EnergyMaterialNoMass(IDdEnergyBaseModel):
     """No mass opaque material representing a layer within an opaque construction.
 
     Used when only the thermal resistance (R value) of the material is known.
@@ -57,7 +57,7 @@ class EnergyMaterialNoMass(NamedEnergyBaseModel):
     )
 
 
-class EnergyMaterial(NamedEnergyBaseModel):
+class EnergyMaterial(IDdEnergyBaseModel):
     """Opaque material representing a layer within an opaque construction."""
 
     type: constr(regex='^EnergyMaterial$') = 'EnergyMaterial'
@@ -114,7 +114,7 @@ class EnergyMaterial(NamedEnergyBaseModel):
     )
 
 
-class EnergyWindowMaterialSimpleGlazSys(NamedEnergyBaseModel):
+class EnergyWindowMaterialSimpleGlazSys(IDdEnergyBaseModel):
     """Describe an entire glazing system rather than individual layers.
 
     Used when only very limited information is available on the glazing layers or when
@@ -149,7 +149,7 @@ class EnergyWindowMaterialSimpleGlazSys(NamedEnergyBaseModel):
     )
 
 
-class EnergyWindowMaterialGlazing(NamedEnergyBaseModel):
+class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
     """Describe a single glass pane corresponding to a layer in a window construction."""
 
     type: constr(regex='^EnergyWindowMaterialGlazing$') = 'EnergyWindowMaterialGlazing'
@@ -263,7 +263,7 @@ class GasType (str, Enum):
     xenon = 'Xenon'
 
 
-class EnergyWindowMaterialGas(NamedEnergyBaseModel):
+class EnergyWindowMaterialGas(IDdEnergyBaseModel):
     """Create single layer of gas in a window construction.
 
     Can be combined with EnergyWindowMaterialGlazing to make multi-pane windows.
@@ -280,7 +280,7 @@ class EnergyWindowMaterialGas(NamedEnergyBaseModel):
     gas_type: GasType = GasType.air
 
 
-class EnergyWindowMaterialGasMixture(NamedEnergyBaseModel):
+class EnergyWindowMaterialGasMixture(IDdEnergyBaseModel):
     """Create a mixture of two to four different gases to fill the panes of multiple
     pane windows."""
 
@@ -332,7 +332,7 @@ class EnergyWindowMaterialGasMixture(NamedEnergyBaseModel):
         return values
 
 
-class EnergyWindowMaterialGasCustom(NamedEnergyBaseModel):
+class EnergyWindowMaterialGasCustom(IDdEnergyBaseModel):
     """Create single layer of custom gas."""
 
     type: constr(regex='^EnergyWindowMaterialGasCustom$') = \
@@ -405,7 +405,7 @@ class EnergyWindowMaterialGasCustom(NamedEnergyBaseModel):
     )
 
 
-class EnergyWindowMaterialShade (NamedEnergyBaseModel):
+class EnergyWindowMaterialShade (IDdEnergyBaseModel):
     """This object specifies the properties of window shade materials."""
 
     type: constr(regex='^EnergyWindowMaterialShade$') = 'EnergyWindowMaterialShade'
@@ -533,7 +533,7 @@ class SlatOrientation (str, Enum):
         'are parallel to the Y-axis of the window.'
 
 
-class EnergyWindowMaterialBlind(NamedEnergyBaseModel):
+class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
     """Window blind properties.
 
     Window blind properties consist of flat, equally-spaced slats.

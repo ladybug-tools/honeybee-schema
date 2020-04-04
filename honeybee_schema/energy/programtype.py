@@ -2,7 +2,7 @@
 from pydantic import Field, constr
 from typing import List, Union
 
-from ._base import NamedEnergyBaseModel
+from ._base import IDdEnergyBaseModel
 from .schedule import ScheduleRuleset, ScheduleFixedInterval
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, InfiltrationAbridged, VentilationAbridged, SetpointAbridged, \
@@ -11,7 +11,7 @@ from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
 
 
 
-class ProgramTypeAbridged(NamedEnergyBaseModel):
+class ProgramTypeAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^ProgramTypeAbridged$') = 'ProgramTypeAbridged'
 

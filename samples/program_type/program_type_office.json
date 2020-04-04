@@ -1,9 +1,9 @@
 {
     "type": "ProgramTypeAbridged",
-    "name": "Generic Office Program",
+    "identifier": "Generic Office Program",
     "people": {
         "type": "PeopleAbridged",
-        "name": "Generic Office People",
+        "identifier": "Generic Office People",
         "people_per_area": 0.0565,
         "radiant_fraction": 0.3,
         "latent_fraction": {
@@ -14,7 +14,7 @@
     },
     "lighting": {
         "type": "LightingAbridged",
-        "name": "Generic Office Lighting",
+        "identifier": "Generic Office Lighting",
         "watts_per_area": 10.55,
         "return_air_fraction": 0.0,
         "radiant_fraction": 0.7,
@@ -23,7 +23,7 @@
     },
     "electric_equipment": {
         "type": "ElectricEquipmentAbridged",
-        "name": "Generic Office Equipment",
+        "identifier": "Generic Office Equipment",
         "watts_per_area": 10.33,
         "radiant_fraction": 0.5,
         "latent_fraction": 0.0,
@@ -32,19 +32,19 @@
     },
     "infiltration": {
         "type": "InfiltrationAbridged",
-        "name": "Generic Office Infiltration",
+        "identifier": "Generic Office Infiltration",
         "flow_per_exterior_area": 0.0002266,
         "schedule": "Generic Office Infiltration"
     },
     "ventilation": {
         "type": "VentilationAbridged",
-        "name": "Generic Office Ventilation",
+        "identifier": "Generic Office Ventilation",
         "flow_per_person": 0.00236,
         "flow_per_area": 0.000305
     },
     "setpoint": {
         "type": "SetpointAbridged",
-        "name": "Generic Office Setpoints",
+        "identifier": "Generic Office Setpoints",
         "heating_schedule": "Generic Office Heating",
         "cooling_schedule": "Generic Office Cooling"
     }

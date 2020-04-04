@@ -1,9 +1,9 @@
 {
     "type": "ProgramTypeAbridged",
-    "name": "2013::FullServiceRestaurant::Kitchen",
+    "identifier": "2013::FullServiceRestaurant::Kitchen",
     "people": {
         "type": "PeopleAbridged",
-        "name": "2013::FullServiceRestaurant::Kitchen_People",
+        "identifier": "2013::FullServiceRestaurant::Kitchen_People",
         "people_per_area": 0.05381957525591208,
         "radiant_fraction": 0.3,
         "latent_fraction": {
@@ -14,7 +14,7 @@
     },
     "lighting": {
         "type": "LightingAbridged",
-        "name": "2013::FullServiceRestaurant::Kitchen_Lighting",
+        "identifier": "2013::FullServiceRestaurant::Kitchen_Lighting",
         "watts_per_area": 13.024318999999998,
         "return_air_fraction": 0.0,
         "radiant_fraction": 0.7,
@@ -23,7 +23,7 @@
     },
     "electric_equipment": {
         "type": "ElectricEquipmentAbridged",
-        "name": "2013::FullServiceRestaurant::Kitchen_Electric",
+        "identifier": "2013::FullServiceRestaurant::Kitchen_Electric",
         "watts_per_area": 403.96916699999997,
         "radiant_fraction": 0.3,
         "latent_fraction": 0.25,
@@ -32,7 +32,7 @@
     },
     "gas_equipment": {
         "type": "GasEquipmentAbridged",
-        "name": "2013::FullServiceRestaurant::Kitchen_Gas",
+        "identifier": "2013::FullServiceRestaurant::Kitchen_Gas",
         "watts_per_area": 649.2461678999999,
         "radiant_fraction": 0.2,
         "latent_fraction": 0.1,
@@ -41,19 +41,19 @@
     },
     "infiltration": {
         "type": "InfiltrationAbridged",
-        "name": "2013::FullServiceRestaurant::Kitchen_Infiltration",
+        "identifier": "2013::FullServiceRestaurant::Kitchen_Infiltration",
         "flow_per_exterior_area": 0.0005689600000000001,
         "schedule": "RestaurantSitDown INFIL_HALF_ON_SCH"
     },
     "ventilation": {
         "type": "VentilationAbridged",
-        "name": "2013::FullServiceRestaurant::Kitchen_Ventilation",
+        "identifier": "2013::FullServiceRestaurant::Kitchen_Ventilation",
         "flow_per_person": 0.0035396025,
         "flow_per_area": 0.0009144
     },
     "setpoint": {
         "type": "SetpointAbridged",
-        "name": "2013::FullServiceRestaurant::Kitchen_Setpoint",
+        "identifier": "2013::FullServiceRestaurant::Kitchen_Setpoint",
         "heating_schedule": "RestaurantSitDown HTGSETP_KITCHEN_SCH_NO_OPTIMUM",
         "cooling_schedule": "RestaurantSitDown CLGSETP_KITCHEN_SCH_NO_OPTIMUM"
     }

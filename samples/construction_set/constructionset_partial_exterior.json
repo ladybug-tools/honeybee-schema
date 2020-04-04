@@ -1,6 +1,6 @@
 {
     "type": "ConstructionSetAbridged",
-    "name": "2013::ClimateZone5::SteelFramed",
+    "identifier": "2013::ClimateZone5::SteelFramed",
     "wall_set": {
         "type": "WallSetAbridged",
         "exterior_construction": "Typical Insulated Steel Framed Exterior Wall-R19",

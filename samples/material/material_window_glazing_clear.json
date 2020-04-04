@@ -1,6 +1,6 @@
 {
     "type": "EnergyWindowMaterialGlazing",
-    "name": "Generic Clear Glass",
+    "identifier": "Generic Clear Glass",
     "thickness": 0.006,
     "solar_transmittance": 0.77,
     "solar_reflectance": 0.07,

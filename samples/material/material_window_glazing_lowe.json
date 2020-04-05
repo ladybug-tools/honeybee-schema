@@ -1,6 +1,6 @@
 {
     "type": "EnergyWindowMaterialGlazing",
-    "name": "Generic Low-e Glass",
+    "identifier": "Generic Low-e Glass",
     "thickness": 0.006,
     "solar_transmittance": 0.45,
     "solar_reflectance": 0.36,

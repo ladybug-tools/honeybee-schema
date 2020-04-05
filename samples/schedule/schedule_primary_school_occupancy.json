@@ -1,10 +1,10 @@
 {
     "type": "ScheduleRulesetAbridged",
-    "name": "School Occupancy",
+    "identifier": "School Occupancy",
     "day_schedules": [
         {
             "type": "ScheduleDay",
-            "name": "Weekday School Year",
+            "identifier": "Weekday School Year",
             "values": [
                 0.0,
                 1.0,
@@ -33,7 +33,7 @@
         },
         {
             "type": "ScheduleDay",
-            "name": "School Summer Design",
+            "identifier": "School Summer Design",
             "values": [
                 0.0,
                 1.0,
@@ -57,7 +57,7 @@
         },
         {
             "type": "ScheduleDay",
-            "name": "School Winter Design",
+            "identifier": "School Winter Design",
             "values": [
                 0.0
             ],
@@ -71,7 +71,7 @@
         },
         {
             "type": "ScheduleDay",
-            "name": "Weekend Summer",
+            "identifier": "Weekend Summer",
             "values": [
                 0.0
             ],
@@ -85,7 +85,7 @@
         },
         {
             "type": "ScheduleDay",
-            "name": "Weekday Summer",
+            "identifier": "Weekday Summer",
             "values": [
                 0.0,
                 0.5,
@@ -109,7 +109,7 @@
         },
         {
             "type": "ScheduleDay",
-            "name": "Weekend School Year",
+            "identifier": "Weekend School Year",
             "values": [
                 0.0
             ],

@@ -1,6 +1,6 @@
 {
     "type": "ConstructionSetAbridged",
-    "name": "Default Generic Construction Set",
+    "identifier": "Default Generic Construction Set",
     "wall_set": {
         "type": "WallSetAbridged",
         "exterior_construction": "Generic Exterior Wall",

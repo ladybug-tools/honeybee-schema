@@ -3,7 +3,7 @@ from pydantic import Field, constr
 from typing import List, Union
 
 from .._base import NoExtraBaseModel
-from ._base import NamedEnergyBaseModel
+from ._base import IDdEnergyBaseModel
 from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged, \
     ShadeConstruction, AirBoundaryConstructionAbridged
 from .material import EnergyMaterial, EnergyMaterialNoMass, \
@@ -21,7 +21,7 @@ class WallSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for walls with a Surface or '
+        description='Identifier for an OpaqueConstruction for walls with a Surface or '
             'Adiabatic boundary condition.'
     )
 
@@ -29,7 +29,7 @@ class WallSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for walls with an Outdoors '
+        description='Identifier for an OpaqueConstruction for walls with an Outdoors '
             'boundary condition.'
     )
 
@@ -37,7 +37,7 @@ class WallSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for walls with a Ground '
+        description='Identifier for an OpaqueConstruction for walls with a Ground '
             'boundary condition.'
     )
 
@@ -51,7 +51,7 @@ class FloorSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for floors with a Surface or '
+        description='Identifier for an OpaqueConstruction for floors with a Surface or '
             'Adiabatic boundary condition.'
     )
 
@@ -59,7 +59,7 @@ class FloorSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for floors with an Outdoors '
+        description='Identifier for an OpaqueConstruction for floors with an Outdoors '
             'boundary condition.'
     )
 
@@ -67,7 +67,7 @@ class FloorSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for floors with a Ground '
+        description='Identifier for an OpaqueConstruction for floors with a Ground '
             'boundary condition.'
     )
 
@@ -81,7 +81,7 @@ class RoofCeilingSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for ceilings with a Surface or '
+        description='Identifier for an OpaqueConstruction for ceilings with a Surface or '
             'Adiabatic boundary condition.'
     )
 
@@ -89,7 +89,7 @@ class RoofCeilingSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for roofs with an Outdoors '
+        description='Identifier for an OpaqueConstruction for roofs with an Outdoors '
             'boundary condition.'
     )
 
@@ -97,7 +97,7 @@ class RoofCeilingSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for roofs with a Ground '
+        description='Identifier for an OpaqueConstruction for roofs with a Ground '
             'boundary condition.'
     )
 
@@ -111,7 +111,7 @@ class ApertureSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for a WindowConstruction for apertures with an '
+        description='Identifier for a WindowConstruction for apertures with an '
             'Outdoors boundary condition, False is_operable property, and a Wall '
             'face type for their parent face.'
     )
@@ -120,7 +120,7 @@ class ApertureSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for a WindowConstruction for all apertures with a '
+        description='Identifier for a WindowConstruction for all apertures with a '
             'Surface boundary condition.'
     )
 
@@ -128,7 +128,7 @@ class ApertureSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for a WindowConstruction for apertures with a Outdoors '
+        description='Identifier for a WindowConstruction for apertures with a Outdoors '
             'boundary condition, False is_operable property, and a RoofCeiling or '
             'Floor face type for their parent face.'
     )
@@ -137,7 +137,7 @@ class ApertureSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for a WindowConstruction for all apertures with an '
+        description='Identifier for a WindowConstruction for all apertures with an '
             'Outdoors boundary condition and True is_operable property..'
     )
 
@@ -151,7 +151,7 @@ class DoorSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for all opaque doors with a '
+        description='Identifier for an OpaqueConstruction for all opaque doors with a '
             'Surface boundary condition.'
     )
 
@@ -159,23 +159,24 @@ class DoorSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for opaque doors with an Outdoors '
-            'boundary condition and a Wall face type for their parent face.'
+        description='Identifier for an OpaqueConstruction for opaque doors with an '
+            'Outdoors boundary condition and a Wall face type for their parent face.'
     )
 
     overhead_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an OpaqueConstruction for opaque doors with an Outdoors '
-            'boundary condition and a RoofCeiling or Floor type for their parent face.'
+        description='Identifier for an OpaqueConstruction for opaque doors with an '
+            'Outdoors boundary condition and a RoofCeiling or Floor type for '
+            'their parent face.'
     )
 
     exterior_glass_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an WindowConstruction for all glass doors with an '
+        description='Identifier for a WindowConstruction for all glass doors with an '
             'Outdoors boundary condition.'
     )
 
@@ -183,12 +184,12 @@ class DoorSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for an WindowConstruction for all glass doors with a '
+        description='Identifier for a WindowConstruction for all glass doors with a '
             'Surface boundary condition.'
     )
 
 
-class ConstructionSetAbridged(NamedEnergyBaseModel):
+class ConstructionSetAbridged(IDdEnergyBaseModel):
     """A set of constructions for different surface types and boundary conditions."""
 
     type: constr(regex='^ConstructionSetAbridged$') = 'ConstructionSetAbridged'
@@ -222,16 +223,16 @@ class ConstructionSetAbridged(NamedEnergyBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='The name of a ShadeConstruction to set the reflectance properties '
-            'of all outdoor shades of all objects to which this ConstructionSet '
-            'is assigned.'
+        description='The identifier of a ShadeConstruction to set the reflectance '
+            'properties of all outdoor shades of all objects to which this '
+            'ConstructionSet is assigned.'
     )
 
     air_boundary_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description='The name of an AirBoundaryConstruction to set the properties '
+        description='The identifier of an AirBoundaryConstruction to set the properties '
             'of Faces with an AirBoundary type.'
     )
 

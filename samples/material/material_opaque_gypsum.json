@@ -1,6 +1,6 @@
 {
     "type": "EnergyMaterial",
-    "name": "Generic Gypsum Board",
+    "identifier": "Generic Gypsum Board",
     "roughness": "MediumSmooth",
     "thickness": 0.0127,
     "conductivity": 0.16,

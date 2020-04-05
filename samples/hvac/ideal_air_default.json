@@ -1,6 +1,6 @@
 {
     "type": "IdealAirSystemAbridged",
-    "name": "Default HVAC System",
+    "identifier": "Default HVAC System",
     "economizer_type": "DifferentialDryBulb",
     "demand_controlled_ventilation": false,
     "sensible_heat_recovery": 0.0,

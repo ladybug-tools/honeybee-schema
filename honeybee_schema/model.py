@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field, validator, root_validator, constr, conlis
 from typing import List, Union
 from enum import Enum
 
-from ._base import NamedBaseModel, NoExtraBaseModel
+from ._base import IDdBaseModel, NoExtraBaseModel
 from .bc import Outdoors, Surface, Ground, Adiabatic
 from .energy.properties import ShadeEnergyPropertiesAbridged, \
     DoorEnergyPropertiesAbridged, ApertureEnergyPropertiesAbridged, \
@@ -74,7 +74,7 @@ class ShadePropertiesAbridged(BaseModel):
     )
 
 
-class Shade(NamedBaseModel):
+class Shade(IDdBaseModel):
 
     type: constr(regex='^Shade$') = 'Shade'
 
@@ -89,11 +89,6 @@ class Shade(NamedBaseModel):
             '(Radiance, EnergyPlus).'
     )
 
-    user_data: dict = Field(
-        default={},
-        description='Optional dictionary of user data associated with the object.'
-    )
-
 
 class DoorPropertiesAbridged(BaseModel):
 
@@ -104,7 +99,7 @@ class DoorPropertiesAbridged(BaseModel):
     )
 
 
-class Door(NamedBaseModel):
+class Door(IDdBaseModel):
 
     type: constr(regex='^Door$') = 'Door'
 
@@ -145,12 +140,6 @@ class Door(NamedBaseModel):
             '(Radiance, EnergyPlus).'
     )
 
-    user_data: dict = Field(
-        default={},
-        description='Optional dictionary of user data associated with the object.'
-    )
-
-
 class AperturePropertiesAbridged(BaseModel):
 
     type: constr(regex='^AperturePropertiesAbridged$') = 'AperturePropertiesAbridged'
@@ -160,7 +149,7 @@ class AperturePropertiesAbridged(BaseModel):
     )
 
 
-class Aperture(NamedBaseModel):
+class Aperture(IDdBaseModel):
 
     type: constr(regex='^Aperture$') = 'Aperture'
 
@@ -201,11 +190,6 @@ class Aperture(NamedBaseModel):
             '(Radiance, EnergyPlus).'
     )
 
-    user_data: dict = Field(
-        default={},
-        description='Optional dictionary of user data associated with the object.'
-    )
-
 
 class FacePropertiesAbridged(BaseModel):
 
@@ -224,7 +208,7 @@ class FaceType(str, Enum):
     air_boundary = 'AirBoundary'
 
 
-class Face(NamedBaseModel):
+class Face(IDdBaseModel):
 
     type: constr(regex='^Face$') = 'Face'
 
@@ -273,11 +257,6 @@ class Face(NamedBaseModel):
             '(Radiance, EnergyPlus).'
     )
 
-    user_data: dict = Field(
-        default={},
-        description='Optional dictionary of user data associated with the object.'
-    )
-
     @root_validator
     def chack_air_boundarys_are_interior(cls, values):
         """Check that all air wall faces have a Surface boundary condition."""
@@ -297,7 +276,7 @@ class RoomPropertiesAbridged(BaseModel):
     )
 
 
-class Room(NamedBaseModel):
+class Room(IDdBaseModel):
 
     type: constr(regex='^Room$') = 'Room'
 
@@ -334,11 +313,6 @@ class Room(NamedBaseModel):
             'Room is run once and then the result is mutliplied by the multiplier.'
     )
 
-    user_data: dict = Field(
-        default={},
-        description='Optional dictionary of user data associated with the object.'
-    )
-
 
 class Units(str, Enum):
     meters = 'Meters'
@@ -357,7 +331,7 @@ class ModelProperties(BaseModel):
     )
 
 
-class Model(NamedBaseModel):
+class Model(IDdBaseModel):
 
     type: constr(regex='^Model$') = 'Model'
 
@@ -437,11 +411,6 @@ class Model(NamedBaseModel):
         ...,
         description='Extension properties for particular simulation engines '
             '(Radiance, EnergyPlus).'
-    )
-
-    user_data: dict = Field(
-        default={},
-        description='Optional dictionary of user data associated with the object.'
     )
 
 

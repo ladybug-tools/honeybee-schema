@@ -1,6 +1,6 @@
 {
     "type": "EnergyMaterial",
-    "name": "Generic 50mm Insulation",
+    "identifier": "Generic 50mm Insulation",
     "roughness": "MediumRough",
     "thickness": 0.05,
     "conductivity": 0.03,

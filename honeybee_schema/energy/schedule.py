@@ -4,7 +4,7 @@ from typing import List, Union
 from enum import Enum
 import datetime
 
-from ._base import NamedEnergyBaseModel, DatedBaseModel
+from ._base import IDdEnergyBaseModel, DatedBaseModel
 from ..altnumber import NoLimit
 
 
@@ -31,7 +31,7 @@ class ScheduleUnitType (str, Enum):
     mode = 'Mode'
 
 
-class ScheduleTypeLimit(NamedEnergyBaseModel):
+class ScheduleTypeLimit(IDdEnergyBaseModel):
     """Specifies the data types and limits for values contained in schedules."""
 
     type: constr(regex='^ScheduleTypeLimit$') = 'ScheduleTypeLimit'
@@ -63,7 +63,7 @@ class ScheduleTypeLimit(NamedEnergyBaseModel):
                 ]
 
 
-class ScheduleDay(NamedEnergyBaseModel):
+class ScheduleDay(IDdEnergyBaseModel):
     """Used to describe the daily schedule for a single simulation day."""
 
     type: constr(regex='^ScheduleDay$') = 'ScheduleDay'
@@ -112,7 +112,7 @@ class ScheduleRuleAbridged(DatedBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='The name of a ScheduleDay object associated with this rule.'
+        description='The identifier of a ScheduleDay object associated with this rule.'
     )
 
     apply_sunday: bool = Field(
@@ -179,7 +179,7 @@ class ScheduleRuleAbridged(DatedBaseModel):
         return cls.check_date(v)
 
 
-class ScheduleRulesetAbridged(NamedEnergyBaseModel):
+class ScheduleRulesetAbridged(IDdEnergyBaseModel):
     """Used to define a schedule for a default day, further described by ScheduleRule."""
 
     type: constr(regex='^ScheduleRulesetAbridged$') = 'ScheduleRulesetAbridged'
@@ -194,8 +194,9 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='A name for the ScheduleDay that will be used for all days when '
-            'no ScheduleRule is applied. This ScheduleDay must be in the day_schedules.'
+        description='An identifier for the ScheduleDay that will be used for '
+            'all days when no ScheduleRule is applied. This ScheduleDay must be '
+            'in the day_schedules.'
     )
 
     schedule_rules: List[ScheduleRuleAbridged] = Field(
@@ -209,7 +210,7 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='A name for the ScheduleDay that will be used for holidays. '
+        description='An identifier for the ScheduleDay that will be used for holidays. '
             'This ScheduleDay must be in the day_schedules.'
     )
 
@@ -217,23 +218,23 @@ class ScheduleRulesetAbridged(NamedEnergyBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='A name for the ScheduleDay that will be used for the summer design '
-            'day. This ScheduleDay must be in the day_schedules.'
+        description='An identifier for the ScheduleDay that will be used for '
+            'the summer design day. This ScheduleDay must be in the day_schedules.'
     )
 
     winter_designday_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description='A name for the ScheduleDay that will be used for the winter design '
-            'day. This ScheduleDay must be in the day_schedules.'
+        description='An identifier for the ScheduleDay that will be used for the '
+            'winter design day. This ScheduleDay must be in the day_schedules.'
     )
 
     schedule_type_limit: str = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of a ScheduleTypeLimit that will be used to validate '
+        description='Identifier of a ScheduleTypeLimit that will be used to validate '
             'schedule values against upper/lower limits and assign units to the '
             'schedule values. If None, no validation will occur.'
     )
@@ -252,7 +253,7 @@ class ScheduleRuleset(ScheduleRulesetAbridged):
     )
 
 
-class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
+class ScheduleFixedIntervalAbridged(IDdEnergyBaseModel):
     """Used to specify a start date and a list of values for a period of analysis."""
 
     type: constr(regex='^ScheduleFixedIntervalAbridged$') = \
@@ -270,7 +271,7 @@ class ScheduleFixedIntervalAbridged(NamedEnergyBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of a ScheduleTypeLimit that will be used to validate '
+        description='Identifier of a ScheduleTypeLimit that will be used to validate '
             'schedule values against upper/lower limits and assign units to the '
             'schedule values. If None, no validation will occur.'
     )

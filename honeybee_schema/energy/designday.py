@@ -5,7 +5,6 @@ from enum import Enum
 import datetime
 
 from .._base import NoExtraBaseModel
-from ._base import NamedEnergyBaseModel
 
 
 class DryBulbCondition(NoExtraBaseModel):
@@ -168,10 +167,28 @@ class DesignDayTypes(str, Enum):
     custom_day2 = 'CustomDay2'
 
 
-class DesignDay(NamedEnergyBaseModel):
+class DesignDay(NoExtraBaseModel):
     """An object representing design day conditions."""
 
     type: constr(regex='^DesignDay$') = 'DesignDay'
+
+    name: str = Field(
+        ...,
+        min_length=1,
+        max_length=100,
+        description='Text string for a unique design day name. This name remains '
+            'constant as the object is mutated, copied, and serialized to different '
+            'formats (eg. dict, idf, osm). It is also used to reference the object '
+            'within SimulationParameters. It must be < 100 characters, use only '
+            'ASCII characters and exclude (, ; ! \\n \\t).'
+    )
+
+    @validator('name')
+    def check_identifier(cls, v):
+        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
+        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
+            'Name contains an invalid character for EnergyPlus (, ; ! \\n \\t).'
+        return v
 
     day_type: DesignDayTypes
 

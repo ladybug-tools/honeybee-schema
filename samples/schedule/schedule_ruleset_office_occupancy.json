@@ -1,10 +1,10 @@
 {
     "type": "ScheduleRulesetAbridged",
-    "name": "OfficeLarge BLDG_OCC_SCH",
+    "identifier": "OfficeLarge BLDG_OCC_SCH",
     "day_schedules": [
         {
             "type": "ScheduleDay",
-            "name": "OfficeLarge BLDG_OCC_SCH_Default",
+            "identifier": "OfficeLarge BLDG_OCC_SCH_Default",
             "values": [
                 0.0,
                 0.05,
@@ -28,21 +28,7 @@
         },
         {
             "type": "ScheduleDay",
-            "name": "OfficeLarge BLDG_OCC_SCH_WntrDsn",
-            "values": [
-                0.0
-            ],
-            "times": [
-                [
-                    0,
-                    0
-                ]
-            ],
-            "interpolate": false
-        },
-        {
-            "type": "ScheduleDay",
-            "name": "OfficeLarge BLDG_OCC_SCH_SmrDsn",
+            "identifier": "OfficeLarge BLDG_OCC_SCH_SmrDsn",
             "values": [
                 0.0,
                 1.0,
@@ -66,7 +52,21 @@
         },
         {
             "type": "ScheduleDay",
-            "name": "OfficeLarge BLDG_OCC_SCH_Sat",
+            "identifier": "OfficeLarge BLDG_OCC_SCH_WntrDsn",
+            "values": [
+                0.0
+            ],
+            "times": [
+                [
+                    0,
+                    0
+                ]
+            ],
+            "interpolate": false
+        },
+        {
+            "type": "ScheduleDay",
+            "identifier": "OfficeLarge BLDG_OCC_SCH_Sat",
             "values": [
                 0.0,
                 0.1,
@@ -105,7 +105,7 @@
         },
         {
             "type": "ScheduleDay",
-            "name": "OfficeLarge BLDG_OCC_SCH_Wkdy",
+            "identifier": "OfficeLarge BLDG_OCC_SCH_Wkdy",
             "values": [
                 0.0,
                 0.1,
@@ -199,7 +199,7 @@
             ]
         }
     ],
-    "holiday_schedule": "OfficeLarge BLDG_OCC_SCH_SmrDsn",
-    "summer_designday_schedule": "OfficeLarge BLDG_OCC_SCH_WntrDsn",
+    "summer_designday_schedule": "OfficeLarge BLDG_OCC_SCH_SmrDsn",
+    "winter_designday_schedule": "OfficeLarge BLDG_OCC_SCH_WntrDsn",
     "schedule_type_limit": "Fractional"
 }

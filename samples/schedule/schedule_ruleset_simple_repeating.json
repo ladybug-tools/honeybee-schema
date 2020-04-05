@@ -1,10 +1,10 @@
 {
     "type": "ScheduleRulesetAbridged",
-    "name": "Simple Repeating",
+    "identifier": "Simple Repeating",
     "day_schedules": [
         {
             "type": "ScheduleDay",
-            "name": "Simple Repeating_Day Schedule",
+            "identifier": "Simple Repeating_Day Schedule",
             "values": [
                 0.5,
                 1.0,

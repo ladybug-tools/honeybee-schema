@@ -5,23 +5,31 @@ import datetime
 from .._base import NoExtraBaseModel
 
 
-class NamedEnergyBaseModel(NoExtraBaseModel):
-    """Base class for all objects requiring a valid EnergyPlus name."""
+class IDdEnergyBaseModel(NoExtraBaseModel):
+    """Base class for all objects requiring a valid EnergyPlus identifier."""
 
-    name: str = Field(
+    identifier: str = Field(
         ...,
         min_length=1,
         max_length=100,
-        description='Name of the object. Must use only ASCII characters and '
-            'exclude (, ; ! \\n \\t). It cannot be longer than 100 characters.'
+        description='Text string for a unique object ID. This identifier remains '
+            'constant as the object is mutated, copied, and serialized to different '
+            'formats (eg. dict, idf, osm). This identifier is also used to reference '
+            'the object across a Model. It must be < 100 characters, use only '
+            'ASCII characters and exclude (, ; ! \\n \\t).'
     )
 
-    @validator('name')
-    def check_name(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
+    @validator('identifier')
+    def check_identifier(cls, v):
+        assert all(ord(i) < 128 for i in v), 'Identifier contains non ASCII characters.'
         assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Name contains invalid character for EnergyPlus (, ; ! \\n \\t).'
+            'Identifier contains an invalid character for EnergyPlus (, ; ! \\n \\t).'
         return v
+
+    display_name: str = Field(
+        default=None,
+        description='Display name of the object with no character restrictions.'
+    )
 
 
 class DatedBaseModel(NoExtraBaseModel):

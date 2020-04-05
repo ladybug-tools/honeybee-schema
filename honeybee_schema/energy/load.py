@@ -2,12 +2,12 @@
 from pydantic import Field, validator, root_validator, constr
 from typing import Union
 
-from ._base import NamedEnergyBaseModel
+from ._base import IDdEnergyBaseModel
 from .schedule import ScheduleRuleset, ScheduleFixedInterval
 from ..altnumber import Autocalculate
 
 
-class PeopleAbridged(NamedEnergyBaseModel):
+class PeopleAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^PeopleAbridged$') = 'PeopleAbridged'
 
@@ -21,7 +21,7 @@ class PeopleAbridged(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of a schedule for the occupancy over the course of the '
+        description='Identifier of a schedule for the occupancy over the course of the '
             'year. The type of this schedule should be Fractional and the fractional '
             'values will get multiplied by the people_per_area to yield a complete '
             'occupancy profile.'
@@ -31,7 +31,7 @@ class PeopleAbridged(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of a schedule for the activity of the occupants over the '
+        description='Identifier of a schedule for the activity of the occupants over the '
             'course of the year. The type of this schedule should be Power and the '
             'values of the schedule equal to the number of Watts given off by an '
             'individual person in the room.'
@@ -93,7 +93,7 @@ class People(PeopleAbridged):
     )
 
 
-class LightingAbridged(NamedEnergyBaseModel):
+class LightingAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^LightingAbridged$') = 'LightingAbridged'
 
@@ -107,7 +107,7 @@ class LightingAbridged(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of the schedule for the use of lights over the course of '
+        description='Identifier of the schedule for the use of lights over the course of '
             'the year. The type of this schedule should be Fractional and the '
             'fractional values will get multiplied by the watts_per_area to yield a '
             'complete lighting profile.'
@@ -161,7 +161,7 @@ class Lighting(LightingAbridged):
     )
 
 
-class _EquipmentBase(NamedEnergyBaseModel):
+class _EquipmentBase(IDdEnergyBaseModel):
 
     watts_per_area: float = Field(
         ...,
@@ -173,7 +173,7 @@ class _EquipmentBase(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of the schedule for the use of equipment over the course '
+        description='Identifier of the schedule for the use of equipment over the course '
             'of the year. The type of this schedule should be Fractional and the '
             'fractional values will get multiplied by the watts_per_area to yield '
             'a complete equipment profile.'
@@ -251,7 +251,7 @@ class GasEquipment(GasEquipmentAbridged):
     )
 
 
-class InfiltrationAbridged(NamedEnergyBaseModel):
+class InfiltrationAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^InfiltrationAbridged$') = 'InfiltrationAbridged'
 
@@ -265,7 +265,7 @@ class InfiltrationAbridged(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of the schedule for the infiltration over the course of '
+        description='Identifier of the schedule for the infiltration over the course of '
             'the year. The type of this schedule should be Fractional and the '
             'fractional values will get multiplied by the flow_per_exterior_area '
             'to yield a complete infiltration profile.'
@@ -300,7 +300,7 @@ class Infiltration(InfiltrationAbridged):
     )
 
 
-class VentilationAbridged(NamedEnergyBaseModel):
+class VentilationAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^VentilationAbridged$') = 'VentilationAbridged'
 
@@ -336,7 +336,7 @@ class VentilationAbridged(NamedEnergyBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of the schedule for the ventilation over the course of '
+        description='Identifier of the schedule for the ventilation over the course of '
             'the year. The type of this schedule should be Fractional and the '
             'fractional values will get multiplied by the total design flow rate '
             '(determined from the sum of the other 4 fields) to yield a complete '
@@ -360,7 +360,7 @@ class Ventilation(VentilationAbridged):
     )
 
 
-class SetpointAbridged(NamedEnergyBaseModel):
+class SetpointAbridged(IDdEnergyBaseModel):
     """Used to specify information about the setpoint schedule."""
 
     type: constr(regex='^SetpointAbridged$') = 'SetpointAbridged'
@@ -369,7 +369,7 @@ class SetpointAbridged(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of the schedule for the cooling setpoint. The values in '
+        description='Identifier of the schedule for the cooling setpoint. The values in '
             'this schedule should be temperature in [C].'
     )
 
@@ -377,7 +377,7 @@ class SetpointAbridged(NamedEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Name of the schedule for the heating setpoint. The values in '
+        description='Identifier of the schedule for the heating setpoint. The values in '
             'this schedule should be temperature in [C].'
     )
 
@@ -385,16 +385,16 @@ class SetpointAbridged(NamedEnergyBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of the schedule for the humidification setpoint. The values '
-            'in this schedule should be in [%].'
+        description='Identifier of the schedule for the humidification setpoint. '
+            'The values in this schedule should be in [%].'
     )
 
     dehumidifying_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of the schedule for the dehumidification setpoint. The values '
-            'in this schedule should be in [%].'
+        description='Identifier of the schedule for the dehumidification setpoint. '
+            'The values in this schedule should be in [%].'
     )
 
     @root_validator

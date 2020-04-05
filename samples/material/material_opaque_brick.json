@@ -1,6 +1,6 @@
 {
     "type": "EnergyMaterial",
-    "name": "Generic Brick",
+    "identifier": "Generic Brick",
     "roughness": "MediumRough",
     "thickness": 0.1,
     "conductivity": 0.9,

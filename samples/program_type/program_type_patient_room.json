@@ -1,9 +1,9 @@
 {
     "type": "ProgramTypeAbridged",
-    "name": "2013::Hospital::ICU_PatRm",
+    "identifier": "2013::Hospital::ICU_PatRm",
     "people": {
         "type": "PeopleAbridged",
-        "name": "2013::Hospital::ICU_PatRm_People",
+        "identifier": "2013::Hospital::ICU_PatRm_People",
         "people_per_area": 0.05381957525591208,
         "radiant_fraction": 0.3,
         "latent_fraction": {
@@ -14,7 +14,7 @@
     },
     "lighting": {
         "type": "LightingAbridged",
-        "name": "2013::Hospital::ICU_PatRm_Lighting",
+        "identifier": "2013::Hospital::ICU_PatRm_Lighting",
         "watts_per_area": 6.673617999999999,
         "return_air_fraction": 0.0,
         "radiant_fraction": 0.7,
@@ -23,7 +23,7 @@
     },
     "electric_equipment": {
         "type": "ElectricEquipmentAbridged",
-        "name": "2013::Hospital::ICU_PatRm_Electric",
+        "identifier": "2013::Hospital::ICU_PatRm_Electric",
         "watts_per_area": 32.2917,
         "radiant_fraction": 0.5,
         "latent_fraction": 0.0,
@@ -32,18 +32,18 @@
     },
     "infiltration": {
         "type": "InfiltrationAbridged",
-        "name": "2013::Hospital::ICU_PatRm_Infiltration",
+        "identifier": "2013::Hospital::ICU_PatRm_Infiltration",
         "flow_per_exterior_area": 0.00022656800000000002,
         "schedule": "Hospital INFIL_SCH_PNNL"
     },
     "ventilation": {
         "type": "VentilationAbridged",
-        "name": "2013::Hospital::ICU_PatRm_Ventilation",
+        "identifier": "2013::Hospital::ICU_PatRm_Ventilation",
         "air_changes_per_hour": 2.0
     },
     "setpoint": {
         "type": "SetpointAbridged",
-        "name": "Humidity Controlled PatRm Setpt",
+        "identifier": "Humidity Controlled PatRm Setpt",
         "heating_schedule": "Humidity Controlled PatRm Setpt_HtgSetp",
         "cooling_schedule": "Humidity Controlled PatRm Setpt_ClgSetp",
         "humidifying_schedule": "Humidity Controlled PatRm Setpt_DeHumidSetp",

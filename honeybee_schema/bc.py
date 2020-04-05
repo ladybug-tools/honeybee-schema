@@ -44,7 +44,7 @@ class Surface(NoExtraBaseModel):
         ...,
         min_tems=2,
         max_items=3,
-        description='A list of up to 3 object names that are adjacent to this one. '
+        description='A list of up to 3 object identifiers that are adjacent to this one. '
             'The first object is always the one that is immediately adjacet and is of '
             'the same object type (Face, Aperture, Door). When this boundary condition '
             'is applied to a Face, the second object in the tuple will be the parent '

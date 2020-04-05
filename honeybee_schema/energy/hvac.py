@@ -3,7 +3,7 @@ from pydantic import Field, validator, root_validator, constr
 from typing import Union
 from enum import Enum
 
-from ._base import NamedEnergyBaseModel
+from ._base import IDdEnergyBaseModel
 from ..altnumber import NoLimit, Autosize
 
 
@@ -13,7 +13,7 @@ class EconomizerType(str, Enum):
     differential_enthalpy = 'DifferentialEnthalpy'
 
 
-class IdealAirSystemAbridged(NamedEnergyBaseModel):
+class IdealAirSystemAbridged(IDdEnergyBaseModel):
     """ Provides a model for an ideal HVAC system."""
 
     type: constr(regex='^IdealAirSystemAbridged$') = 'IdealAirSystemAbridged'
@@ -85,7 +85,7 @@ class IdealAirSystemAbridged(NamedEnergyBaseModel):
         None,
         min_length=1,
         max_length=100,
-        description='An optional name of a schedule to set the availability of '
+        description='An optional identifier of a schedule to set the availability of '
             'heating over the course of the simulation.'
     )
 
@@ -93,7 +93,7 @@ class IdealAirSystemAbridged(NamedEnergyBaseModel):
         None,
         min_length=1,
         max_length=100,
-        description='An optional name of a schedule to set the availability of '
+        description='An optional identifier of a schedule to set the availability of '
             'cooling over the course of the simulation.'
     )
 

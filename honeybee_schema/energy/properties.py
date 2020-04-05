@@ -4,18 +4,19 @@ from typing import List, Union
 from enum import Enum
 
 from .._base import NoExtraBaseModel
-from .constructionset import ConstructionSetAbridged
+from .constructionset import ConstructionSetAbridged, ConstructionSet
 from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged, \
-    ShadeConstruction, AirBoundaryConstructionAbridged
+    ShadeConstruction, AirBoundaryConstructionAbridged, OpaqueConstruction, \
+    WindowConstruction, AirBoundaryConstruction
 from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
     EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
-from .programtype import ProgramTypeAbridged
+from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, InfiltrationAbridged, VentilationAbridged, SetpointAbridged
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
-    ScheduleFixedIntervalAbridged
+    ScheduleFixedIntervalAbridged, ScheduleRuleset, ScheduleFixedInterval
 from .hvac import IdealAirSystemAbridged
 
 
@@ -28,7 +29,7 @@ class ShadeEnergyPropertiesAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of a ShadeConstruction to set the reflectance and '
+        description='Identifier of a ShadeConstruction to set the reflectance and '
             'specularity of the Shade. If None, the construction is set by the'
             'parent Room construction_set, the Model global_construction_set or '
             '(in the case fo an orphaned shade) the EnergyPlus default of 0.2 '
@@ -39,7 +40,7 @@ class ShadeEnergyPropertiesAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of a schedule to set the transmittance of the shade, '
+        description='Identifier of a schedule to set the transmittance of the shade, '
             'which can vary throughout the simulation. If None, the shade will '
             'be completely opauqe.'
     )
@@ -54,10 +55,11 @@ class DoorEnergyPropertiesAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of an OpaqueConstruction or WindowConstruction for the door. '
-            'Note that the host door must have the is_glass property set to True '
-            'to assign a WindowConstruction. If None, the construction is set by the'
-            'parent Room construction_set or the Model global_construction_set.'
+        description='Identifier of an OpaqueConstruction or WindowConstruction '
+            'for the door. Note that the host door must have the is_glass property '
+            'set to True to assign a WindowConstruction. If None, the construction '
+            'is set by the parent Room construction_set or the Model '
+            'global_construction_set.'
     )
 
 
@@ -70,7 +72,7 @@ class ApertureEnergyPropertiesAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of a WindowConstruction for the aperture. If None, the '
+        description='Identifier of a WindowConstruction for the aperture. If None, the '
             'construction is set by the parent Room construction_set or the Model '
             'global_construction_set.'
     )
@@ -85,7 +87,7 @@ class FaceEnergyPropertiesAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of an OpaqueConstruction for the Face. If None, the '
+        description='Identifier of an OpaqueConstruction for the Face. If None, the '
             'construction is set by the parent Room construction_set or the '
             'Model global_construction_set.'
     )
@@ -100,25 +102,25 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of a ConstructionSet to specify all default constructions '
-            'for the Faces, Apertures, and Doors of the Room. If None, the Room will '
-            'use the Model global_construction_set.'
+        description='Identifier of a ConstructionSet to specify all default '
+            'constructions for the Faces, Apertures, and Doors of the Room. If '
+            'None, the Room will use the Model global_construction_set.'
     )
 
     program_type: str = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description='Name of a ProgramType to specify all default schedules and loads '
-            'for the Room. If None, the Room will have no loads or setpoints.'
+        description='Identifier of a ProgramType to specify all default schedules '
+            'and loads for the Room. If None, the Room will have no loads or setpoints.'
     )
 
     hvac: str = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description='An optional name of a HVAC system (such as an IdealAirSystem) '
-            'that specifies how the Room is conditioned. If None, it will be assumed '
+        description='An optional identifier of a HVAC system (such as an IdealAirSystem)'
+            ' that specifies how the Room is conditioned. If None, it will be assumed '
             'that the Room is not conditioned.'
     )
 
@@ -181,19 +183,20 @@ class ModelEnergyProperties(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Name for the ConstructionSet to be used for all objects lacking '
-            'their own construction or a parent Room construction_set. This '
-            'ConstructionSet must appear under the Model construction_sets.'
+        description='Identifier for the ConstructionSet to be used for all '
+            'objects lacking their own construction or a parent Room construction_set. '
+            'This ConstructionSet must appear under the Model construction_sets.'
     )
 
-    construction_sets: List[ConstructionSetAbridged] = Field(
+    construction_sets: List[Union[ConstructionSetAbridged, ConstructionSet]] = Field(
         default=None,
         description='List of all ConstructionSets in the Model.'
     )
 
     constructions: List[Union[
         OpaqueConstructionAbridged, WindowConstructionAbridged,
-        ShadeConstruction, AirBoundaryConstructionAbridged]] = Field(
+        ShadeConstruction, AirBoundaryConstructionAbridged,
+        OpaqueConstruction, WindowConstruction, AirBoundaryConstruction]] = Field(
         ...,
         description='A list of all unique constructions in the model. This includes '
             'constructions across all Faces, Apertures, Doors, Shades, Room '
@@ -215,12 +218,13 @@ class ModelEnergyProperties(NoExtraBaseModel):
         description='List of all HVAC systems in the Model.'
     )
 
-    program_types: List[ProgramTypeAbridged] = Field(
+    program_types: List[Union[ProgramTypeAbridged, ProgramType]] = Field(
         default=None,
         description='List of all ProgramTypes in the Model.'
     )
 
-    schedules: List[Union[ScheduleRulesetAbridged, ScheduleFixedIntervalAbridged]] = Field(
+    schedules: List[Union[ScheduleRulesetAbridged, ScheduleFixedIntervalAbridged,
+                          ScheduleRuleset, ScheduleFixedInterval]] = Field(
         default=None,
         description='A list of all unique schedules in the model. This includes '
             'schedules across all HVAC systems, ProgramTypes, Rooms, and Shades.'

@@ -1,6 +1,6 @@
 {
     "type": "EnergyWindowMaterialGasMixture",
-    "name": "Argon Air Mixture",
+    "identifier": "Argon Air Mixture",
     "thickness": 0.0125,
     "gas_types": [
         "Argon",

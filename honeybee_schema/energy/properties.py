@@ -190,7 +190,7 @@ class ModelEnergyProperties(NoExtraBaseModel):
 
     construction_sets: List[Union[ConstructionSetAbridged, ConstructionSet]] = Field(
         default=None,
-        description='List of all ConstructionSets in the Model.'
+        description='List of all unique ConstructionSets in the Model.'
     )
 
     constructions: List[Union[
@@ -215,12 +215,12 @@ class ModelEnergyProperties(NoExtraBaseModel):
 
     hvacs: List[Union[IdealAirSystemAbridged]] = Field(
         default=None,
-        description='List of all HVAC systems in the Model.'
+        description='List of all unique HVAC systems in the Model.'
     )
 
     program_types: List[Union[ProgramTypeAbridged, ProgramType]] = Field(
         default=None,
-        description='List of all ProgramTypes in the Model.'
+        description='List of all unique ProgramTypes in the Model.'
     )
 
     schedules: List[Union[ScheduleRulesetAbridged, ScheduleFixedIntervalAbridged,

@@ -92,6 +92,18 @@ class People(PeopleAbridged):
             'individual person in the room.'
     )
 
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['occupancy_schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
+            schema['properties']['activity_schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
+
 
 class LightingAbridged(IDdEnergyBaseModel):
 
@@ -159,6 +171,14 @@ class Lighting(LightingAbridged):
             'fractional values will get multiplied by the watts_per_area to yield a '
             'complete lighting profile.'
     )
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
 
 
 class _EquipmentBase(IDdEnergyBaseModel):
@@ -232,6 +252,14 @@ class ElectricEquipment(ElectricEquipmentAbridged):
             'a complete equipment profile.'
     )
 
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
+
 
 class GasEquipmentAbridged(_EquipmentBase):
 
@@ -249,6 +277,14 @@ class GasEquipment(GasEquipmentAbridged):
             'fractional values will get multiplied by the watts_per_area to yield '
             'a complete equipment profile.'
     )
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
 
 
 class InfiltrationAbridged(IDdEnergyBaseModel):
@@ -298,6 +334,14 @@ class Infiltration(InfiltrationAbridged):
             'fractional values will get multiplied by the flow_per_exterior_area '
             'to yield a complete infiltration profile.'
     )
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
 
 
 class VentilationAbridged(IDdEnergyBaseModel):
@@ -356,6 +400,14 @@ class Ventilation(VentilationAbridged):
             '(determined from the sum of the other 4 fields) to yield a complete '
             'ventilation profile.'
     )
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
 
 
 class SetpointAbridged(IDdEnergyBaseModel):
@@ -437,6 +489,26 @@ class Setpoint(SetpointAbridged):
         description='Schedule for the dehumidification setpoint. The values '
             'in this schedule should be in [%].'
     )
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['cooling_schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
+            schema['properties']['heating_schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
+            schema['properties']['humidifying_schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
+            schema['properties']['dehumidifying_schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
 
 
 if __name__ == '__main__':

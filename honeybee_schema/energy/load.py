@@ -291,7 +291,7 @@ class Infiltration(InfiltrationAbridged):
 
     type: constr(regex='^Infiltration$') = 'Infiltration'
 
-    schedule: str = Field(
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='The schedule for the infiltration over the course of '
             'the year. The type of this schedule should be Fractional and the '
@@ -348,10 +348,8 @@ class Ventilation(VentilationAbridged):
 
     type: constr(regex='^Ventilation$') = 'Ventilation'
 
-    schedule: str = Field(
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         default=None,
-        min_length=1,
-        max_length=100,
         description='Schedule for the ventilation over the course of '
             'the year. The type of this schedule should be Fractional and the '
             'fractional values will get multiplied by the total design flow rate '

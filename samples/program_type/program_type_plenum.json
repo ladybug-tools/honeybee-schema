@@ -1,10 +1,177 @@
 {
-    "type": "ProgramTypeAbridged",
+    "type": "ProgramType",
     "identifier": "Plenum",
     "infiltration": {
-        "type": "InfiltrationAbridged",
+        "type": "Infiltration",
         "identifier": "Plenum Infiltration",
         "flow_per_exterior_area": 0.0002266,
-        "schedule": "Generic Office Infiltration"
+        "schedule": {
+            "type": "ScheduleRuleset",
+            "identifier": "Generic Office Infiltration",
+            "day_schedules": [
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Default",
+                    "values": [
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Wkdy_SmrDsn",
+                    "values": [
+                        1.0,
+                        0.25,
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            22,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Sat_WntrDsn",
+                    "values": [
+                        1.0,
+                        0.25,
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            18,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Wkdy",
+                    "values": [
+                        1.0,
+                        0.25,
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            22,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Sat",
+                    "values": [
+                        1.0,
+                        0.25,
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            18,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                }
+            ],
+            "default_day_schedule": "OfficeMedium INFIL_SCH_PNNL_Default",
+            "schedule_rules": [
+                {
+                    "type": "ScheduleRuleAbridged",
+                    "schedule_day": "OfficeMedium INFIL_SCH_PNNL_Wkdy",
+                    "apply_sunday": false,
+                    "apply_monday": true,
+                    "apply_tuesday": true,
+                    "apply_wednesday": true,
+                    "apply_thursday": true,
+                    "apply_friday": true,
+                    "apply_saturday": false,
+                    "start_date": [
+                        1,
+                        1
+                    ],
+                    "end_date": [
+                        12,
+                        31
+                    ]
+                },
+                {
+                    "type": "ScheduleRuleAbridged",
+                    "schedule_day": "OfficeMedium INFIL_SCH_PNNL_Sat",
+                    "apply_sunday": false,
+                    "apply_monday": false,
+                    "apply_tuesday": false,
+                    "apply_wednesday": false,
+                    "apply_thursday": false,
+                    "apply_friday": false,
+                    "apply_saturday": true,
+                    "start_date": [
+                        1,
+                        1
+                    ],
+                    "end_date": [
+                        12,
+                        31
+                    ]
+                }
+            ],
+            "holiday_schedule": "OfficeMedium INFIL_SCH_PNNL_Default",
+            "summer_designday_schedule": "OfficeMedium INFIL_SCH_PNNL_Wkdy_SmrDsn",
+            "winter_designday_schedule": "OfficeMedium INFIL_SCH_PNNL_Sat_WntrDsn",
+            "schedule_type_limit": {
+                "type": "ScheduleTypeLimit",
+                "identifier": "Fractional",
+                "lower_limit": 0.0,
+                "upper_limit": 1.0,
+                "numeric_type": "Continuous",
+                "unit_type": "Dimensionless"
+            }
+        }
     }
 }

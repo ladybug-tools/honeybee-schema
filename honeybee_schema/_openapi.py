@@ -82,6 +82,7 @@ def get_openapi(
     schema_names = list(schemas.keys())
     schema_names.sort()
     for name in schema_names:
+        print('    {}'.format(name))
         model_name = '%s_model' % name.lower()
         tag_names.append(model_name)
         tag = {

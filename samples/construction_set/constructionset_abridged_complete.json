@@ -1,0 +1,39 @@
+{
+    "type": "ConstructionSetAbridged",
+    "identifier": "Default Generic Construction Set",
+    "wall_set": {
+        "type": "WallSetAbridged",
+        "exterior_construction": "Generic Exterior Wall",
+        "interior_construction": "Generic Interior Wall",
+        "ground_construction": "Generic Underground Wall"
+    },
+    "floor_set": {
+        "type": "FloorSetAbridged",
+        "exterior_construction": "Generic Exposed Floor",
+        "interior_construction": "Generic Interior Floor",
+        "ground_construction": "Generic Ground Slab"
+    },
+    "roof_ceiling_set": {
+        "type": "RoofCeilingSetAbridged",
+        "exterior_construction": "Generic Roof",
+        "interior_construction": "Generic Interior Ceiling",
+        "ground_construction": "Generic Underground Roof"
+    },
+    "aperture_set": {
+        "type": "ApertureSetAbridged",
+        "window_construction": "Generic Double Pane",
+        "interior_construction": "Generic Single Pane",
+        "skylight_construction": "Generic Double Pane",
+        "operable_construction": "Generic Double Pane"
+    },
+    "door_set": {
+        "type": "DoorSetAbridged",
+        "exterior_construction": "Generic Exterior Door",
+        "interior_construction": "Generic Interior Door",
+        "exterior_glass_construction": "Generic Double Pane",
+        "interior_glass_construction": "Generic Single Pane",
+        "overhead_construction": "Generic Exterior Door"
+    },
+    "shade_construction": "Generic Shade",
+    "air_boundary_construction": "Generic Air Boundary"
+}

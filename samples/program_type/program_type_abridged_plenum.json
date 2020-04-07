@@ -1,0 +1,10 @@
+{
+    "type": "ProgramTypeAbridged",
+    "identifier": "Plenum",
+    "infiltration": {
+        "type": "InfiltrationAbridged",
+        "identifier": "Plenum Infiltration",
+        "flow_per_exterior_area": 0.0002266,
+        "schedule": "Generic Office Infiltration"
+    }
+}

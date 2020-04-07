@@ -1,38 +1,496 @@
 {
-    "type": "ConstructionSetAbridged",
+    "type": "ConstructionSet",
     "identifier": "2013::ClimateZone5::SteelFramed",
     "wall_set": {
-        "type": "WallSetAbridged",
-        "exterior_construction": "Typical Insulated Steel Framed Exterior Wall-R19",
+        "type": "WallSet",
+        "exterior_construction": {
+            "type": "OpaqueConstruction",
+            "identifier": "Typical Insulated Steel Framed Exterior Wall-R19",
+            "layers": [
+                "25mm Stucco",
+                "5/8 in. Gypsum Board",
+                "Typical Insulation-R17",
+                "5/8 in. Gypsum Board"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "5/8 in. Gypsum Board",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.0159,
+                    "conductivity": 0.15989299909405463,
+                    "density": 800.0018291911765,
+                    "specific_heat": 1089.2971854559414,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R17",
+                    "r_value": 2.9938731247680423,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "25mm Stucco",
+                    "roughness": "Smooth",
+                    "thickness": 0.0254,
+                    "conductivity": 0.7195184959232496,
+                    "density": 1856.0042437235265,
+                    "specific_heat": 839.4583814522845,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                }
+            ]
+        },
         "interior_construction": null,
-        "ground_construction": "Typical Insulated Basement Mass Wall-R8"
+        "ground_construction": {
+            "type": "OpaqueConstruction",
+            "identifier": "Typical Insulated Basement Mass Wall-R8",
+            "layers": [
+                "Typical Insulation-R7",
+                "8 in. Concrete Block Basement Wall"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R7",
+                    "r_value": 1.2327712866691938,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "8 in. Concrete Block Basement Wall",
+                    "roughness": "MediumRough",
+                    "thickness": 0.2032,
+                    "conductivity": 1.325113229991986,
+                    "density": 1842.0042117126811,
+                    "specific_heat": 911.4119570053389,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                }
+            ]
+        }
     },
     "floor_set": {
-        "type": "FloorSetAbridged",
-        "exterior_construction": "Typical Insulated Steel Framed Exterior Floor-R27",
+        "type": "FloorSet",
+        "exterior_construction": {
+            "type": "OpaqueConstruction",
+            "identifier": "Typical Insulated Steel Framed Exterior Floor-R27",
+            "layers": [
+                "25mm Stucco",
+                "5/8 in. Gypsum Board",
+                "Typical Insulation-R24",
+                "5/8 in. Gypsum Board",
+                "Typical Carpet Pad"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R24",
+                    "r_value": 4.226644411437236,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "5/8 in. Gypsum Board",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.0159,
+                    "conductivity": 0.15989299909405463,
+                    "density": 800.0018291911765,
+                    "specific_heat": 1089.2971854559414,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Carpet Pad",
+                    "r_value": 0.2164799871520999,
+                    "roughness": "VeryRough",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.8
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "25mm Stucco",
+                    "roughness": "Smooth",
+                    "thickness": 0.0254,
+                    "conductivity": 0.7195184959232496,
+                    "density": 1856.0042437235265,
+                    "specific_heat": 839.4583814522845,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                }
+            ]
+        },
         "interior_construction": null,
-        "ground_construction": "Typical Insulated Carpeted 8in Slab Floor-R5"
+        "ground_construction": {
+            "type": "OpaqueConstruction",
+            "identifier": "Typical Insulated Carpeted 8in Slab Floor-R5",
+            "layers": [
+                "Typical Insulation-R4",
+                "8 in. Normalweight Concrete Floor",
+                "Typical Carpet Pad"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R4",
+                    "r_value": 0.7044407352395393,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "8 in. Normalweight Concrete Floor",
+                    "roughness": "MediumRough",
+                    "thickness": 0.2032,
+                    "conductivity": 2.308455174420426,
+                    "density": 2322.005309227381,
+                    "specific_heat": 831.4635397241673,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Carpet Pad",
+                    "r_value": 0.2164799871520999,
+                    "roughness": "VeryRough",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.8
+                }
+            ]
+        }
     },
     "roof_ceiling_set": {
-        "type": "RoofCeilingSetAbridged",
-        "exterior_construction": "Typical IEAD Roof-R32",
+        "type": "RoofCeilingSet",
+        "exterior_construction": {
+            "type": "OpaqueConstruction",
+            "identifier": "Typical IEAD Roof-R32",
+            "layers": [
+                "Roof Membrane",
+                "Typical Insulation-R31",
+                "Metal Roof Surface"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Roof Membrane",
+                    "roughness": "VeryRough",
+                    "thickness": 0.009499999999999998,
+                    "conductivity": 0.15989299909405608,
+                    "density": 1121.29256381722,
+                    "specific_heat": 1459.0586153813556,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R31",
+                    "r_value": 5.45941569810643,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Metal Roof Surface",
+                    "roughness": "Smooth",
+                    "thickness": 0.0007999999999999979,
+                    "conductivity": 45.24971874361766,
+                    "density": 7824.017889489713,
+                    "specific_heat": 499.67760800730963,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                }
+            ]
+        },
         "interior_construction": null,
         "ground_construction": null
     },
     "aperture_set": {
-        "type": "ApertureSetAbridged",
-        "window_construction": "U 0.48 SHGC 0.40 Dbl Ref-D Clr 6mm/13mm",
+        "type": "ApertureSet",
+        "window_construction": {
+            "type": "WindowConstruction",
+            "identifier": "U 0.48 SHGC 0.40 Dbl Ref-D Clr 6mm/13mm",
+            "layers": [
+                "REF D CLEAR 6MM",
+                "AIR 13MM",
+                "CLEAR 6MM"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "REF D CLEAR 6MM",
+                    "thickness": 0.005999999999999977,
+                    "solar_transmittance": 0.429,
+                    "solar_reflectance": 0.308,
+                    "solar_reflectance_back": 0.379,
+                    "visible_transmittance": 0.334,
+                    "visible_reflectance": 0.453,
+                    "visible_reflectance_back": 0.505,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.82,
+                    "conductivity": 0.8993981199040626,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "CLEAR 6MM",
+                    "thickness": 0.005999999999999977,
+                    "solar_transmittance": 0.775,
+                    "solar_reflectance": 0.071,
+                    "solar_reflectance_back": 0.071,
+                    "visible_transmittance": 0.881,
+                    "visible_reflectance": 0.08,
+                    "visible_reflectance_back": 0.08,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.84,
+                    "conductivity": 0.8993981199040626,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "AIR 13MM",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
+                }
+            ]
+        },
         "interior_construction": null,
-        "skylight_construction": "Window_U_0.50_SHGC_0.40_Skylight_Frame_Width_0.430_in",
-        "operable_construction": "U 0.48 SHGC 0.40 Dbl Ref-D Clr 6mm/13mm"
+        "skylight_construction": {
+            "type": "WindowConstruction",
+            "identifier": "Window_U_0.50_SHGC_0.40_Skylight_Frame_Width_0.430_in",
+            "layers": [
+                "Glass_2052_LayerAvg",
+                "Gap_1_W_0_0038",
+                "Glass_2027F_LayerAvg"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "Gap_1_W_0_0038",
+                    "thickness": 0.0037999999999999887,
+                    "gas_type": "Air"
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "Glass_2052_LayerAvg",
+                    "thickness": 0.008369999999999997,
+                    "solar_transmittance": 0.507767,
+                    "solar_reflectance": 0.05422805,
+                    "solar_reflectance_back": 0.05449309,
+                    "visible_transmittance": 0.586833,
+                    "visible_reflectance": 0.05805,
+                    "visible_reflectance_back": 0.058397,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.84,
+                    "conductivity": 0.9993312443378461,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "Glass_2027F_LayerAvg",
+                    "thickness": 0.003999999999999977,
+                    "solar_transmittance": 0.369744,
+                    "solar_reflectance": 0.4700695,
+                    "solar_reflectance_back": 0.340935,
+                    "visible_transmittance": 0.765222,
+                    "visible_reflectance": 0.0546,
+                    "visible_reflectance_back": 0.073741,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.03675,
+                    "emissivity_back": 0.84,
+                    "conductivity": 0.9993312443378461,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                }
+            ]
+        },
+        "operable_construction": {
+            "type": "WindowConstruction",
+            "identifier": "U 0.48 SHGC 0.40 Dbl Ref-D Clr 6mm/13mm",
+            "layers": [
+                "REF D CLEAR 6MM",
+                "AIR 13MM",
+                "CLEAR 6MM"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "REF D CLEAR 6MM",
+                    "thickness": 0.005999999999999977,
+                    "solar_transmittance": 0.429,
+                    "solar_reflectance": 0.308,
+                    "solar_reflectance_back": 0.379,
+                    "visible_transmittance": 0.334,
+                    "visible_reflectance": 0.453,
+                    "visible_reflectance_back": 0.505,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.82,
+                    "conductivity": 0.8993981199040626,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "CLEAR 6MM",
+                    "thickness": 0.005999999999999977,
+                    "solar_transmittance": 0.775,
+                    "solar_reflectance": 0.071,
+                    "solar_reflectance_back": 0.071,
+                    "visible_transmittance": 0.881,
+                    "visible_reflectance": 0.08,
+                    "visible_reflectance_back": 0.08,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.84,
+                    "conductivity": 0.8993981199040626,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "AIR 13MM",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
+                }
+            ]
+        }
     },
     "door_set": {
-        "type": "DoorSetAbridged",
-        "exterior_construction": "Typical Insulated Metal Door-R2",
+        "type": "DoorSet",
+        "exterior_construction": {
+            "type": "OpaqueConstruction",
+            "identifier": "Typical Insulated Metal Door-R2",
+            "layers": [
+                "F08 Metal surface",
+                "Typical Insulation-R2"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "F08 Metal surface",
+                    "roughness": "Smooth",
+                    "thickness": 0.0008000000000000003,
+                    "conductivity": 45.249718743617805,
+                    "density": 7824.017889489713,
+                    "specific_heat": 499.6776080073138,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R2",
+                    "r_value": 0.35222036761976966,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                }
+            ]
+        },
         "interior_construction": null,
-        "exterior_glass_construction": "U 0.44 SHGC 0.26 Dbl Ref-B-H Clr 6mm/13mm Air",
+        "exterior_glass_construction": {
+            "type": "WindowConstruction",
+            "identifier": "U 0.44 SHGC 0.26 Dbl Ref-B-H Clr 6mm/13mm Air",
+            "layers": [
+                "REF B CLEAR HI 6MM",
+                "AIR 13MM",
+                "CLEAR 6MM"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "REF B CLEAR HI 6MM",
+                    "thickness": 0.005999999999999977,
+                    "solar_transmittance": 0.24,
+                    "solar_reflectance": 0.16,
+                    "solar_reflectance_back": 0.32,
+                    "visible_transmittance": 0.3,
+                    "visible_reflectance": 0.16,
+                    "visible_reflectance_back": 0.29,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.6,
+                    "conductivity": 0.8993981199040626,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "CLEAR 6MM",
+                    "thickness": 0.005999999999999977,
+                    "solar_transmittance": 0.775,
+                    "solar_reflectance": 0.071,
+                    "solar_reflectance_back": 0.071,
+                    "visible_transmittance": 0.881,
+                    "visible_reflectance": 0.08,
+                    "visible_reflectance_back": 0.08,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.84,
+                    "conductivity": 0.8993981199040626,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "AIR 13MM",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
+                }
+            ]
+        },
         "interior_glass_construction": null,
-        "overhead_construction": "Typical Overhead Door-R2"
+        "overhead_construction": {
+            "type": "OpaqueConstruction",
+            "identifier": "Typical Overhead Door-R2",
+            "layers": [
+                "Typical Insulation-R2"
+            ],
+            "materials": [
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R2",
+                    "r_value": 0.35222036761976966,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                }
+            ]
+        }
     },
     "shade_construction": null,
     "air_boundary_construction": null

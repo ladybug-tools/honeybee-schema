@@ -1,0 +1,39 @@
+{
+    "type": "ConstructionSetAbridged",
+    "identifier": "2013::ClimateZone5::SteelFramed",
+    "wall_set": {
+        "type": "WallSetAbridged",
+        "exterior_construction": "Typical Insulated Steel Framed Exterior Wall-R19",
+        "interior_construction": null,
+        "ground_construction": "Typical Insulated Basement Mass Wall-R8"
+    },
+    "floor_set": {
+        "type": "FloorSetAbridged",
+        "exterior_construction": "Typical Insulated Steel Framed Exterior Floor-R27",
+        "interior_construction": null,
+        "ground_construction": "Typical Insulated Carpeted 8in Slab Floor-R5"
+    },
+    "roof_ceiling_set": {
+        "type": "RoofCeilingSetAbridged",
+        "exterior_construction": "Typical IEAD Roof-R32",
+        "interior_construction": null,
+        "ground_construction": null
+    },
+    "aperture_set": {
+        "type": "ApertureSetAbridged",
+        "window_construction": "U 0.48 SHGC 0.40 Dbl Ref-D Clr 6mm/13mm",
+        "interior_construction": null,
+        "skylight_construction": "Window_U_0.50_SHGC_0.40_Skylight_Frame_Width_0.430_in",
+        "operable_construction": "U 0.48 SHGC 0.40 Dbl Ref-D Clr 6mm/13mm"
+    },
+    "door_set": {
+        "type": "DoorSetAbridged",
+        "exterior_construction": "Typical Insulated Metal Door-R2",
+        "interior_construction": null,
+        "exterior_glass_construction": "U 0.44 SHGC 0.26 Dbl Ref-B-H Clr 6mm/13mm Air",
+        "interior_glass_construction": null,
+        "overhead_construction": "Typical Overhead Door-R2"
+    },
+    "shade_construction": null,
+    "air_boundary_construction": null
+}

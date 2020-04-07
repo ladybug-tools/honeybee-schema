@@ -128,14 +128,20 @@ class AirBoundaryConstruction(AirBoundaryConstructionAbridged):
 
     type: constr(regex='^AirBoundaryConstruction$') = 'AirBoundaryConstruction'
 
-    air_mixing_schedule: Union[
-        ScheduleRuleset, ScheduleFixedInterval
-        ] = Field(
-            ...,
-            description='A fractional schedule as a ScheduleRuleset or '
-                'ScheduleFixedInterval for the air mixing schedule across '
-                'the construction.'
-        )
+    air_mixing_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='A fractional schedule as a ScheduleRuleset or '
+            'ScheduleFixedInterval for the air mixing schedule across '
+            'the construction.'
+    )
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            schema['properties']['air_mixing_schedule']['anyOf'] = [
+                    {"$ref": "#/components/schemas/ScheduleRuleset"},
+                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
+                ]
 
 
 if __name__ == '__main__':

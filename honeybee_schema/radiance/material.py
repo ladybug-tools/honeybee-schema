@@ -14,6 +14,9 @@ class Void(IDdBaseModel):
 class ModifierBase(IDdBaseModel):
     """Base class for Radiance Modifiers"""
 
+    # TODO: We can't define union of schema objects that haven't been
+    # defined yet. We also can't move this down, because ModifierBase
+    # is inherited by all these objects.
     modifier: Union[
          Void, Plastic, Glass, BSDF, Glow, Light, Trans
     ] = Field(
@@ -23,6 +26,9 @@ class ModifierBase(IDdBaseModel):
         description='Material modifier (default: Void).'
         )
 
+    # TODO: We can't define union of schema objects that haven't been
+    # defined yet. We also can't move this down, because ModifierBase
+    # is inherited by all these objects.
     dependencies: List[
         Union[Void, Plastic, Glass, BSDF, Glow, Light, Trans]
     ] = Field(

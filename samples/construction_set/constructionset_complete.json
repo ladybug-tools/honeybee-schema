@@ -2,7 +2,7 @@
     "type": "ConstructionSet",
     "identifier": "Default Generic Construction Set",
     "wall_set": {
-        "type": "WallSet",
+        "type": "WallConstructionSet",
         "exterior_construction": {
             "type": "OpaqueConstruction",
             "identifier": "Generic Exterior Wall",
@@ -224,7 +224,7 @@
         }
     },
     "floor_set": {
-        "type": "FloorSet",
+        "type": "FloorConstructionSet",
         "exterior_construction": {
             "type": "OpaqueConstruction",
             "identifier": "Generic Exposed Floor",
@@ -407,7 +407,7 @@
         }
     },
     "roof_ceiling_set": {
-        "type": "RoofCeilingSet",
+        "type": "RoofCeilingConstructionSet",
         "exterior_construction": {
             "type": "OpaqueConstruction",
             "identifier": "Generic Roof",
@@ -629,7 +629,7 @@
         }
     },
     "aperture_set": {
-        "type": "ApertureSet",
+        "type": "ApertureConstructionSet",
         "window_construction": {
             "type": "WindowConstruction",
             "identifier": "Generic Double Pane",
@@ -811,7 +811,7 @@
         }
     },
     "door_set": {
-        "type": "DoorSet",
+        "type": "DoorConstructionSet",
         "exterior_construction": {
             "type": "OpaqueConstruction",
             "identifier": "Generic Exterior Door",

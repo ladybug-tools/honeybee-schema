@@ -12,6 +12,7 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
     EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
 
+
 class _FaceSubSetAbridged(NoExtraBaseModel):
     """A set of constructions for wall, floor, or roof assemblies."""
 
@@ -40,22 +41,25 @@ class _FaceSubSetAbridged(NoExtraBaseModel):
     )
 
 
-class WallSetAbridged(_FaceSubSetAbridged):
+class WallConstructionSetAbridged(_FaceSubSetAbridged):
     """A set of constructions for wall assemblies."""
 
-    type: constr(regex='^WallSetAbridged$') = 'WallSetAbridged'
+    type: constr(regex='^WallConstructionSetAbridged$') = \
+        'WallConstructionSetAbridged'
 
 
-class FloorSetAbridged(_FaceSubSetAbridged):
+class FloorConstructionSetAbridged(_FaceSubSetAbridged):
     """A set of constructions for floor assemblies."""
 
-    type: constr(regex='^FloorSetAbridged$') = 'FloorSetAbridged'
+    type: constr(regex='^FloorConstructionSetAbridged$') = \
+        'FloorConstructionSetAbridged'
 
 
-class RoofCeilingSetAbridged(_FaceSubSetAbridged):
+class RoofCeilingConstructionSetAbridged(_FaceSubSetAbridged):
     """A set of constructions for roof and ceiling assemblies."""
 
-    type: constr(regex='^RoofCeilingSetAbridged$') = 'RoofCeilingSetAbridged'
+    type: constr(regex='^RoofCeilingConstructionSetAbridged$') = \
+        'RoofCeilingConstructionSetAbridged'
 
 
 class _FaceSubSet(NoExtraBaseModel):
@@ -80,28 +84,29 @@ class _FaceSubSet(NoExtraBaseModel):
     )
 
 
-class WallSet(_FaceSubSet):
+class WallConstructionSet(_FaceSubSet):
     """A set of constructions for wall assemblies."""
 
-    type: constr(regex='^WallSet$') = 'WallSet'
+    type: constr(regex='^WallConstructionSet$') = 'WallConstructionSet'
 
 
-class FloorSet(_FaceSubSet):
+class FloorConstructionSet(_FaceSubSet):
     """A set of constructions for floor assemblies."""
 
-    type: constr(regex='^FloorSet$') = 'FloorSet'
+    type: constr(regex='^FloorConstructionSet$') = 'FloorConstructionSet'
 
 
-class RoofCeilingSet(_FaceSubSet):
+class RoofCeilingConstructionSet(_FaceSubSet):
     """A set of constructions for roof and ceiling assemblies."""
 
-    type: constr(regex='^RoofCeilingSet$') = 'RoofCeilingSet'
+    type: constr(regex='^RoofCeilingConstructionSet$') = 'RoofCeilingConstructionSet'
 
 
-class ApertureSetAbridged(NoExtraBaseModel):
+class ApertureConstructionSetAbridged(NoExtraBaseModel):
     """A set of constructions for aperture assemblies."""
 
-    type: constr(regex='^ApertureSetAbridged$') = 'ApertureSetAbridged'
+    type: constr(regex='^ApertureConstructionSetAbridged$') = \
+        'ApertureConstructionSetAbridged'
 
     interior_construction: str = Field(
         default=None,
@@ -138,10 +143,10 @@ class ApertureSetAbridged(NoExtraBaseModel):
     )
 
 
-class ApertureSet(NoExtraBaseModel):
+class ApertureConstructionSet(NoExtraBaseModel):
     """A set of constructions for aperture assemblies."""
 
-    type: constr(regex='^ApertureSet$') = 'ApertureSet'
+    type: constr(regex='^ApertureConstructionSet$') = 'ApertureConstructionSet'
 
     interior_construction: WindowConstruction = Field(
         default=None,
@@ -170,10 +175,10 @@ class ApertureSet(NoExtraBaseModel):
     )
 
 
-class DoorSetAbridged(NoExtraBaseModel):
+class DoorConstructionSetAbridged(NoExtraBaseModel):
     """A set of constructions for door assemblies."""
 
-    type: constr(regex='^DoorSetAbridged$') = 'DoorSetAbridged'
+    type: constr(regex='^DoorConstructionSetAbridged$') = 'DoorConstructionSetAbridged'
 
     interior_construction: str = Field(
         default=None,
@@ -217,10 +222,10 @@ class DoorSetAbridged(NoExtraBaseModel):
     )
 
 
-class DoorSet(NoExtraBaseModel):
+class DoorConstructionSet(NoExtraBaseModel):
     """A set of constructions for door assemblies."""
 
-    type: constr(regex='^DoorSet$') = 'DoorSet'
+    type: constr(regex='^DoorConstructionSet$') = 'DoorConstructionSet'
 
     interior_construction: OpaqueConstruction = Field(
         default=None,
@@ -259,29 +264,29 @@ class ConstructionSetAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^ConstructionSetAbridged$') = 'ConstructionSetAbridged'
 
-    wall_set: WallSetAbridged = Field(
+    wall_set: WallConstructionSetAbridged = Field(
         default=None,
-        description='A WallSetAbridged object for this ConstructionSet.'
+        description='A WallConstructionSetAbridged object for this ConstructionSet.'
     )
 
-    floor_set: FloorSetAbridged = Field(
+    floor_set: FloorConstructionSetAbridged = Field(
         default=None,
-        description='A FloorSetAbridged object for this ConstructionSet.'
+        description='A FloorConstructionSetAbridged object for this ConstructionSet.'
     )
 
-    roof_ceiling_set: RoofCeilingSetAbridged = Field(
+    roof_ceiling_set: RoofCeilingConstructionSetAbridged = Field(
         default=None,
-        description='A RoofCeilingSetAbridged object for this ConstructionSet.'
+        description='A RoofCeilingConstructionSetAbridged object for this ConstructionSet.'
     )
 
-    aperture_set: ApertureSetAbridged = Field(
+    aperture_set: ApertureConstructionSetAbridged = Field(
         default=None,
-        description='A ApertureSetAbridged object for this ConstructionSet.'
+        description='A ApertureConstructionSetAbridged object for this ConstructionSet.'
     )
 
-    door_set: DoorSetAbridged = Field(
+    door_set: DoorConstructionSetAbridged = Field(
         default=None,
-        description='A DoorSetAbridged object for this ConstructionSet.'
+        description='A DoorConstructionSetAbridged object for this ConstructionSet.'
     )
 
     shade_construction: str = Field(
@@ -307,29 +312,29 @@ class ConstructionSet(ConstructionSetAbridged):
 
     type: constr(regex='^ConstructionSet$') = 'ConstructionSet'
 
-    wall_set: WallSet = Field(
+    wall_set: WallConstructionSet = Field(
         default=None,
-        description='A WallSet object for this ConstructionSet.'
+        description='A WallConstructionSet object for this ConstructionSet.'
     )
 
-    floor_set: FloorSet = Field(
+    floor_set: FloorConstructionSet = Field(
         default=None,
-        description='A FloorSet object for this ConstructionSet.'
+        description='A FloorConstructionSet object for this ConstructionSet.'
     )
 
-    roof_ceiling_set: RoofCeilingSet = Field(
+    roof_ceiling_set: RoofCeilingConstructionSet = Field(
         default=None,
-        description='A RoofCeilingSet object for this ConstructionSet.'
+        description='A RoofCeilingConstructionSet object for this ConstructionSet.'
     )
 
-    aperture_set: ApertureSet = Field(
+    aperture_set: ApertureConstructionSet = Field(
         default=None,
-        description='A ApertureSet object for this ConstructionSet.'
+        description='A ApertureConstructionSet object for this ConstructionSet.'
     )
 
-    door_set: DoorSet = Field(
+    door_set: DoorConstructionSet = Field(
         default=None,
-        description='A DoorSet object for this ConstructionSet.'
+        description='A DoorConstructionSet object for this ConstructionSet.'
     )
 
     shade_construction: ShadeConstruction = Field(

@@ -122,4 +122,4 @@ class IdealAirSystemAbridged(IDdEnergyBaseModel):
 
 
 if __name__ == '__main__':
-    print(IdealAirSystem.schema_json(indent=2))
+    print(IdealAirSystemAbridged.schema_json(indent=2))

@@ -95,6 +95,10 @@ class People(PeopleAbridged):
     class Config:
         @staticmethod
         def schema_extra(schema, model):
+            schema['properties']['latent_fraction']['anyOf'] = [
+                    {"$ref": "#/components/schemas/Autocalculate"},
+                    {"type": "number", "minimum": 0, "maximum": 1}
+                ]
             schema['properties']['occupancy_schedule']['anyOf'] = [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}

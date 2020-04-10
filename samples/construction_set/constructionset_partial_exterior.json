@@ -2,7 +2,7 @@
     "type": "ConstructionSet",
     "identifier": "2013::ClimateZone5::SteelFramed",
     "wall_set": {
-        "type": "WallSet",
+        "type": "WallConstructionSet",
         "exterior_construction": {
             "type": "OpaqueConstruction",
             "identifier": "Typical Insulated Steel Framed Exterior Wall-R19",
@@ -82,7 +82,7 @@
         }
     },
     "floor_set": {
-        "type": "FloorSet",
+        "type": "FloorConstructionSet",
         "exterior_construction": {
             "type": "OpaqueConstruction",
             "identifier": "Typical Insulated Steel Framed Exterior Floor-R27",
@@ -182,7 +182,7 @@
         }
     },
     "roof_ceiling_set": {
-        "type": "RoofCeilingSet",
+        "type": "RoofCeilingConstructionSet",
         "exterior_construction": {
             "type": "OpaqueConstruction",
             "identifier": "Typical IEAD Roof-R32",
@@ -231,7 +231,7 @@
         "ground_construction": null
     },
     "aperture_set": {
-        "type": "ApertureSet",
+        "type": "ApertureConstructionSet",
         "window_construction": {
             "type": "WindowConstruction",
             "identifier": "U 0.48 SHGC 0.40 Dbl Ref-D Clr 6mm/13mm",
@@ -388,7 +388,7 @@
         }
     },
     "door_set": {
-        "type": "DoorSet",
+        "type": "DoorConstructionSet",
         "exterior_construction": {
             "type": "OpaqueConstruction",
             "identifier": "Typical Insulated Metal Door-R2",

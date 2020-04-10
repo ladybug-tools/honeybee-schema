@@ -1,6 +1,6 @@
 from honeybee_schema.energy.constructionset import ConstructionSetAbridged, \
-    WallSetAbridged, RoofCeilingSetAbridged, FloorSetAbridged, ApertureSetAbridged, \
-    DoorSetAbridged, ConstructionSet
+    WallConstructionSetAbridged, RoofCeilingConstructionSetAbridged, FloorConstructionSetAbridged, ApertureConstructionSetAbridged, \
+    DoorConstructionSetAbridged, ConstructionSet
 import os
 
 # target folder where all of the samples live

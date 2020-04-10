@@ -197,7 +197,7 @@ class ModelEnergyProperties(NoExtraBaseModel):
         OpaqueConstructionAbridged, WindowConstructionAbridged,
         ShadeConstruction, AirBoundaryConstructionAbridged,
         OpaqueConstruction, WindowConstruction, AirBoundaryConstruction]] = Field(
-        ...,
+        default=None,
         description='A list of all unique constructions in the model. This includes '
             'constructions across all Faces, Apertures, Doors, Shades, Room '
             'ConstructionSets, and the global_construction_set.'
@@ -208,7 +208,7 @@ class ModelEnergyProperties(NoExtraBaseModel):
                           EnergyWindowMaterialSimpleGlazSys, EnergyWindowMaterialBlind,
                           EnergyWindowMaterialGlazing,
                           EnergyWindowMaterialShade]] = Field(
-        ...,
+        default=None,
         description='A list of all unique materials in the model. This includes '
             'materials needed to make the Model constructions.'
     )

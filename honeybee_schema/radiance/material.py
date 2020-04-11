@@ -1,39 +1,30 @@
 """Material Schema"""
-from pydantic import Field, constr
+from pydantic import Field, constr, validator, root_validator
 from typing import List, Union
 
-from .._base import IDdBaseModel
+from .._base import IDdBaseModel, BaseModel
 
 
-class Void(IDdBaseModel):
+class Void(BaseModel):
     """Void modifier"""
 
-    type: constr(regex='^Void$') = 'Void'
+    type: constr(regex='^void$') = 'void'
 
 
 class ModifierBase(IDdBaseModel):
     """Base class for Radiance Modifiers"""
 
-    # TODO: We can't define union of schema objects that haven't been
-    # defined yet. We also can't move this down, because ModifierBase
-    # is inherited by all these objects.
     modifier: Union[
-         Void, Plastic, Glass, BSDF, Glow, Light, Trans
+         Void, 'Plastic', 'Glass', 'BSDF', 'Glow', 'Light', 'Trans'
     ] = Field(
-        # TODO: This needs to be fixed. How can we add add default=Void,
-        # when Void is not serializable?
-        default='void',
+        default=Void(),
         description='Material modifier (default: Void).'
         )
 
-    # TODO: We can't define union of schema objects that haven't been
-    # defined yet. We also can't move this down, because ModifierBase
-    # is inherited by all these objects.
     dependencies: List[
-        Union[Void, Plastic, Glass, BSDF, Glow, Light, Trans]
+        Union[Void, 'Plastic', 'Glass', 'BSDF', 'Glow', 'Light', 'Trans']
     ] = Field(
         default=[],
-        min_items=1,
         description='List of modifiers that this modifier depends on. '
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
@@ -44,7 +35,7 @@ class ModifierBase(IDdBaseModel):
 class Plastic(ModifierBase):
     """Radiance plastic material."""
 
-    type: constr(regex='^Plastic$') = 'Plastic'
+    type: constr(regex='^plastic$') = 'plastic'
 
     r_reflectance: float = Field(
         default=0.0,
@@ -92,25 +83,42 @@ class Plastic(ModifierBase):
 class Trans(Plastic):
     """Radiance Translucent material."""
 
-    type: constr(regex='^Trans$') = 'Trans'
+    type: constr(regex='^trans$') = 'trans'
 
     transmitted_diff: float = Field(
         default=0,
+        ge=0,
+        le=1,
         description='The fraction of transmitted light that is transmitted diffusely in '
                     'a scattering fashion (default: 0).'
     )
 
     transmitted_spec: float = Field(
         default=0,
+        ge=0,
+        le=1,
         description='The fraction of transmitted light that is not diffusely scattered '
                     '(default: 0).'
     )
+
+    @root_validator
+    def check_sum_fractions(cls, values):
+        """Ensure sum is less than 1."""
+        trans_diff = values.get('transmitted_diff')
+        trans_spec = values.get('transmitted_spec')
+        r_refl = values.get('r_reflectance')
+        g_refl = values.get('g_reflectance')
+        b_refl = values.get('b_reflectance')
+        summed = trans_diff + trans_spec + r_refl + g_refl + b_refl
+        assert summed <= 1, 'Sum of transmitted diffuse and specular light fractions ' \
+            'cannot be greater than 1.'
+        return values
 
 
 class Glass(ModifierBase):
     """Radiance glass material."""
 
-    type: constr(regex='^Glass$') = 'Glass'
+    type: constr(regex='^glass$') = 'glass'
 
     r_transmissivity: float = Field(
         default=0.0,
@@ -152,6 +160,8 @@ class BSDF(ModifierBase):
 
     up_orientation: List[float] = Field(
         default=(0.01, 0.01, 1.00),
+        min_items=3,
+        max_items=3,
         description='Vector as sequence that sets the hemisphere that the BSDF material '
                     'faces. (default: (0.01, 0.01, 1.00).'
     )
@@ -186,68 +196,68 @@ class BSDF(ModifierBase):
 
     front_diffuse_reflectance: List[float] = Field(
         default=None,
+        min_items=3,
+        max_items=3,
         description='Optional additional front diffuse reflectance as sequence of '
                     'numbers (default: None).'
     )
 
     back_diffuse_reflectance: List[float] = Field(
         default=None,
+        min_items=3,
+        max_items=3,
         description='Optional additional back diffuse reflectance as sequence of '
                     'numbers (default: None).'
     )
 
     diffuse_transmittance: List[float] = Field(
         default=None,
+        min_items=3,
+        max_items=3,
         description='Optional additional diffuse transmittance as sequence of '
                     'numbers (default: None).'
     )
 
+    @staticmethod
+    def _is_valid(arr):
+        """Recurse boolean value check"""
+        valid = True
+        for n in arr:
+            valid = valid and 0 <= n <= 1
+        return valid
 
-class Glow(ModifierBase):
-    """Radiance Glow material."""
+    @validator('front_diffuse_reflectance')
+    def check_front_diff_value(cls, values):
+        """Ensure every list value is between 0 and 1."""
+        assert cls._is_valid(values), \
+            'Every value in front diffuse reflectance must be between 0 and 1.'
+        return values
 
-    type: constr(regex='^Glow$') = 'Glow'
+    @validator('back_diffuse_reflectance')
+    def check_back_diff_value(cls, values):
+        """Ensure every list value is between 0 and 1."""
+        assert cls._is_valid(values), \
+            'Every value in back diffuse reflectance must be between 0 and 1.'
+        return values
 
-    r_emittance: float = Field(
-        default=0.0,
-        ge=0,
-        le=1,
-        description='A value between 0 and 1 for the red channel glow '
-                    '(default: 0).'
-    )
-
-    g_emittance: float = Field(
-        default=0.0,
-        ge=0,
-        le=1,
-        description='A value between 0 and 1 for the green channel glow '
-                    '(default: 0).'
-    )
-
-    b_emittance: float = Field(
-        default=0.0,
-        ge=0,
-        le=1,
-        description='A value between 0 and 1 for the blue channel glow '
-                    '(default: 0).'
-    )
-
-    max_radius: float = Field(
-        default=0,
-        description='Maximum radius for shadow testing (default: 0). '
-    )
+    @validator('diffuse_transmittance')
+    def check_diff_trans_value(cls, values):
+        """Ensure every list value is between 0 and 1."""
+        assert cls._is_valid(values), \
+            'Every value in diffuse transmittance must be between 0 and 1.'
+        return values
 
 
 class Light(ModifierBase):
     """Radiance Light material."""
 
-    type: constr(regex='^Light$') = 'Light'
+    type: constr(regex='^light$') = 'light'
 
     r_emittance: float = Field(
         default=0.0,
         ge=0,
         le=1,
-        description='A value between 0 and 1 for the red channel of the light '
+        description='A value between 0 and 1 for the red channel of the modifier '
                     '(default: 0).'
     )
 
@@ -255,7 +265,7 @@ class Light(ModifierBase):
         default=0.0,
         ge=0,
         le=1,
-        description='A value between 0 and 1 for the green channel of the light '
+        description='A value between 0 and 1 for the green channel of the modifier '
                     '(default: 0).'
     )
 
@@ -263,14 +273,38 @@ class Light(ModifierBase):
         default=0.0,
         ge=0,
         le=1,
-        description='A value between 0 and 1 for the blue channel of the light '
+        description='A value between 0 and 1 for the blue channel of the modifier '
                     '(default: 0).'
     )
 
 
+class Glow(Light):
+    """Radiance Glow material."""
+
+    type: constr(regex='^glow$') = 'glow'
+
+    max_radius: float = Field(
+        default=0,
+        description='Maximum radius for shadow testing (default: 0). Surfaces with zero '
+                    'will never be tested for zero, although it may participate in '
+                    'interreflection calculation. Negative values will never contribute '
+                    'to scene illumination.'
+    )
+
+
+# Required for self.referencing model
+# see https://pydantic-docs.helpmanual.io/#self-referencing-models
+ModifierBase.update_forward_refs()
+Plastic.update_forward_refs()
+Glass.update_forward_refs()
+BSDF.update_forward_refs()
+Glow.update_forward_refs()
+Light.update_forward_refs()
+Trans.update_forward_refs()
+
 if __name__ == '__main__':
-    print(ModifierBase.schema_json(indent=2))
     print(Void.schema_json(indent=2))
+    print(ModifierBase.schema_json(indent=2))
     print(Plastic.schema_json(indent=2))
     print(Glass.schema_json(indent=2))
     print(BSDF.schema_json(indent=2))

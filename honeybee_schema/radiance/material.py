@@ -1,3 +1,4 @@
+# TODO: change to Modifers Schema?
 """Material Schema"""
 from pydantic import Field, constr, validator, root_validator
 from typing import List, Union
@@ -109,9 +110,11 @@ class Trans(Plastic):
         r_refl = values.get('r_reflectance')
         g_refl = values.get('g_reflectance')
         b_refl = values.get('b_reflectance')
+        identifier = values.get('identifier')
         summed = trans_diff + trans_spec + r_refl + g_refl + b_refl
-        assert summed <= 1, 'Sum of transmitted diffuse and specular light fractions ' \
-            'cannot be greater than 1.'
+        assert summed <= 1, 'The sum of the transmitted diffuse and specular light ' \
+            'fractions cannot be greater than 1, but is {} for modifier {}.'.format(
+                summed, identifier)
         return values
 
 
@@ -218,32 +221,24 @@ class BSDF(ModifierBase):
                     'numbers (default: None).'
     )
 
-    @staticmethod
-    def _is_valid(arr):
-        """Recurse boolean value check"""
-        valid = True
-        for n in arr:
-            valid = valid and 0 <= n <= 1
-        return valid
-
     @validator('front_diffuse_reflectance')
     def check_front_diff_value(cls, values):
         """Ensure every list value is between 0 and 1."""
-        assert cls._is_valid(values), \
+        assert all(0 <= v <= 1 for v in values), \
             'Every value in front diffuse reflectance must be between 0 and 1.'
         return values
 
     @validator('back_diffuse_reflectance')
     def check_back_diff_value(cls, values):
         """Ensure every list value is between 0 and 1."""
-        assert cls._is_valid(values), \
+        assert all(0 <= v <= 1 for v in values), \
             'Every value in back diffuse reflectance must be between 0 and 1.'
         return values
 
     @validator('diffuse_transmittance')
     def check_diff_trans_value(cls, values):
         """Ensure every list value is between 0 and 1."""
-        assert cls._is_valid(values), \
+        assert all(0 <= v <= 1 for v in values), \
             'Every value in diffuse transmittance must be between 0 and 1.'
         return values
 
@@ -301,14 +296,4 @@ BSDF.update_forward_refs()
 Glow.update_forward_refs()
 Light.update_forward_refs()
 Trans.update_forward_refs()
-
-if __name__ == '__main__':
-    print(Void.schema_json(indent=2))
-    print(ModifierBase.schema_json(indent=2))
-    print(Plastic.schema_json(indent=2))
-    print(Glass.schema_json(indent=2))
-    print(BSDF.schema_json(indent=2))
-    print(Glow.schema_json(indent=2))
-    print(Light.schema_json(indent=2))
-    print(Trans.schema_json(indent=2))
 

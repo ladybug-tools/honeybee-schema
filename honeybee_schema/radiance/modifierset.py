@@ -3,24 +3,20 @@ from pydantic import Field, constr
 from typing import List, Union
 
 from .._base import IDdBaseModel
-from .material import Void, Plastic, Glass, BSDF, Glow, Light, Trans
+from .modifier import ModifierBase, Void
 
 
 class BaseModifierSet(IDdBaseModel):
     """Base class for the sets assigned to Faces."""
 
     # TODO: What to use for default? Void or None?
-    exterior_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    exterior_modifier: ModifierBase = Field(
             default=Void(),
             description='A radiance modifier object for faces with an Outdoors boundary '
                         'condition.'
         )
     # TODO: What to use for default? Void or None?
-    interior_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    interior_modifier: ModifierBase = Field(
             default=Void(),
             description='A radiance modifier object for faces with a boundary condition '
                         'other than Outdoors.'
@@ -56,35 +52,27 @@ class ApertureModifierSet(BaseModifierSet):
 
     type: constr(regex='^ApertureModifierSet$') = 'ApertureModifierSet'
 
-    window_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    window_modifier: ModifierBase = Field(
             default=Void(),
             description='A modifier object for apertures with an Outdoors '
                         'boundary condition, False is_operable property, '
                         'and Wall parent Face.'
         )
 
-    interior_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    interior_modifier: ModifierBase = Field(
             default=Void(),
             description='A modifier object for apertures with a Surface '
                         'boundary condition.'
         )
 
-    skylight_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    skylight_modifier: ModifierBase = Field(
             default=Void(),
             description='A modifier object for apertures with an Outdoors '
                         'boundary condition, False is_operable property, and a '
                         'RoofCeiling or Floor face type for their parent face.'
         )
 
-    operable_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    operable_modifier: ModifierBase = Field(
             default=Void(),
             description='A modifier object for apertures with an Outdoors boundary '
                         'condition and a True is_operable property.'
@@ -96,41 +84,31 @@ class DoorModifierSet(BaseModifierSet):
 
     type: constr(regex='^DoorModifierSet$') = 'DoorModifierSet'
 
-    exterior_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    exterior_modifier: ModifierBase = Field(
             default=Void(),
             description='A modifier object for doors with an Outdoors '
                         'boundary condition.'
         )
 
-    interior_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    interior_modifier: ModifierBase = Field(
             default=Void(),
             description='A modifier object for doors with a Surface '
                         'boundary condition.'
         )
 
-    exterior_glass_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    exterior_glass_modifier: ModifierBase = Field(
             default=Void(),
             description='A modifier object for glass with an Outdoors '
                         'boundary condition.'
         )
 
-    interior_glass_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    interior_glass_modifier: ModifierBase = Field(
             default=Void(),
             description='A modifier object for glass with a Surface '
                         'boundary condition.'
         )
 
-    overhead_modifier: Union[
-        Void, Plastic, Glass, BSDF, Glow, Light, Trans
-        ] = Field(
+    overhead_modifier: ModifierBase = Field(
             default=Void(),
             description='A window modifier object for doors with an Outdoors boundary '
                         'condition and a RoofCeiling or Floor face type for their '

@@ -1,4 +1,4 @@
-"""Material Schema"""
+"""Modfier Schema"""
 from pydantic import Field, constr, validator, root_validator
 from typing import List, Union
 

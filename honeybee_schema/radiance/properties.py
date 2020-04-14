@@ -3,7 +3,7 @@ from pydantic import Field, constr, validator, root_validator
 from typing import List, Union
 
 from .._base import IDdBaseModel
-from .material import Void, Plastic, Glass, BSDF, Glow, Light, Trans
+from .modifier import Void, ModifierBase
 from .modifierset import ModifierSet
 
 
@@ -30,16 +30,12 @@ class _PropertiesBaseAbridged(IDdBaseModel):
 class _PropertiesBase(IDdBaseModel):
     """Base class of Radiance Properties."""
 
-    modifier: Union[
-         Void, Plastic, Glass, BSDF, Glow, Light, Trans
-    ] = Field(
+    modifier: ModifierBase = Field(
         default=None,
         description='A Honeybee Radiance Modifier for the object.'
         )
 
-    modifier_blk: Union[
-         Void, Plastic, Glass, BSDF, Glow, Light, Trans
-    ] = Field(
+    modifier_blk: ModifierBase = Field(
         default=None,
         description='A Honeybee Radiance Modifier to be used for this object'
                     'in direct solar simulations and in isolation studies (assessing'
@@ -107,9 +103,7 @@ class ModelRadianceProperties(IDdBaseModel):
 
     # TODO: Clarification: does there need to be an abridged version of all these lists?
     modifiers: List[
-        Union[
-            Void, Plastic, Glass, BSDF, Glow, Light, Trans
-            ]
+        ModifierBase
     ] = Field(
         default=[],
         description='A list of all unique modifiers in the model. '
@@ -118,9 +112,7 @@ class ModelRadianceProperties(IDdBaseModel):
         )
 
     blk_modifiers: List[
-        Union[
-            Void, Plastic, Glass, BSDF, Glow, Light, Trans
-            ]
+        ModifierBase
     ] = Field(
         default=[],
         description='A list of all unique modifier_blk assigned to Faces, Apertures '
@@ -128,9 +120,7 @@ class ModelRadianceProperties(IDdBaseModel):
         )
 
     room_modifiers: List[
-        Union[
-            Void, Plastic, Glass, BSDF, Glow, Light, Trans
-            ]
+        ModifierBase
     ] = Field(
         default=[],
         description='A list of all unique modifiers assigned to Room ModifierSets '
@@ -138,27 +128,21 @@ class ModelRadianceProperties(IDdBaseModel):
         )
 
     face_modifiers: List[
-        Union[
-            Void, Plastic, Glass, BSDF, Glow, Light, Trans
-            ]
+        ModifierBase
     ] = Field(
         default=[],
         description='A list of all unique modifiers assigned to Faces (default: []).'
         )
 
     shade_modifiers: List[
-        Union[
-            Void, Plastic, Glass, BSDF, Glow, Light, Trans
-            ]
+        ModifierBase
     ] = Field(
         default=[],
         description='A list of all unique modifiers assigned to Shades (default: []).'
         )
 
     bsdf_modifiers: List[
-        Union[
-            Void, Plastic, Glass, BSDF, Glow, Light, Trans
-            ]
+        ModifierBase
     ] = Field(
         default=[],
         description='A list of all unique BSDF modifiers in both the Model.modifiers and the '
@@ -166,9 +150,7 @@ class ModelRadianceProperties(IDdBaseModel):
         )
 
     modifier_sets: List[
-        Union[
-            Void, Plastic, Glass, BSDF, Glow, Light, Trans
-            ]
+        ModifierBase
     ] = Field(
         default=[],
         description='A list of all unique Room-Assigned ModifierSets in the Model '

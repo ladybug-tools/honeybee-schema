@@ -1,4 +1,3 @@
-# TODO: change to Modifers Schema?
 """Material Schema"""
 from pydantic import Field, constr, validator, root_validator
 from typing import List, Union

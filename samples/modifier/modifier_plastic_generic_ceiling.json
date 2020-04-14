@@ -1,0 +1,13 @@
+{
+    "modifier": {
+        "type": "void"
+    },
+    "type": "plastic",
+    "identifier": "generic_ceiling_0.80",
+    "r_reflectance": 0.8,
+    "g_reflectance": 0.8,
+    "b_reflectance": 0.8,
+    "specularity": 0.0,
+    "roughness": 0.0,
+    "dependencies": []
+}

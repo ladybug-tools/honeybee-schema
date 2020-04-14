@@ -12,6 +12,11 @@ def test_model_complete_multi_zone_office():
     Model.parse_file(file_path)
 
 
+def test_model_complete_multiroom_radiance():
+    file_path  = os.path.join(target_folder, 'model_complete_multiroom_radiance.json')
+    Model.parse_file(file_path) 
+
+
 def test_model_complete_single_zone_office():
     file_path  = os.path.join(target_folder, 'model_complete_single_zone_office.json')
     Model.parse_file(file_path)

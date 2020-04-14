@@ -45,21 +45,38 @@
     "global_construction_set": "Default Generic Construction Set",
     "constructions": [
         {
+            "type": "ShadeConstruction",
+            "identifier": "Generic Shade",
+            "solar_reflectance": 0.35,
+            "visible_reflectance": 0.35,
+            "is_specular": false
+        },
+        {
+            "type": "OpaqueConstructionAbridged",
+            "identifier": "Generic Interior Wall",
+            "layers": [
+                "Generic Gypsum Board",
+                "Generic Wall Air Gap",
+                "Generic Gypsum Board"
+            ]
+        },
+        {
+            "type": "OpaqueConstructionAbridged",
+            "identifier": "Generic Underground Wall",
+            "layers": [
+                "Generic 50mm Insulation",
+                "Generic HW Concrete",
+                "Generic Wall Air Gap",
+                "Generic Gypsum Board"
+            ]
+        },
+        {
             "type": "OpaqueConstructionAbridged",
             "identifier": "Generic Exterior Door",
             "layers": [
                 "Generic Painted Metal",
                 "Generic 25mm Insulation",
                 "Generic Painted Metal"
-            ]
-        },
-        {
-            "type": "OpaqueConstructionAbridged",
-            "identifier": "Generic Interior Floor",
-            "layers": [
-                "Generic Acoustic Tile",
-                "Generic Ceiling Air Gap",
-                "Generic LW Concrete"
             ]
         },
         {
@@ -73,13 +90,11 @@
         },
         {
             "type": "OpaqueConstructionAbridged",
-            "identifier": "Generic Exterior Wall",
+            "identifier": "Generic Interior Floor",
             "layers": [
-                "Generic Brick",
-                "Generic LW Concrete",
-                "Generic 50mm Insulation",
-                "Generic Wall Air Gap",
-                "Generic Gypsum Board"
+                "Generic Acoustic Tile",
+                "Generic Ceiling Air Gap",
+                "Generic LW Concrete"
             ]
         },
         {
@@ -88,22 +103,6 @@
             "layers": [
                 "Generic 50mm Insulation",
                 "Generic HW Concrete"
-            ]
-        },
-        {
-            "type": "AirBoundaryConstructionAbridged",
-            "identifier": "Generic Air Boundary",
-            "air_mixing_per_area": 0.1,
-            "air_mixing_schedule": "Always On"
-        },
-        {
-            "type": "OpaqueConstructionAbridged",
-            "identifier": "Generic Exposed Floor",
-            "layers": [
-                "Generic Painted Metal",
-                "Generic Ceiling Air Gap",
-                "Generic 50mm Insulation",
-                "Generic LW Concrete"
             ]
         },
         {
@@ -119,35 +118,13 @@
         },
         {
             "type": "OpaqueConstructionAbridged",
-            "identifier": "Generic Underground Roof",
+            "identifier": "Generic Exterior Wall",
             "layers": [
+                "Generic Brick",
+                "Generic LW Concrete",
                 "Generic 50mm Insulation",
-                "Generic HW Concrete",
-                "Generic Ceiling Air Gap",
-                "Generic Acoustic Tile"
-            ]
-        },
-        {
-            "type": "OpaqueConstructionAbridged",
-            "identifier": "Generic Interior Door",
-            "layers": [
-                "Generic 25mm Wood"
-            ]
-        },
-        {
-            "type": "OpaqueConstructionAbridged",
-            "identifier": "Generic Interior Wall",
-            "layers": [
-                "Generic Gypsum Board",
                 "Generic Wall Air Gap",
                 "Generic Gypsum Board"
-            ]
-        },
-        {
-            "type": "WindowConstructionAbridged",
-            "identifier": "Generic Single Pane",
-            "layers": [
-                "Generic Clear Glass"
             ]
         },
         {
@@ -160,166 +137,58 @@
             ]
         },
         {
-            "type": "ShadeConstruction",
-            "identifier": "Generic Shade",
-            "solar_reflectance": 0.35,
-            "visible_reflectance": 0.35,
-            "is_specular": false
+            "type": "OpaqueConstructionAbridged",
+            "identifier": "Generic Exposed Floor",
+            "layers": [
+                "Generic Painted Metal",
+                "Generic Ceiling Air Gap",
+                "Generic 50mm Insulation",
+                "Generic LW Concrete"
+            ]
+        },
+        {
+            "type": "AirBoundaryConstructionAbridged",
+            "identifier": "Generic Air Boundary",
+            "air_mixing_per_area": 0.1,
+            "air_mixing_schedule": "Always On"
+        },
+        {
+            "type": "WindowConstructionAbridged",
+            "identifier": "Generic Single Pane",
+            "layers": [
+                "Generic Clear Glass"
+            ]
         },
         {
             "type": "OpaqueConstructionAbridged",
-            "identifier": "Generic Underground Wall",
+            "identifier": "Generic Interior Door",
+            "layers": [
+                "Generic 25mm Wood"
+            ]
+        },
+        {
+            "type": "OpaqueConstructionAbridged",
+            "identifier": "Generic Underground Roof",
             "layers": [
                 "Generic 50mm Insulation",
                 "Generic HW Concrete",
-                "Generic Wall Air Gap",
-                "Generic Gypsum Board"
+                "Generic Ceiling Air Gap",
+                "Generic Acoustic Tile"
             ]
         }
     ],
     "materials": [
         {
             "type": "EnergyMaterial",
-            "identifier": "Generic 25mm Insulation",
-            "roughness": "MediumRough",
-            "thickness": 0.05,
-            "conductivity": 0.03,
-            "density": 43.0,
-            "specific_heat": 1210.0,
-            "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.7,
-            "visible_absorptance": 0.7
-        },
-        {
-            "type": "EnergyMaterial",
-            "identifier": "Generic Roof Membrane",
-            "roughness": "MediumRough",
-            "thickness": 0.01,
-            "conductivity": 0.16,
-            "density": 1120.0,
-            "specific_heat": 1460.0,
-            "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.65,
-            "visible_absorptance": 0.65
-        },
-        {
-            "type": "EnergyMaterial",
-            "identifier": "Generic Painted Metal",
-            "roughness": "Smooth",
-            "thickness": 0.0015,
-            "conductivity": 45.0,
-            "density": 7690.0,
-            "specific_heat": 410.0,
-            "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.5,
-            "visible_absorptance": 0.5
-        },
-        {
-            "type": "EnergyMaterial",
-            "identifier": "Generic 25mm Wood",
+            "identifier": "Generic Acoustic Tile",
             "roughness": "MediumSmooth",
-            "thickness": 0.0254,
-            "conductivity": 0.15,
-            "density": 608.0,
-            "specific_heat": 1630.0,
+            "thickness": 0.02,
+            "conductivity": 0.06,
+            "density": 368.0,
+            "specific_heat": 590.0,
             "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.5,
-            "visible_absorptance": 0.5
-        },
-        {
-            "type": "EnergyMaterial",
-            "identifier": "Generic Ceiling Air Gap",
-            "roughness": "Smooth",
-            "thickness": 0.1,
-            "conductivity": 0.556,
-            "density": 1.28,
-            "specific_heat": 1000.0,
-            "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.7,
-            "visible_absorptance": 0.7
-        },
-        {
-            "type": "EnergyWindowMaterialGas",
-            "identifier": "Generic Window Air Gap",
-            "thickness": 0.0127,
-            "gas_type": "Air"
-        },
-        {
-            "type": "EnergyMaterial",
-            "identifier": "Generic Wall Air Gap",
-            "roughness": "Smooth",
-            "thickness": 0.1,
-            "conductivity": 0.667,
-            "density": 1.28,
-            "specific_heat": 1000.0,
-            "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.7,
-            "visible_absorptance": 0.7
-        },
-        {
-            "type": "EnergyWindowMaterialGlazing",
-            "identifier": "Generic Clear Glass",
-            "thickness": 0.006,
-            "solar_transmittance": 0.77,
-            "solar_reflectance": 0.07,
-            "solar_reflectance_back": 0.07,
-            "visible_transmittance": 0.88,
-            "visible_reflectance": 0.08,
-            "visible_reflectance_back": 0.08,
-            "infrared_transmittance": 0.0,
-            "emissivity": 0.84,
-            "emissivity_back": 0.84,
-            "conductivity": 1.0,
-            "dirt_correction": 1.0,
-            "solar_diffusing": false
-        },
-        {
-            "type": "EnergyMaterial",
-            "identifier": "Generic Brick",
-            "roughness": "MediumRough",
-            "thickness": 0.1,
-            "conductivity": 0.9,
-            "density": 1920.0,
-            "specific_heat": 790.0,
-            "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.65,
-            "visible_absorptance": 0.65
-        },
-        {
-            "type": "EnergyMaterial",
-            "identifier": "Generic LW Concrete",
-            "roughness": "MediumRough",
-            "thickness": 0.1,
-            "conductivity": 0.53,
-            "density": 1280.0,
-            "specific_heat": 840.0,
-            "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.8,
-            "visible_absorptance": 0.8
-        },
-        {
-            "type": "EnergyMaterial",
-            "identifier": "Generic Gypsum Board",
-            "roughness": "MediumSmooth",
-            "thickness": 0.0127,
-            "conductivity": 0.16,
-            "density": 800.0,
-            "specific_heat": 1090.0,
-            "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.5,
-            "visible_absorptance": 0.5
-        },
-        {
-            "type": "EnergyMaterial",
-            "identifier": "Generic HW Concrete",
-            "roughness": "MediumRough",
-            "thickness": 0.2,
-            "conductivity": 1.95,
-            "density": 2240.0,
-            "specific_heat": 900.0,
-            "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.8,
-            "visible_absorptance": 0.8
+            "solar_absorptance": 0.2,
+            "visible_absorptance": 0.2
         },
         {
             "type": "EnergyWindowMaterialGlazing",
@@ -340,15 +209,75 @@
         },
         {
             "type": "EnergyMaterial",
-            "identifier": "Generic Acoustic Tile",
-            "roughness": "MediumSmooth",
-            "thickness": 0.02,
-            "conductivity": 0.06,
-            "density": 368.0,
-            "specific_heat": 590.0,
+            "identifier": "Generic Roof Membrane",
+            "roughness": "MediumRough",
+            "thickness": 0.01,
+            "conductivity": 0.16,
+            "density": 1120.0,
+            "specific_heat": 1460.0,
             "thermal_absorptance": 0.9,
-            "solar_absorptance": 0.2,
-            "visible_absorptance": 0.2
+            "solar_absorptance": 0.65,
+            "visible_absorptance": 0.65
+        },
+        {
+            "type": "EnergyMaterial",
+            "identifier": "Generic Wall Air Gap",
+            "roughness": "Smooth",
+            "thickness": 0.1,
+            "conductivity": 0.667,
+            "density": 1.28,
+            "specific_heat": 1000.0,
+            "thermal_absorptance": 0.9,
+            "solar_absorptance": 0.7,
+            "visible_absorptance": 0.7
+        },
+        {
+            "type": "EnergyMaterial",
+            "identifier": "Generic 25mm Insulation",
+            "roughness": "MediumRough",
+            "thickness": 0.05,
+            "conductivity": 0.03,
+            "density": 43.0,
+            "specific_heat": 1210.0,
+            "thermal_absorptance": 0.9,
+            "solar_absorptance": 0.7,
+            "visible_absorptance": 0.7
+        },
+        {
+            "type": "EnergyMaterial",
+            "identifier": "Generic Ceiling Air Gap",
+            "roughness": "Smooth",
+            "thickness": 0.1,
+            "conductivity": 0.556,
+            "density": 1.28,
+            "specific_heat": 1000.0,
+            "thermal_absorptance": 0.9,
+            "solar_absorptance": 0.7,
+            "visible_absorptance": 0.7
+        },
+        {
+            "type": "EnergyMaterial",
+            "identifier": "Generic HW Concrete",
+            "roughness": "MediumRough",
+            "thickness": 0.2,
+            "conductivity": 1.95,
+            "density": 2240.0,
+            "specific_heat": 900.0,
+            "thermal_absorptance": 0.9,
+            "solar_absorptance": 0.8,
+            "visible_absorptance": 0.8
+        },
+        {
+            "type": "EnergyMaterial",
+            "identifier": "Generic Gypsum Board",
+            "roughness": "MediumSmooth",
+            "thickness": 0.0127,
+            "conductivity": 0.16,
+            "density": 800.0,
+            "specific_heat": 1090.0,
+            "thermal_absorptance": 0.9,
+            "solar_absorptance": 0.5,
+            "visible_absorptance": 0.5
         },
         {
             "type": "EnergyMaterial",
@@ -361,6 +290,77 @@
             "thermal_absorptance": 0.9,
             "solar_absorptance": 0.7,
             "visible_absorptance": 0.7
+        },
+        {
+            "type": "EnergyMaterial",
+            "identifier": "Generic LW Concrete",
+            "roughness": "MediumRough",
+            "thickness": 0.1,
+            "conductivity": 0.53,
+            "density": 1280.0,
+            "specific_heat": 840.0,
+            "thermal_absorptance": 0.9,
+            "solar_absorptance": 0.8,
+            "visible_absorptance": 0.8
+        },
+        {
+            "type": "EnergyMaterial",
+            "identifier": "Generic 25mm Wood",
+            "roughness": "MediumSmooth",
+            "thickness": 0.0254,
+            "conductivity": 0.15,
+            "density": 608.0,
+            "specific_heat": 1630.0,
+            "thermal_absorptance": 0.9,
+            "solar_absorptance": 0.5,
+            "visible_absorptance": 0.5
+        },
+        {
+            "type": "EnergyMaterial",
+            "identifier": "Generic Painted Metal",
+            "roughness": "Smooth",
+            "thickness": 0.0015,
+            "conductivity": 45.0,
+            "density": 7690.0,
+            "specific_heat": 410.0,
+            "thermal_absorptance": 0.9,
+            "solar_absorptance": 0.5,
+            "visible_absorptance": 0.5
+        },
+        {
+            "type": "EnergyWindowMaterialGas",
+            "identifier": "Generic Window Air Gap",
+            "thickness": 0.0127,
+            "gas_type": "Air"
+        },
+        {
+            "type": "EnergyMaterial",
+            "identifier": "Generic Brick",
+            "roughness": "MediumRough",
+            "thickness": 0.1,
+            "conductivity": 0.9,
+            "density": 1920.0,
+            "specific_heat": 790.0,
+            "thermal_absorptance": 0.9,
+            "solar_absorptance": 0.65,
+            "visible_absorptance": 0.65
+        },
+        {
+            "type": "EnergyWindowMaterialGlazing",
+            "identifier": "Generic Clear Glass",
+            "thickness": 0.006,
+            "solar_transmittance": 0.77,
+            "solar_reflectance": 0.07,
+            "solar_reflectance_back": 0.07,
+            "visible_transmittance": 0.88,
+            "visible_reflectance": 0.08,
+            "visible_reflectance_back": 0.08,
+            "infrared_transmittance": 0.0,
+            "emissivity": 0.84,
+            "emissivity_back": 0.84,
+            "conductivity": 1.0,
+            "dirt_correction": 1.0,
+            "solar_diffusing": false
         }
     ],
     "hvacs": [
@@ -437,13 +437,37 @@
     "schedules": [
         {
             "type": "ScheduleRulesetAbridged",
-            "identifier": "Generic Office Heating",
+            "identifier": "Generic Office Equipment",
             "day_schedules": [
                 {
                     "type": "ScheduleDay",
-                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default",
+                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_Sun",
                     "values": [
-                        15.6
+                        0.2307553806,
+                        0.288107175,
+                        0.2307553806
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            18,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_SmrDsn",
+                    "values": [
+                        1.0
                     ],
                     "times": [
                         [
@@ -455,9 +479,9 @@
                 },
                 {
                     "type": "ScheduleDay",
-                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default_SmrDsn",
+                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_WntrDsn",
                     "values": [
-                        15.6
+                        0.0
                     ],
                     "times": [
                         [
@@ -469,13 +493,322 @@
                 },
                 {
                     "type": "ScheduleDay",
-                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_WntrDsn",
+                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_Sat",
                     "values": [
-                        15.6,
-                        17.6,
-                        19.6,
-                        21.0,
-                        15.6
+                        0.2307553806,
+                        0.381234796,
+                        0.476543495,
+                        0.3335804465,
+                        0.285926097,
+                        0.2307553806
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            8,
+                            0
+                        ],
+                        [
+                            12,
+                            0
+                        ],
+                        [
+                            17,
+                            0
+                        ],
+                        [
+                            19,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_Wkdy",
+                    "values": [
+                        0.3076738408,
+                        0.381234796,
+                        0.857778291,
+                        0.762469592,
+                        0.857778291,
+                        0.476543495,
+                        0.381234796
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            8,
+                            0
+                        ],
+                        [
+                            12,
+                            0
+                        ],
+                        [
+                            13,
+                            0
+                        ],
+                        [
+                            17,
+                            0
+                        ],
+                        [
+                            18,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                }
+            ],
+            "default_day_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_Sun",
+            "schedule_rules": [
+                {
+                    "type": "ScheduleRuleAbridged",
+                    "schedule_day": "OfficeMedium BLDG_EQUIP_SCH_2013_Wkdy",
+                    "apply_sunday": false,
+                    "apply_monday": true,
+                    "apply_tuesday": true,
+                    "apply_wednesday": true,
+                    "apply_thursday": true,
+                    "apply_friday": true,
+                    "apply_saturday": false,
+                    "start_date": [
+                        1,
+                        1
+                    ],
+                    "end_date": [
+                        12,
+                        31
+                    ]
+                },
+                {
+                    "type": "ScheduleRuleAbridged",
+                    "schedule_day": "OfficeMedium BLDG_EQUIP_SCH_2013_Sat",
+                    "apply_sunday": false,
+                    "apply_monday": false,
+                    "apply_tuesday": false,
+                    "apply_wednesday": false,
+                    "apply_thursday": false,
+                    "apply_friday": false,
+                    "apply_saturday": true,
+                    "start_date": [
+                        1,
+                        1
+                    ],
+                    "end_date": [
+                        12,
+                        31
+                    ]
+                }
+            ],
+            "holiday_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_Sat",
+            "summer_designday_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_SmrDsn",
+            "winter_designday_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_WntrDsn",
+            "schedule_type_limit": "Fractional"
+        },
+        {
+            "type": "ScheduleRulesetAbridged",
+            "identifier": "Generic Office Infiltration",
+            "day_schedules": [
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Default",
+                    "values": [
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Wkdy_SmrDsn",
+                    "values": [
+                        1.0,
+                        0.25,
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            22,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Sat_WntrDsn",
+                    "values": [
+                        1.0,
+                        0.25,
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            18,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Wkdy",
+                    "values": [
+                        1.0,
+                        0.25,
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            22,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Sat",
+                    "values": [
+                        1.0,
+                        0.25,
+                        1.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            18,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                }
+            ],
+            "default_day_schedule": "OfficeMedium INFIL_SCH_PNNL_Default",
+            "schedule_rules": [
+                {
+                    "type": "ScheduleRuleAbridged",
+                    "schedule_day": "OfficeMedium INFIL_SCH_PNNL_Wkdy",
+                    "apply_sunday": false,
+                    "apply_monday": true,
+                    "apply_tuesday": true,
+                    "apply_wednesday": true,
+                    "apply_thursday": true,
+                    "apply_friday": true,
+                    "apply_saturday": false,
+                    "start_date": [
+                        1,
+                        1
+                    ],
+                    "end_date": [
+                        12,
+                        31
+                    ]
+                },
+                {
+                    "type": "ScheduleRuleAbridged",
+                    "schedule_day": "OfficeMedium INFIL_SCH_PNNL_Sat",
+                    "apply_sunday": false,
+                    "apply_monday": false,
+                    "apply_tuesday": false,
+                    "apply_wednesday": false,
+                    "apply_thursday": false,
+                    "apply_friday": false,
+                    "apply_saturday": true,
+                    "start_date": [
+                        1,
+                        1
+                    ],
+                    "end_date": [
+                        12,
+                        31
+                    ]
+                }
+            ],
+            "holiday_schedule": "OfficeMedium INFIL_SCH_PNNL_Default",
+            "summer_designday_schedule": "OfficeMedium INFIL_SCH_PNNL_Wkdy_SmrDsn",
+            "winter_designday_schedule": "OfficeMedium INFIL_SCH_PNNL_Sat_WntrDsn",
+            "schedule_type_limit": "Fractional"
+        },
+        {
+            "type": "ScheduleRulesetAbridged",
+            "identifier": "Generic Office Cooling",
+            "day_schedules": [
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
+                    "values": [
+                        26.7
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
+                    "values": [
+                        26.7,
+                        25.7,
+                        25.0,
+                        24.0,
+                        26.7
                     ],
                     "times": [
                         [
@@ -503,13 +836,27 @@
                 },
                 {
                     "type": "ScheduleDay",
-                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Wkdy",
+                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
                     "values": [
-                        15.6,
-                        17.8,
-                        20.0,
-                        21.0,
-                        15.6
+                        26.7
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
+                    "values": [
+                        26.7,
+                        25.6,
+                        25.0,
+                        24.0,
+                        26.7
                     ],
                     "times": [
                         [
@@ -537,13 +884,13 @@
                 },
                 {
                     "type": "ScheduleDay",
-                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Sat",
+                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
                     "values": [
-                        15.6,
-                        17.8,
-                        20.0,
-                        21.0,
-                        15.6
+                        26.7,
+                        25.7,
+                        25.0,
+                        24.0,
+                        26.7
                     ],
                     "times": [
                         [
@@ -570,11 +917,11 @@
                     "interpolate": false
                 }
             ],
-            "default_day_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default",
+            "default_day_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
             "schedule_rules": [
                 {
                     "type": "ScheduleRuleAbridged",
-                    "schedule_day": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Wkdy",
+                    "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
                     "apply_sunday": false,
                     "apply_monday": true,
                     "apply_tuesday": true,
@@ -593,7 +940,7 @@
                 },
                 {
                     "type": "ScheduleRuleAbridged",
-                    "schedule_day": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Sat",
+                    "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
                     "apply_sunday": false,
                     "apply_monday": false,
                     "apply_tuesday": false,
@@ -611,10 +958,63 @@
                     ]
                 }
             ],
-            "holiday_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default",
-            "summer_designday_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default_SmrDsn",
-            "winter_designday_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_WntrDsn",
+            "holiday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
+            "summer_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
+            "winter_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
             "schedule_type_limit": "Temperature"
+        },
+        {
+            "type": "ScheduleRulesetAbridged",
+            "identifier": "Generic Office Activity",
+            "day_schedules": [
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium ACTIVITY_SCH_Default",
+                    "values": [
+                        120.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium ACTIVITY_SCH_Default_SmrDsn",
+                    "values": [
+                        120.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium ACTIVITY_SCH_Default_WntrDsn",
+                    "values": [
+                        120.0
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                }
+            ],
+            "default_day_schedule": "OfficeMedium ACTIVITY_SCH_Default",
+            "holiday_schedule": "OfficeMedium ACTIVITY_SCH_Default",
+            "summer_designday_schedule": "OfficeMedium ACTIVITY_SCH_Default_SmrDsn",
+            "winter_designday_schedule": "OfficeMedium ACTIVITY_SCH_Default_WntrDsn",
+            "schedule_type_limit": "Activity Level"
         },
         {
             "type": "ScheduleRulesetAbridged",
@@ -819,587 +1219,6 @@
         },
         {
             "type": "ScheduleRulesetAbridged",
-            "identifier": "Generic Office Activity",
-            "day_schedules": [
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium ACTIVITY_SCH_Default",
-                    "values": [
-                        120.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium ACTIVITY_SCH_Default_SmrDsn",
-                    "values": [
-                        120.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium ACTIVITY_SCH_Default_WntrDsn",
-                    "values": [
-                        120.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                }
-            ],
-            "default_day_schedule": "OfficeMedium ACTIVITY_SCH_Default",
-            "holiday_schedule": "OfficeMedium ACTIVITY_SCH_Default",
-            "summer_designday_schedule": "OfficeMedium ACTIVITY_SCH_Default_SmrDsn",
-            "winter_designday_schedule": "OfficeMedium ACTIVITY_SCH_Default_WntrDsn",
-            "schedule_type_limit": "Activity Level"
-        },
-        {
-            "type": "ScheduleRulesetAbridged",
-            "identifier": "Generic Office Infiltration",
-            "day_schedules": [
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Default",
-                    "values": [
-                        1.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Wkdy_SmrDsn",
-                    "values": [
-                        1.0,
-                        0.25,
-                        1.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            22,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Sat_WntrDsn",
-                    "values": [
-                        1.0,
-                        0.25,
-                        1.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            18,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Wkdy",
-                    "values": [
-                        1.0,
-                        0.25,
-                        1.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            22,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium INFIL_SCH_PNNL_Sat",
-                    "values": [
-                        1.0,
-                        0.25,
-                        1.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            18,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                }
-            ],
-            "default_day_schedule": "OfficeMedium INFIL_SCH_PNNL_Default",
-            "schedule_rules": [
-                {
-                    "type": "ScheduleRuleAbridged",
-                    "schedule_day": "OfficeMedium INFIL_SCH_PNNL_Wkdy",
-                    "apply_sunday": false,
-                    "apply_monday": true,
-                    "apply_tuesday": true,
-                    "apply_wednesday": true,
-                    "apply_thursday": true,
-                    "apply_friday": true,
-                    "apply_saturday": false,
-                    "start_date": [
-                        1,
-                        1
-                    ],
-                    "end_date": [
-                        12,
-                        31
-                    ]
-                },
-                {
-                    "type": "ScheduleRuleAbridged",
-                    "schedule_day": "OfficeMedium INFIL_SCH_PNNL_Sat",
-                    "apply_sunday": false,
-                    "apply_monday": false,
-                    "apply_tuesday": false,
-                    "apply_wednesday": false,
-                    "apply_thursday": false,
-                    "apply_friday": false,
-                    "apply_saturday": true,
-                    "start_date": [
-                        1,
-                        1
-                    ],
-                    "end_date": [
-                        12,
-                        31
-                    ]
-                }
-            ],
-            "holiday_schedule": "OfficeMedium INFIL_SCH_PNNL_Default",
-            "summer_designday_schedule": "OfficeMedium INFIL_SCH_PNNL_Wkdy_SmrDsn",
-            "winter_designday_schedule": "OfficeMedium INFIL_SCH_PNNL_Sat_WntrDsn",
-            "schedule_type_limit": "Fractional"
-        },
-        {
-            "type": "ScheduleRulesetAbridged",
-            "identifier": "Generic Office Equipment",
-            "day_schedules": [
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_Sun",
-                    "values": [
-                        0.2307553806,
-                        0.288107175,
-                        0.2307553806
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            18,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_SmrDsn",
-                    "values": [
-                        1.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_WntrDsn",
-                    "values": [
-                        0.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_Sat",
-                    "values": [
-                        0.2307553806,
-                        0.381234796,
-                        0.476543495,
-                        0.3335804465,
-                        0.285926097,
-                        0.2307553806
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            8,
-                            0
-                        ],
-                        [
-                            12,
-                            0
-                        ],
-                        [
-                            17,
-                            0
-                        ],
-                        [
-                            19,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium BLDG_EQUIP_SCH_2013_Wkdy",
-                    "values": [
-                        0.3076738408,
-                        0.381234796,
-                        0.857778291,
-                        0.762469592,
-                        0.857778291,
-                        0.476543495,
-                        0.381234796
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            8,
-                            0
-                        ],
-                        [
-                            12,
-                            0
-                        ],
-                        [
-                            13,
-                            0
-                        ],
-                        [
-                            17,
-                            0
-                        ],
-                        [
-                            18,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                }
-            ],
-            "default_day_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_Sun",
-            "schedule_rules": [
-                {
-                    "type": "ScheduleRuleAbridged",
-                    "schedule_day": "OfficeMedium BLDG_EQUIP_SCH_2013_Wkdy",
-                    "apply_sunday": false,
-                    "apply_monday": true,
-                    "apply_tuesday": true,
-                    "apply_wednesday": true,
-                    "apply_thursday": true,
-                    "apply_friday": true,
-                    "apply_saturday": false,
-                    "start_date": [
-                        1,
-                        1
-                    ],
-                    "end_date": [
-                        12,
-                        31
-                    ]
-                },
-                {
-                    "type": "ScheduleRuleAbridged",
-                    "schedule_day": "OfficeMedium BLDG_EQUIP_SCH_2013_Sat",
-                    "apply_sunday": false,
-                    "apply_monday": false,
-                    "apply_tuesday": false,
-                    "apply_wednesday": false,
-                    "apply_thursday": false,
-                    "apply_friday": false,
-                    "apply_saturday": true,
-                    "start_date": [
-                        1,
-                        1
-                    ],
-                    "end_date": [
-                        12,
-                        31
-                    ]
-                }
-            ],
-            "holiday_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_Sat",
-            "summer_designday_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_SmrDsn",
-            "winter_designday_schedule": "OfficeMedium BLDG_EQUIP_SCH_2013_WntrDsn",
-            "schedule_type_limit": "Fractional"
-        },
-        {
-            "type": "ScheduleRulesetAbridged",
-            "identifier": "Generic Office Cooling",
-            "day_schedules": [
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
-                    "values": [
-                        26.7
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
-                    "values": [
-                        26.7,
-                        25.7,
-                        25.0,
-                        24.0,
-                        26.7
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            5,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            7,
-                            0
-                        ],
-                        [
-                            22,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
-                    "values": [
-                        26.7
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
-                    "values": [
-                        26.7,
-                        25.6,
-                        25.0,
-                        24.0,
-                        26.7
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            5,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            7,
-                            0
-                        ],
-                        [
-                            22,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
-                    "values": [
-                        26.7,
-                        25.7,
-                        25.0,
-                        24.0,
-                        26.7
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ],
-                        [
-                            5,
-                            0
-                        ],
-                        [
-                            6,
-                            0
-                        ],
-                        [
-                            7,
-                            0
-                        ],
-                        [
-                            17,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                }
-            ],
-            "default_day_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
-            "schedule_rules": [
-                {
-                    "type": "ScheduleRuleAbridged",
-                    "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
-                    "apply_sunday": false,
-                    "apply_monday": true,
-                    "apply_tuesday": true,
-                    "apply_wednesday": true,
-                    "apply_thursday": true,
-                    "apply_friday": true,
-                    "apply_saturday": false,
-                    "start_date": [
-                        1,
-                        1
-                    ],
-                    "end_date": [
-                        12,
-                        31
-                    ]
-                },
-                {
-                    "type": "ScheduleRuleAbridged",
-                    "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
-                    "apply_sunday": false,
-                    "apply_monday": false,
-                    "apply_tuesday": false,
-                    "apply_wednesday": false,
-                    "apply_thursday": false,
-                    "apply_friday": false,
-                    "apply_saturday": true,
-                    "start_date": [
-                        1,
-                        1
-                    ],
-                    "end_date": [
-                        12,
-                        31
-                    ]
-                }
-            ],
-            "holiday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
-            "summer_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
-            "winter_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
-            "schedule_type_limit": "Temperature"
-        },
-        {
-            "type": "ScheduleRulesetAbridged",
             "identifier": "Always On",
             "day_schedules": [
                 {
@@ -1419,6 +1238,187 @@
             ],
             "default_day_schedule": "Always On_Day Schedule",
             "schedule_type_limit": "Fractional"
+        },
+        {
+            "type": "ScheduleRulesetAbridged",
+            "identifier": "Generic Office Heating",
+            "day_schedules": [
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default",
+                    "values": [
+                        15.6
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default_SmrDsn",
+                    "values": [
+                        15.6
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_WntrDsn",
+                    "values": [
+                        15.6,
+                        17.6,
+                        19.6,
+                        21.0,
+                        15.6
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            5,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            7,
+                            0
+                        ],
+                        [
+                            22,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Wkdy",
+                    "values": [
+                        15.6,
+                        17.8,
+                        20.0,
+                        21.0,
+                        15.6
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            5,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            7,
+                            0
+                        ],
+                        [
+                            22,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                },
+                {
+                    "type": "ScheduleDay",
+                    "identifier": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Sat",
+                    "values": [
+                        15.6,
+                        17.8,
+                        20.0,
+                        21.0,
+                        15.6
+                    ],
+                    "times": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            5,
+                            0
+                        ],
+                        [
+                            6,
+                            0
+                        ],
+                        [
+                            7,
+                            0
+                        ],
+                        [
+                            17,
+                            0
+                        ]
+                    ],
+                    "interpolate": false
+                }
+            ],
+            "default_day_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default",
+            "schedule_rules": [
+                {
+                    "type": "ScheduleRuleAbridged",
+                    "schedule_day": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Wkdy",
+                    "apply_sunday": false,
+                    "apply_monday": true,
+                    "apply_tuesday": true,
+                    "apply_wednesday": true,
+                    "apply_thursday": true,
+                    "apply_friday": true,
+                    "apply_saturday": false,
+                    "start_date": [
+                        1,
+                        1
+                    ],
+                    "end_date": [
+                        12,
+                        31
+                    ]
+                },
+                {
+                    "type": "ScheduleRuleAbridged",
+                    "schedule_day": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Sat",
+                    "apply_sunday": false,
+                    "apply_monday": false,
+                    "apply_tuesday": false,
+                    "apply_wednesday": false,
+                    "apply_thursday": false,
+                    "apply_friday": false,
+                    "apply_saturday": true,
+                    "start_date": [
+                        1,
+                        1
+                    ],
+                    "end_date": [
+                        12,
+                        31
+                    ]
+                }
+            ],
+            "holiday_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default",
+            "summer_designday_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_Default_SmrDsn",
+            "winter_designday_schedule": "OfficeMedium HTGSETP_SCH_YES_OPTIMUM_WntrDsn",
+            "schedule_type_limit": "Temperature"
         },
         {
             "type": "ScheduleRulesetAbridged",
@@ -1638,16 +1638,6 @@
         },
         {
             "type": "ScheduleTypeLimit",
-            "identifier": "Activity Level",
-            "lower_limit": 0.0,
-            "upper_limit": {
-                "type": "NoLimit"
-            },
-            "numeric_type": "Continuous",
-            "unit_type": "ActivityLevel"
-        },
-        {
-            "type": "ScheduleTypeLimit",
             "identifier": "Temperature",
             "lower_limit": -273.15,
             "upper_limit": {
@@ -1655,6 +1645,16 @@
             },
             "numeric_type": "Continuous",
             "unit_type": "Temperature"
+        },
+        {
+            "type": "ScheduleTypeLimit",
+            "identifier": "Activity Level",
+            "lower_limit": 0.0,
+            "upper_limit": {
+                "type": "NoLimit"
+            },
+            "numeric_type": "Continuous",
+            "unit_type": "ActivityLevel"
         }
     ]
 }

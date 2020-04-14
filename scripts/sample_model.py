@@ -24,6 +24,9 @@ from honeybee_energy.lib.constructions import generic_exterior_wall, \
     generic_interior_wall, generic_interior_floor, generic_interior_ceiling, \
     generic_double_pane
 
+from honeybee_radiance.modifierset import ModifierSet
+from honeybee_radiance.modifier.material import Glass, Plastic
+
 from ladybug_geometry.geometry3d.pointvector import Point3D, Vector3D
 from ladybug_geometry.geometry3d.plane import Plane
 from ladybug_geometry.geometry3d.face import Face3D
@@ -171,6 +174,42 @@ def model_complete_multi_zone_office(directory):
     model = Model('Multi_Zone_Single_Family_House', [first_floor, second_floor, attic])
 
     dest_file = os.path.join(directory, 'model_complete_multi_zone_office.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(), fp, indent=4)
+
+
+def model_complete_multiroom_radiance(directory):
+    triple_pane = Glass.from_single_transmittance('Triple_Pane_0.35', 0.35)
+    first_floor = Room.from_box('First_Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
+    second_floor = Room.from_box('Second_Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
+    for face in first_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+        face.apertures[0].properties.radiance.modifier = triple_pane
+    for face in second_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+
+    pts_1 = [Point3D(0, 0, 6), Point3D(0, 10, 6), Point3D(10, 10, 6), Point3D(10, 0, 6)]
+    pts_2 = [Point3D(0, 0, 6), Point3D(5, 0, 9), Point3D(5, 10, 9), Point3D(0, 10, 6)]
+    pts_3 = [Point3D(10, 0, 6), Point3D(10, 10, 6), Point3D(5, 10, 9), Point3D(5, 0, 9)]
+    pts_4 = [Point3D(0, 0, 6), Point3D(10, 0, 6), Point3D(5, 0, 9)]
+    pts_5 = [Point3D(10, 10, 6), Point3D(0, 10, 6), Point3D(5, 10, 9)]
+    face_1 = Face('AtticFace1', Face3D(pts_1))
+    face_2 = Face('AtticFace2', Face3D(pts_2))
+    face_3 = Face('AtticFace3', Face3D(pts_3))
+    face_4 = Face('AtticFace4', Face3D(pts_4))
+    face_5 = Face('AtticFace5', Face3D(pts_5))
+    attic = Room('Attic', [face_1, face_2, face_3, face_4, face_5], 0.01, 1)
+
+    mod_set = ModifierSet('Attic_Modifier_Set')
+    polyiso = Plastic.from_single_reflectance('PolyIso', 0.45)
+    mod_set.roof_ceiling_set.exterior_modifier = polyiso
+    attic.properties.radiance.modifier_set = mod_set
+
+    Room.solve_adjacency([first_floor, second_floor, attic], 0.01)
+
+    model = Model('Multi_Room_Radiance_House', [first_floor, second_floor, attic])
+
+    dest_file = os.path.join(directory, 'model_complete_multiroom_radiance.json')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -420,6 +459,8 @@ model_complete_single_zone_office_user_data(sample_directory)
 model_complete_multi_zone_office(sample_directory)
 model_complete_patient_room(sample_directory)
 model_complete_office_floor(sample_directory)
+
+model_complete_multiroom_radiance(sample_directory)
 
 model_energy_shoe_box(sample_directory)
 model_energy_detailed_loads(sample_directory)

@@ -3,19 +3,22 @@ from pydantic import Field, constr, validator, root_validator
 from typing import List, Union
 
 from .._base import IDdBaseModel
-from .modifier import Void, Plastic, Glass, BSDF, Glow, Light, Trans, ModifierSet
+from .material import Void, Plastic, Glass, BSDF, Glow, Light, Trans
+from .modifierset import ModifierSet
 
 
 class _PropertiesBaseAbridged(IDdBaseModel):
     """Base class of Abridged Radiance Properties."""
 
     modifier: str = Field(
+        default=None,
         min_length=1,
         max_length=100,
         description='A string for a Honeybee Radiance Modifier.'
         )
 
     modifier_blk: str = Field(
+        default=None,
         min_length=1,
         max_length=100,
         description='A string for a Honeybee Radiance Modifier to be used '
@@ -30,12 +33,14 @@ class _PropertiesBase(IDdBaseModel):
     modifier: Union[
          Void, Plastic, Glass, BSDF, Glow, Light, Trans
     ] = Field(
+        default=None,
         description='A Honeybee Radiance Modifier for the object.'
         )
 
     modifier_blk: Union[
          Void, Plastic, Glass, BSDF, Glow, Light, Trans
     ] = Field(
+        default=None,
         description='A Honeybee Radiance Modifier to be used for this object'
                     'in direct solar simulations and in isolation studies (assessing'
                     'the contribution of individual objects).'
@@ -170,7 +175,17 @@ class ModelRadianceProperties(IDdBaseModel):
                     '(default: []).'
         )
 
+    #TODO: Set default as None correct, or do I need to create instance of ModifierSet
+    # i.e ModifierSet(type='ModifierSet')
     global_modifier_set: ModifierSet = Field(
-        default=ModifierSet(),
+        default=None,
         description='A default ModifierSet object for all unassigned objects in the Model '
-                    '(default: ModifierSet).'
+                    '(default: None).'
+    )
+
+
+# TODO: for testing will delete after PR accepted.
+if __name__ == "__main__":
+    print(_PropertiesBase.schema_json(indent=2))
+    print(_PropertiesBaseAbridged.schema_json(indent=2))
+    print(ModifierSet.schema_json(indent=2))

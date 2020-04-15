@@ -528,16 +528,10 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
 class SlatOrientation (str, Enum):
     horizontal = 'Horizontal'
     vertical = 'Vertical'
-    description = 'Choices include Horizontal and Vertical. Horizontal means the ' \
-        'slats are parallel to the X-axis of the window. Vertical means the slats ' \
-        'are parallel to the Y-axis of the window.'
 
 
 class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
-    """Window blind properties.
-
-    Window blind properties consist of flat, equally-spaced slats.
-    """
+    """Window blind material consisting of flat, equally-spaced slats."""
 
     type: constr(regex='^EnergyWindowMaterialBlind$') = 'EnergyWindowMaterialBlind'
 

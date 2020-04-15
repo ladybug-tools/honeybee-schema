@@ -1,0 +1,12 @@
+{
+    "modifier": {
+        "type": "void"
+    },
+    "type": "glow",
+    "identifier": "white_glow",
+    "r_emittance": 1.0,
+    "g_emittance": 1.0,
+    "b_emittance": 1.0,
+    "max_radius": 0.0,
+    "dependencies": []
+}

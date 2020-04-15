@@ -1,0 +1,13 @@
+{
+    "modifier": {
+        "type": "void"
+    },
+    "type": "plastic",
+    "identifier": "black",
+    "r_reflectance": 0.0,
+    "g_reflectance": 0.0,
+    "b_reflectance": 0.0,
+    "specularity": 0.0,
+    "roughness": 0.0,
+    "dependencies": []
+}

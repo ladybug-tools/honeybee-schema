@@ -1,0 +1,76 @@
+{
+    "type": "ModifierSet",
+    "identifier": "Generic_Exterior_Visible_Modifier_Set",
+    "wall_set": {
+        "interior_modifier": null,
+        "exterior_modifier": {
+            "modifier": {
+                "type": "void"
+            },
+            "type": "plastic",
+            "identifier": "generic_wall_exterior_side_0.35",
+            "r_reflectance": 0.35,
+            "g_reflectance": 0.35,
+            "b_reflectance": 0.35,
+            "specularity": 0.0,
+            "roughness": 0.0,
+            "dependencies": []
+        },
+        "type": "WallModifierSet"
+    },
+    "floor_set": {
+        "interior_modifier": null,
+        "exterior_modifier": {
+            "modifier": {
+                "type": "void"
+            },
+            "type": "plastic",
+            "identifier": "generic_floor_exterior_side_0.50",
+            "r_reflectance": 0.5,
+            "g_reflectance": 0.5,
+            "b_reflectance": 0.5,
+            "specularity": 0.0,
+            "roughness": 0.0,
+            "dependencies": []
+        },
+        "type": "FloorModifierSet"
+    },
+    "roof_ceiling_set": {
+        "interior_modifier": null,
+        "exterior_modifier": {
+            "modifier": {
+                "type": "void"
+            },
+            "type": "plastic",
+            "identifier": "generic_ceiling_exterior_side_0.35",
+            "r_reflectance": 0.35,
+            "g_reflectance": 0.35,
+            "b_reflectance": 0.35,
+            "specularity": 0.0,
+            "roughness": 0.0,
+            "dependencies": []
+        },
+        "type": "RoofCeilingModifierSet"
+    },
+    "aperture_set": {
+        "interior_modifier": null,
+        "skylight_modifier": null,
+        "operable_modifier": null,
+        "type": "ApertureModifierSet",
+        "window_modifier": null
+    },
+    "door_set": {
+        "exterior_modifier": null,
+        "overhead_modifier": null,
+        "interior_modifier": null,
+        "exterior_glass_modifier": null,
+        "interior_glass_modifier": null,
+        "type": "DoorModifierSet"
+    },
+    "shade_set": {
+        "interior_modifier": null,
+        "exterior_modifier": null,
+        "type": "ShadeModifierSet"
+    },
+    "air_boundary_modifier": null
+}

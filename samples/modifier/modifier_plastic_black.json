@@ -1,7 +1,5 @@
 {
-    "modifier": {
-        "type": "void"
-    },
+    "modifier": null,
     "type": "plastic",
     "identifier": "black",
     "r_reflectance": 0.0,

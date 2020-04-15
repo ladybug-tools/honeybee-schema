@@ -1,7 +1,5 @@
 {
-    "modifier": {
-        "type": "void"
-    },
+    "modifier": null,
     "type": "glass",
     "identifier": "generic_exterior_window_vis_0.64",
     "r_transmissivity": 0.6975761815384331,

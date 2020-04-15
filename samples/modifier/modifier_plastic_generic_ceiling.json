@@ -1,7 +1,5 @@
 {
-    "modifier": {
-        "type": "void"
-    },
+    "modifier": null,
     "type": "plastic",
     "identifier": "generic_ceiling_0.80",
     "r_reflectance": 0.8,

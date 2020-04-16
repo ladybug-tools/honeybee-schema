@@ -2,7 +2,7 @@
 from pydantic import Field, constr, validator, root_validator
 from typing import List, Union
 
-from .._base import IDdBaseModel, BaseModel
+from ._base import IDdRadianceBaseModel, BaseModel
 
 
 class Void(BaseModel):
@@ -11,7 +11,7 @@ class Void(BaseModel):
     type: constr(regex='^void$') = 'void'
 
 
-class ModifierBase(IDdBaseModel):
+class ModifierBase(IDdRadianceBaseModel):
     """Base class for Radiance Modifiers"""
 
     modifier: Union[

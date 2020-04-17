@@ -1,7 +1,5 @@
 {
-    "modifier": {
-        "type": "void"
-    },
+    "modifier": null,
     "type": "glass",
     "identifier": "air_boundary",
     "r_transmissivity": 1.0,

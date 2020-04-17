@@ -2,10 +2,8 @@
     "type": "ModifierSet",
     "identifier": "Generic_Interior_Visible_Modifier_Set",
     "wall_set": {
-        "interior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+        "exterior_modifier": {
+            "modifier": null,
             "type": "plastic",
             "identifier": "generic_wall_0.50",
             "r_reflectance": 0.5,
@@ -15,10 +13,8 @@
             "roughness": 0.0,
             "dependencies": []
         },
-        "exterior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+        "interior_modifier": {
+            "modifier": null,
             "type": "plastic",
             "identifier": "generic_wall_0.50",
             "r_reflectance": 0.5,
@@ -31,10 +27,8 @@
         "type": "WallModifierSet"
     },
     "floor_set": {
-        "interior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+        "exterior_modifier": {
+            "modifier": null,
             "type": "plastic",
             "identifier": "generic_floor_0.20",
             "r_reflectance": 0.2,
@@ -44,10 +38,8 @@
             "roughness": 0.0,
             "dependencies": []
         },
-        "exterior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+        "interior_modifier": {
+            "modifier": null,
             "type": "plastic",
             "identifier": "generic_floor_0.20",
             "r_reflectance": 0.2,
@@ -60,10 +52,8 @@
         "type": "FloorModifierSet"
     },
     "roof_ceiling_set": {
-        "interior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+        "exterior_modifier": {
+            "modifier": null,
             "type": "plastic",
             "identifier": "generic_ceiling_0.80",
             "r_reflectance": 0.8,
@@ -73,10 +63,8 @@
             "roughness": 0.0,
             "dependencies": []
         },
-        "exterior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+        "interior_modifier": {
+            "modifier": null,
             "type": "plastic",
             "identifier": "generic_ceiling_0.80",
             "r_reflectance": 0.8,
@@ -89,22 +77,8 @@
         "type": "RoofCeilingModifierSet"
     },
     "aperture_set": {
-        "interior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
-            "type": "glass",
-            "identifier": "generic_interior_window_vis_0.88",
-            "r_transmissivity": 0.9584154328610596,
-            "g_transmissivity": 0.9584154328610596,
-            "b_transmissivity": 0.9584154328610596,
-            "refraction_index": null,
-            "dependencies": []
-        },
         "skylight_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+            "modifier": null,
             "type": "glass",
             "identifier": "generic_exterior_window_vis_0.64",
             "r_transmissivity": 0.6975761815384331,
@@ -113,10 +87,18 @@
             "refraction_index": null,
             "dependencies": []
         },
+        "interior_modifier": {
+            "modifier": null,
+            "type": "glass",
+            "identifier": "generic_interior_window_vis_0.88",
+            "r_transmissivity": 0.9584154328610596,
+            "g_transmissivity": 0.9584154328610596,
+            "b_transmissivity": 0.9584154328610596,
+            "refraction_index": null,
+            "dependencies": []
+        },
         "operable_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+            "modifier": null,
             "type": "glass",
             "identifier": "generic_exterior_window_vis_0.64",
             "r_transmissivity": 0.6975761815384331,
@@ -127,9 +109,7 @@
         },
         "type": "ApertureModifierSet",
         "window_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+            "modifier": null,
             "type": "glass",
             "identifier": "generic_exterior_window_vis_0.64",
             "r_transmissivity": 0.6975761815384331,
@@ -140,49 +120,8 @@
         }
     },
     "door_set": {
-        "exterior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
-            "type": "plastic",
-            "identifier": "generic_opaque_door_0.50",
-            "r_reflectance": 0.5,
-            "g_reflectance": 0.5,
-            "b_reflectance": 0.5,
-            "specularity": 0.0,
-            "roughness": 0.0,
-            "dependencies": []
-        },
-        "overhead_modifier": {
-            "modifier": {
-                "type": "void"
-            },
-            "type": "plastic",
-            "identifier": "generic_opaque_door_0.50",
-            "r_reflectance": 0.5,
-            "g_reflectance": 0.5,
-            "b_reflectance": 0.5,
-            "specularity": 0.0,
-            "roughness": 0.0,
-            "dependencies": []
-        },
-        "interior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
-            "type": "plastic",
-            "identifier": "generic_opaque_door_0.50",
-            "r_reflectance": 0.5,
-            "g_reflectance": 0.5,
-            "b_reflectance": 0.5,
-            "specularity": 0.0,
-            "roughness": 0.0,
-            "dependencies": []
-        },
         "exterior_glass_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+            "modifier": null,
             "type": "glass",
             "identifier": "generic_exterior_window_vis_0.64",
             "r_transmissivity": 0.6975761815384331,
@@ -191,10 +130,19 @@
             "refraction_index": null,
             "dependencies": []
         },
+        "overhead_modifier": {
+            "modifier": null,
+            "type": "plastic",
+            "identifier": "generic_opaque_door_0.50",
+            "r_reflectance": 0.5,
+            "g_reflectance": 0.5,
+            "b_reflectance": 0.5,
+            "specularity": 0.0,
+            "roughness": 0.0,
+            "dependencies": []
+        },
         "interior_glass_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+            "modifier": null,
             "type": "glass",
             "identifier": "generic_interior_window_vis_0.88",
             "r_transmissivity": 0.9584154328610596,
@@ -203,15 +151,10 @@
             "refraction_index": null,
             "dependencies": []
         },
-        "type": "DoorModifierSet"
-    },
-    "shade_set": {
         "interior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+            "modifier": null,
             "type": "plastic",
-            "identifier": "generic_interior_shade_0.50",
+            "identifier": "generic_opaque_door_0.50",
             "r_reflectance": 0.5,
             "g_reflectance": 0.5,
             "b_reflectance": 0.5,
@@ -220,9 +163,21 @@
             "dependencies": []
         },
         "exterior_modifier": {
-            "modifier": {
-                "type": "void"
-            },
+            "modifier": null,
+            "type": "plastic",
+            "identifier": "generic_opaque_door_0.50",
+            "r_reflectance": 0.5,
+            "g_reflectance": 0.5,
+            "b_reflectance": 0.5,
+            "specularity": 0.0,
+            "roughness": 0.0,
+            "dependencies": []
+        },
+        "type": "DoorModifierSet"
+    },
+    "shade_set": {
+        "exterior_modifier": {
+            "modifier": null,
             "type": "plastic",
             "identifier": "generic_exterior_shade_0.35",
             "r_reflectance": 0.35,
@@ -232,12 +187,21 @@
             "roughness": 0.0,
             "dependencies": []
         },
+        "interior_modifier": {
+            "modifier": null,
+            "type": "plastic",
+            "identifier": "generic_interior_shade_0.50",
+            "r_reflectance": 0.5,
+            "g_reflectance": 0.5,
+            "b_reflectance": 0.5,
+            "specularity": 0.0,
+            "roughness": 0.0,
+            "dependencies": []
+        },
         "type": "ShadeModifierSet"
     },
     "air_boundary_modifier": {
-        "modifier": {
-            "type": "void"
-        },
+        "modifier": null,
         "type": "glass",
         "identifier": "air_boundary",
         "r_transmissivity": 1.0,

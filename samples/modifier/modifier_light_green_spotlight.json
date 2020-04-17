@@ -1,7 +1,5 @@
 {
-    "modifier": {
-        "type": "void"
-    },
+    "modifier": null,
     "type": "light",
     "identifier": "Green_Spotlight",
     "r_emittance": 0.0,

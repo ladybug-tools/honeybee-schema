@@ -1,7 +1,5 @@
 {
-    "modifier": {
-        "type": "void"
-    },
+    "modifier": null,
     "type": "glow",
     "identifier": "white_glow",
     "r_emittance": 1.0,

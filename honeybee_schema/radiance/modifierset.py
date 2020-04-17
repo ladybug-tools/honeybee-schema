@@ -100,6 +100,12 @@ class DoorModifierSetAbridged(BaseModifierSetAbridged):
                         'boundary condition.'
         )
 
+    exterior_glass_modifier: str = Field(
+            default=None,
+            description='Identifier of modifier object for glass with an Outdoors '
+                        'boundary condition.'
+        )
+
     overhead_modifier: str = Field(
             default=None,
             description='Identifier of window modifier object for doors with an '
@@ -113,37 +119,37 @@ class ModifierSetAbridged(IDdRadianceBaseModel):
 
     type: constr(regex='^ModifierSetAbridged$') = 'ModifierSetAbridged'
 
-    wall_set: str = Field(
+    wall_set: WallModifierSetAbridged = Field(
         default=None,
         description='Identifer for optional WallModifierSet object for this '
                     'ModifierSet (default: None).'
     )
 
-    floor_set: str = Field(
+    floor_set: FloorModifierSetAbridged = Field(
         default=None,
         description='Identifier for optional FloorModifierSet object for '
                     'this ModifierSet (default: None).'
     )
 
-    roof_ceiling_set: str = Field(
+    roof_ceiling_set: RoofCeilingModifierSetAbridged = Field(
         default=None,
         description='Identifier for optional RoofCeilingModifierSet object for this '
                     'ModifierSet (default: None).'
     )
 
-    aperture_set: str = Field(
+    aperture_set: ApertureModifierSetAbridged = Field(
         default=None,
         description='Identifier for optional ApertureModifierSet object for this '
                     'ModifierSet (default: None).'
     )
 
-    door_set: str = Field(
+    door_set: DoorModifierSetAbridged = Field(
         default=None,
         description='Identifier for optional DoorModifierSet object for this '
                     'ModifierSet (default: None).'
     )
 
-    shade_set: str = Field(
+    shade_set: ShadeModifierSetAbridged = Field(
         default=None,
         description='Identifier for optional ShadeModifierSet object for this '
                     'ModifierSet (default: None).'
@@ -243,6 +249,12 @@ class DoorModifierSet(BaseModifierSet):
     interior_glass_modifier: _REFERENCE_UNION_MODIFIERS = Field(
             default=None,
             description='A modifier object for glass with a Surface '
+                        'boundary condition.'
+        )
+
+    exterior_glass_modifier: _REFERENCE_UNION_MODIFIERS = Field(
+            default=None,
+            description='A modifier object for glass with an Outdoors '
                         'boundary condition.'
         )
 

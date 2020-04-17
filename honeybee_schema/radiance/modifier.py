@@ -110,8 +110,8 @@ class Trans(Plastic):
         g_refl = values.get('g_reflectance')
         b_refl = values.get('b_reflectance')
         identifier = values.get('identifier')
-        summed = trans_diff + trans_spec + r_refl + g_refl + b_refl
-        assert summed <= 1, 'The sum of the transmitted diffuse and specular light ' \
+        summed = trans_diff + trans_spec + (r_refl + g_refl + b_refl)/3.0
+        assert summed <= 1, 'The sum of the transmitted and reflected ' \
             'fractions cannot be greater than 1, but is {} for modifier {}.'.format(
                 summed, identifier)
         return values

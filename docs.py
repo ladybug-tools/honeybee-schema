@@ -1,5 +1,5 @@
 """generate openapi docs."""
-from honeybee_schema._openapi import get_openapi
+from honeybee_schema._openapi import get_openapi, get_model_mapper
 from honeybee_schema.model import Model
 from honeybee_schema.energy.simulation import SimulationParameter
 
@@ -48,6 +48,12 @@ openapi = get_openapi(
 with open('./docs/model_inheritance.json', 'w') as out_file:
     json.dump(openapi, out_file, indent=2)
 
+# add the mapper file
+mapper = get_model_mapper(Model)
+module_mapper = {k: c.__module__ for k, c in mapper.items()}
+with open('./docs/model_mapper.json', 'w') as out_file:
+    json.dump(module_mapper, out_file, indent=2)
+
 # generate SimulationParameter open api schema
 print('Generating Energy Simulation Parameter documentation...')
 
@@ -74,3 +80,9 @@ openapi = get_openapi(
 )
 with open('./docs/simulation-parameter_inheritance.json', 'w') as out_file:
     json.dump(openapi, out_file, indent=2)
+
+# add the mapper file
+mapper = get_model_mapper(SimulationParameter)
+module_mapper = {k: c.__module__ for k, c in mapper.items()}
+with open('./docs/simulation-parameter_mapper.json', 'w') as out_file:
+    json.dump(module_mapper, out_file, indent=2)

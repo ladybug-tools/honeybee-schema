@@ -163,31 +163,43 @@ def get_openapi(
     return open_api
 
 
-def get_schemas_inheritance(model_cls):
-    """This method modifies the default OpenAPI from Pydantic.
-
-    It adds referenced values to subclasses using allOf field as explained in this post:
-    https://swagger.io/docs/specification/data-models/inheritance-and-polymorphism
-    """
-    model = get_model(model_cls[0])
+def get_model_mapper(model, stoppage=None, full=True):
+    """Get a dictionary of name: class for all the objects in model."""
+    model = get_model(model)
     flat_models = get_flat_models_from_model(model)
 
     # this is the list of all the referenced objects
     model_name_map = get_model_name_map(flat_models)
     # flip the dictionary so I can access each class by name
     model_name_map = {v: k for k, v in model_name_map.items()}
+
+    if full:
+        if not stoppage:
+            stoppage = set(['NoExtraBaseModel', 'ModelMetaclass', 'BaseModel', 'object'])
+        # Pydantic does not necessarily add all the baseclasses to the OpenAPI
+        # documentation. We check all of them and them to the list if they are not
+        # already added
+        models = list(model_name_map.values())
+        for model in models:
+            for cls in type.mro(model):
+                if cls.__name__ in stoppage:
+                    break
+                if cls.__name__ not in model_name_map:
+                    model_name_map[cls.__name__] = cls
+
+    return model_name_map
+
+
+def get_schemas_inheritance(model_cls):
+    """This method modifies the default OpenAPI from Pydantic.
+
+    It adds referenced values to subclasses using allOf field as explained in this post:
+    https://swagger.io/docs/specification/data-models/inheritance-and-polymorphism
+    """
     # list of top level class names that we should stop at
     stoppage = set(['NoExtraBaseModel', 'ModelMetaclass', 'BaseModel', 'object'])
 
-    # Pydantic does not necessarily add all the baseclasses to the OpenAPI documentation.
-    # We check all of them and them to the list if they are not already added
-    models = list(model_name_map.values())
-    for model in models:
-        for cls in type.mro(model):
-            if cls.__name__ in stoppage:
-                break
-            if cls.__name__ not in model_name_map:
-                model_name_map[cls.__name__] = cls
+    model_name_map = get_model_mapper(model_cls[0], stoppage, full=True)
 
     # get the standard OpenAPI schema for Pydantic for all the new objects
     ref_prefix = '#/components/schemas/'

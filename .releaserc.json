@@ -5,13 +5,30 @@
         [
             "@semantic-release/github",
             {
-                "assets": [{
+                "assets": [
+                    {
                         "path": "docs/model.json",
-                        "label": "Model Schema"
+                        "label": "Model schema"
                     },
                     {
                         "path": "docs/simulation-parameter.json",
-                        "label": "Simulation Parameters Schema"
+                        "label": "Simulation parameters schema"
+                    },
+                    {
+                        "path": "docs/model_inheritance.json",
+                        "label": "Model schema with inheritance"
+                    },
+                    {
+                        "path": "docs/simulation-parameter_inheritance.json",
+                        "label": "Simulation parameters schema with inheritance"
+                    },
+                    {
+                        "path": "docs/model_mapper.json",
+                        "label": "Model schema mapper"
+                    },
+                    {
+                        "path": "docs/simulation-parameter_mapper.json",
+                        "label": "Simulation parameters schema mapper"
                     }
                 ]
             }

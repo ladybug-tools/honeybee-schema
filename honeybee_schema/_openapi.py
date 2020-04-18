@@ -149,7 +149,10 @@ def get_openapi(
 
         sorted_props.update(optional)
 
-        properties = dict(sorted_props)
+        try:
+            s['properties'] = sorted_props
+        except KeyError:
+            s['allOf'][1]['properties'] = sorted_props
 
     tag_names.sort()
     open_api['tags'] = tags
@@ -191,8 +194,8 @@ def get_schemas_inheritance(model_cls):
     schemas = \
         schema(model_name_map.values(), ref_prefix=ref_prefix)['definitions']
 
-    # this is the list of special keys that we copy in manually
-    copied_keys = set(['type', 'properties', 'required'])
+    # collect updated objects
+    updated_schemas = {}
 
     # iterate through all the data models
     # find the ones which are subclassed and updated them based on the properties of
@@ -209,108 +212,110 @@ def get_schemas_inheritance(model_cls):
             # this class is not a subclass
             print(f'\n{name} is not a subclass.')
             continue
+        # set object inheritance
+        updated_schema = set_inheritance(name, top_classes, schemas)
+        updated_schemas[name] = updated_schema
 
-        # remove the class itself
-        print(f'\nProcessing {name}')
-        top_classes = top_classes[1:]
-        top_class = top_classes[0]
-        tree = ['....' * (i + 1) + c.__name__ for i, c in enumerate(top_classes)]
-        print('\n'.join(tree))
-
-        # collect required and properties from top classes so we don't end up with
-        # duplicate values in the schema for the subclass
-        top_classes_required = []
-        top_classes_prop = {}
-
-        for t in top_classes:
-            if 'required' in schemas[t.__name__]:
-                tc_required = schemas[t.__name__]['required']
-            elif 'allOf' in schemas[t.__name__]:
-                try:
-                    tc_required = schemas[t.__name__]['allOf'][1]['required']
-                except KeyError:
-                    # no required field
-                    tc_required = []
-            else:
-                continue
-
-            for r in tc_required:
-                top_classes_required.append(r)
-
-        for t in top_classes:
-            if 'properties' in schemas[t.__name__]:
-                tc_prop = schemas[t.__name__]['properties']
-            else:
-                tc_prop = schemas[t.__name__]['allOf'][1]['properties']
-
-            for pn, dt in tc_prop.items():
-                # collect type to find the cases when the property has the same name
-                # but is defined with a different type
-                if 'type' in dt:
-                    top_classes_prop[pn] = dt['type']
-                else:
-                    top_classes_prop[pn] = '###'  # no type means use of oneOf or allOf
-
-        # create a new schema for this object based on the top level class
-        data = {
-            'allOf': [
-                {
-                    '$ref': f'#/components/schemas/{top_class.__name__}'
-                },
-                {
-                    'type': 'object',
-                    'required': [],
-                    'properties': {}
-                }
-            ]
-        }
-
-        data_copy = dict(data)
-        # the immediate top class openapi schema
-        object_dict = schemas[name]
-
-        if not top_classes_required and 'required' in object_dict:
-            # no required in top level class
-            for r in object_dict['required']:
-                data_copy['allOf'][1]['required'].append(r)
-        elif 'required' in object_dict and top_classes_required:
-            for r in object_dict['required']:
-                if r not in top_classes_required:
-                    data_copy['allOf'][1]['required'].append(r)
-
-        # no required fields
-        if len(data_copy['allOf'][1]['required']) == 0:
-            del(data_copy['allOf'][1]['required'])
-
-        if 'properties' in object_dict:
-            properties = object_dict['properties']
-        else:
-            # the top class is a subclass itself
-            # properties are under allOf field
-            properties = object_dict['allOf'][1]['properties']
-
-        for prop in properties:
-            if prop not in top_classes_prop:
-                # new field. add it to the properties
-                print(f'Extending: {prop}')
-                data_copy['allOf'][1]['properties'][prop] = properties[prop]
-            elif 'type' not in properties[prop] and \
-                    ('allOf' in properties[prop] or 'anyOf' in properties[prop]):
-                # same name diffrent types
-                print(f'Updating: {prop}')
-                data_copy['allOf'][1]['properties'][prop] = properties[prop]
-
-        try:
-            data_copy['allOf'][1]['properties']['type'] = properties['type']
-        except KeyError:
-            print(f'Found object with no type:{name}')
-
-        # add other items in addition to copied_keys
-        for key, value in schemas[name].items():
-            if key in copied_keys:
-                continue
-            data_copy[key] = value
-
-        schemas[name] = data_copy
+    # replace updated schemas in original schema
+    for name, value in updated_schemas.items():
+        schemas[name] = value
 
     return schemas
+
+
+def set_inheritance(name, top_classes, schemas):
+    """Set inheritance for object with a certain name."""
+    # this is the list of special keys that we copy in manually
+    copied_keys = set(['type', 'properties', 'required'])
+    # remove the class itself
+    print(f'\nProcessing {name}')
+    top_classes = top_classes[1:]
+    top_class = top_classes[0]
+    tree = ['....' * (i + 1) + c.__name__ for i, c in enumerate(top_classes)]
+    print('\n'.join(tree))
+
+    # collect required and properties from top classes so we don't end up with
+    # duplicate values in the schema for the subclass
+    top_classes_required = []
+    top_classes_prop = {}
+
+    for t in top_classes:
+        if 'required' in schemas[t.__name__]:
+            tc_required = schemas[t.__name__]['required']
+        else:
+            continue
+
+        for r in tc_required:
+            top_classes_required.append(r)
+
+    for t in top_classes:
+        tc_prop = schemas[t.__name__]['properties']
+
+        for pn, dt in tc_prop.items():
+            # collect type to find the cases when the property has the same name
+            # but is defined with a different type
+            if 'type' in dt:
+                top_classes_prop[pn] = dt['type']
+            else:
+                top_classes_prop[pn] = '###'  # no type means use of oneOf or allOf
+
+    # create a new schema for this object based on the top level class
+    data = {
+        'allOf': [
+            {
+                '$ref': f'#/components/schemas/{top_class.__name__}'
+            },
+            {
+                'type': 'object',
+                'required': [],
+                'properties': {}
+            }
+        ]
+    }
+
+    data_copy = dict(data)
+    # the immediate top class openapi schema
+    object_dict = schemas[name]
+
+    if not top_classes_required and 'required' in object_dict:
+        # no required in top level class
+        for r in object_dict['required']:
+            data_copy['allOf'][1]['required'].append(r)
+    elif 'required' in object_dict and top_classes_required:
+        for r in object_dict['required']:
+            if r not in top_classes_required:
+                data_copy['allOf'][1]['required'].append(r)
+
+    # no required fields
+    if len(data_copy['allOf'][1]['required']) == 0:
+        del(data_copy['allOf'][1]['required'])
+
+    properties = object_dict['properties']
+
+    for prop in properties:
+        if prop not in top_classes_prop:
+            # new field. add it to the properties
+            print(f'Extending: {prop}')
+            data_copy['allOf'][1]['properties'][prop] = properties[prop]
+        elif 'type' not in properties[prop] and \
+                ('allOf' in properties[prop] or 'anyOf' in properties[prop]):
+            # same name diffrent types
+            print(f'Found a field with the same name: {prop}.')
+            if len(top_classes) > 1:
+                print(f'Trying {name} against {top_classes[1].__name__}.')
+                return set_inheritance(name, top_classes, schemas)
+            else:
+                return schemas[name]
+
+    try:
+        data_copy['allOf'][1]['properties']['type'] = properties['type']
+    except KeyError:
+        print(f'Found object with no type:{name}')
+
+    # add other items in addition to copied_keys
+    for key, value in schemas[name].items():
+        if key in copied_keys:
+            continue
+        data_copy[key] = value
+
+    return data_copy

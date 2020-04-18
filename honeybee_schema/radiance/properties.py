@@ -1,15 +1,16 @@
 """Properties Schema"""
-from pydantic import Field, constr, validator, root_validator, BaseModel
+from pydantic import Field, constr, validator, root_validator
 from typing import List, Union
 
-from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans
+from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans, Void
 from .modifierset import ModifierSet, ModifierSetAbridged
+from .._base import NoExtraBaseModel
 
 # Unioned Modifier Schema objects defined for type reference
-_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans]
+_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void]
 
 
-class _PropertiesBaseAbridged(BaseModel):
+class _PropertiesBaseAbridged(NoExtraBaseModel):
     """Base class of Abridged Radiance Properties."""
 
     modifier: str = Field(
@@ -53,20 +54,20 @@ class ShadeRadiancePropertiesAbridged(_PropertiesBaseAbridged):
         'ShadeRadiancePropertiesAbridged'
 
 
-class RoomRadiancePropertiesAbridged(_PropertiesBaseAbridged):
+class RoomRadiancePropertiesAbridged(NoExtraBaseModel):
     """Abridged Radiance Properties for Honeybee Room."""
 
     type: constr(regex='^RoomRadiancePropertiesAbridged$') = \
         'RoomRadiancePropertiesAbridged'
 
-    modifier_set: List[List[Union[ModifierSet, ModifierSetAbridged]]] = Field(
+    modifier_set: List[str] = Field(
         default=[],
-        description='A list of all unique Room-Assigned ModifierSets in the Model '
-                    '(default: []).'
+        description='A list of identifiers for all unique Room-Assigned ModifierSets '
+                    'in the Model (default: []).'
         )
 
 
-class ModelRadianceProperties(BaseModel):
+class ModelRadianceProperties(NoExtraBaseModel):
     """Radiance Properties for Honeybee Model."""
 
     type: constr(regex='^ModelRadianceProperties$') = 'ModelRadianceProperties'
@@ -78,12 +79,6 @@ class ModelRadianceProperties(BaseModel):
                     'Room ModifierSets, and the global_modifier_set. (default: []).'
         )
 
-    blk_modifiers: List[_REFERENCE_UNION_MODIFIERS] = Field(
-        default=[],
-        description='A list of all unique modifier_blk assigned to Faces, Apertures '
-                    'and Doors (default: []).'
-        )
-
     modifier_sets: List[Union[ModifierSet, ModifierSetAbridged]] = Field(
         default=[],
         description='A list of all unique Room-Assigned ModifierSets in the Model '
@@ -92,13 +87,8 @@ class ModelRadianceProperties(BaseModel):
 
     global_modifier_set: str = Field(
         default=None,
-        description='A string of a ModifierSet or ModifierSetAbridged object to be used as '
+        description='Identifier of a ModifierSet or ModifierSetAbridged object to be used as '
                     'as a default object for all unassigned objects in the Model '
                     '(default: None).'
     )
 
-
-# TODO: for testing will delete after PR accepted.
-if __name__ == "__main__":
-    print(_PropertiesBaseAbridged.schema_json(indent=2))
-    print(ModifierSet.schema_json(indent=2))

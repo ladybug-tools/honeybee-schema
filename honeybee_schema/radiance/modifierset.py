@@ -4,10 +4,10 @@ from typing import List, Union
 
 from .._base import NoExtraBaseModel
 from ._base import IDdRadianceBaseModel
-from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans
+from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans, Void
 
 # Unioned Modifier Schema objects defined for type reference
-_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans]
+_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void]
 
 
 class BaseModifierSetAbridged(NoExtraBaseModel):
@@ -88,12 +88,6 @@ class DoorModifierSetAbridged(BaseModifierSetAbridged):
 
     type: constr(regex='^DoorModifierSetAbridged$') = 'DoorModifierSetAbridged'
 
-    exterior_modifier: str = Field(
-            default=None,
-            description='Identifier of modifier object for doors with an Outdoors '
-                        'boundary condition.'
-        )
-
     interior_glass_modifier: str = Field(
             default=None,
             description='Identifier of modifier object for glass with a Surface '
@@ -108,7 +102,7 @@ class DoorModifierSetAbridged(BaseModifierSetAbridged):
 
     overhead_modifier: str = Field(
             default=None,
-            description='Identifier of window modifier object for doors with an '
+            description='Identifier of a modifier object for doors with an '
                         'Outdoors boundary condition and a RoofCeiling or Floor '
                         'face type for their parent face.'
         )
@@ -121,43 +115,43 @@ class ModifierSetAbridged(IDdRadianceBaseModel):
 
     wall_set: WallModifierSetAbridged = Field(
         default=None,
-        description='Identifer for optional WallModifierSet object for this '
+        description='Optional WallModifierSet object for this '
                     'ModifierSet (default: None).'
     )
 
     floor_set: FloorModifierSetAbridged = Field(
         default=None,
-        description='Identifier for optional FloorModifierSet object for '
+        description='Optional FloorModifierSet object for '
                     'this ModifierSet (default: None).'
     )
 
     roof_ceiling_set: RoofCeilingModifierSetAbridged = Field(
         default=None,
-        description='Identifier for optional RoofCeilingModifierSet object for this '
+        description='Optional RoofCeilingModifierSet object for this '
                     'ModifierSet (default: None).'
     )
 
     aperture_set: ApertureModifierSetAbridged = Field(
         default=None,
-        description='Identifier for optional ApertureModifierSet object for this '
+        description='Optional ApertureModifierSet object for this '
                     'ModifierSet (default: None).'
     )
 
     door_set: DoorModifierSetAbridged = Field(
         default=None,
-        description='Identifier for optional DoorModifierSet object for this '
+        description='Optional DoorModifierSet object for this '
                     'ModifierSet (default: None).'
     )
 
     shade_set: ShadeModifierSetAbridged = Field(
         default=None,
-        description='Identifier for optional ShadeModifierSet object for this '
+        description='Optional ShadeModifierSet object for this '
                     'ModifierSet (default: None).'
     )
 
     air_boundary_modifier: str = Field(
         default=None,
-        description='Identifier for optional Modifier to be used for all Faces '
+        description='Optional Modifier to be used for all Faces '
                     'with an AirBoundary face type. If None, it will be the '
                     'honyebee generic air wall modifier.'
     )
@@ -240,12 +234,6 @@ class DoorModifierSet(BaseModifierSet):
 
     type: constr(regex='^DoorModifierSet$') = 'DoorModifierSet'
 
-    exterior_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A modifier object for doors with an Outdoors '
-                        'boundary condition.'
-        )
-
     interior_glass_modifier: _REFERENCE_UNION_MODIFIERS = Field(
             default=None,
             description='A modifier object for glass with a Surface '
@@ -313,15 +301,3 @@ class ModifierSet(IDdRadianceBaseModel):
                     'face type. If None, it will be the honyebee generic air wall '
                     'modifier.'
     )
-
-
-# TODO: for testing will delete after PR accepted.
-if __name__ == "__main__":
-    print(BaseModifierSet.schema_json(indent=2))
-    print(WallModifierSet.schema_json(indent=2))
-    print(FloorModifierSet.schema_json(indent=2))
-    print(RoofCeilingModifierSet.schema_json(indent=2))
-    print(ShadeModifierSet.schema_json(indent=2))
-    print(ApertureModifierSet.schema_json(indent=2))
-    print(DoorModifierSet.schema_json(indent=2))
-    print(ModifierSet.schema_json(indent=2))

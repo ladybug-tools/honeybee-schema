@@ -122,7 +122,13 @@ def get_openapi(
                 properties[prop] = set_format(properties[prop])
             except KeyError:
                 # referenced object
-                continue
+                if 'anyOf' in properties[prop]:
+                    new_any_of = []
+                    for item in properties[prop]['anyOf']:
+                        new_any_of.append(set_format(item))
+                    properties[prop]['anyOf'] = new_any_of
+                else:
+                    continue
 
         # sort fields to keep required ones on top
         if 'required' in s:
@@ -162,7 +168,9 @@ def get_openapi(
 
 def set_format(p):
     """Set format for a property."""
-    if p['type'] == 'number' and 'format' not in p:
+    if '$ref' in p:
+        return p
+    elif p['type'] == 'number' and 'format' not in p:
         p['format'] = 'double'
     elif p['type'] == 'integer' and 'format' not in p:
         p['format'] = 'int32'

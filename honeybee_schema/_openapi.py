@@ -117,12 +117,9 @@ def get_openapi(
             properties['type'] = typ
         # add format to numbers and integers
         # this is helpful for C# generators
-        for prop, value in properties.items():
+        for prop in properties:
             try:
-                if value['type'] == 'number' and 'format' not in value:
-                    properties[prop]['format'] = 'double'
-                elif value['type'] == 'integer' and 'format' not in value:
-                    properties[prop]['format'] = 'int32'
+                properties[prop] = set_format(properties[prop])
             except KeyError:
                 # referenced object
                 continue
@@ -161,6 +158,17 @@ def get_openapi(
     open_api['components']['schemas'] = schemas
 
     return open_api
+
+
+def set_format(p):
+    """Set format for a property."""
+    if p['type'] == 'number' and 'format' not in p:
+        p['format'] = 'double'
+    elif p['type'] == 'integer' and 'format' not in p:
+        p['format'] = 'int32'
+    elif p['type'] == 'array':
+        p['items'] = set_format(p['items'])
+    return p
 
 
 def get_model_mapper(model, stoppage=None, full=True):

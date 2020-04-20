@@ -35,6 +35,9 @@ def get_openapi(
 
     open_api['openapi'] = openapi_version
 
+    if info:
+        open_api['info'] = info
+
     if title:
         open_api['info']['title'] = title
 
@@ -42,9 +45,6 @@ def get_openapi(
         raise ValueError(
             'Schema version must be specified as argument or from distribution metadata'
         )
-
-    if info:
-        open_api['info'] = info
 
     if version:
         open_api['info']['version'] = version

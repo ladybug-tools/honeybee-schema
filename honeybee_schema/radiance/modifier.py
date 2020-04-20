@@ -14,9 +14,9 @@ class Void(BaseModel):
 class ModifierBase(IDdRadianceBaseModel):
     """Base class for Radiance Modifiers"""
 
-    modifier: Optional[Union[
+    modifier: Union[
          Void, 'Plastic', 'Glass', 'BSDF', 'Glow', 'Light', 'Trans'
-    ]] = Field(
+    ] = Field(
         default=None,
         description='Material modifier (default: Void).'
         )
@@ -110,7 +110,7 @@ class Trans(Plastic):
         g_refl = values.get('g_reflectance')
         b_refl = values.get('b_reflectance')
         identifier = values.get('identifier')
-        summed = trans_diff + trans_spec + (r_refl + g_refl + b_refl)/3.0
+        summed = trans_diff + trans_spec + (r_refl + g_refl + b_refl) / 3.0
         assert summed <= 1, 'The sum of the transmitted and reflected ' \
             'fractions cannot be greater than 1, but is {} for modifier {}.'.format(
                 summed, identifier)
@@ -182,7 +182,7 @@ class BSDF(ModifierBase):
         description='Optional input for function file (default: ".").'
     )
 
-    transform: Optional[str] = Field(
+    transform: str = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -195,7 +195,7 @@ class BSDF(ModifierBase):
         description='BSDF xml file data as bytes.'
     )
 
-    front_diffuse_reflectance: Optional[List[float]] = Field(
+    front_diffuse_reflectance: List[float] = Field(
         default=None,
         min_items=3,
         max_items=3,
@@ -203,7 +203,7 @@ class BSDF(ModifierBase):
                     'numbers (default: None).'
     )
 
-    back_diffuse_reflectance: Optional[List[float]] = Field(
+    back_diffuse_reflectance: List[float] = Field(
         default=None,
         min_items=3,
         max_items=3,
@@ -211,7 +211,7 @@ class BSDF(ModifierBase):
                     'numbers (default: None).'
     )
 
-    diffuse_transmittance: Optional[List[float]] = Field(
+    diffuse_transmittance: List[float] = Field(
         default=None,
         min_items=3,
         max_items=3,

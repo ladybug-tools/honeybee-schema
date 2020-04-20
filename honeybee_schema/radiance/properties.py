@@ -13,12 +13,12 @@ _REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Voi
 class _PropertiesBaseAbridged(NoExtraBaseModel):
     """Base class of Abridged Radiance Properties."""
 
-    modifier: Optional[str] = Field(
+    modifier: str = Field(
         default=None,
         description='A string for a Honeybee Radiance Modifier.'
         )
 
-    modifier_blk: Optional[str] = Field(
+    modifier_blk: str = Field(
         default=None,
         description='A string for a Honeybee Radiance Modifier to be used '
                     'in direct solar simulations and in isolation studies (assessing'
@@ -60,7 +60,7 @@ class RoomRadiancePropertiesAbridged(NoExtraBaseModel):
     type: constr(regex='^RoomRadiancePropertiesAbridged$') = \
         'RoomRadiancePropertiesAbridged'
 
-    modifier_set: Optional[str] = Field(
+    modifier_set: str = Field(
         default=None,
         description='An identifier for a unique Room-Assigned ModifierSet '
                     '(default: None).'
@@ -85,7 +85,7 @@ class ModelRadianceProperties(NoExtraBaseModel):
                     '(default: []).'
         )
 
-    global_modifier_set: Optional[str] = Field(
+    global_modifier_set: str = Field(
         default=None,
         description='Identifier of a ModifierSet or ModifierSetAbridged object to be used as '
                     'as a default object for all unassigned objects in the Model '

@@ -17,7 +17,7 @@ class ModifierBase(IDdRadianceBaseModel):
     modifier: Optional[Union[
          Void, 'Plastic', 'Glass', 'BSDF', 'Glow', 'Light', 'Trans'
     ]] = Field(
-        default=Void(),
+        default=None,
         description='Material modifier (default: Void).'
         )
 

@@ -60,10 +60,10 @@ class RoomRadiancePropertiesAbridged(NoExtraBaseModel):
     type: constr(regex='^RoomRadiancePropertiesAbridged$') = \
         'RoomRadiancePropertiesAbridged'
 
-    modifier_set: List[str] = Field(
-        default=[],
-        description='A list of identifiers for all unique Room-Assigned ModifierSets '
-                    'in the Model (default: []).'
+    modifier_set: Optional[str] = Field(
+        default=None,
+        description='An identifier for a unique Room-Assigned ModifierSet '
+                    '(default: None).'
         )
 
 

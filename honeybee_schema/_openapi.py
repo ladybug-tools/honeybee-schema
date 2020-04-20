@@ -1,37 +1,12 @@
-from pkg_resources import get_distribution
 from pydantic.utils import get_model
 from pydantic.schema import schema, get_flat_models_from_model, get_model_name_map
 from typing import Dict
-
-VERSION = None
-
-try:
-    VERSION = '.'.join(get_distribution('honeybee_schema').version.split('.')[:3]),
-except:
-    pass
 
 # base open api dictionary for all schemas
 _base_open_api = {
     "openapi": "3.0.2",
     "servers": [],
-    "info": {
-        "description": "",
-        "version": VERSION,
-        "title": "",
-        "contact": {
-            "name": "Ladybug Tools",
-            "email": "info@ladybug.tools",
-            "url": "https://github.com/ladybug-tools/honeybee-schema"
-        },
-        "x-logo": {
-            "url": "https://www.ladybug.tools/assets/img/honeybee-large.png",
-            "altText": "Honeybee logo"
-        },
-        "license": {
-            "name": "BSD",
-            "url": "https://github.com/ladybug-tools-in2/honeybee-schema/blob/master/LICENSE"
-        }
-    },
+    "info": {},
     "externalDocs": {},
     "tags": [],
     "x-tagGroups": [
@@ -51,6 +26,7 @@ def get_openapi(
     version: str = None,
     openapi_version: str = "3.0.2",
     description: str = None,
+    info: dict = None,
     external_docs: dict = None,
     inheritance: bool = False
         ) -> Dict:
@@ -62,14 +38,19 @@ def get_openapi(
     if title:
         open_api['info']['title'] = title
 
-    if not version and not VERSION:
-        raise ValueError('Schema version must be specified as argument or from distribution metadata')
+    if not version:
+        raise ValueError(
+            'Schema version must be specified as argument or from distribution metadata'
+        )
 
     if version:
         open_api['info']['version'] = version
 
     if description:
         open_api['info']['description'] = description
+
+    if info:
+        open_api['info'] = info
 
     if external_docs:
         open_api['externalDocs'] = external_docs
@@ -93,7 +74,8 @@ def get_openapi(
         tag = {
             'name': model_name,
             'x-displayName': name,
-            'description': '<SchemaDefinition schemaRef=\"#/components/schemas/%s\" />\n' % name
+            'description':
+                '<SchemaDefinition schemaRef=\"#/components/schemas/%s\" />\n' % name
         }
         tags.append(tag)
 

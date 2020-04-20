@@ -25,6 +25,8 @@ jobs:
     - pip install -r requirements.txt
     - npm install @semantic-release/exec
     script:
+    - pip install -U .
+    - python ./docs.py
     - git config --global user.email "releases@ladybug.tools"
     - git config --global user.name "ladybugbot"
     - npx semantic-release

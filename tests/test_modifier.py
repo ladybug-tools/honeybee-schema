@@ -49,18 +49,16 @@ def test_plastic_wrong():
         Plastic.parse_obj(plastic_modifier_test)
 
 
-# TODO: fix refaaction index in sample json
-# def test_glass_generic_exterior_window():
-#     file_path = os.path.join(target_folder,
-#                              'modifier_glass_generic_exterior_window.json')
-#     Glass.parse_file(file_path)
+def test_glass_generic_exterior_window():
+    file_path = os.path.join(target_folder,
+                             'modifier_glass_generic_exterior_window.json')
+    Glass.parse_file(file_path)
 
 
-# TODO: fix refaaction index in sample json
-# def test_glass_air_boundary():
-#     file_path = os.path.join(target_folder,
-#                              'modifier_glass_air_boundary.json')
-#     Glass.parse_file(file_path)
+def test_glass_air_boundary():
+    file_path = os.path.join(target_folder,
+                             'modifier_glass_air_boundary.json')
+    Glass.parse_file(file_path)
 
 
 # TODO: Unfinished json
@@ -79,10 +77,9 @@ def test_modifier_light_green_spotlight():
     Light.parse_file(file_path)
 
 
-# TODO: reflections and transmittance sum to > 1
-# def test_trans_tree_foliage():
-#     file_path = os.path.join(target_folder, 'modifier_trans_tree_foliage.json')
-#     Trans.parse_file(file_path)
+def test_trans_tree_foliage():
+    file_path = os.path.join(target_folder, 'modifier_trans_tree_foliage.json')
+    Trans.parse_file(file_path)
 
 
 def test_trans_tree_foliage_wrong():

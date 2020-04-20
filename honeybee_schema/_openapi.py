@@ -43,14 +43,14 @@ def get_openapi(
             'Schema version must be specified as argument or from distribution metadata'
         )
 
+    if info:
+        open_api['info'] = info
+
     if version:
         open_api['info']['version'] = version
 
     if description:
         open_api['info']['description'] = description
-
-    if info:
-        open_api['info'] = info
 
     if external_docs:
         open_api['externalDocs'] = external_docs

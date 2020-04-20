@@ -19,10 +19,7 @@ VERSION = None
 if args.version:
     VERSION = args.version.replace('v', '')
 else:
-    try:
-        VERSION = '.'.join(get_distribution('honeybee_schema').version.split('.')[:3]),
-    except:
-        pass
+    VERSION = '.'.join(get_distribution('honeybee_schema').version.split('.')[:3])
 
 info = {
         "description": "",

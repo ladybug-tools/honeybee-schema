@@ -1,10 +1,10 @@
 """Base class for all objects requiring a valid names for all engines."""
 from pydantic import BaseModel, Field, Extra
-
+from typing import Optional
 
 class NoExtraBaseModel(BaseModel):
     """Base class for all objects that are not extensible with additional keys.
-    
+
     This effectively includes all objects except for the Properties classes
     that are assigned to geometry objects.
     """
@@ -28,12 +28,12 @@ class IDdBaseModel(NoExtraBaseModel):
             'any spaces or special characters.'
     )
 
-    display_name: str = Field(
+    display_name: Optional[str] = Field(
         default=None,
         description='Display name of the object with no character restrictions.'
     )
 
-    user_data: dict = Field(
+    user_data: Optional[dict] = Field(
         default=None,
         description='Optional dictionary of user data associated with the object.'
             'All keys and values of this dictionary should be of a standard data '

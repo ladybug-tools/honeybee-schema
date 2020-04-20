@@ -1,7 +1,7 @@
-"""Base classs used by radiance schema objects."""
+"""Base class used by radiance schema objects."""
 from pydantic import Field, validator, BaseModel
 import re
-
+from typing import Optional
 from .._base import NoExtraBaseModel
 
 
@@ -32,7 +32,7 @@ class IDdRadianceBaseModel(NoExtraBaseModel):
             'Input identifier "{}" contains no characters.'.format(value)
         return value
 
-    display_name: str = Field(
+    display_name: Optional[str] = Field(
         default=None,
         description='Display name of the object with no character restrictions.'
     )

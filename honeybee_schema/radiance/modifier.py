@@ -1,6 +1,6 @@
 """Modfier Schema"""
 from pydantic import Field, constr, validator, root_validator
-from typing import List, Union
+from typing import List, Union, Optional
 
 from ._base import IDdRadianceBaseModel, BaseModel
 
@@ -146,7 +146,7 @@ class Glass(ModifierBase):
                     '(default: 0).'
     )
 
-    refraction_index: float = Field(
+    refraction_index: Optional[float] = Field(
         default=1.52,
         ge=0,
         description='A value between 0 and 1 for the index of refraction '
@@ -182,7 +182,7 @@ class BSDF(ModifierBase):
         description='Optional input for function file (default: ".").'
     )
 
-    transform: str = Field(
+    transform: Optional[str] = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -195,7 +195,7 @@ class BSDF(ModifierBase):
         description='BSDF xml file data as bytes.'
     )
 
-    front_diffuse_reflectance: List[float] = Field(
+    front_diffuse_reflectance: Optional[List[float]] = Field(
         default=None,
         min_items=3,
         max_items=3,
@@ -203,7 +203,7 @@ class BSDF(ModifierBase):
                     'numbers (default: None).'
     )
 
-    back_diffuse_reflectance: List[float] = Field(
+    back_diffuse_reflectance: Optional[List[float]] = Field(
         default=None,
         min_items=3,
         max_items=3,
@@ -211,7 +211,7 @@ class BSDF(ModifierBase):
                     'numbers (default: None).'
     )
 
-    diffuse_transmittance: List[float] = Field(
+    diffuse_transmittance: Optional[List[float]] = Field(
         default=None,
         min_items=3,
         max_items=3,

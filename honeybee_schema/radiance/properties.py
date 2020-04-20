@@ -1,6 +1,6 @@
 """Properties Schema"""
 from pydantic import Field, constr, validator, root_validator
-from typing import List, Union
+from typing import List, Union, Optional
 
 from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans, Void
 from .modifierset import ModifierSet, ModifierSetAbridged
@@ -13,12 +13,12 @@ _REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Voi
 class _PropertiesBaseAbridged(NoExtraBaseModel):
     """Base class of Abridged Radiance Properties."""
 
-    modifier: str = Field(
+    modifier: Optional[str] = Field(
         default=None,
         description='A string for a Honeybee Radiance Modifier.'
         )
 
-    modifier_blk: str = Field(
+    modifier_blk: Optional[str] = Field(
         default=None,
         description='A string for a Honeybee Radiance Modifier to be used '
                     'in direct solar simulations and in isolation studies (assessing'
@@ -85,7 +85,7 @@ class ModelRadianceProperties(NoExtraBaseModel):
                     '(default: []).'
         )
 
-    global_modifier_set: str = Field(
+    global_modifier_set: Optional[str] = Field(
         default=None,
         description='Identifier of a ModifierSet or ModifierSetAbridged object to be used as '
                     'as a default object for all unassigned objects in the Model '

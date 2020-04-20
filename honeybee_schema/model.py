@@ -4,7 +4,7 @@ from typing import List, Union
 from enum import Enum
 
 from ._base import IDdBaseModel, NoExtraBaseModel
-from .bc import Outdoors, Surface, Ground, Adiabatic
+from .boundarycondition import Outdoors, Surface, Ground, Adiabatic
 from .energy.properties import ShadeEnergyPropertiesAbridged, \
     DoorEnergyPropertiesAbridged, ApertureEnergyPropertiesAbridged, \
     FaceEnergyPropertiesAbridged, RoomEnergyPropertiesAbridged, \

@@ -13,10 +13,9 @@ jobs:
       matrix:
         client_repo:
           - ladybug-tools/honeybee-schema-dotnet
-          - ladybug-tools/dragonfly-schema
-  
+
     steps:
-    - name: "send repo dispatch to apiary"
+    - name: "send repo dispatch to honeybee-schema-dotnet"
       env:
         RELEASE_TAG: ${{ github.event.release.tag_name }}
         DISPATCH_URL: https://api.github.com/repos/${{ matrix.client_repo }}/dispatches

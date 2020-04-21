@@ -1,9 +1,8 @@
-# TODO: change to Modifers Schema?
-"""Material Schema"""
+"""Modfier Schema"""
 from pydantic import Field, constr, validator, root_validator
-from typing import List, Union
+from typing import List, Union, Optional
 
-from .._base import IDdBaseModel, BaseModel
+from ._base import IDdRadianceBaseModel, BaseModel
 
 
 class Void(BaseModel):
@@ -12,13 +11,13 @@ class Void(BaseModel):
     type: constr(regex='^void$') = 'void'
 
 
-class ModifierBase(IDdBaseModel):
+class ModifierBase(IDdRadianceBaseModel):
     """Base class for Radiance Modifiers"""
 
     modifier: Union[
          Void, 'Plastic', 'Glass', 'BSDF', 'Glow', 'Light', 'Trans'
     ] = Field(
-        default=Void(),
+        default=None,
         description='Material modifier (default: Void).'
         )
 
@@ -111,8 +110,8 @@ class Trans(Plastic):
         g_refl = values.get('g_reflectance')
         b_refl = values.get('b_reflectance')
         identifier = values.get('identifier')
-        summed = trans_diff + trans_spec + r_refl + g_refl + b_refl
-        assert summed <= 1, 'The sum of the transmitted diffuse and specular light ' \
+        summed = trans_diff + trans_spec + (r_refl + g_refl + b_refl) / 3.0
+        assert summed <= 1, 'The sum of the transmitted and reflected ' \
             'fractions cannot be greater than 1, but is {} for modifier {}.'.format(
                 summed, identifier)
         return values
@@ -147,10 +146,9 @@ class Glass(ModifierBase):
                     '(default: 0).'
     )
 
-    refraction_index: float = Field(
+    refraction_index: Optional[float] = Field(
         default=1.52,
         ge=0,
-        le=1,
         description='A value between 0 and 1 for the index of refraction '
                     '(default: 1.52).'
     )

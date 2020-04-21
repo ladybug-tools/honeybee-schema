@@ -4,10 +4,11 @@ from typing import List, Union, Optional
 
 from .._base import NoExtraBaseModel
 from ._base import IDdRadianceBaseModel
-from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans, Void
+from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans, Void, Mirror
 
 # Unioned Modifier Schema objects defined for type reference
-_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void]
+_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void,
+                                   Mirror]
 
 
 class BaseModifierSetAbridged(NoExtraBaseModel):

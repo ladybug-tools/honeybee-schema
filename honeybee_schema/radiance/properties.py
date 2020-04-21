@@ -2,12 +2,13 @@
 from pydantic import Field, constr, validator, root_validator
 from typing import List, Union, Optional
 
-from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans, Void
+from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans, Void, Mirror
 from .modifierset import ModifierSet, ModifierSetAbridged
 from .._base import NoExtraBaseModel
 
 # Unioned Modifier Schema objects defined for type reference
-_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void]
+_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void,
+                                   Mirror]
 
 
 class _PropertiesBaseAbridged(NoExtraBaseModel):

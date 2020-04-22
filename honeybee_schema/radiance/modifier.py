@@ -1,12 +1,8 @@
 """Modfier Schema"""
+from __future__ import annotations
 from pydantic import Field, constr, validator, root_validator
 from typing import List, Union, Optional
-
 from ._base import IDdRadianceBaseModel, BaseModel
-
-# Unioned Modifier Schema strings defined for type reference
-_REFERENCE_UNION_STR_MODIFIERS = Union['Plastic', 'Glass', 'BSDF', 'Glow', 'Light',
-                                       'Trans', 'Void', 'Mirror']
 
 
 class Void(BaseModel):
@@ -18,12 +14,12 @@ class Void(BaseModel):
 class ModifierBase(IDdRadianceBaseModel):
     """Base class for Radiance Modifiers"""
 
-    modifier: _REFERENCE_UNION_STR_MODIFIERS = Field(
+    modifier: _REFERENCE_UNION_MODIFIERS = Field(
         default=None,
         description='Material modifier (default: Void).'
         )
 
-    dependencies: List[_REFERENCE_UNION_STR_MODIFIERS] = Field(
+    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
         default=[],
         description='List of modifiers that this modifier depends on. '
                     'This argument is only useful for defining advanced modifiers '
@@ -61,7 +57,7 @@ class Mirror(ModifierBase):
                     '(default: 1).'
     )
 
-    alternate_material: _REFERENCE_UNION_STR_MODIFIERS = Field(
+    alternate_material: _REFERENCE_UNION_MODIFIERS = Field(
         default=None,
         description='An optional material that may be used like the illum type to '
             'specify a different material to be used for shading non-source rays. '
@@ -323,7 +319,6 @@ class Glow(Light):
                     'interreflection calculation. Negative values will never contribute '
                     'to scene illumination.'
     )
-
 
 # Unioned Modifier Schema objects defined for type reference
 _REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void,

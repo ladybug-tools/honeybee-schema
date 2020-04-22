@@ -1,7 +1,7 @@
 """Modfier Schema"""
+from __future__ import annotations
 from pydantic import Field, constr, validator, root_validator
 from typing import List, Union, Optional
-
 from ._base import IDdRadianceBaseModel, BaseModel
 
 
@@ -14,22 +14,58 @@ class Void(BaseModel):
 class ModifierBase(IDdRadianceBaseModel):
     """Base class for Radiance Modifiers"""
 
-    modifier: Union[
-         Void, 'Plastic', 'Glass', 'BSDF', 'Glow', 'Light', 'Trans'
-    ] = Field(
+    modifier: _REFERENCE_UNION_MODIFIERS = Field(
         default=None,
         description='Material modifier (default: Void).'
         )
 
-    dependencies: List[
-        Union[Void, 'Plastic', 'Glass', 'BSDF', 'Glow', 'Light', 'Trans']
-    ] = Field(
+    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
         default=[],
         description='List of modifiers that this modifier depends on. '
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
                     '(default: []).'
         )
+
+
+class Mirror(ModifierBase):
+    """Radiance mirror material."""
+
+    type: constr(regex='^mirror$') = 'mirror'
+
+    r_reflectance: float = Field(
+        default=1,
+        ge=0,
+        le=1,
+        description='A value between 0 and 1 for the red channel reflectance '
+                    '(default: 1).'
+    )
+
+    g_reflectance: float = Field(
+        default=1,
+        ge=0,
+        le=1,
+        description='A value between 0 and 1 for the green channel reflectance '
+                    '(default: 1).'
+    )
+
+    b_reflectance: float = Field(
+        default=1,
+        ge=0,
+        le=1,
+        description='A value between 0 and 1 for the blue channel reflectance '
+                    '(default: 1).'
+    )
+
+    alternate_material: _REFERENCE_UNION_MODIFIERS = Field(
+        default=None,
+        description='An optional material that may be used like the illum type to '
+            'specify a different material to be used for shading non-source rays. '
+            'If None, this will keep the alternat_material as mirror. If this alternate '
+            'material is given as Void, then the mirror surface will be invisible. '
+            'Using Void is only appropriate if the surface hides other (more '
+            'detailed) geometry with the same overall reflectance (default: None).'
+    )
 
 
 class Plastic(ModifierBase):
@@ -284,14 +320,18 @@ class Glow(Light):
                     'to scene illumination.'
     )
 
+# Unioned Modifier Schema objects defined for type reference
+_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void,
+                                   Mirror]
 
 # Required for self.referencing model
 # see https://pydantic-docs.helpmanual.io/#self-referencing-models
-ModifierBase.update_forward_refs()
+Mirror.update_forward_refs()
 Plastic.update_forward_refs()
 Glass.update_forward_refs()
 BSDF.update_forward_refs()
 Glow.update_forward_refs()
 Light.update_forward_refs()
 Trans.update_forward_refs()
+Void.update_forward_refs()
 

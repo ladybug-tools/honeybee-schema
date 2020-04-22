@@ -1,13 +1,10 @@
 """Properties Schema"""
-from pydantic import Field, constr, validator, root_validator
-from typing import List, Union, Optional
+from pydantic import Field, constr
+from typing import List, Union
 
-from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans, Void
+from .modifier import _REFERENCE_UNION_MODIFIERS
 from .modifierset import ModifierSet, ModifierSetAbridged
 from .._base import NoExtraBaseModel
-
-# Unioned Modifier Schema objects defined for type reference
-_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void]
 
 
 class _PropertiesBaseAbridged(NoExtraBaseModel):

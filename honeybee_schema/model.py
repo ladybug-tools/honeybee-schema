@@ -9,6 +9,10 @@ from .energy.properties import ShadeEnergyPropertiesAbridged, \
     DoorEnergyPropertiesAbridged, ApertureEnergyPropertiesAbridged, \
     FaceEnergyPropertiesAbridged, RoomEnergyPropertiesAbridged, \
     ModelEnergyProperties
+from .radiance.properties import ShadeRadiancePropertiesAbridged, \
+    DoorRadiancePropertiesAbridged, ApertureRadiancePropertiesAbridged, \
+    FaceRadiancePropertiesAbridged, RoomRadiancePropertiesAbridged, \
+    ModelRadianceProperties
 
 
 class Plane(NoExtraBaseModel):
@@ -73,6 +77,10 @@ class ShadePropertiesAbridged(BaseModel):
         default=None
     )
 
+    radiance: ShadeRadiancePropertiesAbridged = Field(
+        default=None
+    )
+
 
 class Shade(IDdBaseModel):
 
@@ -95,6 +103,10 @@ class DoorPropertiesAbridged(BaseModel):
     type: constr(regex='^DoorPropertiesAbridged$') = 'DoorPropertiesAbridged'
 
     energy: DoorEnergyPropertiesAbridged = Field(
+        default=None
+    )
+
+    radiance: DoorRadiancePropertiesAbridged = Field(
         default=None
     )
 
@@ -140,11 +152,16 @@ class Door(IDdBaseModel):
             '(Radiance, EnergyPlus).'
     )
 
+
 class AperturePropertiesAbridged(BaseModel):
 
     type: constr(regex='^AperturePropertiesAbridged$') = 'AperturePropertiesAbridged'
 
     energy: ApertureEnergyPropertiesAbridged = Field(
+        default=None
+    )
+
+    radiance: ApertureRadiancePropertiesAbridged = Field(
         default=None
     )
 
@@ -196,6 +213,10 @@ class FacePropertiesAbridged(BaseModel):
     type: constr(regex='^FacePropertiesAbridged$') = 'FacePropertiesAbridged'
 
     energy: FaceEnergyPropertiesAbridged = Field(
+        default=None
+    )
+
+    radiance: FaceRadiancePropertiesAbridged = Field(
         default=None
     )
 
@@ -275,6 +296,10 @@ class RoomPropertiesAbridged(BaseModel):
         default=None
     )
 
+    radiance: RoomRadiancePropertiesAbridged = Field(
+        default=None
+    )
+
 
 class Room(IDdBaseModel):
 
@@ -327,6 +352,10 @@ class ModelProperties(BaseModel):
     type: constr(regex='^ModelProperties$') = 'ModelProperties'
 
     energy: ModelEnergyProperties = Field(
+        default=None
+    )
+
+    radiance: ModelRadianceProperties = Field(
         default=None
     )
 

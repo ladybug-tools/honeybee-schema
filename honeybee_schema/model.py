@@ -238,7 +238,11 @@ class Face(IDdBaseModel):
         description='Planar Face3D for the geometry.'
     )
 
-    face_type: FaceType
+    face_type: FaceType = Field(
+        FaceType.wall,
+        description='Honeybee uses this face type to assign materials/construcitons for the face.'
+            'Options are: Wall, Floor, RoofCeiling, or AirBoundary'
+    )
 
     boundary_condition: Union[Ground, Outdoors, Adiabatic, Surface]
 

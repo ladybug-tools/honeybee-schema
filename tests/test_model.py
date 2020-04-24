@@ -52,6 +52,11 @@ def test_model_energy_no_program():
     Model.parse_file(file_path)
 
 
+def test_model_5vertex_sub_faces():
+    file_path  = os.path.join(target_folder, 'model_5vertex_sub_faces.json')
+    Model.parse_file(file_path)
+
+
 def test_model_energy_properties_office():
     file_path  = os.path.join(target_folder, 'model_energy_properties_office.json')
     ModelEnergyProperties.parse_file(file_path)

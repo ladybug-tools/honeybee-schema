@@ -450,6 +450,26 @@ def model_energy_properties_office(directory):
         json.dump(model_dict['properties']['energy'], fp, indent=4)
 
 
+def model_5vertex_sub_faces(directory):
+    room = Room.from_box('TinyHouseZone', 5, 10, 3)
+    north_face = room[1]
+    aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1), Point3D(2.5, 10, 2.5),
+                      Point3D(3.5, 10, 2.9), Point3D(4.5, 10, 2.5)]
+    aperture = Aperture('FrontAperture', Face3D(aperture_verts))
+    north_face.add_aperture(aperture)
+    door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1), Point3D(1, 10, 2.5),
+                  Point3D(1.5, 10, 2.8), Point3D(2, 10, 2.5)]
+    door = Door('FrontDoor', Face3D(door_verts))
+    north_face.add_door(door)
+    
+    model = Model('TinyHouse', [room])
+    model_dict = model.to_dict()
+
+    dest_file = os.path.join(directory, 'model_5vertex_sub_faces.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model_dict, fp, indent=4)
+
+
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
 sample_directory = os.path.join(master_dir, 'samples', 'model')
@@ -467,3 +487,4 @@ model_energy_detailed_loads(sample_directory)
 model_energy_fixed_interval(sample_directory)
 model_energy_no_program(sample_directory)
 model_energy_properties_office(sample_directory)
+model_5vertex_sub_faces(sample_directory)

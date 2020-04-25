@@ -134,9 +134,9 @@ def get_openapi(
 
         sorted_props.update(optional)
 
-        try:
+        if 'properties' in s:
             s['properties'] = sorted_props
-        except KeyError:
+        else:
             s['allOf'][1]['properties'] = sorted_props
 
     tag_names.sort()
@@ -236,7 +236,7 @@ def get_schemas_inheritance(model_cls):
 def set_inheritance(name, top_classes, schemas):
     """Set inheritance for object with a certain name."""
     # this is the list of special keys that we copy in manually
-    copied_keys = set(['type', 'properties', 'required'])
+    copied_keys = set(['type', 'properties', 'required', 'additionalProperties'])
     # remove the class itself
     print(f'\nProcessing {name}')
     top_classes = top_classes[1:]
@@ -322,10 +322,13 @@ def set_inheritance(name, top_classes, schemas):
     except KeyError:
         print(f'Found object with no type:{name}')
 
+    if 'additionalProperties' in object_dict:
+        data_copy['allOf'][1]['additionalProperties'] = \
+            object_dict['additionalProperties']
+
     # add other items in addition to copied_keys
     for key, value in schemas[name].items():
         if key in copied_keys:
             continue
         data_copy[key] = value
-
     return data_copy

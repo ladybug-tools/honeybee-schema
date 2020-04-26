@@ -1,4 +1,4 @@
-"""Modfier Schema"""
+"""Modifier Schema"""
 from __future__ import annotations
 from pydantic import Field, constr, validator, root_validator
 from typing import List, Union, Optional
@@ -14,7 +14,15 @@ class Void(BaseModel):
 class ModifierBase(IDdRadianceBaseModel):
     """Base class for Radiance Modifiers"""
 
-    modifier: _REFERENCE_UNION_MODIFIERS = Field(
+    type: constr(regex='^ModifierBase$') = 'ModifierBase'
+
+
+class Mirror(ModifierBase):
+    """Radiance mirror material."""
+
+    type: constr(regex='^mirror$') = 'mirror'
+
+    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
         default=None,
         description='Material modifier (default: Void).'
         )
@@ -26,12 +34,6 @@ class ModifierBase(IDdRadianceBaseModel):
                     'where the modifier is defined based on other modifiers '
                     '(default: []).'
         )
-
-
-class Mirror(ModifierBase):
-    """Radiance mirror material."""
-
-    type: constr(regex='^mirror$') = 'mirror'
 
     r_reflectance: float = Field(
         default=1,
@@ -72,6 +74,19 @@ class Plastic(ModifierBase):
     """Radiance plastic material."""
 
     type: constr(regex='^plastic$') = 'plastic'
+
+    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
+        default=None,
+        description='Material modifier (default: Void).'
+        )
+
+    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
+        default=[],
+        description='List of modifiers that this modifier depends on. '
+                    'This argument is only useful for defining advanced modifiers '
+                    'where the modifier is defined based on other modifiers '
+                    '(default: []).'
+        )
 
     r_reflectance: float = Field(
         default=0.0,
@@ -158,6 +173,19 @@ class Glass(ModifierBase):
 
     type: constr(regex='^glass$') = 'glass'
 
+    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
+        default=None,
+        description='Material modifier (default: Void).'
+        )
+
+    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
+        default=[],
+        description='List of modifiers that this modifier depends on. '
+                    'This argument is only useful for defining advanced modifiers '
+                    'where the modifier is defined based on other modifiers '
+                    '(default: []).'
+        )
+
     r_transmissivity: float = Field(
         default=0.0,
         ge=0,
@@ -194,6 +222,19 @@ class BSDF(ModifierBase):
     """Radiance BSDF (Bidirectional Scattering Distribution Function) material."""
 
     type: constr(regex='^BSDF$') = 'BSDF'
+
+    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
+        default=None,
+        description='Material modifier (default: Void).'
+        )
+
+    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
+        default=[],
+        description='List of modifiers that this modifier depends on. '
+                    'This argument is only useful for defining advanced modifiers '
+                    'where the modifier is defined based on other modifiers '
+                    '(default: []).'
+        )
 
     up_orientation: List[float] = Field(
         default=(0.01, 0.01, 1.00),
@@ -282,6 +323,19 @@ class Light(ModifierBase):
 
     type: constr(regex='^light$') = 'light'
 
+    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
+        default=None,
+        description='Material modifier (default: Void).'
+        )
+
+    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
+        default=[],
+        description='List of modifiers that this modifier depends on. '
+                    'This argument is only useful for defining advanced modifiers '
+                    'where the modifier is defined based on other modifiers '
+                    '(default: []).'
+        )
+
     r_emittance: float = Field(
         default=0.0,
         ge=0,
@@ -320,9 +374,10 @@ class Glow(Light):
                     'to scene illumination.'
     )
 
-# Unioned Modifier Schema objects defined for type reference
-_REFERENCE_UNION_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void,
-                                   Mirror]
+
+# Union Modifier Schema objects defined for type reference
+_REFERENCE_UNION_MODIFIERS = \
+    Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void, Mirror]
 
 # Required for self.referencing model
 # see https://pydantic-docs.helpmanual.io/#self-referencing-models
@@ -334,4 +389,3 @@ Glow.update_forward_refs()
 Light.update_forward_refs()
 Trans.update_forward_refs()
 Void.update_forward_refs()
-

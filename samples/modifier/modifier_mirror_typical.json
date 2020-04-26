@@ -1,0 +1,10 @@
+{
+    "modifier": null,
+    "type": "mirror",
+    "identifier": "Silver_Glass_Typical_Mirror",
+    "r_reflectance": 0.85,
+    "g_reflectance": 0.85,
+    "b_reflectance": 0.85,
+    "dependencies": [],
+    "alternate_material": null
+}

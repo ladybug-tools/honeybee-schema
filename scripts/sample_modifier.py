@@ -1,7 +1,8 @@
 # coding=utf-8
 from __future__ import division
 
-from honeybee_radiance.modifier.material import Trans, Light, BSDF
+from honeybee_radiance.primitive import VOID
+from honeybee_radiance.modifier.material import Trans, Light, Mirror, BSDF
 
 from honeybee_radiance.lib.modifiers import generic_wall, generic_ceiling, \
     black, generic_exterior_window, air_boundary, white_glow
@@ -60,6 +61,20 @@ def modifier_light_green_spotlight(directory):
         json.dump(green_spot.to_dict(), fp, indent=4)
 
 
+def modifier_mirror_typical(directory):
+    mirror_typical = Mirror('Silver_Glass_Typical_Mirror', 0.85, 0.85, 0.85)
+    dest_file = os.path.join(directory, 'modifier_mirror_typical.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(mirror_typical.to_dict(), fp, indent=4)
+
+
+def modifier_mirror_invisible(directory):
+    mirror_invisible = Mirror('Invisible_Mirror', 1.0, 1.0, 1.0, alternate_material=VOID)
+    dest_file = os.path.join(directory, 'modifier_mirror_invisible.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(mirror_invisible.to_dict(), fp, indent=4)
+
+
 def modifier_bsdf_klemsfull(directory):
     relative_path = './scripts/bsdf/klemsfull.xml'
     klemsfull = BSDF(relative_path)
@@ -81,4 +96,6 @@ modifier_glass_air_boundary(sample_directory)
 modifier_trans_tree_foliage(sample_directory)
 modifier_glow_white(sample_directory)
 modifier_light_green_spotlight(sample_directory)
-#modifier_bsdf_klemsfull(sample_directory)
+modifier_mirror_typical(sample_directory)
+modifier_mirror_invisible(sample_directory)
+modifier_bsdf_klemsfull(sample_directory)

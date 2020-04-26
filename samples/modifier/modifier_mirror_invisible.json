@@ -1,0 +1,12 @@
+{
+    "modifier": null,
+    "type": "mirror",
+    "identifier": "Invisible_Mirror",
+    "r_reflectance": 1.0,
+    "g_reflectance": 1.0,
+    "b_reflectance": 1.0,
+    "dependencies": [],
+    "alternate_material": {
+        "type": "void"
+    }
+}

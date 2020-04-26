@@ -1,4 +1,5 @@
-from honeybee_schema.radiance.modifier import Plastic, Glass, BSDF, Glow, Light, Trans
+from honeybee_schema.radiance.modifier import Plastic, Glass, BSDF, Glow, Light, \
+    Trans, Mirror
 from copy import copy
 from pydantic import ValidationError
 import pytest
@@ -61,10 +62,18 @@ def test_glass_air_boundary():
     Glass.parse_file(file_path)
 
 
-# TODO: Unfinished json
-# def test_bsdf_klemsfull():
-#     file_path = os.path.join(target_folder, 'modifier_bsdf_klemsfull.json')
-#     BSDF.parse_file(file_path)
+def test_mirror_typical():
+    file_path = os.path.join(target_folder, 'modifier_mirror_typical.json')
+    Mirror.parse_file(file_path)
+
+def test_mirror_invisible():
+    file_path = os.path.join(target_folder, 'modifier_mirror_invisible.json')
+    Mirror.parse_file(file_path)
+
+
+def test_bsdf_klemsfull():
+    file_path = os.path.join(target_folder, 'modifier_bsdf_klemsfull.json')
+    BSDF.parse_file(file_path)
 
 
 def test_modifier_glow_white():

@@ -1,0 +1,81 @@
+{
+    "type": "RadianceSubFaceStateAbridged",
+    "modifier": "DiffusingShade",
+    "shades": [
+        {
+            "type": "Shade",
+            "identifier": "RectangleShade1",
+            "display_name": "RectangleShade1",
+            "properties": {
+                "type": "ShadePropertiesAbridged",
+                "radiance": {
+                    "type": "ShadeRadiancePropertiesAbridged",
+                    "modifier": "ShadeMat"
+                }
+            },
+            "geometry": {
+                "type": "Face3D",
+                "boundary": [
+                    [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        2.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        2.0,
+                        2.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        2.0,
+                        0.0
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Shade",
+            "identifier": "RectangleShade2",
+            "display_name": "RectangleShade2",
+            "properties": {
+                "type": "ShadePropertiesAbridged",
+                "radiance": {
+                    "type": "ShadeRadiancePropertiesAbridged",
+                    "modifier": "ShadeMat"
+                }
+            },
+            "geometry": {
+                "type": "Face3D",
+                "boundary": [
+                    [
+                        0.0,
+                        0.0,
+                        2.0
+                    ],
+                    [
+                        2.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        2.0,
+                        2.0,
+                        2.0
+                    ],
+                    [
+                        0.0,
+                        2.0,
+                        2.0
+                    ]
+                ]
+            }
+        }
+    ],
+    "modifier_direct": "DiffusingShadeDirect"
+}

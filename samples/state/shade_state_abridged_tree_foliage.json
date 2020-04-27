@@ -1,0 +1,79 @@
+{
+    "type": "RadianceShadeStateAbridged",
+    "shades": [
+        {
+            "type": "Shade",
+            "identifier": "tree_foliage1",
+            "display_name": "tree_foliage1",
+            "properties": {
+                "type": "ShadePropertiesAbridged",
+                "radiance": {
+                    "type": "ShadeRadiancePropertiesAbridged",
+                    "modifier": "TreeTrans1"
+                }
+            },
+            "geometry": {
+                "type": "Face3D",
+                "boundary": [
+                    [
+                        0.0,
+                        0.0,
+                        5.0
+                    ],
+                    [
+                        2.0,
+                        0.0,
+                        5.0
+                    ],
+                    [
+                        2.0,
+                        2.0,
+                        5.0
+                    ],
+                    [
+                        0.0,
+                        2.0,
+                        5.0
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Shade",
+            "identifier": "tree_foliage2",
+            "display_name": "tree_foliage2",
+            "properties": {
+                "type": "ShadePropertiesAbridged",
+                "radiance": {
+                    "type": "ShadeRadiancePropertiesAbridged",
+                    "modifier": "TreeTrans2"
+                }
+            },
+            "geometry": {
+                "type": "Face3D",
+                "boundary": [
+                    [
+                        0.0,
+                        0.0,
+                        5.0
+                    ],
+                    [
+                        -2.0,
+                        0.0,
+                        5.0
+                    ],
+                    [
+                        -2.0,
+                        2.0,
+                        5.0
+                    ],
+                    [
+                        0.0,
+                        2.0,
+                        5.0
+                    ]
+                ]
+            }
+        }
+    ]
+}

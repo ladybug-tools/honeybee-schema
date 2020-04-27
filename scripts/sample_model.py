@@ -25,7 +25,8 @@ from honeybee_energy.lib.constructions import generic_exterior_wall, \
     generic_double_pane
 
 from honeybee_radiance.modifierset import ModifierSet
-from honeybee_radiance.modifier.material import Glass, Plastic
+from honeybee_radiance.modifier.material import Glass, Plastic, Trans
+from honeybee_radiance.state import RadianceShadeState, RadianceSubFaceState
 
 from ladybug_geometry.geometry3d.pointvector import Point3D, Vector3D
 from ladybug_geometry.geometry3d.plane import Plane
@@ -174,42 +175,6 @@ def model_complete_multi_zone_office(directory):
     model = Model('Multi_Zone_Single_Family_House', [first_floor, second_floor, attic])
 
     dest_file = os.path.join(directory, 'model_complete_multi_zone_office.json')
-    with open(dest_file, 'w') as fp:
-        json.dump(model.to_dict(), fp, indent=4)
-
-
-def model_complete_multiroom_radiance(directory):
-    triple_pane = Glass.from_single_transmittance('Triple_Pane_0.35', 0.35)
-    first_floor = Room.from_box('First_Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
-    second_floor = Room.from_box('Second_Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
-    for face in first_floor[1:5]:
-        face.apertures_by_ratio(0.2, 0.01)
-        face.apertures[0].properties.radiance.modifier = triple_pane
-    for face in second_floor[1:5]:
-        face.apertures_by_ratio(0.2, 0.01)
-
-    pts_1 = [Point3D(0, 0, 6), Point3D(0, 10, 6), Point3D(10, 10, 6), Point3D(10, 0, 6)]
-    pts_2 = [Point3D(0, 0, 6), Point3D(5, 0, 9), Point3D(5, 10, 9), Point3D(0, 10, 6)]
-    pts_3 = [Point3D(10, 0, 6), Point3D(10, 10, 6), Point3D(5, 10, 9), Point3D(5, 0, 9)]
-    pts_4 = [Point3D(0, 0, 6), Point3D(10, 0, 6), Point3D(5, 0, 9)]
-    pts_5 = [Point3D(10, 10, 6), Point3D(0, 10, 6), Point3D(5, 10, 9)]
-    face_1 = Face('AtticFace1', Face3D(pts_1))
-    face_2 = Face('AtticFace2', Face3D(pts_2))
-    face_3 = Face('AtticFace3', Face3D(pts_3))
-    face_4 = Face('AtticFace4', Face3D(pts_4))
-    face_5 = Face('AtticFace5', Face3D(pts_5))
-    attic = Room('Attic', [face_1, face_2, face_3, face_4, face_5], 0.01, 1)
-
-    mod_set = ModifierSet('Attic_Modifier_Set')
-    polyiso = Plastic.from_single_reflectance('PolyIso', 0.45)
-    mod_set.roof_ceiling_set.exterior_modifier = polyiso
-    attic.properties.radiance.modifier_set = mod_set
-
-    Room.solve_adjacency([first_floor, second_floor, attic], 0.01)
-
-    model = Model('Multi_Room_Radiance_House', [first_floor, second_floor, attic])
-
-    dest_file = os.path.join(directory, 'model_complete_multiroom_radiance.json')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -450,6 +415,124 @@ def model_energy_properties_office(directory):
         json.dump(model_dict['properties']['energy'], fp, indent=4)
 
 
+def model_complete_multiroom_radiance(directory):
+    triple_pane = Glass.from_single_transmittance('Triple_Pane_0.35', 0.35)
+    first_floor = Room.from_box('First_Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
+    second_floor = Room.from_box('Second_Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
+    for face in first_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+        face.apertures[0].properties.radiance.modifier = triple_pane
+    for face in second_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+
+    pts_1 = [Point3D(0, 0, 6), Point3D(0, 10, 6), Point3D(10, 10, 6), Point3D(10, 0, 6)]
+    pts_2 = [Point3D(0, 0, 6), Point3D(5, 0, 9), Point3D(5, 10, 9), Point3D(0, 10, 6)]
+    pts_3 = [Point3D(10, 0, 6), Point3D(10, 10, 6), Point3D(5, 10, 9), Point3D(5, 0, 9)]
+    pts_4 = [Point3D(0, 0, 6), Point3D(10, 0, 6), Point3D(5, 0, 9)]
+    pts_5 = [Point3D(10, 10, 6), Point3D(0, 10, 6), Point3D(5, 10, 9)]
+    face_1 = Face('AtticFace1', Face3D(pts_1))
+    face_2 = Face('AtticFace2', Face3D(pts_2))
+    face_3 = Face('AtticFace3', Face3D(pts_3))
+    face_4 = Face('AtticFace4', Face3D(pts_4))
+    face_5 = Face('AtticFace5', Face3D(pts_5))
+    attic = Room('Attic', [face_1, face_2, face_3, face_4, face_5], 0.01, 1)
+
+    mod_set = ModifierSet('Attic_Modifier_Set')
+    polyiso = Plastic.from_single_reflectance('PolyIso', 0.45)
+    mod_set.roof_ceiling_set.exterior_modifier = polyiso
+    attic.properties.radiance.modifier_set = mod_set
+
+    Room.solve_adjacency([first_floor, second_floor, attic], 0.01)
+
+    model = Model('Multi_Room_Radiance_House', [first_floor, second_floor, attic])
+
+    dest_file = os.path.join(directory, 'model_complete_multiroom_radiance.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(), fp, indent=4)
+
+
+def model_radiance_dynamic_states(directory):
+    room = Room.from_box('Tiny_House_Zone', 5, 10, 3)
+    garage = Room.from_box('Tiny_Garage', 5, 10, 3, origin=Point3D(5, 0, 0))
+
+    south_face = room[3]
+    south_face.apertures_by_ratio(0.5, 0.01)
+    shd1 = Shade.from_vertices(
+        'outdoor_awning', [[0, 0, 2], [5, 0, 2], [5, 2, 2], [0, 2, 2]])
+
+    ecglass1 = Glass.from_single_transmittance('ElectrochromicState1', 0.4)
+    ecglass2 = Glass.from_single_transmittance('ElectrochromicState2', 0.27)
+    ecglass3 = Glass.from_single_transmittance('ElectrochromicState3', 0.14)
+    ecglass4 = Glass.from_single_transmittance('ElectrochromicState4', 0.01)
+
+    tint1 = RadianceSubFaceState(ecglass1)
+    tint2 = RadianceSubFaceState(ecglass2)
+    tint3 = RadianceSubFaceState(ecglass3, [shd1])
+    tint4 = RadianceSubFaceState(ecglass4, [shd1.duplicate()])
+    states = (tint1, tint2, tint3, tint4)
+    south_face.apertures[0].properties.radiance.dynamic_group_identifier = \
+        'ElectrochromicWindow'
+    south_face.apertures[0].properties.radiance.states = states
+
+    shd2 = Shade.from_vertices(
+        'indoor_light_shelf', [[0, 0, 2], [-1, 0, 2], [-1, 2, 2], [0, 2, 2]])
+    ref_1 = Plastic.from_single_reflectance('outdoor_light_shelf_0.5', 0.5)
+    ref_2 = Plastic.from_single_reflectance('indoor_light_shelf_0.70', 0.7)
+    light_shelf_1 = RadianceShadeState(ref_1)
+    light_shelf_2 = RadianceShadeState(ref_2)
+    shelf_states = (light_shelf_1, light_shelf_2)
+    shd2.properties.radiance.dynamic_group_identifier = 'DynamicLightShelf'
+    shd2.properties.radiance.states = shelf_states
+    room.add_indoor_shade(shd2)
+
+    north_face = room[1]
+    north_face.overhang(0.25, indoor=False)
+    door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1),
+                    Point3D(1, 10, 2.5), Point3D(2, 10, 2.5)]
+    door = Door('Front_Door', Face3D(door_verts))
+    north_face.add_door(door)
+
+    aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1),
+                        Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
+    aperture = Aperture('Front_Aperture', Face3D(aperture_verts))
+    triple_pane = Glass.from_single_transmittance('custom_triple_pane_0.3', 0.3)
+    aperture.properties.radiance.modifier = triple_pane
+    north_face.add_aperture(aperture)
+
+    tree_canopy_geo = Face3D.from_regular_polygon(
+        6, 2, Plane(Vector3D(0, 0, 1), Point3D(5, -3, 4)))
+    tree_canopy = Shade('Tree_Canopy', tree_canopy_geo)
+    sum_tree_trans = Trans.from_single_reflectance('SummerLeaves', 0.3, 0.0, 0.1, 0.15, 0.15)
+    win_tree_trans = Trans.from_single_reflectance('WinterLeaves', 0.1, 0.0, 0.1, 0.1, 0.6)
+    summer = RadianceShadeState(sum_tree_trans)
+    winter = RadianceShadeState(win_tree_trans)
+    tree_canopy.properties.radiance.dynamic_group_identifier = 'DeciduousTree'
+    tree_canopy.properties.radiance.states = (summer, winter)
+
+    ground_geo = Face3D.from_rectangle(10, 10, Plane(o=Point3D(0, -10, 0)))
+    ground = Shade('Ground', ground_geo)
+    grass = Plastic.from_single_reflectance('grass', 0.3)
+    snow = Plastic.from_single_reflectance('snow', 0.7)
+    summer_ground = RadianceShadeState(grass)
+    winter_ground = RadianceShadeState(snow)
+    ground.properties.radiance.dynamic_group_identifier = 'SeasonalGround'
+    ground.properties.radiance.states = (summer_ground, winter_ground)
+
+    east_face = room[2]
+    east_face.apertures_by_ratio(0.1, 0.01)
+    west_face = garage[4]
+    west_face.apertures_by_ratio(0.1, 0.01)
+    Room.solve_adjacency([room, garage], 0.01)
+
+    model = Model('Tiny_House', [room, garage], orphaned_shades=[ground, tree_canopy])
+
+    model_dict = model.to_dict()
+
+    dest_file = os.path.join(directory, 'model_radiance_dynamic_states.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model_dict, fp, indent=4)
+
+
 def model_5vertex_sub_faces(directory):
     room = Room.from_box('TinyHouseZone', 5, 10, 3)
     north_face = room[1]
@@ -470,6 +553,9 @@ def model_5vertex_sub_faces(directory):
         json.dump(model_dict, fp, indent=4)
 
 
+
+
+
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
 sample_directory = os.path.join(master_dir, 'samples', 'model')
@@ -480,11 +566,13 @@ model_complete_multi_zone_office(sample_directory)
 model_complete_patient_room(sample_directory)
 model_complete_office_floor(sample_directory)
 
-model_complete_multiroom_radiance(sample_directory)
-
 model_energy_shoe_box(sample_directory)
 model_energy_detailed_loads(sample_directory)
 model_energy_fixed_interval(sample_directory)
 model_energy_no_program(sample_directory)
 model_energy_properties_office(sample_directory)
 model_5vertex_sub_faces(sample_directory)
+
+
+model_complete_multiroom_radiance(sample_directory)
+model_radiance_dynamic_states(sample_directory)

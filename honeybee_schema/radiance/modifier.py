@@ -267,9 +267,9 @@ class BSDF(ModifierBase):
                     'the up vector (default: None).'
     )
 
-    bsdf_data: bytes = Field(
+    bsdf_data: str = Field(
         ...,
-        description='BSDF xml file data as bytes.'
+        description='BSDF xml file name.'
     )
 
     front_diffuse_reflectance: List[float] = Field(

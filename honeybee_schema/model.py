@@ -9,10 +9,21 @@ from .energy.properties import ShadeEnergyPropertiesAbridged, \
     DoorEnergyPropertiesAbridged, ApertureEnergyPropertiesAbridged, \
     FaceEnergyPropertiesAbridged, RoomEnergyPropertiesAbridged, \
     ModelEnergyProperties
-from .radiance.properties import ShadeRadiancePropertiesAbridged, \
+
+# TODO: This is temporary import to see if absolute imports fixes circular error
+import honeybee_schema.radiance.properties as ppp
+ShadeRadiancePropertiesAbridged, \
     DoorRadiancePropertiesAbridged, ApertureRadiancePropertiesAbridged, \
     FaceRadiancePropertiesAbridged, RoomRadiancePropertiesAbridged, \
-    ModelRadianceProperties
+    ModelRadianceProperties = ppp.ShadeRadiancePropertiesAbridged, \
+    ppp.DoorRadiancePropertiesAbridged, ppp.ApertureRadiancePropertiesAbridged, \
+    ppp.FaceRadiancePropertiesAbridged, ppp.RoomRadiancePropertiesAbridged, \
+    ppp.ModelRadianceProperties
+
+# from .radiance.properties import ShadeRadiancePropertiesAbridged, \
+#     DoorRadiancePropertiesAbridged, ApertureRadiancePropertiesAbridged, \
+#     FaceRadiancePropertiesAbridged, RoomRadiancePropertiesAbridged, \
+#     ModelRadianceProperties
 
 
 class Plane(NoExtraBaseModel):

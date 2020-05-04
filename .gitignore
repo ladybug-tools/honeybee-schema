@@ -11,3 +11,5 @@ out.txt
 docs/*.json
 .eggs
 .pytest_cache
+build/
+*.egg-info*

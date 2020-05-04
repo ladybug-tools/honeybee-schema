@@ -553,6 +553,34 @@ def model_5vertex_sub_faces(directory):
         json.dump(model_dict, fp, indent=4)
 
 
+def model_5vertex_sub_faces_interior(directory):
+    room1 = Room.from_box('TinyHouseZone1', 5, 10, 3)
+    north_face = room1[1]
+    aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1), Point3D(2.5, 10, 2.5),
+                      Point3D(3.5, 10, 2.9), Point3D(4.5, 10, 2.5)]
+    aperture = Aperture('FrontAperture', Face3D(aperture_verts))
+    north_face.add_aperture(aperture)
+    door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1), Point3D(1, 10, 2.5),
+                  Point3D(1.5, 10, 2.8), Point3D(2, 10, 2.5)]
+    door = Door('FrontDoor', Face3D(door_verts))
+    north_face.add_door(door)
+
+    room2 = Room.from_box('TinyHouseZone2', 5, 10, 3, origin=Point3D(0, 10, 0))
+    south_face = room2[3]
+    s_aperture = Aperture('BackAperture', Face3D(aperture_verts))
+    south_face.add_aperture(s_aperture)
+    s_door = Door('BackDoor', Face3D(door_verts))
+    south_face.add_door(s_door)
+
+    Room.solve_adjacency([room1, room2], 0.01)
+    
+    model = Model('TinyHouse', [room1, room2])
+    model_dict = model.to_dict()
+
+    dest_file = os.path.join(directory, 'model_5vertex_sub_faces_interior.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model_dict, fp, indent=4)
+
 
 
 
@@ -572,7 +600,7 @@ model_energy_fixed_interval(sample_directory)
 model_energy_no_program(sample_directory)
 model_energy_properties_office(sample_directory)
 model_5vertex_sub_faces(sample_directory)
-
+model_5vertex_sub_faces_interior(sample_directory)
 
 model_complete_multiroom_radiance(sample_directory)
 model_radiance_dynamic_states(sample_directory)

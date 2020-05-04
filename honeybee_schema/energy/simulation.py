@@ -99,7 +99,7 @@ class ShadowCalculation(NoExtraBaseModel):
     type: constr(regex='^ShadowCalculation$') = 'ShadowCalculation'
 
     solar_distribution: SolarDistribution = \
-        SolarDistribution.full_interior_and_exterior_with_reflections
+        SolarDistribution.full_exterior_with_reflection
 
     calculation_frequency: int = Field(
         30,

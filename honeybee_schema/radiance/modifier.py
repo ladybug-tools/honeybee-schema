@@ -22,8 +22,8 @@ class Mirror(ModifierBase):
 
     type: constr(regex='^mirror$') = 'mirror'
 
-    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
-        default=None,
+    modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
+        default=Void(),
         description='Material modifier (default: Void).'
         )
 
@@ -62,11 +62,11 @@ class Mirror(ModifierBase):
     alternate_material: _REFERENCE_UNION_MODIFIERS = Field(
         default=None,
         description='An optional material that may be used like the illum type to '
-            'specify a different material to be used for shading non-source rays. '
-            'If None, this will keep the alternat_material as mirror. If this alternate '
-            'material is given as Void, then the mirror surface will be invisible. '
-            'Using Void is only appropriate if the surface hides other (more '
-            'detailed) geometry with the same overall reflectance (default: None).'
+        'specify a different material to be used for shading non-source rays. '
+        'If None, this will keep the alternat_material as mirror. If this alternate '
+        'material is given as Void, then the mirror surface will be invisible. '
+        'Using Void is only appropriate if the surface hides other (more '
+        'detailed) geometry with the same overall reflectance (default: None).'
     )
 
 
@@ -75,8 +75,8 @@ class Plastic(ModifierBase):
 
     type: constr(regex='^plastic$') = 'plastic'
 
-    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
-        default=None,
+    modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
+        default=Void(),
         description='Material modifier (default: Void).'
         )
 
@@ -173,8 +173,8 @@ class Glass(ModifierBase):
 
     type: constr(regex='^glass$') = 'glass'
 
-    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
-        default=None,
+    modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
+        default=Void(),
         description='Material modifier (default: Void).'
         )
 
@@ -223,8 +223,8 @@ class BSDF(ModifierBase):
 
     type: constr(regex='^BSDF$') = 'BSDF'
 
-    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
-        default=None,
+    modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
+        default=Void(),
         description='Material modifier (default: Void).'
         )
 
@@ -323,8 +323,8 @@ class Light(ModifierBase):
 
     type: constr(regex='^light$') = 'light'
 
-    modifier:  _REFERENCE_UNION_MODIFIERS = Field(
-        default=None,
+    modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
+        default=Void(),
         description='Material modifier (default: Void).'
         )
 

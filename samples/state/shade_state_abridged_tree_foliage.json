@@ -2,16 +2,9 @@
     "type": "RadianceShadeStateAbridged",
     "shades": [
         {
-            "type": "Shade",
+            "type": "StateGeometryAbridged",
             "identifier": "tree_foliage1",
             "display_name": "tree_foliage1",
-            "properties": {
-                "type": "ShadePropertiesAbridged",
-                "radiance": {
-                    "type": "ShadeRadiancePropertiesAbridged",
-                    "modifier": "TreeTrans1"
-                }
-            },
             "geometry": {
                 "type": "Face3D",
                 "boundary": [
@@ -35,20 +28,32 @@
                         2.0,
                         5.0
                     ]
-                ]
-            }
+                ],
+                "plane": {
+                    "type": "Plane",
+                    "n": [
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "o": [
+                        0.0,
+                        0.0,
+                        5.0
+                    ],
+                    "x": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ]
+                }
+            },
+            "modifier": "TreeTrans1"
         },
         {
-            "type": "Shade",
+            "type": "StateGeometryAbridged",
             "identifier": "tree_foliage2",
             "display_name": "tree_foliage2",
-            "properties": {
-                "type": "ShadePropertiesAbridged",
-                "radiance": {
-                    "type": "ShadeRadiancePropertiesAbridged",
-                    "modifier": "TreeTrans2"
-                }
-            },
             "geometry": {
                 "type": "Face3D",
                 "boundary": [
@@ -72,8 +77,27 @@
                         2.0,
                         5.0
                     ]
-                ]
-            }
+                ],
+                "plane": {
+                    "type": "Plane",
+                    "n": [
+                        0.0,
+                        0.0,
+                        -1.0
+                    ],
+                    "o": [
+                        0.0,
+                        0.0,
+                        5.0
+                    ],
+                    "x": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ]
+                }
+            },
+            "modifier": "TreeTrans2"
         }
     ]
 }

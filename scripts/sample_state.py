@@ -1,7 +1,8 @@
 # coding=utf-8
 from __future__ import division
 
-from honeybee_radiance.state import RadianceShadeState, RadianceSubFaceState
+from honeybee_radiance.dynamic import RadianceShadeState, RadianceSubFaceState, \
+    StateGeometry
 from honeybee_radiance.modifier.material import Plastic, Glass, Trans, BSDF
 
 from honeybee.shade import Shade
@@ -23,14 +24,14 @@ def shade_state_abridged_snow(directory):
 
 
 def shade_state_abridged_tree_foliage(directory):
-    shd1 = Shade.from_vertices(
+    shd1 = StateGeometry.from_vertices(
         'tree_foliage1', [[0, 0, 5], [2, 0, 5], [2, 2, 5], [0, 2, 5]])
-    shd2 = Shade.from_vertices(
+    shd2 = StateGeometry.from_vertices(
         'tree_foliage2', [[0, 0, 5], [-2, 0, 5], [-2, 2, 5], [0, 2, 5]])
     trans1 = Glass.from_single_transmittance('TreeTrans1', 0.5)
     trans2 = Glass.from_single_transmittance('TreeTrans2', 0.27)
-    shd1.properties.radiance.modifier = trans1
-    shd2.properties.radiance.modifier = trans2
+    shd1.modifier = trans1
+    shd2.modifier = trans2
     tr4 = RadianceShadeState(shades=[shd1, shd2])
 
     dest_file = os.path.join(directory, 'shade_state_abridged_tree_foliage.json')
@@ -53,10 +54,10 @@ def aperture_state_abridged_shades(directory):
     mod_shd = Plastic('ShadeMat', 0.65, 0.65, 0.65)
     pts_1 = (Point3D(0, 0, 0), Point3D(2, 0, 0), Point3D(2, 2, 0), Point3D(0, 2, 0))
     pts_2 = (Point3D(0, 0, 2), Point3D(2, 0, 0), Point3D(2, 2, 2), Point3D(0, 2, 2))
-    shade1 = Shade('RectangleShade1', Face3D(pts_1))
-    shade2 = Shade('RectangleShade2', Face3D(pts_2))
-    shade1.properties.radiance.modifier = mod_shd
-    shade2.properties.radiance.modifier = mod_shd
+    shade1 = StateGeometry('RectangleShade1', Face3D(pts_1))
+    shade2 = StateGeometry('RectangleShade2', Face3D(pts_2))
+    shade1.modifier = mod_shd
+    shade2.modifier = mod_shd
     rad_state = RadianceSubFaceState(mod, [shade1, shade2])
     rad_state.modifier_direct = mod_dir
 

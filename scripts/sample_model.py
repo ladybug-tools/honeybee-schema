@@ -26,7 +26,8 @@ from honeybee_energy.lib.constructions import generic_exterior_wall, \
 
 from honeybee_radiance.modifierset import ModifierSet
 from honeybee_radiance.modifier.material import Glass, Plastic, Trans
-from honeybee_radiance.state import RadianceShadeState, RadianceSubFaceState
+from honeybee_radiance.dynamic import RadianceShadeState, RadianceSubFaceState, \
+    StateGeometry
 
 from ladybug_geometry.geometry3d.pointvector import Point3D, Vector3D
 from ladybug_geometry.geometry3d.plane import Plane
@@ -457,7 +458,7 @@ def model_radiance_dynamic_states(directory):
 
     south_face = room[3]
     south_face.apertures_by_ratio(0.5, 0.01)
-    shd1 = Shade.from_vertices(
+    shd1 = StateGeometry.from_vertices(
         'outdoor_awning', [[0, 0, 2], [5, 0, 2], [5, 2, 2], [0, 2, 2]])
 
     ecglass1 = Glass.from_single_transmittance('ElectrochromicState1', 0.4)

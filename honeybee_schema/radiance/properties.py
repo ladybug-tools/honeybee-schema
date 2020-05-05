@@ -6,13 +6,6 @@ from .modifier import _REFERENCE_UNION_MODIFIERS
 from .modifierset import ModifierSet, ModifierSetAbridged
 from .._base import NoExtraBaseModel
 
-# TODO: Attempt at absolute import to fix circular import errors
-# from .state import RadianceSubFaceStateAbridged, RadianceShadeStateAbridged
-import honeybee_schema.radiance.state
-RadianceShadeStateAbridged = honeybee_schema.radiance.state.RadianceShadeStateAbridged
-RadianceSubSurfaceStateAbridged = \
-    honeybee_schema.radiance.state.RadianceSubSurfaceStateAbridged
-
 
 class _PropertiesBaseAbridged(NoExtraBaseModel):
     """Base class of Abridged Radiance Properties."""
@@ -33,12 +26,21 @@ class _PropertiesBaseAbridged(NoExtraBaseModel):
 class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Aperture Abridged."""
 
+    try:  # see if the module has already been imported
+        RadianceSubFaceStateAbridged
+    except NameError:
+        # import the module here (instead of at top) to avoid a circular import
+        from .state import RadianceSubFaceStateAbridged
+
     type: constr(regex='^ApertureRadiancePropertiesAbridged$') = \
         'ApertureRadiancePropertiesAbridged'
 
     dynamic_group_identifier: str = Field(
         default=None,
-        description="An optional dynamic group identifier (default: None)."
+        description="An optional string to note the dynamic group ' \
+            'to which the Aperture is a part of. Apertures sharing the same ' \
+            'dynamic_group_identifier will have their states change in unison. ' \
+            'If None, the Aperture is assumed to be static. (default: None)."
     )
 
     states: List[RadianceSubFaceStateAbridged] = Field(
@@ -50,12 +52,21 @@ class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 class DoorRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Door Abridged."""
 
+    try:  # see if the module has already been imported
+        RadianceSubFaceStateAbridged
+    except NameError:
+        # import the module here (instead of at top) to avoid a circular import
+        from .state import RadianceSubFaceStateAbridged
+
     type: constr(regex='^DoorRadiancePropertiesAbridged$') = \
         'DoorRadiancePropertiesAbridged'
 
     dynamic_group_identifier: str = Field(
         default=None,
-        description="An optional dynamic group identifier (default: None)."
+        description="An optional string to note the dynamic group ' \
+            'to which the Doors is a part of. Doors sharing the same ' \
+            'dynamic_group_identifier will have their states change in unison. ' \
+            'If None, the Door is assumed to be static. (default: None)."
     )
 
     states: List[RadianceSubFaceStateAbridged] = Field(
@@ -74,12 +85,21 @@ class FaceRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 class ShadeRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Shade Abridged."""
 
+    try:  # see if the module has already been imported
+        RadianceShadeStateAbridged
+    except NameError:
+        # import the module here (instead of at top) to avoid a circular import
+        from .state import RadianceShadeStateAbridged
+
     type: constr(regex='^ShadeRadiancePropertiesAbridged$') = \
         'ShadeRadiancePropertiesAbridged'
 
     dynamic_group_identifier: str = Field(
         default=None,
-        description="An optional dynamic group identifier (default: None)."
+        description="An optional string to note the dynamic group ' \
+            'to which the Shade is a part of. Shades sharing the same ' \
+            'dynamic_group_identifier will have their states change in unison. ' \
+            'If None, the Shade is assumed to be static. (default: None)."
     )
 
     states: List[RadianceShadeStateAbridged] = Field(
@@ -109,8 +129,9 @@ class ModelRadianceProperties(NoExtraBaseModel):
     modifiers: List[_REFERENCE_UNION_MODIFIERS] = Field(
         default=[],
         description='A list of all unique modifiers in the model. '
-                    'This includes modifiers across all Faces, Apertures, Doors, Shades, '
-                    'Room ModifierSets, and the global_modifier_set. (default: []).'
+                    'This includes modifiers across all Faces, Apertures, Doors, '
+                    'Shades, Room ModifierSets, and the global_modifier_set '
+                    '(default: []).'
         )
 
     modifier_sets: List[Union[ModifierSet, ModifierSetAbridged]] = Field(
@@ -121,8 +142,7 @@ class ModelRadianceProperties(NoExtraBaseModel):
 
     global_modifier_set: str = Field(
         default=None,
-        description='Identifier of a ModifierSet or ModifierSetAbridged object to be used as '
-                    'as a default object for all unassigned objects in the Model '
-                    '(default: None).'
-    )
-
+        description='Identifier of a ModifierSet or ModifierSetAbridged object to be '
+                    'used as as a default object for all unassigned objects in the '
+                    'Model (default: None).'
+        )

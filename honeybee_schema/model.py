@@ -5,25 +5,11 @@ from enum import Enum
 
 from ._base import IDdBaseModel, NoExtraBaseModel
 from .boundarycondition import Outdoors, Surface, Ground, Adiabatic
+
 from .energy.properties import ShadeEnergyPropertiesAbridged, \
     DoorEnergyPropertiesAbridged, ApertureEnergyPropertiesAbridged, \
     FaceEnergyPropertiesAbridged, RoomEnergyPropertiesAbridged, \
     ModelEnergyProperties
-
-# TODO: This is temporary import to see if absolute imports fixes circular error
-import honeybee_schema.radiance.properties as ppp
-ShadeRadiancePropertiesAbridged, \
-    DoorRadiancePropertiesAbridged, ApertureRadiancePropertiesAbridged, \
-    FaceRadiancePropertiesAbridged, RoomRadiancePropertiesAbridged, \
-    ModelRadianceProperties = ppp.ShadeRadiancePropertiesAbridged, \
-    ppp.DoorRadiancePropertiesAbridged, ppp.ApertureRadiancePropertiesAbridged, \
-    ppp.FaceRadiancePropertiesAbridged, ppp.RoomRadiancePropertiesAbridged, \
-    ppp.ModelRadianceProperties
-
-# from .radiance.properties import ShadeRadiancePropertiesAbridged, \
-#     DoorRadiancePropertiesAbridged, ApertureRadiancePropertiesAbridged, \
-#     FaceRadiancePropertiesAbridged, RoomRadiancePropertiesAbridged, \
-#     ModelRadianceProperties
 
 
 class Plane(NoExtraBaseModel):
@@ -82,6 +68,12 @@ class Face3D(NoExtraBaseModel):
 
 class ShadePropertiesAbridged(BaseModel):
 
+    try:  # see if the module has already been imported
+        ShadeRadiancePropertiesAbridged
+    except NameError:
+        # import the module here (instead of at top) to avoid a circular import
+        from .radiance.properties import ShadeRadiancePropertiesAbridged
+
     type: constr(regex='^ShadePropertiesAbridged$') = 'ShadePropertiesAbridged'
 
     energy: ShadeEnergyPropertiesAbridged = Field(
@@ -110,6 +102,12 @@ class Shade(IDdBaseModel):
 
 
 class DoorPropertiesAbridged(BaseModel):
+
+    try:  # see if the module has already been imported
+        DoorRadiancePropertiesAbridged
+    except NameError:
+        # import the module here (instead of at top) to avoid a circular import
+        from .radiance.properties import DoorRadiancePropertiesAbridged
 
     type: constr(regex='^DoorPropertiesAbridged$') = 'DoorPropertiesAbridged'
 
@@ -166,6 +164,12 @@ class Door(IDdBaseModel):
 
 class AperturePropertiesAbridged(BaseModel):
 
+    try:  # see if the module has already been imported
+        ApertureRadiancePropertiesAbridged
+    except NameError:
+        # import the module here (instead of at top) to avoid a circular import
+        from .radiance.properties import ApertureRadiancePropertiesAbridged
+
     type: constr(regex='^AperturePropertiesAbridged$') = 'AperturePropertiesAbridged'
 
     energy: ApertureEnergyPropertiesAbridged = Field(
@@ -220,6 +224,12 @@ class Aperture(IDdBaseModel):
 
 
 class FacePropertiesAbridged(BaseModel):
+
+    try:  # see if the module has already been imported
+        FaceRadiancePropertiesAbridged
+    except NameError:
+        # import the module here (instead of at top) to avoid a circular import
+        from .radiance.properties import FaceRadiancePropertiesAbridged
 
     type: constr(regex='^FacePropertiesAbridged$') = 'FacePropertiesAbridged'
 
@@ -301,6 +311,12 @@ class Face(IDdBaseModel):
 
 class RoomPropertiesAbridged(BaseModel):
 
+    try:  # see if the module has already been imported
+        RoomRadiancePropertiesAbridged
+    except NameError:
+        # import the module here (instead of at top) to avoid a circular import
+        from .radiance.properties import RoomRadiancePropertiesAbridged
+
     type: constr(regex='^RoomPropertiesAbridged$') = 'RoomPropertiesAbridged'
 
     energy: RoomEnergyPropertiesAbridged = Field(
@@ -359,6 +375,12 @@ class Units(str, Enum):
 
 
 class ModelProperties(BaseModel):
+
+    try:  # see if the module has already been imported
+        ModelRadianceProperties
+    except NameError:
+        # import the module here (instead of at top) to avoid a circular import
+        from .radiance.properties import ModelRadianceProperties
 
     type: constr(regex='^ModelProperties$') = 'ModelProperties'
 
@@ -445,7 +467,3 @@ class Model(IDdBaseModel):
         description='Extension properties for particular simulation engines '
             '(Radiance, EnergyPlus).'
     )
-
-
-if __name__ == '__main__':
-    print(Model.schema_json(indent=2))

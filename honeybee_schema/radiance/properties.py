@@ -6,6 +6,9 @@ from .modifier import _REFERENCE_UNION_MODIFIERS
 from .modifierset import ModifierSet, ModifierSetAbridged
 from .._base import NoExtraBaseModel
 
+from honeybee_schema.radiance.state import RadianceShadeStateAbridged, \
+    RadianceSubFaceStateAbridged
+
 
 class _PropertiesBaseAbridged(NoExtraBaseModel):
     """Base class of Abridged Radiance Properties."""
@@ -26,12 +29,6 @@ class _PropertiesBaseAbridged(NoExtraBaseModel):
 class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Aperture Abridged."""
 
-    try:  # see if the module has already been imported
-        RadianceSubFaceStateAbridged
-    except NameError:
-        # import the module here (instead of at top) to avoid a circular import
-        from .state import RadianceSubFaceStateAbridged
-
     type: constr(regex='^ApertureRadiancePropertiesAbridged$') = \
         'ApertureRadiancePropertiesAbridged'
 
@@ -51,12 +48,6 @@ class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 
 class DoorRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Door Abridged."""
-
-    try:  # see if the module has already been imported
-        RadianceSubFaceStateAbridged
-    except NameError:
-        # import the module here (instead of at top) to avoid a circular import
-        from .state import RadianceSubFaceStateAbridged
 
     type: constr(regex='^DoorRadiancePropertiesAbridged$') = \
         'DoorRadiancePropertiesAbridged'
@@ -84,12 +75,6 @@ class FaceRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 
 class ShadeRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Shade Abridged."""
-
-    try:  # see if the module has already been imported
-        RadianceShadeStateAbridged
-    except NameError:
-        # import the module here (instead of at top) to avoid a circular import
-        from .state import RadianceShadeStateAbridged
 
     type: constr(regex='^ShadeRadiancePropertiesAbridged$') = \
         'ShadeRadiancePropertiesAbridged'

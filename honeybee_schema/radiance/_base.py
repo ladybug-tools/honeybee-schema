@@ -1,7 +1,7 @@
 """Base class used by radiance schema objects."""
-from pydantic import Field, validator, BaseModel
+from pydantic import Field, validator
 import re
-from .._base import NoExtraBaseModel
+from .._base import NoExtraBaseModel, BaseModel
 
 
 class IDdRadianceBaseModel(NoExtraBaseModel):

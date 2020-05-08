@@ -7,7 +7,6 @@
         "type": "ModelProperties",
         "energy": {
             "type": "ModelEnergyProperties",
-            "terrain_type": "City",
             "construction_sets": [
                 {
                     "type": "ConstructionSetAbridged",
@@ -52,6 +51,13 @@
             "global_construction_set": "Default Generic Construction Set",
             "constructions": [
                 {
+                    "type": "OpaqueConstructionAbridged",
+                    "identifier": "Generic Interior Door",
+                    "layers": [
+                        "Generic 25mm Wood"
+                    ]
+                },
+                {
                     "type": "WindowConstructionAbridged",
                     "identifier": "Generic Single Pane",
                     "layers": [
@@ -59,12 +65,55 @@
                     ]
                 },
                 {
+                    "type": "ShadeConstruction",
+                    "identifier": "Generic Shade",
+                    "solar_reflectance": 0.35,
+                    "visible_reflectance": 0.35,
+                    "is_specular": false
+                },
+                {
                     "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Exterior Door",
+                    "identifier": "Generic Interior Ceiling",
+                    "layers": [
+                        "Generic LW Concrete",
+                        "Generic Ceiling Air Gap",
+                        "Generic Acoustic Tile"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "identifier": "Generic Interior Wall",
+                    "layers": [
+                        "Generic Gypsum Board",
+                        "Generic Wall Air Gap",
+                        "Generic Gypsum Board"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "identifier": "Generic Exposed Floor",
                     "layers": [
                         "Generic Painted Metal",
-                        "Generic 25mm Insulation",
-                        "Generic Painted Metal"
+                        "Generic Ceiling Air Gap",
+                        "Generic 50mm Insulation",
+                        "Generic LW Concrete"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "identifier": "Generic Interior Floor",
+                    "layers": [
+                        "Generic Acoustic Tile",
+                        "Generic Ceiling Air Gap",
+                        "Generic LW Concrete"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "identifier": "Generic Ground Slab",
+                    "layers": [
+                        "Generic 50mm Insulation",
+                        "Generic HW Concrete"
                     ]
                 },
                 {
@@ -80,16 +129,6 @@
                 },
                 {
                     "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Exposed Floor",
-                    "layers": [
-                        "Generic Painted Metal",
-                        "Generic Ceiling Air Gap",
-                        "Generic 50mm Insulation",
-                        "Generic LW Concrete"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
                     "identifier": "Generic Exterior Wall",
                     "layers": [
                         "Generic Brick",
@@ -97,22 +136,6 @@
                         "Generic 50mm Insulation",
                         "Generic Wall Air Gap",
                         "Generic Gypsum Board"
-                    ]
-                },
-                {
-                    "type": "ShadeConstruction",
-                    "identifier": "Generic Shade",
-                    "solar_reflectance": 0.35,
-                    "visible_reflectance": 0.35,
-                    "is_specular": false
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Interior Floor",
-                    "layers": [
-                        "Generic Acoustic Tile",
-                        "Generic Ceiling Air Gap",
-                        "Generic LW Concrete"
                     ]
                 },
                 {
@@ -126,13 +149,10 @@
                     ]
                 },
                 {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Interior Wall",
-                    "layers": [
-                        "Generic Gypsum Board",
-                        "Generic Wall Air Gap",
-                        "Generic Gypsum Board"
-                    ]
+                    "type": "AirBoundaryConstructionAbridged",
+                    "identifier": "Generic Air Boundary",
+                    "air_mixing_per_area": 0.1,
+                    "air_mixing_schedule": "Always On"
                 },
                 {
                     "type": "OpaqueConstructionAbridged",
@@ -140,15 +160,6 @@
                     "layers": [
                         "Generic 50mm Insulation",
                         "Generic HW Concrete",
-                        "Generic Ceiling Air Gap",
-                        "Generic Acoustic Tile"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Interior Ceiling",
-                    "layers": [
-                        "Generic LW Concrete",
                         "Generic Ceiling Air Gap",
                         "Generic Acoustic Tile"
                     ]
@@ -163,39 +174,117 @@
                     ]
                 },
                 {
-                    "type": "AirBoundaryConstructionAbridged",
-                    "identifier": "Generic Air Boundary",
-                    "air_mixing_per_area": 0.1,
-                    "air_mixing_schedule": "Always On"
-                },
-                {
                     "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Interior Door",
+                    "identifier": "Generic Exterior Door",
                     "layers": [
-                        "Generic 25mm Wood"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Ground Slab",
-                    "layers": [
-                        "Generic 50mm Insulation",
-                        "Generic HW Concrete"
+                        "Generic Painted Metal",
+                        "Generic 25mm Insulation",
+                        "Generic Painted Metal"
                     ]
                 }
             ],
             "materials": [
                 {
                     "type": "EnergyMaterial",
-                    "identifier": "Generic LW Concrete",
+                    "identifier": "Generic Roof Membrane",
                     "roughness": "MediumRough",
-                    "thickness": 0.1,
-                    "conductivity": 0.53,
-                    "density": 1280.0,
-                    "specific_heat": 840.0,
+                    "thickness": 0.01,
+                    "conductivity": 0.16,
+                    "density": 1120.0,
+                    "specific_heat": 1460.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.65,
+                    "visible_absorptance": 0.65
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Generic Acoustic Tile",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.02,
+                    "conductivity": 0.06,
+                    "density": 368.0,
+                    "specific_heat": 590.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.2,
+                    "visible_absorptance": 0.2
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Generic 25mm Wood",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.0254,
+                    "conductivity": 0.15,
+                    "density": 608.0,
+                    "specific_heat": 1630.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.5,
+                    "visible_absorptance": 0.5
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Generic HW Concrete",
+                    "roughness": "MediumRough",
+                    "thickness": 0.2,
+                    "conductivity": 1.95,
+                    "density": 2240.0,
+                    "specific_heat": 900.0,
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.8,
                     "visible_absorptance": 0.8
+                },
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "Generic Window Air Gap",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Generic Gypsum Board",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.0127,
+                    "conductivity": 0.16,
+                    "density": 800.0,
+                    "specific_heat": 1090.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.5,
+                    "visible_absorptance": 0.5
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Generic Wall Air Gap",
+                    "roughness": "Smooth",
+                    "thickness": 0.1,
+                    "conductivity": 0.667,
+                    "density": 1.28,
+                    "specific_heat": 1000.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Generic Ceiling Air Gap",
+                    "roughness": "Smooth",
+                    "thickness": 0.1,
+                    "conductivity": 0.556,
+                    "density": 1.28,
+                    "specific_heat": 1000.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Generic Brick",
+                    "roughness": "MediumRough",
+                    "thickness": 0.1,
+                    "conductivity": 0.9,
+                    "density": 1920.0,
+                    "specific_heat": 790.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.65,
+                    "visible_absorptance": 0.65
                 },
                 {
                     "type": "EnergyMaterial",
@@ -208,24 +297,6 @@
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyWindowMaterialGas",
-                    "identifier": "Generic Window Air Gap",
-                    "thickness": 0.0127,
-                    "gas_type": "Air"
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Roof Membrane",
-                    "roughness": "MediumRough",
-                    "thickness": 0.01,
-                    "conductivity": 0.16,
-                    "density": 1120.0,
-                    "specific_heat": 1460.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.65,
-                    "visible_absorptance": 0.65
                 },
                 {
                     "type": "EnergyWindowMaterialGlazing",
@@ -246,15 +317,39 @@
                 },
                 {
                     "type": "EnergyMaterial",
-                    "identifier": "Generic 25mm Wood",
-                    "roughness": "MediumSmooth",
-                    "thickness": 0.0254,
-                    "conductivity": 0.15,
-                    "density": 608.0,
-                    "specific_heat": 1630.0,
+                    "identifier": "Generic Painted Metal",
+                    "roughness": "Smooth",
+                    "thickness": 0.0015,
+                    "conductivity": 45.0,
+                    "density": 7690.0,
+                    "specific_heat": 410.0,
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.5,
                     "visible_absorptance": 0.5
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Generic LW Concrete",
+                    "roughness": "MediumRough",
+                    "thickness": 0.1,
+                    "conductivity": 0.53,
+                    "density": 1280.0,
+                    "specific_heat": 840.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.8,
+                    "visible_absorptance": 0.8
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Generic 25mm Insulation",
+                    "roughness": "MediumRough",
+                    "thickness": 0.05,
+                    "conductivity": 0.03,
+                    "density": 43.0,
+                    "specific_heat": 1210.0,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
                 },
                 {
                     "type": "EnergyWindowMaterialGlazing",
@@ -272,102 +367,6 @@
                     "conductivity": 1.0,
                     "dirt_correction": 1.0,
                     "solar_diffusing": false
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Acoustic Tile",
-                    "roughness": "MediumSmooth",
-                    "thickness": 0.02,
-                    "conductivity": 0.06,
-                    "density": 368.0,
-                    "specific_heat": 590.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.2,
-                    "visible_absorptance": 0.2
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Ceiling Air Gap",
-                    "roughness": "Smooth",
-                    "thickness": 0.1,
-                    "conductivity": 0.556,
-                    "density": 1.28,
-                    "specific_heat": 1000.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Wall Air Gap",
-                    "roughness": "Smooth",
-                    "thickness": 0.1,
-                    "conductivity": 0.667,
-                    "density": 1.28,
-                    "specific_heat": 1000.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic 25mm Insulation",
-                    "roughness": "MediumRough",
-                    "thickness": 0.05,
-                    "conductivity": 0.03,
-                    "density": 43.0,
-                    "specific_heat": 1210.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Gypsum Board",
-                    "roughness": "MediumSmooth",
-                    "thickness": 0.0127,
-                    "conductivity": 0.16,
-                    "density": 800.0,
-                    "specific_heat": 1090.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.5,
-                    "visible_absorptance": 0.5
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Painted Metal",
-                    "roughness": "Smooth",
-                    "thickness": 0.0015,
-                    "conductivity": 45.0,
-                    "density": 7690.0,
-                    "specific_heat": 410.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.5,
-                    "visible_absorptance": 0.5
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic HW Concrete",
-                    "roughness": "MediumRough",
-                    "thickness": 0.2,
-                    "conductivity": 1.95,
-                    "density": 2240.0,
-                    "specific_heat": 900.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.8,
-                    "visible_absorptance": 0.8
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Brick",
-                    "roughness": "MediumRough",
-                    "thickness": 0.1,
-                    "conductivity": 0.9,
-                    "density": 1920.0,
-                    "specific_heat": 790.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.65,
-                    "visible_absorptance": 0.65
                 }
             ],
             "hvacs": [],
@@ -414,38 +413,38 @@
                     "type": "ModifierSetAbridged",
                     "identifier": "Generic_Interior_Visible_Modifier_Set",
                     "wall_set": {
-                        "interior_modifier": "generic_wall_0.50",
                         "exterior_modifier": "generic_wall_0.50",
+                        "interior_modifier": "generic_wall_0.50",
                         "type": "WallModifierSetAbridged"
                     },
                     "floor_set": {
-                        "interior_modifier": "generic_floor_0.20",
                         "exterior_modifier": "generic_floor_0.20",
+                        "interior_modifier": "generic_floor_0.20",
                         "type": "FloorModifierSetAbridged"
                     },
                     "roof_ceiling_set": {
-                        "interior_modifier": "generic_ceiling_0.80",
                         "exterior_modifier": "generic_ceiling_0.80",
+                        "interior_modifier": "generic_ceiling_0.80",
                         "type": "RoofCeilingModifierSetAbridged"
                     },
                     "aperture_set": {
-                        "operable_modifier": "generic_exterior_window_vis_0.64",
                         "skylight_modifier": "generic_exterior_window_vis_0.64",
+                        "operable_modifier": "generic_exterior_window_vis_0.64",
                         "interior_modifier": "generic_interior_window_vis_0.88",
                         "type": "ApertureModifierSetAbridged",
                         "window_modifier": "generic_exterior_window_vis_0.64"
                     },
                     "door_set": {
-                        "exterior_modifier": "generic_opaque_door_0.50",
                         "overhead_modifier": "generic_opaque_door_0.50",
-                        "interior_modifier": "generic_opaque_door_0.50",
                         "exterior_glass_modifier": "generic_exterior_window_vis_0.64",
                         "interior_glass_modifier": "generic_interior_window_vis_0.88",
+                        "exterior_modifier": "generic_opaque_door_0.50",
+                        "interior_modifier": "generic_opaque_door_0.50",
                         "type": "DoorModifierSetAbridged"
                     },
                     "shade_set": {
-                        "interior_modifier": "generic_interior_shade_0.50",
                         "exterior_modifier": "generic_exterior_shade_0.35",
+                        "interior_modifier": "generic_interior_shade_0.50",
                         "type": "ShadeModifierSetAbridged"
                     },
                     "air_boundary_modifier": "air_boundary"
@@ -477,7 +476,7 @@
                 {
                     "modifier": null,
                     "type": "plastic",
-                    "identifier": "generic_wall_0.50",
+                    "identifier": "generic_opaque_door_0.50",
                     "r_reflectance": 0.5,
                     "g_reflectance": 0.5,
                     "b_reflectance": 0.5,
@@ -492,17 +491,6 @@
                     "r_reflectance": 0.2,
                     "g_reflectance": 0.2,
                     "b_reflectance": 0.2,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": null,
-                    "type": "plastic",
-                    "identifier": "generic_opaque_door_0.50",
-                    "r_reflectance": 0.5,
-                    "g_reflectance": 0.5,
-                    "b_reflectance": 0.5,
                     "specularity": 0.0,
                     "roughness": 0.0,
                     "dependencies": []
@@ -526,6 +514,17 @@
                     "g_transmissivity": 0.6975761815384331,
                     "b_transmissivity": 0.6975761815384331,
                     "refraction_index": null,
+                    "dependencies": []
+                },
+                {
+                    "modifier": null,
+                    "type": "plastic",
+                    "identifier": "generic_wall_0.50",
+                    "r_reflectance": 0.5,
+                    "g_reflectance": 0.5,
+                    "b_reflectance": 0.5,
+                    "specularity": 0.0,
+                    "roughness": 0.0,
                     "dependencies": []
                 },
                 {

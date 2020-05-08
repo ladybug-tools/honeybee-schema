@@ -18,17 +18,17 @@
     },
     "aperture_set": {
         "skylight_modifier": null,
-        "interior_modifier": null,
         "operable_modifier": null,
+        "interior_modifier": null,
         "type": "ApertureModifierSetAbridged",
         "window_modifier": null
     },
     "door_set": {
-        "exterior_glass_modifier": null,
         "overhead_modifier": null,
+        "exterior_glass_modifier": null,
         "interior_glass_modifier": null,
-        "interior_modifier": null,
         "exterior_modifier": null,
+        "interior_modifier": null,
         "type": "DoorModifierSetAbridged"
     },
     "shade_set": {

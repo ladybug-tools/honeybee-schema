@@ -160,24 +160,10 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
     )
 
 
-class TerrianTypes(str, Enum):
-    ocean = 'Ocean'
-    country = 'Country'
-    suburbs = 'Suburbs'
-    urban = 'Urban'
-    city = 'City'
-
-
 class ModelEnergyProperties(NoExtraBaseModel):
 
     type: constr(regex='^ModelEnergyProperties$') = \
         'ModelEnergyProperties'
-
-    terrain_type: TerrianTypes = Field(
-        default=TerrianTypes.city,
-        description='Text for the terrain in which the model sits. This is used '
-            'to determine the wind profile over the height of the rooms.'
-    )
 
     global_construction_set: str = Field(
         default=None,

@@ -248,6 +248,14 @@ class SizingParameter(NoExtraBaseModel):
     )
 
 
+class TerrianTypes(str, Enum):
+    ocean = 'Ocean'
+    country = 'Country'
+    suburbs = 'Suburbs'
+    urban = 'Urban'
+    city = 'City'
+
+
 class SimulationParameter(NoExtraBaseModel):
     """The complete set of EnergyPlus Simulation Settings."""
 
@@ -295,6 +303,23 @@ class SimulationParameter(NoExtraBaseModel):
         default=None,
         description='A SizingParameter object with criteria for sizing the '
             'heating and cooling system.'
+    )
+
+    north_angle: float = Field(
+        default=0,
+        ge=-360,
+        lt=360,
+        description='A number between -360 and 360 for the north direction in degrees.'
+            'This is the counterclockwise difference between the North and the '
+            'positive Y-axis. 90 is West and 270 is East. Note that this '
+            'is different than the convention used in EnergyPlus, which uses '
+            'clockwise difference instead of counterclockwise difference.'
+    )
+
+    terrain_type: TerrianTypes = Field(
+        default=TerrianTypes.city,
+        description='Text for the terrain in which the model sits. This is used '
+            'to determine the wind profile over the height of the rooms.'
     )
 
 

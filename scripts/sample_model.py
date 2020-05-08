@@ -83,7 +83,6 @@ def model_complete_single_zone_office(directory):
     room.add_indoor_shade(table)
 
     model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
-    model.north_angle = 15
 
     model_dict = model.to_dict()
 
@@ -346,7 +345,6 @@ def model_energy_fixed_interval(directory):
     tree_canopy.properties.energy.transmittance_schedule = trans_sched
 
     model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
-    model.north_angle = 15
 
     dest_file = os.path.join(
         directory, 'model_energy_fixed_interval.json')
@@ -396,7 +394,6 @@ def model_energy_no_program(directory):
     room.add_indoor_shade(table)
 
     model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
-    model.north_angle = 15
 
     dest_file = os.path.join(directory, 'model_energy_no_program.json')
     with open(dest_file, 'w') as fp:

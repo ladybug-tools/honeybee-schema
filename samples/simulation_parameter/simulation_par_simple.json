@@ -42,5 +42,7 @@
         "type": "SizingParameter",
         "heating_factor": 1.25,
         "cooling_factor": 1.15
-    }
+    },
+    "north_angle": 0.0,
+    "terrain_type": "City"
 }

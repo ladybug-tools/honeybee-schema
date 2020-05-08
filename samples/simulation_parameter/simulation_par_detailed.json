@@ -308,5 +308,7 @@
                 }
             }
         ]
-    }
+    },
+    "north_angle": 0.0,
+    "terrain_type": "City"
 }

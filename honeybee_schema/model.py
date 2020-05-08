@@ -123,7 +123,7 @@ class Door(IDdBaseModel):
     boundary_condition: Union[Outdoors, Surface]
 
     @validator('boundary_condition')
-    def suface_bc_objects(cls, v):
+    def surface_bc_objects(cls, v):
         if v.type == 'Surface':
             assert len(v.boundary_condition_objects) == 3, 'Door Surface boundary ' \
                 'condition must have 3 boundary_condition_objects.'
@@ -178,7 +178,7 @@ class Aperture(IDdBaseModel):
     boundary_condition: Union[Outdoors, Surface]
 
     @validator('boundary_condition')
-    def suface_bc_objects(cls, v):
+    def surface_bc_objects(cls, v):
         if v.type == 'Surface':
             assert len(v.boundary_condition_objects) == 3, 'Aperture Surface boundary ' \
                 'condition must have 3 boundary_condition_objects.'
@@ -243,7 +243,7 @@ class Face(IDdBaseModel):
     boundary_condition: Union[Ground, Outdoors, Adiabatic, Surface]
 
     @validator('boundary_condition')
-    def suface_bc_objects(cls, v):
+    def surface_bc_objects(cls, v):
         if v.type == 'Surface':
             assert len(v.boundary_condition_objects) == 2, 'Face Surface boundary ' \
                 'condition must have 2 boundary_condition_objects.'
@@ -279,12 +279,12 @@ class Face(IDdBaseModel):
     )
 
     @root_validator
-    def chack_air_boundarys_are_interior(cls, values):
+    def check_air_boundaries_are_interior(cls, values):
         """Check that all air wall faces have a Surface boundary condition."""
         face_type, bc = values.get('face_type'), values.get('boundary_condition')
         if face_type == 'AirBoundary':
             assert bc.type == 'Surface', \
-                'AirBoundarys must have "Surface" boundary conditions.'
+                'AirBoundaries must have "Surface" boundary conditions.'
         return values
 
 
@@ -395,13 +395,6 @@ class Model(IDdBaseModel):
             'to be exported for energy simulation.'
     )
 
-    north_angle: float = Field(
-        default=0,
-        ge=0,
-        lt=360,
-        description='The clockwise north direction in degrees.'
-    )
-
     units: Units = Field(
         default=Units.meters,
         description='Text indicating the units in which the model geometry exists. '
@@ -419,7 +412,7 @@ class Model(IDdBaseModel):
             'in no attempt to evaluate whether Room volumes are closed or check '
             'face direction. So it is recommended that this always be a positive '
             'number when such checks have not been performed on a Model. '
-            'Typical tolerances for builing geometry range from 0.1 to 0.0001 '
+            'Typical tolerances for building geometry range from 0.1 to 0.0001 '
             'depending on the units of the geometry.'
     )
 
@@ -433,7 +426,7 @@ class Model(IDdBaseModel):
             'in no attempt to evaluate whether the Room volumes is closed or check '
             'face direction. So it is recommended that this always be a positive '
             'number when such checks have not been performed on a given Model. '
-            'Typical tolerances for builing geometry are often around 1 degree.'
+            'Typical tolerances for building geometry are often around 1 degree.'
     )
 
     properties: ModelProperties = Field(

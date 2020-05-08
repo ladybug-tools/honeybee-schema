@@ -24,24 +24,24 @@
                 },
                 {
                     "type": "EnergyMaterial",
-                    "identifier": "5/8 in. Gypsum Board",
-                    "roughness": "MediumSmooth",
-                    "thickness": 0.0159,
-                    "conductivity": 0.15989299909405463,
-                    "density": 800.0018291911765,
-                    "specific_heat": 1089.2971854559414,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
                     "identifier": "25mm Stucco",
                     "roughness": "Smooth",
                     "thickness": 0.0254,
                     "conductivity": 0.7195184959232496,
                     "density": 1856.0042437235265,
                     "specific_heat": 839.4583814522845,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "5/8 in. Gypsum Board",
+                    "roughness": "MediumSmooth",
+                    "thickness": 0.0159,
+                    "conductivity": 0.15989299909405463,
+                    "density": 800.0018291911765,
+                    "specific_heat": 1089.2971854559414,
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
@@ -96,9 +96,30 @@
             "materials": [
                 {
                     "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Carpet Pad",
+                    "r_value": 0.2164799871520999,
+                    "roughness": "VeryRough",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.8
+                },
+                {
+                    "type": "EnergyMaterialNoMass",
                     "identifier": "Typical Insulation-R24",
                     "r_value": 4.226644411437236,
                     "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "25mm Stucco",
+                    "roughness": "Smooth",
+                    "thickness": 0.0254,
+                    "conductivity": 0.7195184959232496,
+                    "density": 1856.0042437235265,
+                    "specific_heat": 839.4583814522845,
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
@@ -111,27 +132,6 @@
                     "conductivity": 0.15989299909405463,
                     "density": 800.0018291911765,
                     "specific_heat": 1089.2971854559414,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterialNoMass",
-                    "identifier": "Typical Carpet Pad",
-                    "r_value": 0.2164799871520999,
-                    "roughness": "VeryRough",
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.8
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "25mm Stucco",
-                    "roughness": "Smooth",
-                    "thickness": 0.0254,
-                    "conductivity": 0.7195184959232496,
-                    "density": 1856.0042437235265,
-                    "specific_heat": 839.4583814522845,
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
@@ -148,15 +148,6 @@
                 "Typical Carpet Pad"
             ],
             "materials": [
-                {
-                    "type": "EnergyMaterialNoMass",
-                    "identifier": "Typical Insulation-R4",
-                    "r_value": 0.7044407352395393,
-                    "roughness": "MediumSmooth",
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
                 {
                     "type": "EnergyMaterialNoMass",
                     "identifier": "Typical Carpet Pad",
@@ -177,6 +168,15 @@
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R4",
+                    "r_value": 0.7044407352395393,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
                 }
             ]
         }
@@ -194,12 +194,12 @@
             "materials": [
                 {
                     "type": "EnergyMaterial",
-                    "identifier": "Metal Roof Surface",
-                    "roughness": "Smooth",
-                    "thickness": 0.0007999999999999979,
-                    "conductivity": 45.24971874361766,
-                    "density": 7824.017889489713,
-                    "specific_heat": 499.67760800730963,
+                    "identifier": "Roof Membrane",
+                    "roughness": "VeryRough",
+                    "thickness": 0.009499999999999998,
+                    "conductivity": 0.15989299909405608,
+                    "density": 1121.29256381722,
+                    "specific_heat": 1459.0586153813556,
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
@@ -215,12 +215,12 @@
                 },
                 {
                     "type": "EnergyMaterial",
-                    "identifier": "Roof Membrane",
-                    "roughness": "VeryRough",
-                    "thickness": 0.009499999999999998,
-                    "conductivity": 0.15989299909405608,
-                    "density": 1121.29256381722,
-                    "specific_heat": 1459.0586153813556,
+                    "identifier": "Metal Roof Surface",
+                    "roughness": "Smooth",
+                    "thickness": 0.0007999999999999979,
+                    "conductivity": 45.24971874361766,
+                    "density": 7824.017889489713,
+                    "specific_heat": 499.67760800730963,
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
@@ -259,12 +259,6 @@
                     "solar_diffusing": false
                 },
                 {
-                    "type": "EnergyWindowMaterialGas",
-                    "identifier": "AIR 13MM",
-                    "thickness": 0.0127,
-                    "gas_type": "Air"
-                },
-                {
                     "type": "EnergyWindowMaterialGlazing",
                     "identifier": "CLEAR 6MM",
                     "thickness": 0.005999999999999977,
@@ -280,6 +274,12 @@
                     "conductivity": 0.8993981199040626,
                     "dirt_correction": 1.0,
                     "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "AIR 13MM",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
                 }
             ]
         },
@@ -294,10 +294,21 @@
             ],
             "materials": [
                 {
-                    "type": "EnergyWindowMaterialGas",
-                    "identifier": "Gap_1_W_0_0038",
-                    "thickness": 0.0037999999999999887,
-                    "gas_type": "Air"
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "Glass_2052_LayerAvg",
+                    "thickness": 0.008369999999999997,
+                    "solar_transmittance": 0.507767,
+                    "solar_reflectance": 0.05422805,
+                    "solar_reflectance_back": 0.05449309,
+                    "visible_transmittance": 0.586833,
+                    "visible_reflectance": 0.05805,
+                    "visible_reflectance_back": 0.058397,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.84,
+                    "conductivity": 0.9993312443378461,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
                 },
                 {
                     "type": "EnergyWindowMaterialGlazing",
@@ -317,21 +328,10 @@
                     "solar_diffusing": false
                 },
                 {
-                    "type": "EnergyWindowMaterialGlazing",
-                    "identifier": "Glass_2052_LayerAvg",
-                    "thickness": 0.008369999999999997,
-                    "solar_transmittance": 0.507767,
-                    "solar_reflectance": 0.05422805,
-                    "solar_reflectance_back": 0.05449309,
-                    "visible_transmittance": 0.586833,
-                    "visible_reflectance": 0.05805,
-                    "visible_reflectance_back": 0.058397,
-                    "infrared_transmittance": 0.0,
-                    "emissivity": 0.84,
-                    "emissivity_back": 0.84,
-                    "conductivity": 0.9993312443378461,
-                    "dirt_correction": 1.0,
-                    "solar_diffusing": false
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "Gap_1_W_0_0038",
+                    "thickness": 0.0037999999999999887,
+                    "gas_type": "Air"
                 }
             ]
         },
@@ -362,12 +362,6 @@
                     "solar_diffusing": false
                 },
                 {
-                    "type": "EnergyWindowMaterialGas",
-                    "identifier": "AIR 13MM",
-                    "thickness": 0.0127,
-                    "gas_type": "Air"
-                },
-                {
                     "type": "EnergyWindowMaterialGlazing",
                     "identifier": "CLEAR 6MM",
                     "thickness": 0.005999999999999977,
@@ -383,6 +377,12 @@
                     "conductivity": 0.8993981199040626,
                     "dirt_correction": 1.0,
                     "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "AIR 13MM",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
                 }
             ]
         }
@@ -431,6 +431,12 @@
             ],
             "materials": [
                 {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "AIR 13MM",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
+                },
+                {
                     "type": "EnergyWindowMaterialGlazing",
                     "identifier": "REF B CLEAR HI 6MM",
                     "thickness": 0.005999999999999977,
@@ -446,12 +452,6 @@
                     "conductivity": 0.8993981199040626,
                     "dirt_correction": 1.0,
                     "solar_diffusing": false
-                },
-                {
-                    "type": "EnergyWindowMaterialGas",
-                    "identifier": "AIR 13MM",
-                    "thickness": 0.0127,
-                    "gas_type": "Air"
                 },
                 {
                     "type": "EnergyWindowMaterialGlazing",

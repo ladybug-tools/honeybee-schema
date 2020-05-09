@@ -55,7 +55,7 @@ class DoorRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     dynamic_group_identifier: str = Field(
         default=None,
         description="An optional string to note the dynamic group ' \
-            'to which the Doors is a part of. Doors sharing the same ' \
+            'to which the Door is a part of. Doors sharing the same ' \
             'dynamic_group_identifier will have their states change in unison. ' \
             'If None, the Door is assumed to be static. (default: None)."
     )
@@ -112,17 +112,17 @@ class ModelRadianceProperties(NoExtraBaseModel):
     type: constr(regex='^ModelRadianceProperties$') = 'ModelRadianceProperties'
 
     modifiers: List[_REFERENCE_UNION_MODIFIERS] = Field(
-        default=[],
+        default=None,
         description='A list of all unique modifiers in the model. '
                     'This includes modifiers across all Faces, Apertures, Doors, '
                     'Shades, Room ModifierSets, and the global_modifier_set '
-                    '(default: []).'
+                    '(default: None).'
         )
 
     modifier_sets: List[Union[ModifierSet, ModifierSetAbridged]] = Field(
-        default=[],
+        default=None,
         description='A list of all unique Room-Assigned ModifierSets in the Model '
-                    '(default: []).'
+                    '(default: None).'
         )
 
     global_modifier_set: str = Field(

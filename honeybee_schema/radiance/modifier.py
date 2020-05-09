@@ -1,8 +1,8 @@
 """Modifier Schema"""
 from __future__ import annotations
-from pydantic import Field, constr, validator, root_validator
+from pydantic import Field, BaseModel, constr, validator, root_validator
 from typing import List, Union, Optional
-from ._base import IDdRadianceBaseModel, BaseModel
+from ._base import IDdRadianceBaseModel
 
 
 class Void(BaseModel):
@@ -28,11 +28,11 @@ class Mirror(ModifierBase):
         )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
-        default=[],
+        default=None,
         description='List of modifiers that this modifier depends on. '
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
-                    '(default: []).'
+                    '(default: None).'
         )
 
     r_reflectance: float = Field(
@@ -81,11 +81,11 @@ class Plastic(ModifierBase):
         )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
-        default=[],
+        default=None,
         description='List of modifiers that this modifier depends on. '
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
-                    '(default: []).'
+                    '(default: None).'
         )
 
     r_reflectance: float = Field(
@@ -179,11 +179,11 @@ class Glass(ModifierBase):
         )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
-        default=[],
+        default=None,
         description='List of modifiers that this modifier depends on. '
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
-                    '(default: []).'
+                    '(default: None).'
         )
 
     r_transmissivity: float = Field(
@@ -229,11 +229,11 @@ class BSDF(ModifierBase):
         )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
-        default=[],
+        default=None,
         description='List of modifiers that this modifier depends on. '
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
-                    '(default: []).'
+                    '(default: None).'
         )
 
     up_orientation: List[float] = Field(
@@ -269,7 +269,7 @@ class BSDF(ModifierBase):
 
     bsdf_data: str = Field(
         ...,
-        description='BSDF xml file name.'
+        description='A string with the contents of the BSDF XML file.'
     )
 
     front_diffuse_reflectance: List[float] = Field(
@@ -329,11 +329,11 @@ class Light(ModifierBase):
         )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
-        default=[],
+        default=None,
         description='List of modifiers that this modifier depends on. '
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
-                    '(default: []).'
+                    '(default: None).'
         )
 
     r_emittance: float = Field(

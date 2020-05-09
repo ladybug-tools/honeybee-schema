@@ -8,30 +8,33 @@ from ..geometry import Face3D
 
 
 class StateGeometryAbridged(IDdBaseModel):
-    """StateGeometryAbridged represents shading for States."""
+    """A single planar geometry that can be assigned to Radiance states."""
 
     type: constr(regex='^StateGeometryAbridged$') = 'StateGeometryAbridged'
 
     modifier: str = Field(
         default=None,
-        description='A string for a Honeybee Radiance Modifier (default: None).'
+        description='A string for a Honeybee Radiance Modifier identifier '
+                    '(default: None).'
         )
 
-    modifier_blk: str = Field(
+    modifier_direct: str = Field(
         default=None,
-        description='A string for a Honeybee Radiance Modifier to be used '
+        description='A string for Honeybee Radiance Modifier identifiers to be used '
                     'in direct solar simulations and in isolation studies (assessing'
                     'the contribution of individual objects) (default: None).'
         )
 
     geometry: Face3D = Field(
         ...,
-        description='Planar Face3D for the geometry.'
+        description='A ladybug_geometry Face3D.'
     )
 
 
-class _RadianceStateBaseAbridged(NoExtraBaseModel):
-    """Base model for abridge Radiance State Schema"""
+class RadianceShadeStateAbridged(NoExtraBaseModel):
+    """RadianceShadeStateAbridged represents a single state for a dynamic Shade."""
+
+    type: constr(regex='^RadianceShadeStateAbridged$') = 'RadianceShadeStateAbridged'
 
     modifier: str = Field(
         default=None,
@@ -43,28 +46,17 @@ class _RadianceStateBaseAbridged(NoExtraBaseModel):
         description='A Radiance Modifier identifier (default: None).'
     )
 
-
-class RadianceShadeStateAbridged(_RadianceStateBaseAbridged):
-    """RadianceShadeStateAbridged represents a single state for a dynamic Shade."""
-
-    type: constr(regex='^RadianceShadeStateAbridged$') = 'RadianceShadeStateAbridged'
-
     shades: List[StateGeometryAbridged] = Field(
         default=None,
         description='A list of StateGeometryAbridged objects (default: None).'
     )
 
 
-class RadianceSubFaceStateAbridged(_RadianceStateBaseAbridged):
+class RadianceSubFaceStateAbridged(RadianceShadeStateAbridged):
     """RadianceSubFaceStateAbridged is an abridged state for a dynamic Aperture or Door.
     """
 
     type: constr(regex='^RadianceSubFaceStateAbridged$') = 'RadianceSubFaceStateAbridged'
-
-    shades: List[StateGeometryAbridged] = Field(
-        default=None,
-        description='A list of StateGeometryAbridged objects (default: None).'
-    )
 
     vmtx_geometry: Face3D = Field(
         default=None,

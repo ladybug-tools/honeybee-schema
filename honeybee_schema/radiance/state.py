@@ -1,13 +1,13 @@
 """State Schema"""
-
 from pydantic import Field, constr
 from typing import List
-from .._base import NoExtraBaseModel, IDdBaseModel
+from .._base import NoExtraBaseModel
+from ._base import IDdRadianceBaseModel
 
 from ..geometry import Face3D
 
 
-class StateGeometryAbridged(IDdBaseModel):
+class StateGeometryAbridged(IDdRadianceBaseModel):
     """A single planar geometry that can be assigned to Radiance states."""
 
     type: constr(regex='^StateGeometryAbridged$') = 'StateGeometryAbridged'

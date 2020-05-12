@@ -117,8 +117,8 @@ class Plastic(ModifierBase):
         ge=0,
         le=1,
         description='A value between 0 and 1 for the fraction of specularity. '
-                    'Specularity fractions greater than 0.1 are not realistic. '
-                    '(default: 0).'
+                    'Specularity fractions greater than 0.1 are not realistic '
+                    'for non-metallic materials. (default: 0).'
     )
 
     roughness: float = Field(
@@ -128,6 +128,21 @@ class Plastic(ModifierBase):
         description='A value between 0 and 1 for the roughness, specified as the '
                     'rms slope of surface facets. Roughness greater than 0.2 are '
                     'not realistic (default: 0).'
+    )
+
+
+class Metal(Plastic):
+    """Radiance metal material."""
+
+    type: constr(regex='^metal$') = 'metal'
+
+    specularity: float = Field(
+        default=0.9,
+        ge=0,
+        le=1,
+        description='A value between 0 and 1 for the fraction of specularity. '
+                    'Specularity fractions lower than 0.9 are not realistic for '
+                    'metallic materials. (default: 0.9).'
     )
 
 
@@ -377,7 +392,7 @@ class Glow(Light):
 
 # Union Modifier Schema objects defined for type reference
 _REFERENCE_UNION_MODIFIERS = \
-    Union[Plastic, Glass, BSDF, Glow, Light, Trans, Void, Mirror]
+    Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror]
 
 # Required for self.referencing model
 # see https://pydantic-docs.helpmanual.io/#self-referencing-models
@@ -388,4 +403,5 @@ BSDF.update_forward_refs()
 Glow.update_forward_refs()
 Light.update_forward_refs()
 Trans.update_forward_refs()
+Metal.update_forward_refs()
 Void.update_forward_refs()

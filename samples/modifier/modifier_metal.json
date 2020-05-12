@@ -1,0 +1,11 @@
+{
+    "modifier": null,
+    "type": "metal",
+    "identifier": "sheet_metal_0.5",
+    "r_reflectance": 0.5,
+    "g_reflectance": 0.5,
+    "b_reflectance": 0.5,
+    "specularity": 0.95,
+    "roughness": 0.0,
+    "dependencies": []
+}

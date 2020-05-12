@@ -1,0 +1,26 @@
+{
+    "type": "View",
+    "identifier": "test_view_perspective",
+    "position": [
+        0.0,
+        0.0,
+        10.0
+    ],
+    "direction": [
+        0.0,
+        1.0,
+        0.0
+    ],
+    "up_vector": [
+        0.0,
+        0.0,
+        1.0
+    ],
+    "h_size": 60.0,
+    "v_size": 60.0,
+    "shift": null,
+    "lift": null,
+    "view_type": "v",
+    "fore_clip": null,
+    "aft_clip": null
+}

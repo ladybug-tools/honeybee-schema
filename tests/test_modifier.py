@@ -1,5 +1,5 @@
 from honeybee_schema.radiance.modifier import Plastic, Glass, BSDF, Glow, Light, \
-    Trans, Mirror
+    Trans, Mirror, Metal
 from copy import copy
 from pydantic import ValidationError
 import pytest
@@ -48,6 +48,11 @@ def test_plastic_wrong():
     plastic_modifier_test["r_reflectance"] = -1
     with pytest.raises(ValidationError):
         Plastic.parse_obj(plastic_modifier_test)
+
+
+def test_modifier_metal():
+    file_path = os.path.join(target_folder, 'modifier_metal.json')
+    Metal.parse_file(file_path)
 
 
 def test_glass_generic_exterior_window():

@@ -1,0 +1,26 @@
+{
+    "type": "View",
+    "identifier": "test_view",
+    "position": [
+        0.0,
+        0.0,
+        10.0
+    ],
+    "direction": [
+        0.0,
+        1.0,
+        0.0
+    ],
+    "up_vector": [
+        0.0,
+        0.0,
+        1.0
+    ],
+    "h_size": 240.0,
+    "v_size": 300.0,
+    "shift": -10.0,
+    "lift": -25.0,
+    "view_type": "l",
+    "fore_clip": null,
+    "aft_clip": null
+}

@@ -2,7 +2,7 @@
 from __future__ import division
 
 from honeybee_radiance.primitive import VOID
-from honeybee_radiance.modifier.material import Trans, Light, Mirror, BSDF
+from honeybee_radiance.modifier.material import Metal, Trans, Light, Mirror, BSDF
 
 from honeybee_radiance.lib.modifiers import generic_wall, generic_ceiling, \
     black, generic_exterior_window, air_boundary, white_glow
@@ -27,6 +27,13 @@ def modifier_plastic_black(directory):
     dest_file = os.path.join(directory, 'modifier_plastic_black.json')
     with open(dest_file, 'w') as fp:
         json.dump(black.to_dict(), fp, indent=4)
+
+
+def modifier_metal(directory):
+    metal = Metal.from_single_reflectance('sheet_metal_0.5', 0.5, 0.95)
+    dest_file = os.path.join(directory, 'modifier_metal.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(metal.to_dict(), fp, indent=4)
 
 
 def modifier_glass_generic_exterior_window(directory):
@@ -91,6 +98,7 @@ sample_directory = os.path.join(master_dir, 'samples', 'modifier')
 modifier_plastic_generic_wall(sample_directory)
 modifier_plastic_generic_ceiling(sample_directory)
 modifier_plastic_black(sample_directory)
+modifier_metal(sample_directory)
 modifier_glass_generic_exterior_window(sample_directory)
 modifier_glass_air_boundary(sample_directory)
 modifier_trans_tree_foliage(sample_directory)

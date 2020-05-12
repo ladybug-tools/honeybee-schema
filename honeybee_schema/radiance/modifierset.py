@@ -6,7 +6,7 @@ from .modifier import _REFERENCE_UNION_MODIFIERS
 
 
 class BaseModifierSetAbridged(NoExtraBaseModel):
-    """Base class for the abridged modfier sets assigned to Faces."""
+    """Base class for the abridged modifier sets assigned to Faces."""
 
     exterior_modifier: str = Field(
             default=None,

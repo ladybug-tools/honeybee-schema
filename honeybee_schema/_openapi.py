@@ -67,6 +67,7 @@ def get_openapi(
 
     schema_names = list(schemas.keys())
     schema_names.sort()
+    model_name_map = get_model_mapper(base_object[0], full=True)
 
     for name in schema_names:
         model_name = '%s_model' % name.lower()
@@ -100,6 +101,12 @@ def get_openapi(
         # add format to numbers and integers
         # this is helpful for C# generators
         for prop in properties:
+            # collect enum object and make them reusable
+            is_enum, properties[prop], schemas = check_enum(
+                properties[prop], schemas, model_name_map[name], prop
+            )
+            if is_enum:
+                continue
             try:
                 properties[prop] = set_format(properties[prop])
             except KeyError:
@@ -111,6 +118,13 @@ def get_openapi(
                     properties[prop]['anyOf'] = new_any_of
                 else:
                     continue
+            else:
+                if 'type' in properties[prop] and properties[prop]['type'] == 'array':
+                    is_enum, properties[prop]['items'], schemas = \
+                        check_enum(
+                            properties[prop]['items'], schemas, model_name_map[name],
+                            prop
+                        )
 
         # sort fields to keep required ones on top
         if 'required' in s:
@@ -159,6 +173,19 @@ def set_format(p):
     elif p['type'] == 'array':
         p['items'] = set_format(p['items'])
     return p
+
+
+def check_enum(p, schemas, cls_, name):
+    """Check if a property is enum."""
+    if 'enum' not in p:
+        return False, p, schemas
+
+    info = getattr(cls_, '__fields__')[name]  # change gas types to property name
+    enum_name = info.type_.__name__
+    if enum_name not in schemas:
+        schemas[enum_name] = dict(p)
+    new_p = {'allOf': {'$ref': f'#/components/schemas/{enum_name}'}}
+    return True, new_p, schemas
 
 
 def get_model_mapper(model, stoppage=None, full=True):
@@ -332,3 +359,29 @@ def set_inheritance(name, top_classes, schemas):
             continue
         data_copy[key] = value
     return data_copy
+
+
+def class_mapper(model):
+    mapper = get_model_mapper(model, full=True)
+    # add enum classes to mapper
+    schemas = get_schemas_inheritance([model])
+
+    for name in schemas:
+        s = schemas[name]
+        if 'properties' in s:
+            properties = s['properties']
+        else:
+            properties = s['allOf'][1]['properties']
+
+        for prop in properties:
+            # collect enum object and make them reusable
+            if 'enum' in properties[prop]:
+                info = getattr(mapper[name], '__fields__')[prop]
+                mapper[info.type_.__name__] = info.type_
+            if 'type' in properties[prop] and properties[prop]['type'] == 'array':
+                if 'enum' in properties[prop]['items']:
+                    pass
+
+    module_mapper = {k: c.__module__ for k, c in mapper.items()}
+
+    return module_mapper

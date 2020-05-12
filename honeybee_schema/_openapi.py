@@ -70,14 +70,8 @@ def get_openapi(
     model_name_map = get_model_mapper(base_object[0], full=True)
 
     for name in schema_names:
-        model_name = '%s_model' % name.lower()
+        model_name, tag = create_tag(name)
         tag_names.append(model_name)
-        tag = {
-            'name': model_name,
-            'x-displayName': name,
-            'description':
-                '<SchemaDefinition schemaRef=\"#/components/schemas/%s\" />\n' % name
-        }
         tags.append(tag)
 
         # sort properties order: put required parameters at begining of the list
@@ -102,11 +96,15 @@ def get_openapi(
         # this is helpful for C# generators
         for prop in properties:
             # collect enum object and make them reusable
-            is_enum, properties[prop], schemas = check_enum(
+            is_enum, properties[prop], schemas, enum_name = check_enum(
                 properties[prop], schemas, model_name_map[name], prop
             )
             if is_enum:
-                continue
+                # add a new tag
+                model_name, tag = create_tag(enum_name)
+                tag_names.append(model_name)
+                tags.append(tag)
+
             try:
                 properties[prop] = set_format(properties[prop])
             except KeyError:
@@ -120,11 +118,16 @@ def get_openapi(
                     continue
             else:
                 if 'type' in properties[prop] and properties[prop]['type'] == 'array':
-                    is_enum, properties[prop]['items'], schemas = \
+                    is_enum, properties[prop]['items'], schemas, enum_name = \
                         check_enum(
                             properties[prop]['items'], schemas, model_name_map[name],
                             prop
                         )
+                    if is_enum:
+                        # add a new tag
+                        model_name, tag = create_tag(enum_name)
+                        tag_names.append(model_name)
+                        tags.append(tag)
 
         # sort fields to keep required ones on top
         if 'required' in s:
@@ -162,6 +165,18 @@ def get_openapi(
     return open_api
 
 
+def create_tag(name):
+    """create a viewer tag from a class name."""
+    model_name = '%s_model' % name.lower()
+    tag = {
+        'name': model_name,
+        'x-displayName': name,
+        'description':
+            '<SchemaDefinition schemaRef=\"#/components/schemas/%s\" />\n' % name
+    }
+    return model_name, tag
+
+
 def set_format(p):
     """Set format for a property."""
     if '$ref' in p:
@@ -177,15 +192,25 @@ def set_format(p):
 
 def check_enum(p, schemas, cls_, name):
     """Check if a property is enum."""
+    enum_name = ''
     if 'enum' not in p:
-        return False, p, schemas
+        return False, p, schemas, enum_name
 
     info = getattr(cls_, '__fields__')[name]  # change gas types to property name
     enum_name = info.type_.__name__
-    if enum_name not in schemas:
-        schemas[enum_name] = dict(p)
-    new_p = {'allOf': {'$ref': f'#/components/schemas/{enum_name}'}}
-    return True, new_p, schemas
+    if enum_name in schemas:
+        return False, p, schemas, enum_name
+
+    schemas[enum_name] = dict(p)
+    new_p = {
+        'allOf': [{'$ref': f'#/components/schemas/{enum_name}'}]
+    }
+    for k, v in p.items():
+        if k == 'enum':
+            continue
+        new_p[k] = v
+
+    return True, new_p, schemas, enum_name
 
 
 def get_model_mapper(model, stoppage=None, full=True):
@@ -363,9 +388,10 @@ def set_inheritance(name, top_classes, schemas):
 
 def class_mapper(model):
     mapper = get_model_mapper(model, full=True)
+
     # add enum classes to mapper
     schemas = get_schemas_inheritance([model])
-
+    enums = {}
     for name in schemas:
         s = schemas[name]
         if 'properties' in s:
@@ -377,11 +403,19 @@ def class_mapper(model):
             # collect enum object and make them reusable
             if 'enum' in properties[prop]:
                 info = getattr(mapper[name], '__fields__')[prop]
-                mapper[info.type_.__name__] = info.type_
+                if info.type_.__name__ not in enums:
+                    enums[info.type_.__name__] = info.type_
             if 'type' in properties[prop] and properties[prop]['type'] == 'array':
                 if 'enum' in properties[prop]['items']:
-                    pass
+                    info = getattr(mapper[name], '__fields__')[prop]
+                    if info.type_.__name__ not in enums:
+                        enums[info.type_.__name__] = info.type_
 
-    module_mapper = {k: c.__module__ for k, c in mapper.items()}
+    module_mapper = {}
+    classes = {k: c.__module__ for k, c in mapper.items()}
+    enums = {k: c.__module__ for k, c in enums.items()}
+    # this sorting only works in python3.7+
+    module_mapper['classes'] = {k: classes[k] for k in sorted(classes)}
+    module_mapper['enums'] = {k: enums[k] for k in sorted(enums)}
 
     return module_mapper

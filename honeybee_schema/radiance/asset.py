@@ -47,6 +47,15 @@ class SensorGrid(IDdRadianceBaseModel):
         'the grid will be run with all aperture groups in the model.'
     )
 
+    light_path: List[List[str]] = Field(
+        None,
+        description='Get or set a list of lists for the light path from the grid to the '
+        'sky. Each sub-list contains identifiers of aperture groups through which '
+        'light passes. (eg. [["SouthWindow1"], ["static_apertures", "NorthWindow2"]]).'
+        'Setting this property will override any auto-calculation of the light '
+        'path from the model and room_identifier upon export to the simulation.'
+    )
+
 
 class ViewType(str, Enum):
     """A single character for the view type (-vt)."""
@@ -153,4 +162,13 @@ class View(IDdRadianceBaseModel):
         'View belongs. This will be used to narrow down the number of aperture '
         'groups that have to be run with this sensor grid. If None, the grid '
         'will be run with all aperture groups in the model.'
+    )
+
+    light_path: List[List[str]] = Field(
+        None,
+        description='Get or set a list of lists for the light path from the view to the '
+        'sky. Each sub-list contains identifiers of aperture groups through which '
+        'light passes. (eg. [["SouthWindow1"], ["static_apertures", "NorthWindow2"]]).'
+        'Setting this property will override any auto-calculation of the light '
+        'path from the model and room_identifier upon export to the simulation.'
     )

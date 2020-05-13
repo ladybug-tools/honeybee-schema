@@ -96,10 +96,10 @@ def get_openapi(
         # this is helpful for C# generators
         for prop in properties:
             # collect enum object and make them reusable
-            is_enum, properties[prop], schemas, enum_name = check_enum(
+            is_new_enum, properties[prop], schemas, enum_name = check_enum(
                 properties[prop], schemas, model_name_map[name], prop
             )
-            if is_enum:
+            if is_new_enum:
                 # add a new tag
                 model_name, tag = create_tag(enum_name)
                 tag_names.append(model_name)
@@ -118,12 +118,12 @@ def get_openapi(
                     continue
             else:
                 if 'type' in properties[prop] and properties[prop]['type'] == 'array':
-                    is_enum, properties[prop]['items'], schemas, enum_name = \
+                    is_new_enum, properties[prop]['items'], schemas, enum_name = \
                         check_enum(
                             properties[prop]['items'], schemas, model_name_map[name],
                             prop
                         )
-                    if is_enum:
+                    if is_new_enum:
                         # add a new tag
                         model_name, tag = create_tag(enum_name)
                         tag_names.append(model_name)
@@ -198,10 +198,7 @@ def check_enum(p, schemas, cls_, name):
 
     info = getattr(cls_, '__fields__')[name]  # change gas types to property name
     enum_name = info.type_.__name__
-    if enum_name in schemas:
-        return False, p, schemas, enum_name
-
-    schemas[enum_name] = dict(p)
+    # update property with a reference
     new_p = {
         'allOf': [{'$ref': f'#/components/schemas/{enum_name}'}]
     }
@@ -210,6 +207,10 @@ def check_enum(p, schemas, cls_, name):
             continue
         new_p[k] = v
 
+    if enum_name in schemas:
+        return False, new_p, schemas, enum_name
+
+    schemas[enum_name] = dict(p)
     return True, new_p, schemas, enum_name
 
 

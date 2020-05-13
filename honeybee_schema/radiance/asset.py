@@ -6,6 +6,30 @@ from .._base import NoExtraBaseModel
 from ._base import IDdRadianceBaseModel
 
 
+class _RadianceAsset(IDdRadianceBaseModel):
+    """Hidden base class for all Radiance Assets."""
+
+    room_identifier: str = Field(
+        None,
+        regex=r'[A-Za-z0-9_-]',
+        min_length=1,
+        max_length=100,
+        description='Optional text string for the Room identifier to which this '
+        'object belongs. This will be used to narrow down the number of '
+        'aperture groups that have to be run with this sensor grid. If None, '
+        'the grid will be run with all aperture groups in the model.'
+    )
+
+    light_path: List[List[str]] = Field(
+        None,
+        description='Get or set a list of lists for the light path from the object to '
+        'the sky. Each sub-list contains identifiers of aperture groups through which '
+        'light passes. (eg. [["SouthWindow1"], ["static_apertures", "NorthWindow2"]]).'
+        'Setting this property will override any auto-calculation of the light '
+        'path from the model and room_identifier upon export to the simulation.'
+    )
+
+
 class Sensor(NoExtraBaseModel):
     """A single Radiance of sensors."""
 
@@ -26,7 +50,7 @@ class Sensor(NoExtraBaseModel):
     )
 
 
-class SensorGrid(IDdRadianceBaseModel):
+class SensorGrid(_RadianceAsset):
     """A grid of sensors."""
 
     type: constr(regex='^SensorGrid$') = 'SensorGrid'
@@ -34,26 +58,6 @@ class SensorGrid(IDdRadianceBaseModel):
     sensors: List[Sensor] = Field(
         ...,
         description="A list of sensors that belong to the grid."
-    )
-
-    room_identifier: str = Field(
-        None,
-        regex=r'[A-Za-z0-9_-]',
-        min_length=1,
-        max_length=100,
-        description='Optional text string for the Room identifier to which this '
-        'SensorGrid belongs. This will be used to narrow down the number of '
-        'aperture groups that have to be run with this sensor grid. If None, '
-        'the grid will be run with all aperture groups in the model.'
-    )
-
-    light_path: List[List[str]] = Field(
-        None,
-        description='Get or set a list of lists for the light path from the grid to the '
-        'sky. Each sub-list contains identifiers of aperture groups through which '
-        'light passes. (eg. [["SouthWindow1"], ["static_apertures", "NorthWindow2"]]).'
-        'Setting this property will override any auto-calculation of the light '
-        'path from the model and room_identifier upon export to the simulation.'
     )
 
 
@@ -67,7 +71,7 @@ class ViewType(str, Enum):
     planisphere = 's'
 
 
-class View(IDdRadianceBaseModel):
+class View(_RadianceAsset):
     """A single Radiance of sensors."""
 
     type: constr(regex='^View$') = 'View'
@@ -151,24 +155,4 @@ class View(IDdRadianceBaseModel):
         'direction for perspective and parallel view types. For fisheye '
         'view types, the clipping plane is actually a clipping sphere, '
         'centered on the view point with radius val.'
-    )
-
-    room_identifier: str = Field(
-        None,
-        regex=r'[A-Za-z0-9_-]',
-        min_length=1,
-        max_length=100,
-        description='Optional text string for the Room identifier to which this '
-        'View belongs. This will be used to narrow down the number of aperture '
-        'groups that have to be run with this sensor grid. If None, the grid '
-        'will be run with all aperture groups in the model.'
-    )
-
-    light_path: List[List[str]] = Field(
-        None,
-        description='Get or set a list of lists for the light path from the view to the '
-        'sky. Each sub-list contains identifiers of aperture groups through which '
-        'light passes. (eg. [["SouthWindow1"], ["static_apertures", "NorthWindow2"]]).'
-        'Setting this property will override any auto-calculation of the light '
-        'path from the model and room_identifier upon export to the simulation.'
     )

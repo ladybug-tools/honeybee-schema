@@ -30,7 +30,7 @@ class SimulationOutput(NoExtraBaseModel):
     )
 
     include_html: bool = Field(
-        default=False,
+        default=True,
         description='Boolean to note whether an HTML report should be requested '
             'from the simulation.'
     )

@@ -74,7 +74,7 @@ with open('./docs/model_inheritance.json', 'w') as out_file:
 
 # add the mapper file
 with open('./docs/model_mapper.json', 'w') as out_file:
-    json.dump(class_mapper(Model), out_file, indent=2)
+    json.dump(class_mapper([Model]), out_file, indent=2)
 
 # generate SimulationParameter open api schema
 print('Generating Energy Simulation Parameter documentation...')
@@ -105,7 +105,7 @@ with open('./docs/simulation-parameter_inheritance.json', 'w') as out_file:
 
 # add the mapper file
 with open('./docs/simulation-parameter_mapper.json', 'w') as out_file:
-    json.dump(class_mapper(SimulationParameter), out_file, indent=2)
+    json.dump(class_mapper([SimulationParameter]), out_file, indent=2)
 
 
 # generate Radiance SensorGrid open api schema
@@ -137,7 +137,7 @@ with open('./docs/sensor-grid_inheritance.json', 'w') as out_file:
 
 # add the mapper file
 with open('./docs/sensor-grid_mapper.json', 'w') as out_file:
-    json.dump(class_mapper(SensorGrid), out_file, indent=2)
+    json.dump(class_mapper([SensorGrid]), out_file, indent=2)
 
 
 # generate Radiance View open api schema
@@ -169,4 +169,4 @@ with open('./docs/view_inheritance.json', 'w') as out_file:
 
 # add the mapper file
 with open('./docs/view_mapper.json', 'w') as out_file:
-    json.dump(class_mapper(View), out_file, indent=2)
+    json.dump(class_mapper([View]), out_file, indent=2)

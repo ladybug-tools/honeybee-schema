@@ -1,6 +1,6 @@
 from pydantic.utils import get_model
 from pydantic.schema import schema, get_flat_models_from_model, get_model_name_map
-from typing import Dict
+from typing import Dict, List, Any
 
 # base open api dictionary for all schemas
 _base_open_api = {
@@ -21,7 +21,7 @@ _base_open_api = {
 
 
 def get_openapi(
-    base_object,
+    base_object: List[Any],
     title: str = None,
     version: str = None,
     openapi_version: str = "3.0.2",
@@ -67,7 +67,7 @@ def get_openapi(
 
     schema_names = list(schemas.keys())
     schema_names.sort()
-    model_name_map = get_model_mapper(base_object[0], full=True)
+    model_name_map = get_model_mapper(base_object, full=True)
 
     for name in schema_names:
         model_name, tag = create_tag(name)
@@ -214,10 +214,14 @@ def check_enum(p, schemas, cls_, name):
     return True, new_p, schemas, enum_name
 
 
-def get_model_mapper(model, stoppage=None, full=True):
+def get_model_mapper(models, stoppage=None, full=True):
     """Get a dictionary of name: class for all the objects in model."""
-    model = get_model(model)
-    flat_models = get_flat_models_from_model(model)
+    models = [get_model(model) for model in models]
+    flat_models = [
+        m
+        for model in models
+        for m in get_flat_models_from_model(model)
+    ]
 
     # this is the list of all the referenced objects
     model_name_map = get_model_name_map(flat_models)
@@ -250,7 +254,7 @@ def get_schemas_inheritance(model_cls):
     # list of top level class names that we should stop at
     stoppage = set(['NoExtraBaseModel', 'ModelMetaclass', 'BaseModel', 'object'])
 
-    model_name_map = get_model_mapper(model_cls[0], stoppage, full=True)
+    model_name_map = get_model_mapper(model_cls, stoppage, full=True)
 
     # get the standard OpenAPI schema for Pydantic for all the new objects
     ref_prefix = '#/components/schemas/'
@@ -387,11 +391,14 @@ def set_inheritance(name, top_classes, schemas):
     return data_copy
 
 
-def class_mapper(model):
-    mapper = get_model_mapper(model, full=True)
+def class_mapper(models):
+    if not hasattr(models, '__iter__'):
+        models = [models]
+
+    mapper = get_model_mapper(models, full=True)
 
     # add enum classes to mapper
-    schemas = get_schemas_inheritance([model])
+    schemas = get_schemas_inheritance(models)
     enums = {}
     for name in schemas:
         s = schemas[name]

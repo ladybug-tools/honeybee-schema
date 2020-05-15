@@ -12,7 +12,11 @@
                     },
                     {
                         "path": "docs/simulation-parameter.json",
-                        "label": "Simulation parameters schema"
+                        "label": "Energy simulation parameters schema"
+                    },
+                    {
+                        "path": "docs/radiance-asset.json",
+                        "label": "Radiance simulation asset schema"
                     },
                     {
                         "path": "docs/model_inheritance.json",
@@ -20,7 +24,11 @@
                     },
                     {
                         "path": "docs/simulation-parameter_inheritance.json",
-                        "label": "Simulation parameters schema with inheritance"
+                        "label": "Energy simulation parameters schema with inheritance"
+                    },
+                    {
+                        "path": "docs/radiance-asset_inheritance.json",
+                        "label": "Radiance simulation asset schema with inheritance"
                     },
                     {
                         "path": "docs/model_mapper.json",
@@ -29,6 +37,10 @@
                     {
                         "path": "docs/simulation-parameter_mapper.json",
                         "label": "Simulation parameters schema mapper"
+                    },
+                    {
+                        "path": "docs/radiance-asset_mapper.json",
+                        "label": "Radiance simulation asset schema mapper"
                     }
                 ]
             }

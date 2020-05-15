@@ -108,65 +108,33 @@ with open('./docs/simulation-parameter_mapper.json', 'w') as out_file:
     json.dump(class_mapper([SimulationParameter]), out_file, indent=2)
 
 
-# generate Radiance SensorGrid open api schema
-print('Generating Radiance SensorGrid documentation...')
+# generate Radiance Asset open api schema
+print('Generating Radiance Asset documentation...')
 
 external_docs = {
     "description": "OpenAPI Specification with Inheritance",
-    "url": "./sensor-grid_inheritance.json"
+    "url": "./radiance-asset_inheritance.json"
 }
 
 openapi = get_openapi(
-    [SensorGrid],
-    title='Honeybee Radiance SensorGrid Schema',
-    description='This is the documentation for Honeybee SensorGrid schema.',
+    [SensorGrid, View],
+    title='Honeybee Radiance Asset Schema',
+    description='This is the documentation for Honeybee Radiance Asset schema.',
     version=VERSION, info=info,
     external_docs=external_docs)
-with open('./docs/sensor-grid.json', 'w') as out_file:
-    json.dump(openapi, out_file, indent=2)
-
-openapi = get_openapi(
-    [SensorGrid],
-    title='Honeybee Radiance SensorGrid Schema',
-    description='This is the documentation for Honeybee SensorGrid schema.',
-    version=VERSION, inheritance=True, info=info,
-    external_docs=external_docs
-)
-with open('./docs/sensor-grid_inheritance.json', 'w') as out_file:
-    json.dump(openapi, out_file, indent=2)
-
-# add the mapper file
-with open('./docs/sensor-grid_mapper.json', 'w') as out_file:
-    json.dump(class_mapper([SensorGrid]), out_file, indent=2)
-
-
-# generate Radiance View open api schema
-print('Generating Radiance View documentation...')
-
-external_docs = {
-    "description": "OpenAPI Specification with Inheritance",
-    "url": "./view_inheritance.json"
-}
-
-openapi = get_openapi(
-    [View],
-    title='Honeybee Radiance View Schema',
-    description='This is the documentation for Honeybee View schema.',
-    version=VERSION, info=info,
-    external_docs=external_docs)
-with open('./docs/view.json', 'w') as out_file:
+with open('./docs/radiance-asset.json', 'w') as out_file:
     json.dump(openapi, out_file, indent=2)
 
 openapi = get_openapi(
     [View],
-    title='Honeybee Radiance View Schema',
-    description='This is the documentation for Honeybee View schema.',
+    title='Honeybee Radiance Asset Schema',
+    description='This is the documentation for Honeybee Radiance Asset Schema.',
     version=VERSION, inheritance=True, info=info,
     external_docs=external_docs
 )
-with open('./docs/view_inheritance.json', 'w') as out_file:
+with open('./docs/radiance-asset_inheritance.json', 'w') as out_file:
     json.dump(openapi, out_file, indent=2)
 
 # add the mapper file
-with open('./docs/view_mapper.json', 'w') as out_file:
-    json.dump(class_mapper([View]), out_file, indent=2)
+with open('./docs/radiance-asset_mapper.json', 'w') as out_file:
+    json.dump(class_mapper([SensorGrid, View]), out_file, indent=2)

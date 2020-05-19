@@ -1,0 +1,19 @@
+{
+    "type": "CIE",
+    "altitude": 38.186734,
+    "azimuth": 270.410387,
+    "sky_type": 0,
+    "ground_reflectance": 0.2,
+    "ground_hemisphere": {
+        "type": "Ground",
+        "r_emittance": 1.0,
+        "g_emittance": 1.0,
+        "b_emittance": 1.0
+    },
+    "sky_hemisphere": {
+        "type": "SkyHemisphere",
+        "r_emittance": 1.0,
+        "g_emittance": 1.0,
+        "b_emittance": 1.0
+    }
+}

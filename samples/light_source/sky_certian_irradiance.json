@@ -1,0 +1,17 @@
+{
+    "type": "CertainIrradiance",
+    "irradiance": 55.865921787709496,
+    "ground_reflectance": 0.2,
+    "ground_hemisphere": {
+        "type": "Ground",
+        "r_emittance": 1.0,
+        "g_emittance": 1.0,
+        "b_emittance": 1.0
+    },
+    "sky_hemisphere": {
+        "type": "SkyHemisphere",
+        "r_emittance": 1.0,
+        "g_emittance": 1.0,
+        "b_emittance": 1.0
+    }
+}

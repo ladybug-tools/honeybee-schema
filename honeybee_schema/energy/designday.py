@@ -1,4 +1,4 @@
-"""Simulation Parameter Schema"""
+"""Design Day Schema"""
 from pydantic import Field, constr, validator
 from typing import Union, List
 from enum import Enum
@@ -129,7 +129,7 @@ class ASHRAEClearSky(_SkyCondition):
         ge=0,
         le=1.2,
         description='Value between 0 and 1.2 that will get multiplied by the '
-            'irradinace to correct for factors like elevation above sea level.'
+            'irradiance to correct for factors like elevation above sea level.'
     )
 
 

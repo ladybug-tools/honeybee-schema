@@ -273,12 +273,6 @@ class Room(IDdBaseModel):
             '(eg. trees, landscaping).'
     )
 
-    properties: RoomPropertiesAbridged = Field(
-        ...,
-        description='Extension properties for particular simulation engines '
-            '(Radiance, EnergyPlus).'
-    )
-
     multiplier: int = Field(
         1,
         ge=1,
@@ -286,6 +280,22 @@ class Room(IDdBaseModel):
             'Multipliers are used to speed up the calculation when similar Rooms are '
             'repeated more than once. Essentially, a given simulation with the '
             'Room is run once and then the result is mutliplied by the multiplier.'
+    )
+
+    story: str = Field(
+        default=None,
+        regex=r'[A-Za-z0-9_-]',
+        min_length=1,
+        max_length=100,
+        description='Text string for the story identifier to which this Room belongs. '
+            'Rooms sharing the same story identifier are considered part of the same '
+            'story in a Model.'
+    )
+
+    properties: RoomPropertiesAbridged = Field(
+        ...,
+        description='Extension properties for particular simulation engines '
+            '(Radiance, EnergyPlus).'
     )
 
 

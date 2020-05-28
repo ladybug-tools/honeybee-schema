@@ -25,16 +25,18 @@ class Outdoors(NoExtraBaseModel):
         ge=0,
         le=1,
         description='A number for the view factor to the ground. This can also be '
-            'an Autocalculate object to have the view factor automatically calculated.'
+        'an Autocalculate object to have the view factor automatically calculated.'
     )
 
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['view_factor']['anyOf'] = [
+            schema['properties']['view_factor']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/Autocalculate"},
                     {"type": "number", "minimum": 0, "maximum": 1}
-                ]
+            ]
+
 
 class Surface(NoExtraBaseModel):
 
@@ -42,16 +44,16 @@ class Surface(NoExtraBaseModel):
 
     boundary_condition_objects: List[str] = Field(
         ...,
-        min_tems=2,
+        min_items=2,
         max_items=3,
         description='A list of up to 3 object identifiers that are adjacent to this one. '
-            'The first object is always the one that is immediately adjacet and is of '
-            'the same object type (Face, Aperture, Door). When this boundary condition '
-            'is applied to a Face, the second object in the tuple will be the parent '
-            'Room of the adjacent object. When the boundary condition is applied to a '
-            'sub-face (Door or Aperture), the second object will be the parent Face '
-            'of the adjacent sub-face and the third object will be the parent Room '
-            'of the adjacent sub-face.'
+        'The first object is always the one that is immediately adjacent and is of '
+        'the same object type (Face, Aperture, Door). When this boundary condition '
+        'is applied to a Face, the second object in the tuple will be the parent '
+        'Room of the adjacent object. When the boundary condition is applied to a '
+        'sub-face (Door or Aperture), the second object will be the parent Face '
+        'of the adjacent sub-face and the third object will be the parent Room '
+        'of the adjacent sub-face.'
     )
 
 

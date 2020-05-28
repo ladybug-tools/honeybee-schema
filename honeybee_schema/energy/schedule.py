@@ -53,14 +53,16 @@ class ScheduleTypeLimit(IDdEnergyBaseModel):
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['lower_limit']['anyOf'] = [
+            schema['properties']['lower_limit']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/NoLimit"},
                     {"type": "number"}
-                ]
-            schema['properties']['upper_limit']['anyOf'] = [
+            ]
+            schema['properties']['upper_limit']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/NoLimit"},
                     {"type": "number"}
-                ]
+            ]
 
 
 class ScheduleDay(IDdEnergyBaseModel):
@@ -71,20 +73,20 @@ class ScheduleDay(IDdEnergyBaseModel):
     values: List[float] = Field(
         ...,
         description='A list of floats or integers for the values of the schedule. '
-            'The length of this list must match the length of the times list.'
+        'The length of this list must match the length of the times list.'
     )
 
     times: List[conlist(int, min_items=2, max_items=2)] = Field(
         [0, 0],
         description='A list of lists with each sub-list possesing 2 values for '
-            '[hour, minute]. The length of the master list must match the length '
-            'of the values list. Each time in the master list represents the time '
-            'of day that the corresponding value begins to take effect. For example '
-            '[(0,0), (9,0), (17,0)] in combination with the values [0, 1, 0] denotes a '
-            'schedule value of 0 from 0:00 to 9:00, a value of 1 from 9:00 to 17:00 '
-            'and 0 from 17:00 to the end of the day. Note that this representation '
-            'of times as the "time of beginning" is a different convention than '
-            'EnergyPlus, which uses "time until".'
+        '[hour, minute]. The length of the master list must match the length '
+        'of the values list. Each time in the master list represents the time '
+        'of day that the corresponding value begins to take effect. For example '
+        '[(0,0), (9,0), (17,0)] in combination with the values [0, 1, 0] denotes a '
+        'schedule value of 0 from 0:00 to 9:00, a value of 1 from 9:00 to 17:00 '
+        'and 0 from 17:00 to the end of the day. Note that this representation '
+        'of times as the "time of beginning" is a different convention than '
+        'EnergyPlus, which uses "time until".'
     )
 
     @root_validator
@@ -92,14 +94,14 @@ class ScheduleDay(IDdEnergyBaseModel):
         "Ensure the length of the times matches the length of the values."
         times, vals = values.get('times'), values.get('values')
         assert len(times) == len(vals), 'Length of schedule times must match ' \
-            'the schedule values. {} != {}.'.format(len(v), len(values['values']))
+            'the schedule values. {} != {}.'.format(len(times), len(values['values']))
         return values
 
     interpolate: bool = Field(
         False,
         description='Boolean to note whether values in between times should be '
-            'linearly interpolated or whether successive values should take effect '
-            'immediately upon the beginning time corrsponding to them.'
+        'linearly interpolated or whether successive values should take effect '
+        'immediately upon the beginning time corresponding to them.'
     )
 
 
@@ -155,9 +157,9 @@ class ScheduleRuleAbridged(DatedBaseModel):
         min_items=2,
         max_items=3,
         description='A list of two integers for [month, day], representing the start '
-            'date of the period over which the schedule_day will be applied.'
-            'A third integer may be added to denote whether the date should be '
-            're-serialized for a leap year (it should be a 1 in this case).'
+        'date of the period over which the schedule_day will be applied.'
+        'A third integer may be added to denote whether the date should be '
+        're-serialized for a leap year (it should be a 1 in this case).'
     )
 
     @validator('start_date')
@@ -169,9 +171,9 @@ class ScheduleRuleAbridged(DatedBaseModel):
         min_items=2,
         max_items=3,
         description='A list of two integers for [month, day], representing the end '
-            'date of the period over which the schedule_day will be applied.'
-            'A third integer may be added to denote whether the date should be '
-            're-serialized for a leap year (it should be a 1 in this case).'
+        'date of the period over which the schedule_day will be applied.'
+        'A third integer may be added to denote whether the date should be '
+        're-serialized for a leap year (it should be a 1 in this case).'
     )
 
     @validator('end_date')
@@ -187,7 +189,7 @@ class ScheduleRulesetAbridged(IDdEnergyBaseModel):
     day_schedules: List[ScheduleDay] = Field(
         ...,
         description='A list of ScheduleDays that are referenced in the other keys of '
-            'this ScheduleRulesetAbridged.'
+        'this ScheduleRulesetAbridged.'
     )
 
     default_day_schedule: str = Field(
@@ -195,15 +197,15 @@ class ScheduleRulesetAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='An identifier for the ScheduleDay that will be used for '
-            'all days when no ScheduleRule is applied. This ScheduleDay must be '
-            'in the day_schedules.'
+        'all days when no ScheduleRule is applied. This ScheduleDay must be '
+        'in the day_schedules.'
     )
 
     schedule_rules: List[ScheduleRuleAbridged] = Field(
         default=None,
         description='A list of ScheduleRuleAbridged that note exceptions to the '
-            'default_day_schedule. These rules should be ordered from highest to '
-            'lowest priority.'
+        'default_day_schedule. These rules should be ordered from highest to '
+        'lowest priority.'
     )
 
     holiday_schedule: str = Field(
@@ -211,7 +213,7 @@ class ScheduleRulesetAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='An identifier for the ScheduleDay that will be used for holidays. '
-            'This ScheduleDay must be in the day_schedules.'
+        'This ScheduleDay must be in the day_schedules.'
     )
 
     summer_designday_schedule: str = Field(
@@ -219,7 +221,7 @@ class ScheduleRulesetAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='An identifier for the ScheduleDay that will be used for '
-            'the summer design day. This ScheduleDay must be in the day_schedules.'
+        'the summer design day. This ScheduleDay must be in the day_schedules.'
     )
 
     winter_designday_schedule: str = Field(
@@ -227,7 +229,7 @@ class ScheduleRulesetAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='An identifier for the ScheduleDay that will be used for the '
-            'winter design day. This ScheduleDay must be in the day_schedules.'
+        'winter design day. This ScheduleDay must be in the day_schedules.'
     )
 
     schedule_type_limit: str = Field(
@@ -235,8 +237,8 @@ class ScheduleRulesetAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of a ScheduleTypeLimit that will be used to validate '
-            'schedule values against upper/lower limits and assign units to the '
-            'schedule values. If None, no validation will occur.'
+        'schedule values against upper/lower limits and assign units to the '
+        'schedule values. If None, no validation will occur.'
     )
 
 
@@ -248,8 +250,8 @@ class ScheduleRuleset(ScheduleRulesetAbridged):
     schedule_type_limit: ScheduleTypeLimit = Field(
         default=None,
         description='ScheduleTypeLimit object that will be used to validate '
-            'schedule values against upper/lower limits and assign units to the '
-            'schedule values. If None, no validation will occur.',
+        'schedule values against upper/lower limits and assign units to the '
+        'schedule values. If None, no validation will occur.'
     )
 
 
@@ -264,7 +266,7 @@ class ScheduleFixedIntervalAbridged(IDdEnergyBaseModel):
         min_items=24,
         max_items=527040,
         description='A list of timeseries values occuring at each timestep over '
-            'the course of the simulation.'
+        'the course of the simulation.'
     )
 
     schedule_type_limit: str = Field(
@@ -272,15 +274,15 @@ class ScheduleFixedIntervalAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of a ScheduleTypeLimit that will be used to validate '
-            'schedule values against upper/lower limits and assign units to the '
-            'schedule values. If None, no validation will occur.'
+        'schedule values against upper/lower limits and assign units to the '
+        'schedule values. If None, no validation will occur.'
     )
 
     timestep: int = Field(
         1,
         description='An integer for the number of steps per hour that the input '
-            'values correspond to.  For example, if each value represents 30 '
-            'minutes, the timestep is 2. For 15 minutes, it is 4.'
+        'values correspond to.  For example, if each value represents 30 '
+        'minutes, the timestep is 2. For 15 minutes, it is 4.'
     )
 
     @validator('timestep')
@@ -296,21 +298,21 @@ class ScheduleFixedIntervalAbridged(IDdEnergyBaseModel):
         min_items=2,
         max_items=3,
         description='A list of two integers for [month, day], representing the start '
-            'date when the schedule values begin to take effect.'
-            'A third integer may be added to denote whether the date should be '
-            're-serialized for a leap year (it should be a 1 in this case).'
+        'date when the schedule values begin to take effect.'
+        'A third integer may be added to denote whether the date should be '
+        're-serialized for a leap year (it should be a 1 in this case).'
     )
 
     @validator('start_date')
     def check_start_date(cls, v):
         if len(v) == 3 and v[2]:
             try:
-                datetime.date(2016, v[0] , v[1])
+                datetime.date(2016, v[0], v[1])
             except ValueError:
                 raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
         else:
             try:
-                datetime.date(2017, v[0] , v[1])
+                datetime.date(2017, v[0], v[1])
             except ValueError:
                 raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
         return v
@@ -318,15 +320,15 @@ class ScheduleFixedIntervalAbridged(IDdEnergyBaseModel):
     placeholder_value: float = Field(
         0,
         description=' A value that will be used for all times not covered by the '
-            'input values. Typically, your simulation should not need to use this '
-            'value if the input values completely cover the simulation period.'
+        'input values. Typically, your simulation should not need to use this '
+        'value if the input values completely cover the simulation period.'
     )
 
     interpolate: bool = Field(
         False,
         description='Boolean to note whether values in between intervals should be '
-            'linearly interpolated or whether successive values should take effect '
-            'immediately upon the beginning time corrsponding to them.'
+        'linearly interpolated or whether successive values should take effect '
+        'immediately upon the beginning time corresponding to them.'
     )
 
     @root_validator
@@ -336,13 +338,13 @@ class ScheduleFixedIntervalAbridged(IDdEnergyBaseModel):
         timestep = values.get('timestep')
         start_date = values.get('start_date')
         if len(vals) < 24 * timestep:
-             raise ValueError('Number of schedule values must be for at least one day, '
-                              'with a length greater than 24 * timestep.')
+            raise ValueError('Number of schedule values must be for at least one day, '
+                             'with a length greater than 24 * timestep.')
         max_l = timestep * 8760 if len(start_date) == 3 and start_date[2] \
             else timestep * 8784
         if len(vals) > max_l:
-             raise ValueError('Number of schedule values must not exceed a full year, '
-                              'with a length greater than 8760 * timestep.')
+            raise ValueError('Number of schedule values must not exceed a full year, '
+                             'with a length greater than 8760 * timestep.')
         if len(vals) % (24 * timestep) != 0:
             raise ValueError(
                 'Number of schedule values must be for a whole number of days.')
@@ -357,13 +359,6 @@ class ScheduleFixedInterval(ScheduleFixedIntervalAbridged):
     schedule_type_limit: ScheduleTypeLimit = Field(
         default=None,
         description='ScheduleTypeLimit object that will be used to validate '
-            'schedule values against upper/lower limits and assign units to the '
-            'schedule values. If None, no validation will occur.',
+        'schedule values against upper/lower limits and assign units to the '
+        'schedule values. If None, no validation will occur.',
     )
-
-
-if __name__ == '__main__':
-    print(ScheduleFixedIntervalAbridged.schema_json(indent=2))
-    print(ScheduleRulesetAbridged.schema_json(indent=2))
-    print(ScheduleFixedInterval.schema_json(indent=2))
-    print(ScheduleRuleset.schema_json(indent=2))

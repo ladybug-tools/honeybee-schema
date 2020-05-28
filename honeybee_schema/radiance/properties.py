@@ -16,14 +16,14 @@ class _PropertiesBaseAbridged(NoExtraBaseModel):
     modifier: str = Field(
         default=None,
         description='A string for a Honeybee Radiance Modifier (default: None).'
-        )
+    )
 
     modifier_blk: str = Field(
         default=None,
         description='A string for a Honeybee Radiance Modifier to be used '
                     'in direct solar simulations and in isolation studies (assessing'
                     'the contribution of individual objects) (default: None).'
-        )
+    )
 
 
 class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
@@ -103,7 +103,7 @@ class RoomRadiancePropertiesAbridged(NoExtraBaseModel):
         default=None,
         description='An identifier for a unique Room-Assigned ModifierSet '
                     '(default: None).'
-        )
+    )
 
 
 class ModelRadianceProperties(NoExtraBaseModel):
@@ -117,17 +117,17 @@ class ModelRadianceProperties(NoExtraBaseModel):
                     'This includes modifiers across all Faces, Apertures, Doors, '
                     'Shades, Room ModifierSets, and the global_modifier_set '
                     '(default: None).'
-        )
+    )
 
     modifier_sets: List[Union[ModifierSet, ModifierSetAbridged]] = Field(
         default=None,
         description='A list of all unique Room-Assigned ModifierSets in the Model '
                     '(default: None).'
-        )
+    )
 
     global_modifier_set: str = Field(
         default=None,
         description='Identifier of a ModifierSet or ModifierSetAbridged object to be '
                     'used as as a default object for all unassigned objects in the '
                     'Model (default: None).'
-        )
+    )

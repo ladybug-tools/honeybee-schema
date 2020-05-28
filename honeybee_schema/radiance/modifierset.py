@@ -9,16 +9,16 @@ class BaseModifierSetAbridged(NoExtraBaseModel):
     """Base class for the abridged modifier sets assigned to Faces."""
 
     exterior_modifier: str = Field(
-            default=None,
-            description='Identifier for a radiance modifier object for faces with an '
-                        ' Outdoors boundary condition.'
-        )
+        default=None,
+        description='Identifier for a radiance modifier object for faces with an '
+                    ' Outdoors boundary condition.'
+    )
 
     interior_modifier: str = Field(
-            default=None,
-            description='Identifier for a radiance modifier object for faces with a '
-                        'boundary condition other than Outdoors.'
-        )
+        default=None,
+        description='Identifier for a radiance modifier object for faces with a '
+                    'boundary condition other than Outdoors.'
+    )
 
 
 class WallModifierSetAbridged(BaseModifierSetAbridged):
@@ -52,30 +52,30 @@ class ApertureModifierSetAbridged(NoExtraBaseModel):
     type: constr(regex='^ApertureModifierSetAbridged$') = 'ApertureModifierSetAbridged'
 
     window_modifier: str = Field(
-            default=None,
-            description='Identifier of modifier object for apertures with an Outdoors '
-                        'boundary condition, False is_operable property, '
-                        'and Wall parent Face.'
-        )
+        default=None,
+        description='Identifier of modifier object for apertures with an Outdoors '
+                    'boundary condition, False is_operable property, '
+                    'and Wall parent Face.'
+    )
 
     interior_modifier: str = Field(
-            default=None,
-            description='Identifier of modifier object for apertures with a Surface '
-                        'boundary condition.'
-        )
+        default=None,
+        description='Identifier of modifier object for apertures with a Surface '
+                    'boundary condition.'
+    )
 
     skylight_modifier: str = Field(
-            default=None,
-            description='Identifier of modifier object for apertures with an Outdoors '
-                        'boundary condition, False is_operable property, and a '
-                        'RoofCeiling or Floor face type for their parent face.'
-        )
+        default=None,
+        description='Identifier of modifier object for apertures with an Outdoors '
+                    'boundary condition, False is_operable property, and a '
+                    'RoofCeiling or Floor face type for their parent face.'
+    )
 
     operable_modifier: str = Field(
-            default=None,
-            description='Identifier of modifier object for apertures with an Outdoors '
-                        'boundary condition and a True is_operable property.'
-        )
+        default=None,
+        description='Identifier of modifier object for apertures with an Outdoors '
+                    'boundary condition and a True is_operable property.'
+    )
 
 
 class DoorModifierSetAbridged(BaseModifierSetAbridged):
@@ -84,23 +84,23 @@ class DoorModifierSetAbridged(BaseModifierSetAbridged):
     type: constr(regex='^DoorModifierSetAbridged$') = 'DoorModifierSetAbridged'
 
     interior_glass_modifier: str = Field(
-            default=None,
-            description='Identifier of modifier object for glass with a Surface '
-                        'boundary condition.'
-        )
+        default=None,
+        description='Identifier of modifier object for glass with a Surface '
+                    'boundary condition.'
+    )
 
     exterior_glass_modifier: str = Field(
-            default=None,
-            description='Identifier of modifier object for glass with an Outdoors '
-                        'boundary condition.'
-        )
+        default=None,
+        description='Identifier of modifier object for glass with an Outdoors '
+                    'boundary condition.'
+    )
 
     overhead_modifier: str = Field(
-            default=None,
-            description='Identifier of a modifier object for doors with an '
-                        'Outdoors boundary condition and a RoofCeiling or Floor '
-                        'face type for their parent face.'
-        )
+        default=None,
+        description='Identifier of a modifier object for doors with an '
+                    'Outdoors boundary condition and a RoofCeiling or Floor '
+                    'face type for their parent face.'
+    )
 
 
 class ModifierSetAbridged(IDdRadianceBaseModel):
@@ -148,7 +148,7 @@ class ModifierSetAbridged(IDdRadianceBaseModel):
         default=None,
         description='Optional Modifier to be used for all Faces '
                     'with an AirBoundary face type. If None, it will be the '
-                    'honyebee generic air wall modifier.'
+                    'honeybee generic air wall modifier.'
     )
 
 
@@ -156,16 +156,16 @@ class BaseModifierSet(NoExtraBaseModel):
     """Base class for the modifier sets assigned to Faces."""
 
     exterior_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A radiance modifier object for faces with an Outdoors boundary '
-                        'condition.'
-        )
+        default=None,
+        description='A radiance modifier object for faces with an Outdoors boundary '
+                    'condition.'
+    )
 
     interior_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A radiance modifier object for faces with a boundary condition '
-                        'other than Outdoors.'
-        )
+        default=None,
+        description='A radiance modifier object for faces with a boundary condition '
+                    'other than Outdoors.'
+    )
 
 
 class WallModifierSet(BaseModifierSet):
@@ -198,30 +198,30 @@ class ApertureModifierSet(NoExtraBaseModel):
     type: constr(regex='^ApertureModifierSet$') = 'ApertureModifierSet'
 
     window_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A modifier object for apertures with an Outdoors '
-                        'boundary condition, False is_operable property, '
-                        'and Wall parent Face.'
-        )
+        default=None,
+        description='A modifier object for apertures with an Outdoors '
+                    'boundary condition, False is_operable property, '
+                    'and Wall parent Face.'
+    )
 
     interior_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A modifier object for apertures with a Surface '
-                        'boundary condition.'
-        )
+        default=None,
+        description='A modifier object for apertures with a Surface '
+                    'boundary condition.'
+    )
 
     skylight_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A modifier object for apertures with an Outdoors '
-                        'boundary condition, False is_operable property, and a '
-                        'RoofCeiling or Floor face type for their parent face.'
-        )
+        default=None,
+        description='A modifier object for apertures with an Outdoors '
+                    'boundary condition, False is_operable property, and a '
+                    'RoofCeiling or Floor face type for their parent face.'
+    )
 
     operable_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A modifier object for apertures with an Outdoors boundary '
-                        'condition and a True is_operable property.'
-        )
+        default=None,
+        description='A modifier object for apertures with an Outdoors boundary '
+                    'condition and a True is_operable property.'
+    )
 
 
 class DoorModifierSet(BaseModifierSet):
@@ -230,23 +230,21 @@ class DoorModifierSet(BaseModifierSet):
     type: constr(regex='^DoorModifierSet$') = 'DoorModifierSet'
 
     interior_glass_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A modifier object for glass with a Surface '
-                        'boundary condition.'
-        )
+        default=None,
+        description='A modifier object for glass with a Surface boundary condition.'
+    )
 
     exterior_glass_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A modifier object for glass with an Outdoors '
-                        'boundary condition.'
-        )
+        default=None,
+        description='A modifier object for glass with an Outdoors boundary condition.'
+    )
 
     overhead_modifier: _REFERENCE_UNION_MODIFIERS = Field(
-            default=None,
-            description='A window modifier object for doors with an Outdoors boundary '
-                        'condition and a RoofCeiling or Floor face type for their '
-                        'parent face.'
-        )
+        default=None,
+        description='A window modifier object for doors with an Outdoors boundary '
+                    'condition and a RoofCeiling or Floor face type for their '
+                    'parent face.'
+    )
 
 
 class ModifierSet(IDdRadianceBaseModel):
@@ -293,6 +291,6 @@ class ModifierSet(IDdRadianceBaseModel):
     air_boundary_modifier: _REFERENCE_UNION_MODIFIERS = Field(
         default=None,
         description='An optional Modifier to be used for all Faces with an AirBoundary '
-                    'face type. If None, it will be the honyebee generic air wall '
+                    'face type. If None, it will be the honeybee generic air wall '
                     'modifier.'
     )

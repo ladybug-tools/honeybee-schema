@@ -1,5 +1,5 @@
 """Programtype Schema"""
-from pydantic import Field, validator, root_validator, constr
+from pydantic import Field, root_validator, constr
 from typing import Union
 
 from ._base import IDdEnergyBaseModel
@@ -22,9 +22,9 @@ class PeopleAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of a schedule for the occupancy over the course of the '
-            'year. The type of this schedule should be Fractional and the fractional '
-            'values will get multiplied by the people_per_area to yield a complete '
-            'occupancy profile.'
+        'year. The type of this schedule should be Fractional and the fractional '
+        'values will get multiplied by the people_per_area to yield a complete '
+        'occupancy profile.'
     )
 
     activity_schedule: str = Field(
@@ -32,9 +32,9 @@ class PeopleAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of a schedule for the activity of the occupants over the '
-            'course of the year. The type of this schedule should be Power and the '
-            'values of the schedule equal to the number of Watts given off by an '
-            'individual person in the room.'
+        'course of the year. The type of this schedule should be Power and the '
+        'values of the schedule equal to the number of Watts given off by an '
+        'individual person in the room.'
     )
 
     radiant_fraction: float = Field(
@@ -50,7 +50,7 @@ class PeopleAbridged(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Number for the latent fraction of heat gain due to people or '
-            'an Autocalculate object.'
+        'an Autocalculate object.'
     )
 
     @root_validator
@@ -66,47 +66,51 @@ class PeopleAbridged(IDdEnergyBaseModel):
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['latent_fraction']['anyOf'] = [
+            schema['properties']['latent_fraction']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/Autocalculate"},
                     {"type": "number", "minimum": 0, "maximum": 1}
-                ]
+            ]
 
 
 class People(PeopleAbridged):
 
     type: constr(regex='^People$') = 'People'
 
-    occupancy_schedule:  Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+    occupancy_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='A schedule for the occupancy over the course of the '
-            'year. The type of this schedule should be Fractional and the fractional '
-            'values will get multiplied by the people_per_area to yield a complete '
-            'occupancy profile.'
+        'year. The type of this schedule should be Fractional and the fractional '
+        'values will get multiplied by the people_per_area to yield a complete '
+        'occupancy profile.'
     )
 
     activity_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='A schedule for the activity of the occupants over the '
-            'course of the year. The type of this schedule should be Power and the '
-            'values of the schedule equal to the number of Watts given off by an '
-            'individual person in the room.'
+        'course of the year. The type of this schedule should be Power and the '
+        'values of the schedule equal to the number of Watts given off by an '
+        'individual person in the room.'
     )
 
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['latent_fraction']['anyOf'] = [
+            schema['properties']['latent_fraction']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/Autocalculate"},
                     {"type": "number", "minimum": 0, "maximum": 1}
-                ]
-            schema['properties']['occupancy_schedule']['anyOf'] = [
+            ]
+            schema['properties']['occupancy_schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
-            schema['properties']['activity_schedule']['anyOf'] = [
+            ]
+            schema['properties']['activity_schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
+            ]
 
 
 class LightingAbridged(IDdEnergyBaseModel):
@@ -124,9 +128,9 @@ class LightingAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the use of lights over the course of '
-            'the year. The type of this schedule should be Fractional and the '
-            'fractional values will get multiplied by the watts_per_area to yield a '
-            'complete lighting profile.'
+        'the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the watts_per_area to yield a '
+        'complete lighting profile.'
     )
 
     visible_fraction: float = Field(
@@ -171,18 +175,19 @@ class Lighting(LightingAbridged):
     schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='The schedule for the use of lights over the course of '
-            'the year. The type of this schedule should be Fractional and the '
-            'fractional values will get multiplied by the watts_per_area to yield a '
-            'complete lighting profile.'
+        'the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the watts_per_area to yield a '
+        'complete lighting profile.'
     )
 
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['schedule']['anyOf'] = [
+            schema['properties']['schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
+            ]
 
 
 class _EquipmentBase(IDdEnergyBaseModel):
@@ -198,9 +203,9 @@ class _EquipmentBase(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the use of equipment over the course '
-            'of the year. The type of this schedule should be Fractional and the '
-            'fractional values will get multiplied by the watts_per_area to yield '
-            'a complete equipment profile.'
+        'of the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the watts_per_area to yield '
+        'a complete equipment profile.'
     )
 
     radiant_fraction: float = Field(
@@ -222,10 +227,10 @@ class _EquipmentBase(IDdEnergyBaseModel):
 
     lost_fraction: float = Field(
         0,
-        ge = 0,
-        le = 1,
+        ge=0,
+        le=1,
         description='Number for the amount of “lost” heat being given off by '
-            'equipment. The default value is 0.'
+        'equipment. The default value is 0.'
     )
 
     @root_validator
@@ -251,18 +256,19 @@ class ElectricEquipment(ElectricEquipmentAbridged):
     schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='The schedule for the use of equipment over the course '
-            'of the year. The type of this schedule should be Fractional and the '
-            'fractional values will get multiplied by the watts_per_area to yield '
-            'a complete equipment profile.'
+        'of the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the watts_per_area to yield '
+        'a complete equipment profile.'
     )
 
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['schedule']['anyOf'] = [
+            schema['properties']['schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
+            ]
 
 
 class GasEquipmentAbridged(_EquipmentBase):
@@ -277,18 +283,19 @@ class GasEquipment(GasEquipmentAbridged):
     schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='The schedule for the use of equipment over the course '
-            'of the year. The type of this schedule should be Fractional and the '
-            'fractional values will get multiplied by the watts_per_area to yield '
-            'a complete equipment profile.'
+        'of the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the watts_per_area to yield '
+        'a complete equipment profile.'
     )
 
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['schedule']['anyOf'] = [
+            schema['properties']['schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
+            ]
 
 
 class InfiltrationAbridged(IDdEnergyBaseModel):
@@ -306,9 +313,9 @@ class InfiltrationAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the infiltration over the course of '
-            'the year. The type of this schedule should be Fractional and the '
-            'fractional values will get multiplied by the flow_per_exterior_area '
-            'to yield a complete infiltration profile.'
+        'the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the flow_per_exterior_area '
+        'to yield a complete infiltration profile.'
     )
 
     constant_coefficient: float = Field(
@@ -334,18 +341,19 @@ class Infiltration(InfiltrationAbridged):
     schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='The schedule for the infiltration over the course of '
-            'the year. The type of this schedule should be Fractional and the '
-            'fractional values will get multiplied by the flow_per_exterior_area '
-            'to yield a complete infiltration profile.'
+        'the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the flow_per_exterior_area '
+        'to yield a complete infiltration profile.'
     )
 
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['schedule']['anyOf'] = [
+            schema['properties']['schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
+            ]
 
 
 class VentilationAbridged(IDdEnergyBaseModel):
@@ -356,9 +364,9 @@ class VentilationAbridged(IDdEnergyBaseModel):
         0,
         ge=0,
         description='Intensity of ventilation in[] m3/s per person]. Note that '
-            'setting this value does not mean that ventilation is varied based on '
-            'real-time occupancy but rather that the design level of ventilation '
-            'is determined using this value and the People object of the Room.'
+        'setting this value does not mean that ventilation is varied based on '
+        'real-time occupancy but rather that the design level of ventilation '
+        'is determined using this value and the People object of the Room.'
     )
 
     flow_per_area: float = Field(
@@ -369,14 +377,14 @@ class VentilationAbridged(IDdEnergyBaseModel):
 
     air_changes_per_hour: float = Field(
         0,
-        ge = 0,
+        ge=0,
         description='Intensity of ventilation in air changes per hour (ACH) for '
-            'the entire Room.'
+        'the entire Room.'
     )
 
     flow_per_zone: float = Field(
         0,
-        ge = 0,
+        ge=0,
         description='Intensity of ventilation in m3/s for the entire Room.'
     )
 
@@ -385,10 +393,10 @@ class VentilationAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the ventilation over the course of '
-            'the year. The type of this schedule should be Fractional and the '
-            'fractional values will get multiplied by the total design flow rate '
-            '(determined from the sum of the other 4 fields) to yield a complete '
-            'ventilation profile.'
+        'the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the total design flow rate '
+        '(determined from the sum of the other 4 fields) to yield a complete '
+        'ventilation profile.'
     )
 
 
@@ -399,19 +407,20 @@ class Ventilation(VentilationAbridged):
     schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         default=None,
         description='Schedule for the ventilation over the course of '
-            'the year. The type of this schedule should be Fractional and the '
-            'fractional values will get multiplied by the total design flow rate '
-            '(determined from the sum of the other 4 fields) to yield a complete '
-            'ventilation profile.'
+        'the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the total design flow rate '
+        '(determined from the sum of the other 4 fields) to yield a complete '
+        'ventilation profile.'
     )
 
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['schedule']['anyOf'] = [
+            schema['properties']['schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
+            ]
 
 
 class SetpointAbridged(IDdEnergyBaseModel):
@@ -424,7 +433,7 @@ class SetpointAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the cooling setpoint. The values in '
-            'this schedule should be temperature in [C].'
+        'this schedule should be temperature in [C].'
     )
 
     heating_schedule: str = Field(
@@ -432,7 +441,7 @@ class SetpointAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the heating setpoint. The values in '
-            'this schedule should be temperature in [C].'
+        'this schedule should be temperature in [C].'
     )
 
     humidifying_schedule: str = Field(
@@ -440,7 +449,7 @@ class SetpointAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the humidification setpoint. '
-            'The values in this schedule should be in [%].'
+        'The values in this schedule should be in [%].'
     )
 
     dehumidifying_schedule: str = Field(
@@ -448,11 +457,11 @@ class SetpointAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the dehumidification setpoint. '
-            'The values in this schedule should be in [%].'
+        'The values in this schedule should be in [%].'
     )
 
     @root_validator
-    def check_both_himd_sch(cls, values):
+    def check_both_humid_sch(cls, values):
         "Ensure that the other humidity schedule is included when one is."
         humid = values.get('humidifying_schedule')
         dehumid = values.get('dehumidifying_schedule')
@@ -473,53 +482,47 @@ class Setpoint(SetpointAbridged):
     cooling_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='Schedule for the cooling setpoint. The values in '
-            'this schedule should be temperature in [C].'
+        'this schedule should be temperature in [C].'
     )
 
     heating_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='Schedule for the heating setpoint. The values in '
-            'this schedule should be temperature in [C].'
+        'this schedule should be temperature in [C].'
     )
 
     humidifying_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         default=None,
         description='Schedule for the humidification setpoint. The values '
-            'in this schedule should be in [%].'
+        'in this schedule should be in [%].'
     )
 
     dehumidifying_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         default=None,
         description='Schedule for the dehumidification setpoint. The values '
-            'in this schedule should be in [%].'
+        'in this schedule should be in [%].'
     )
 
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['cooling_schedule']['anyOf'] = [
+            schema['properties']['cooling_schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
-            schema['properties']['heating_schedule']['anyOf'] = [
+            ]
+            schema['properties']['heating_schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
-            schema['properties']['humidifying_schedule']['anyOf'] = [
+            ]
+            schema['properties']['humidifying_schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
-            schema['properties']['dehumidifying_schedule']['anyOf'] = [
+            ]
+            schema['properties']['dehumidifying_schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
-
-
-if __name__ == '__main__':
-    print(PeopleAbridged.schema_json(indent=2))
-    print(LightingAbridged.schema_json(indent=2))
-    print(ElectricEquipmentAbridged.schema_json(indent=2))
-    print(GasEquipmentAbridged.schema_json(indent=2))
-    print(InfiltrationAbridged.schema_json(indent=2))
-    print(VentilationAbridged.schema_json(indent=2))
-    print(SetpointAbridged.schema_json(indent=2))
+            ]

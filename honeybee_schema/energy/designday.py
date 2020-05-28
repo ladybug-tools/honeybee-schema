@@ -22,8 +22,8 @@ class DryBulbCondition(NoExtraBaseModel):
     dry_bulb_range: float = Field(
         ...,
         ge=0,
-        description='The difference between min and max temperatures on the' 
-            'design day [C].'
+        description='The difference between min and max temperatures on the '
+        'design day [C].'
     )
 
 
@@ -86,15 +86,15 @@ class WindCondition(NoExtraBaseModel):
 
 class _SkyCondition(NoExtraBaseModel):
     """Used to specify sky conditions on a design day."""
-    
+
     date: List[int] = Field(
         ...,
         min_items=2,
         max_items=3,
         description='A list of two integers for [month, day], representing the date '
-            'for the day of the year on which the design day occurs.'
-            'A third integer may be added to denote whether the date should be '
-            're-serialized for a leap year (it should be a 1 in this case).'
+        'for the day of the year on which the design day occurs. '
+        'A third integer may be added to denote whether the date should be '
+        're-serialized for a leap year (it should be a 1 in this case).'
     )
 
     @validator('date')
@@ -102,20 +102,20 @@ class _SkyCondition(NoExtraBaseModel):
         "Ensure valid date."
         if len(v) == 3 and v[2]:
             try:
-                datetime.date(2016, v[0] , v[1])
+                datetime.date(2016, v[0], v[1])
             except ValueError:
                 raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
         else:
             try:
-                datetime.date(2017, v[0] , v[1])
+                datetime.date(2017, v[0], v[1])
             except ValueError:
                 raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
         return v
-    
+
     daylight_savings: bool = Field(
         default=False,
         description='Boolean to indicate whether daylight savings time is active '
-            'on the design day.'
+        'on the design day.'
     )
 
 
@@ -129,7 +129,7 @@ class ASHRAEClearSky(_SkyCondition):
         ge=0,
         le=1.2,
         description='Value between 0 and 1.2 that will get multiplied by the '
-            'irradiance to correct for factors like elevation above sea level.'
+        'irradiance to correct for factors like elevation above sea level.'
     )
 
 
@@ -177,10 +177,10 @@ class DesignDay(NoExtraBaseModel):
         min_length=1,
         max_length=100,
         description='Text string for a unique design day name. This name remains '
-            'constant as the object is mutated, copied, and serialized to different '
-            'formats (eg. dict, idf, osm). It is also used to reference the object '
-            'within SimulationParameters. It must be < 100 characters, use only '
-            'ASCII characters and exclude (, ; ! \\n \\t).'
+        'constant as the object is mutated, copied, and serialized to different '
+        'formats (eg. dict, idf, osm). It is also used to reference the object '
+        'within SimulationParameters. It must be < 100 characters, use only '
+        'ASCII characters and exclude (, ; ! \\n \\t).'
     )
 
     @validator('name')
@@ -195,13 +195,13 @@ class DesignDay(NoExtraBaseModel):
     dry_bulb_condition: DryBulbCondition = Field(
         ...,
         description='A DryBulbCondition describing temperature conditions on '
-            'the design day.'
+        'the design day.'
     )
 
     humidity_condition: HumidityCondition = Field(
         ...,
         description='A HumidityCondition describing humidity and precipitation '
-            'conditions on the design day.'
+        'conditions on the design day.'
     )
 
     wind_condition: WindCondition = Field(

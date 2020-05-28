@@ -51,12 +51,12 @@ class SkyDome(NoExtraBaseModel):
     ground_hemisphere: Optional[Ground] = Field(
         default=Ground(),
         description='Optional ground glow source.'
-        )
+    )
 
     sky_hemisphere: Optional[SkyHemisphere] = Field(
         default=SkyHemisphere(),
         description='Optional sky hemisphere glow source.'
-        )
+    )
 
 
 class _PointInTime(SkyDome):

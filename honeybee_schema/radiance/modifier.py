@@ -25,7 +25,7 @@ class Mirror(ModifierBase):
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier (default: Void).'
-        )
+    )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
         default=None,
@@ -33,7 +33,7 @@ class Mirror(ModifierBase):
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
                     '(default: None).'
-        )
+    )
 
     r_reflectance: float = Field(
         default=1,
@@ -78,7 +78,7 @@ class Plastic(ModifierBase):
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier (default: Void).'
-        )
+    )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
         default=None,
@@ -86,7 +86,7 @@ class Plastic(ModifierBase):
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
                     '(default: None).'
-        )
+    )
 
     r_reflectance: float = Field(
         default=0.0,
@@ -191,7 +191,7 @@ class Glass(ModifierBase):
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier (default: Void).'
-        )
+    )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
         default=None,
@@ -199,7 +199,7 @@ class Glass(ModifierBase):
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
                     '(default: None).'
-        )
+    )
 
     r_transmissivity: float = Field(
         default=0.0,
@@ -241,7 +241,7 @@ class BSDF(ModifierBase):
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier (default: Void).'
-        )
+    )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
         default=None,
@@ -249,7 +249,7 @@ class BSDF(ModifierBase):
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
                     '(default: None).'
-        )
+    )
 
     up_orientation: List[float] = Field(
         default=(0.01, 0.01, 1.00),
@@ -341,7 +341,7 @@ class Light(ModifierBase):
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier (default: Void).'
-        )
+    )
 
     dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
         default=None,
@@ -349,7 +349,7 @@ class Light(ModifierBase):
                     'This argument is only useful for defining advanced modifiers '
                     'where the modifier is defined based on other modifiers '
                     '(default: None).'
-        )
+    )
 
     r_emittance: float = Field(
         default=0.0,

@@ -16,14 +16,14 @@ class StateGeometryAbridged(IDdRadianceBaseModel):
         default=None,
         description='A string for a Honeybee Radiance Modifier identifier '
                     '(default: None).'
-        )
+    )
 
     modifier_direct: str = Field(
         default=None,
         description='A string for Honeybee Radiance Modifier identifiers to be used '
                     'in direct solar simulations and in isolation studies (assessing'
                     'the contribution of individual objects) (default: None).'
-        )
+    )
 
     geometry: Face3D = Field(
         ...,
@@ -67,4 +67,3 @@ class RadianceSubFaceStateAbridged(RadianceShadeStateAbridged):
         default=None,
         description='A Face3D for the daylight matrix geometry (default: None).'
     )
-

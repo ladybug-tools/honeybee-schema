@@ -1,7 +1,6 @@
 """Wea Schema"""
 from pydantic import Field, constr, confloat
 from typing import List
-import datetime
 
 from .._base import NoExtraBaseModel
 
@@ -55,15 +54,15 @@ class Location(NoExtraBaseModel):
     )
 
     station_id: str = Field(
-            default=None,
-            description='Optional ID of the location if the location is '
-            'representing a weather station.'
-        )
+        default=None,
+        description='Optional ID of the location if the location is '
+        'representing a weather station.'
+    )
 
     source: str = Field(
-            default=None,
-            description='Optional source of data (e.g. TMY, TMY3).'
-        )
+        default=None,
+        description='Optional source of data (e.g. TMY, TMY3).'
+    )
 
 
 class Wea(NoExtraBaseModel):

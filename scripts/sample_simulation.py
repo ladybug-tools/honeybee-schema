@@ -40,7 +40,9 @@ def simulation_par_detailed(directory):
     sim_control_alt = SimulationControl(run_for_sizing_periods=True,
                                         run_for_run_periods=False)
     sim_par.simulation_control = sim_control_alt
-    shadow_calc_alt = ShadowCalculation(calculation_frequency=20)
+    shadow_calc_alt = ShadowCalculation(
+        solar_distribution='FullInteriorAndExteriorWithReflections',
+        calculation_method='PixelCounting', calculation_update_method='Timestep')
     sim_par.shadow_calculation = shadow_calc_alt
     sizing_alt = SizingParameter(None, 1, 1)
     relative_path = './scripts/ddy/chicago.ddy'

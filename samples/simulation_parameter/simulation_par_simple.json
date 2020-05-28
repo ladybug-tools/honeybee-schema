@@ -4,7 +4,7 @@
         "type": "SimulationOutput",
         "reporting_frequency": "Hourly",
         "include_sqlite": true,
-        "include_html": false,
+        "include_html": true,
         "summary_reports": [
             "AllSummary"
         ]
@@ -34,7 +34,8 @@
     "shadow_calculation": {
         "type": "ShadowCalculation",
         "solar_distribution": "FullExteriorWithReflections",
-        "calculation_method": "AverageOverDaysInFrequency",
+        "calculation_method": "PolygonClipping",
+        "calculation_update_method": "Periodic",
         "calculation_frequency": 30,
         "maximum_figures": 15000
     },

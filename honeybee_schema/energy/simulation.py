@@ -89,8 +89,13 @@ class SolarDistribution(str, Enum):
 
 
 class CalculationMethod(str, Enum):
-    average_over_days_in_frequency = 'AverageOverDaysInFrequency'
-    timestep_frequency = 'TimestepFrequency'
+    polygon_clipping = 'PolygonClipping'
+    pixel_counting = 'PixelCounting'
+
+
+class CalculationUpdateMethod(str, Enum):
+    periodic = 'Periodic'
+    timestep = 'Timestep'
 
 
 class ShadowCalculation(NoExtraBaseModel):
@@ -101,16 +106,30 @@ class ShadowCalculation(NoExtraBaseModel):
     solar_distribution: SolarDistribution = \
         SolarDistribution.full_exterior_with_reflection
 
+    calculation_method: CalculationMethod = Field(
+        CalculationMethod.polygon_clipping,
+        description='Text noting whether CPU-based polygon clipping method or'
+            'GPU-based pixel counting method should be used. For low numbers of shading'
+            'surfaces (less than ~200), PolygonClipping requires less runtime than'
+            'PixelCounting. However, PixelCounting runtime scales significantly'
+            'better at higher numbers of shading surfaces. PixelCounting also has'
+            'no limitations related to zone concavity when used with any'
+            '“FullInterior” solar distribution options.'
+    )
+
+    calculation_update_method: CalculationUpdateMethod = Field(
+        CalculationUpdateMethod.periodic,
+        description='Text describing how often the solar and shading calculations '
+            'are updated with respect to the flow of time in the simulation.'
+    )
+
     calculation_frequency: int = Field(
         30,
         ge=1,
         description='Integer for the number of days in each period for which a '
             'unique shadow calculation will be performed. This field is only used '
-            'if the AverageOverDaysInFrequency calculation_method is used.'
+            'if the Periodic calculation_method is used.'
     )
-
-    calculation_method: CalculationMethod = \
-        CalculationMethod.average_over_days_in_frequency
 
     maximum_figures: int = Field(
         15000,

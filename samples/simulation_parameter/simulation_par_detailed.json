@@ -69,9 +69,10 @@
     },
     "shadow_calculation": {
         "type": "ShadowCalculation",
-        "solar_distribution": "FullExteriorWithReflections",
-        "calculation_method": "AverageOverDaysInFrequency",
-        "calculation_frequency": 20,
+        "solar_distribution": "FullInteriorAndExteriorWithReflections",
+        "calculation_method": "PixelCounting",
+        "calculation_update_method": "Timestep",
+        "calculation_frequency": 30,
         "maximum_figures": 15000
     },
     "sizing_parameter": {

@@ -39,20 +39,20 @@ class Face3D(NoExtraBaseModel):
         ...,
         min_items=3,
         description='A list of points representing the outer boundary vertices of '
-            'the face. The list should include at least 3 points and each point '
-            'should be a list of 3 (x, y, z) values.'
+        'the face. The list should include at least 3 points and each point '
+        'should be a list of 3 (x, y, z) values.'
     )
 
     holes: List[conlist(conlist(float, min_items=3, max_items=3), min_items=3)] = Field(
         default=None,
         description='Optional list of lists with one list for each hole in the face.'
-            'Each hole should be a list of at least 3 points and each point a list '
-            'of 3 (x, y, z) values. If None, it will be assumed that there are no '
-            'holes in the face.'
+        'Each hole should be a list of at least 3 points and each point a list '
+        'of 3 (x, y, z) values. If None, it will be assumed that there are no '
+        'holes in the face.'
     )
 
     plane: Plane = Field(
         default=None,
         description='Optional Plane indicating the plane in which the face exists.'
-            'If None, the plane will usually be derived from the boundary points.'
+        'If None, the plane will usually be derived from the boundary points.'
     )

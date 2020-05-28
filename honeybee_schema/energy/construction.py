@@ -18,7 +18,7 @@ class WindowConstructionAbridged(IDdEnergyBaseModel):
     layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
         description='List of strings for material identifiers. The order of the '
-            'materials is from exterior to interior.',
+        'materials is from exterior to interior.',
         min_items=1,
         max_items=8
     )
@@ -38,7 +38,7 @@ class WindowConstruction(WindowConstructionAbridged):
     ] = Field(
         ...,
         description='List of materials. The order of the materials is from outside '
-            'to inside.',
+        'to inside.',
         min_items=1,
         max_items=8
     )
@@ -52,7 +52,7 @@ class OpaqueConstructionAbridged(IDdEnergyBaseModel):
     layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
         description='List of strings for material identifiers. The order of the materials '
-            'is from exterior to interior.',
+        'is from exterior to interior.',
         min_items=1,
         max_items=10
     )
@@ -94,8 +94,8 @@ class ShadeConstruction(IDdEnergyBaseModel):
     is_specular: bool = Field(
         default=False,
         description='Boolean to note whether the reflection off the shade is diffuse '
-            '(False) or specular (True). Set to True if the construction is '
-            'representing a glass facade or a mirror material.'
+        '(False) or specular (True). Set to True if the construction is '
+        'representing a glass facade or a mirror material.'
     )
 
 
@@ -109,9 +109,9 @@ class AirBoundaryConstructionAbridged(IDdEnergyBaseModel):
         0.1,
         ge=0,
         description='A positive number for the amount of air mixing between Rooms '
-            'across the air boundary surface [m3/s-m2]. Default: 0.1 corresponds '
-            'to average indoor air speeds of 0.1 m/s (roughly 20 fpm), which is '
-            'typical of what would be induced by a HVAC system.'
+        'across the air boundary surface [m3/s-m2]. Default: 0.1 corresponds '
+        'to average indoor air speeds of 0.1 m/s (roughly 20 fpm), which is '
+        'typical of what would be induced by a HVAC system.'
     )
 
     air_mixing_schedule: str = Field(
@@ -119,7 +119,7 @@ class AirBoundaryConstructionAbridged(IDdEnergyBaseModel):
         min_length=1,
         max_length=100,
         description='Identifier of a fractional schedule for the air mixing schedule '
-            'across the construction.'
+        'across the construction.'
     )
 
 
@@ -131,23 +131,15 @@ class AirBoundaryConstruction(AirBoundaryConstructionAbridged):
     air_mixing_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
         ...,
         description='A fractional schedule as a ScheduleRuleset or '
-            'ScheduleFixedInterval for the air mixing schedule across '
-            'the construction.'
+        'ScheduleFixedInterval for the air mixing schedule across '
+        'the construction.'
     )
 
     class Config:
         @staticmethod
         def schema_extra(schema, model):
-            schema['properties']['air_mixing_schedule']['anyOf'] = [
+            schema['properties']['air_mixing_schedule']['anyOf'] = \
+                [
                     {"$ref": "#/components/schemas/ScheduleRuleset"},
                     {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-                ]
-
-
-if __name__ == '__main__':
-    print(WindowConstructionAbridged.schema_json(indent=2))
-    print(WindowConstruction.schema_json(indent=2))
-    print(OpaqueConstructionAbridged.schema_json(indent=2))
-    print(OpaqueConstruction.schema_json(indent=2))
-    print(ShadeConstruction.schema_json(indent=2))
-    print(AirBoundaryConstruction.schema_json(indent=2))
+            ]

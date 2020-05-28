@@ -37,7 +37,7 @@ class EnergyMaterialNoMass(IDdEnergyBaseModel):
         gt=0,
         le=0.99999,
         description='Fraction of incident long wavelength radiation that is absorbed by'
-            ' the material. Default value is 0.9.'
+        ' the material. Default value is 0.9.'
     )
 
     solar_absorptance: float = Field(
@@ -305,8 +305,8 @@ class EnergyWindowMaterialGasMixture(IDdEnergyBaseModel):
         min_items=2,
         max_items=4,
         description='A list of fractional numbers describing the volumetric fractions '
-            'of gas types in the mixture. This list must align with the gas_types '
-            'list and must sum to 1.'
+        'of gas types in the mixture. This list must align with the gas_types '
+        'list and must sum to 1.'
     )
 
     @validator('gas_fractions')
@@ -315,13 +315,13 @@ class EnergyWindowMaterialGasMixture(IDdEnergyBaseModel):
         for f in v:
             assert 0 < f < 1, 'gas_fraction must be between 0 and 1. Not {}.'.format(f)
         return v
-    
+
     @validator('gas_fractions')
     def check_sum(cls, v):
         """Check that fractions sum to 1."""
         assert abs(1 - sum(v)) < 0.001, 'gas_fractions must sum to 1.'
         return v
-    
+
     @root_validator
     def check_types_fractions_match(cls, values):
         "Ensure the gas types and fractions match."

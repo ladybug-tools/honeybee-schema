@@ -88,8 +88,8 @@ class View(_RadianceAsset):
     direction: List[float] = Field(
         ...,
         description='The view direction (-vd) as an array of (x, y, z) values.'
-            'The length of this vector indicates the focal distance as needed by '
-            'the pixel depth of field (-pd) in rpict.',
+        'The length of this vector indicates the focal distance as needed by '
+        'the pixel depth of field (-pd) in rpict.',
         min_items=3,
         max_items=3
     )
@@ -113,8 +113,8 @@ class View(_RadianceAsset):
     v_size: float = Field(
         60,
         description='A number for the vertical field of view in degrees (for '
-            'all perspective projections including fisheye). For a parallel '
-            'projection, this is the view width in world coordinates.'
+        'all perspective projections including fisheye). For a parallel '
+        'projection, this is the view width in world coordinates.'
     )
 
     shift: float = Field(

@@ -1,4 +1,4 @@
-"""Base classs used by various schema objects."""
+"""Base class used by various schema objects."""
 from pydantic import Field, validator
 import datetime
 
@@ -13,10 +13,10 @@ class IDdEnergyBaseModel(NoExtraBaseModel):
         min_length=1,
         max_length=100,
         description='Text string for a unique object ID. This identifier remains '
-            'constant as the object is mutated, copied, and serialized to different '
-            'formats (eg. dict, idf, osm). This identifier is also used to reference '
-            'the object across a Model. It must be < 100 characters, use only '
-            'ASCII characters and exclude (, ; ! \\n \\t).'
+        'constant as the object is mutated, copied, and serialized to different '
+        'formats (eg. dict, idf, osm). This identifier is also used to reference '
+        'the object across a Model. It must be < 100 characters, use only '
+        'ASCII characters and exclude (, ; ! \\n \\t).'
     )
 
     @validator('identifier')
@@ -38,7 +38,7 @@ class DatedBaseModel(NoExtraBaseModel):
     @staticmethod
     def check_date(v, leap_pear_override=None):
         """Ensure valid date.
-        
+
         Args:
             v: The Date array to be validated.
             leap_pear_override: Boolean to override the typical check for
@@ -47,12 +47,12 @@ class DatedBaseModel(NoExtraBaseModel):
         """
         if (len(v) == 3 and v[2]) or leap_pear_override:
             try:
-                datetime.date(2016, v[0] , v[1])
+                datetime.date(2016, v[0], v[1])
             except ValueError:
                 raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
         else:
             try:
-                datetime.date(2017, v[0] , v[1])
+                datetime.date(2017, v[0], v[1])
             except ValueError:
                 raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
         return v

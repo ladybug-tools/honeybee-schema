@@ -1,5 +1,5 @@
 """Simulation Parameter Schema"""
-from pydantic import BaseModel, Field, validator, root_validator, constr, conlist
+from pydantic import Field, validator, root_validator, constr, conlist
 from typing import List
 from enum import Enum
 
@@ -26,19 +26,19 @@ class SimulationOutput(NoExtraBaseModel):
     include_sqlite: bool = Field(
         default=True,
         description='Boolean to note whether a SQLite report should be requested '
-            'from the simulation.'
+        'from the simulation.'
     )
 
     include_html: bool = Field(
         default=True,
         description='Boolean to note whether an HTML report should be requested '
-            'from the simulation.'
+        'from the simulation.'
     )
 
     outputs: List[str] = Field(
         default=None,
         description='A list of EnergyPlus output names as strings, which are requested '
-            'from the simulation.'
+        'from the simulation.'
     )
 
     summary_reports: List[str] = Field(
@@ -70,13 +70,13 @@ class SimulationControl(NoExtraBaseModel):
     run_for_run_periods: bool = Field(
         default=True,
         description='Boolean for whether the simulation should be run for the '
-            'sizing periods.'
+        'sizing periods.'
     )
 
     run_for_sizing_periods: bool = Field(
         default=False,
         description='Boolean for whether the simulation should be run for the '
-            'run periods.'
+        'run periods.'
     )
 
 
@@ -109,26 +109,26 @@ class ShadowCalculation(NoExtraBaseModel):
     calculation_method: CalculationMethod = Field(
         CalculationMethod.polygon_clipping,
         description='Text noting whether CPU-based polygon clipping method or'
-            'GPU-based pixel counting method should be used. For low numbers of shading'
-            'surfaces (less than ~200), PolygonClipping requires less runtime than'
-            'PixelCounting. However, PixelCounting runtime scales significantly'
-            'better at higher numbers of shading surfaces. PixelCounting also has'
-            'no limitations related to zone concavity when used with any'
-            '“FullInterior” solar distribution options.'
+        'GPU-based pixel counting method should be used. For low numbers of shading'
+        'surfaces (less than ~200), PolygonClipping requires less runtime than'
+        'PixelCounting. However, PixelCounting runtime scales significantly'
+        'better at higher numbers of shading surfaces. PixelCounting also has'
+        'no limitations related to zone concavity when used with any'
+        '“FullInterior” solar distribution options.'
     )
 
     calculation_update_method: CalculationUpdateMethod = Field(
         CalculationUpdateMethod.periodic,
         description='Text describing how often the solar and shading calculations '
-            'are updated with respect to the flow of time in the simulation.'
+        'are updated with respect to the flow of time in the simulation.'
     )
 
     calculation_frequency: int = Field(
         30,
         ge=1,
         description='Integer for the number of days in each period for which a '
-            'unique shadow calculation will be performed. This field is only used '
-            'if the Periodic calculation_method is used.'
+        'unique shadow calculation will be performed. This field is only used '
+        'if the Periodic calculation_method is used.'
     )
 
     maximum_figures: int = Field(
@@ -158,8 +158,8 @@ class DaylightSavingTime(DatedBaseModel):
         min_items=2,
         max_items=3,
         description='A list of two integers for [month, day], representing the date '
-            'for the start of daylight savings time. Default: 12 Mar (daylight savings '
-            'in the US in 2017).'
+        'for the start of daylight savings time. Default: 12 Mar (daylight savings '
+        'in the US in 2017).'
     )
 
     @validator('start_date')
@@ -171,8 +171,8 @@ class DaylightSavingTime(DatedBaseModel):
         min_items=2,
         max_items=3,
         description='A list of two integers for [month, day], representing the date '
-            'for the end of daylight savings time. Default: 5 Nov (daylight savings '
-            'in the US in 2017).'
+        'for the end of daylight savings time. Default: 5 Nov (daylight savings '
+        'in the US in 2017).'
     )
 
     @validator('end_date')
@@ -190,16 +190,15 @@ class RunPeriod(DatedBaseModel):
         min_items=2,
         max_items=2,
         description='A list of two integers for [month, day], representing the date '
-            'for the start of the run period. Must be before the end date.'
+        'for the start of the run period. Must be before the end date.'
     )
-
 
     end_date: List[int] = Field(
         [12, 31],
         min_items=2,
         max_items=2,
         description='A list of two integers for [month, day], representing the date '
-            'for the end of the run period. Must be after the start date.'
+        'for the end of the run period. Must be after the start date.'
     )
 
     start_day_of_week: DaysOfWeek = Field(
@@ -210,15 +209,15 @@ class RunPeriod(DatedBaseModel):
     holidays: List[conlist(int, min_items=2, max_items=2)] = Field(
         default=None,
         description='A list of lists where each sub-list consists of two integers '
-            'for [month, day], representing a date which is a holiday within the '
-            'simulation. If None, no holidays are applied.'
+        'for [month, day], representing a date which is a holiday within the '
+        'simulation. If None, no holidays are applied.'
     )
 
     daylight_saving_time: DaylightSavingTime = Field(
         default=None,
         description='A DaylightSavingTime to dictate the start and end dates '
-            'of daylight saving time. If None, no daylight saving time is applied '
-            'to the simulation.'
+        'of daylight saving time. If None, no daylight saving time is applied '
+        'to the simulation.'
     )
 
     leap_year: bool = Field(
@@ -227,7 +226,7 @@ class RunPeriod(DatedBaseModel):
     )
 
     @root_validator
-    def chack_dates(cls, values):
+    def check_dates(cls, values):
         """Check that all of the input dates are valid."""
         start_date = values.get('start_date')
         end_date = values.get('end_date')
@@ -249,21 +248,21 @@ class SizingParameter(NoExtraBaseModel):
     design_days: List[DesignDay] = Field(
         default=None,
         description='A list of DesignDays that represent the criteria for which '
-            'the HVAC systems will be sized.'
+        'the HVAC systems will be sized.'
     )
 
     heating_factor: float = Field(
         1.25,
         gt=0,
         description='A number that will be multiplied by the peak heating load'
-            ' for each zone in order to size the heating system.'
+        ' for each zone in order to size the heating system.'
     )
 
     cooling_factor: float = Field(
         1.15,
         gt=0,
         description='A number that will be multiplied by the peak cooling load'
-            ' for each zone in order to size the heating system.'
+        ' for each zone in order to size the heating system.'
     )
 
 
@@ -283,13 +282,13 @@ class SimulationParameter(NoExtraBaseModel):
     output: SimulationOutput = Field(
         default=None,
         description='A SimulationOutput that lists the desired outputs from the '
-            'simulation and the format in which to report them.'
+        'simulation and the format in which to report them.'
     )
 
     run_period: RunPeriod = Field(
         default=None,
         description='A RunPeriod to describe the time period over which to '
-            'run the simulation.'
+        'run the simulation.'
     )
 
     timestep: int = Field(
@@ -297,7 +296,7 @@ class SimulationParameter(NoExtraBaseModel):
         ge=1,
         le=60,
         description='An integer for the number of timesteps per hour at which the '
-            'energy calculation will be run.'
+        'energy calculation will be run.'
     )
 
     @validator('timestep')
@@ -305,23 +304,23 @@ class SimulationParameter(NoExtraBaseModel):
         valid_timesteps = (1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60)
         assert v in valid_timesteps, \
             '"{}" is not a valid timestep. Choose from {}'.format(v, valid_timesteps)
-            
+
     simulation_control: SimulationControl = Field(
         default=None,
         description='A SimulationControl object that describes which types of '
-            'calculations to run.'
+        'calculations to run.'
     )
 
     shadow_calculation: ShadowCalculation = Field(
         default=None,
         description='A ShadowCalculation object describing settings for the '
-            'EnergyPlus Shadow Calculation.'
+        'EnergyPlus Shadow Calculation.'
     )
 
     sizing_parameter: SizingParameter = Field(
         default=None,
         description='A SizingParameter object with criteria for sizing the '
-            'heating and cooling system.'
+        'heating and cooling system.'
     )
 
     north_angle: float = Field(
@@ -329,16 +328,16 @@ class SimulationParameter(NoExtraBaseModel):
         ge=-360,
         lt=360,
         description='A number between -360 and 360 for the north direction in degrees.'
-            'This is the counterclockwise difference between the North and the '
-            'positive Y-axis. 90 is West and 270 is East. Note that this '
-            'is different than the convention used in EnergyPlus, which uses '
-            'clockwise difference instead of counterclockwise difference.'
+        'This is the counterclockwise difference between the North and the '
+        'positive Y-axis. 90 is West and 270 is East. Note that this '
+        'is different than the convention used in EnergyPlus, which uses '
+        'clockwise difference instead of counterclockwise difference.'
     )
 
     terrain_type: TerrianTypes = Field(
         default=TerrianTypes.city,
         description='Text for the terrain in which the model sits. This is used '
-            'to determine the wind profile over the height of the rooms.'
+        'to determine the wind profile over the height of the rooms.'
     )
 
 

@@ -1,5 +1,5 @@
 """Model schema and the 5 geometry objects that define it."""
-from pydantic import BaseModel, Field, validator, root_validator, constr, conlist
+from pydantic import BaseModel, Field, validator, root_validator, constr
 from typing import List, Union
 from enum import Enum
 
@@ -16,7 +16,7 @@ from .radiance.properties import ShadeRadiancePropertiesAbridged, \
     FaceRadiancePropertiesAbridged, RoomRadiancePropertiesAbridged, \
     ModelRadianceProperties
 
-from .geometry import Plane, Face3D
+from .geometry import Face3D
 
 
 class ShadePropertiesAbridged(BaseModel):
@@ -44,7 +44,7 @@ class Shade(IDdBaseModel):
     properties: ShadePropertiesAbridged = Field(
         ...,
         description='Extension properties for particular simulation engines '
-            '(Radiance, EnergyPlus).'
+        '(Radiance, EnergyPlus).'
     )
 
 
@@ -82,7 +82,7 @@ class Door(IDdBaseModel):
     is_glass: bool = Field(
         False,
         description='Boolean to note whether this object is a glass door as opposed '
-            'to an opaque door.'
+        'to an opaque door.'
     )
 
     indoor_shades: List[Shade] = Field(
@@ -93,13 +93,13 @@ class Door(IDdBaseModel):
     outdoor_shades: List[Shade] = Field(
         default=None,
         description='Shades assigned to the exterior side of this object '
-            '(eg. entryway awning).'
+        '(eg. entryway awning).'
     )
 
     properties: DoorPropertiesAbridged = Field(
         ...,
         description='Extension properties for particular simulation engines '
-            '(Radiance, EnergyPlus).'
+        '(Radiance, EnergyPlus).'
     )
 
 
@@ -142,19 +142,19 @@ class Aperture(IDdBaseModel):
     indoor_shades: List[Shade] = Field(
         default=None,
         description='Shades assigned to the interior side of this object '
-            '(eg. window sill, light shelf).'
+        '(eg. window sill, light shelf).'
     )
 
     outdoor_shades: List[Shade] = Field(
         default=None,
         description='Shades assigned to the exterior side of this object '
-            '(eg. mullions, louvers).'
+        '(eg. mullions, louvers).'
     )
 
     properties: AperturePropertiesAbridged = Field(
         ...,
         description='Extension properties for particular simulation engines '
-            '(Radiance, EnergyPlus).'
+        '(Radiance, EnergyPlus).'
     )
 
 
@@ -202,13 +202,13 @@ class Face(IDdBaseModel):
     apertures: List[Aperture] = Field(
         default=None,
         description='Apertures assigned to this Face. Should be coplanar with this '
-            'Face and completely within the boundary of the Face to be valid.'
+        'Face and completely within the boundary of the Face to be valid.'
     )
 
     doors: List[Door] = Field(
         default=None,
         description='Doors assigned to this Face. Should be coplanar with this '
-            'Face and completely within the boundary of the Face to be valid.'
+        'Face and completely within the boundary of the Face to be valid.'
     )
 
     indoor_shades: List[Shade] = Field(
@@ -219,13 +219,13 @@ class Face(IDdBaseModel):
     outdoor_shades: List[Shade] = Field(
         default=None,
         description='Shades assigned to the exterior side of this object '
-            '(eg. balcony, overhang).'
+        '(eg. balcony, overhang).'
     )
 
     properties: FacePropertiesAbridged = Field(
         ...,
         description='Extension properties for particular simulation engines '
-            '(Radiance, EnergyPlus).'
+        '(Radiance, EnergyPlus).'
     )
 
     @root_validator
@@ -264,22 +264,22 @@ class Room(IDdBaseModel):
     indoor_shades: List[Shade] = Field(
         default=None,
         description='Shades assigned to the interior side of this object '
-            '(eg. partitions, tables).'
+        '(eg. partitions, tables).'
     )
 
     outdoor_shades: List[Shade] = Field(
         default=None,
         description='Shades assigned to the exterior side of this object '
-            '(eg. trees, landscaping).'
+        '(eg. trees, landscaping).'
     )
 
     multiplier: int = Field(
         1,
         ge=1,
         description='An integer noting how many times this Room is repeated. '
-            'Multipliers are used to speed up the calculation when similar Rooms are '
-            'repeated more than once. Essentially, a given simulation with the '
-            'Room is run once and then the result is mutliplied by the multiplier.'
+        'Multipliers are used to speed up the calculation when similar Rooms are '
+        'repeated more than once. Essentially, a given simulation with the '
+        'Room is run once and then the result is mutliplied by the multiplier.'
     )
 
     story: str = Field(
@@ -288,14 +288,14 @@ class Room(IDdBaseModel):
         min_length=1,
         max_length=100,
         description='Text string for the story identifier to which this Room belongs. '
-            'Rooms sharing the same story identifier are considered part of the same '
-            'story in a Model.'
+        'Rooms sharing the same story identifier are considered part of the same '
+        'story in a Model.'
     )
 
     properties: RoomPropertiesAbridged = Field(
         ...,
         description='Extension properties for particular simulation engines '
-            '(Radiance, EnergyPlus).'
+        '(Radiance, EnergyPlus).'
     )
 
 
@@ -332,8 +332,8 @@ class Model(IDdBaseModel):
     orphaned_faces: List[Face] = Field(
         default=None,
         description='A list of Faces in the model that lack a parent Room. Note that '
-            'orphaned Faces are not acceptable for Models that are to be exported '
-            'for energy simulation.'
+        'orphaned Faces are not acceptable for Models that are to be exported '
+        'for energy simulation.'
     )
 
     orphaned_shades: List[Shade] = Field(
@@ -344,53 +344,53 @@ class Model(IDdBaseModel):
     orphaned_apertures: List[Aperture] = Field(
         default=None,
         description='A list of Apertures in the model that lack a parent Face. '
-            'Note that orphaned Apertures are not acceptable for Models that are '
-            'to be exported for energy simulation.'
+        'Note that orphaned Apertures are not acceptable for Models that are '
+        'to be exported for energy simulation.'
     )
 
     orphaned_doors: List[Door] = Field(
         default=None,
         description='A list of Doors in the model that lack a parent Face. '
-            'Note that orphaned Doors are not acceptable for Models that are '
-            'to be exported for energy simulation.'
+        'Note that orphaned Doors are not acceptable for Models that are '
+        'to be exported for energy simulation.'
     )
 
     units: Units = Field(
         default=Units.meters,
         description='Text indicating the units in which the model geometry exists. '
-            'This is used to scale the geometry to the correct units for simulation '
-            'engines like EnergyPlus, which requires all geometry be in meters.'
+        'This is used to scale the geometry to the correct units for simulation '
+        'engines like EnergyPlus, which requires all geometry be in meters.'
     )
 
     tolerance: float = Field(
         default=0,
         description='The maximum difference between x, y, and z values at which '
-            'vertices are considered equivalent. This value should be in the Model '
-            'units and it is used in a variety of checks, including checks for '
-            'whether Room faces form a closed volume and subsequently correcting all '
-            'face normals point outward from the Room. A value of 0 will result '
-            'in no attempt to evaluate whether Room volumes are closed or check '
-            'face direction. So it is recommended that this always be a positive '
-            'number when such checks have not been performed on a Model. '
-            'Typical tolerances for building geometry range from 0.1 to 0.0001 '
-            'depending on the units of the geometry.'
+        'vertices are considered equivalent. This value should be in the Model '
+        'units and it is used in a variety of checks, including checks for '
+        'whether Room faces form a closed volume and subsequently correcting all '
+        'face normals point outward from the Room. A value of 0 will result '
+        'in no attempt to evaluate whether Room volumes are closed or check '
+        'face direction. So it is recommended that this always be a positive '
+        'number when such checks have not been performed on a Model. '
+        'Typical tolerances for building geometry range from 0.1 to 0.0001 '
+        'depending on the units of the geometry.'
     )
 
     angle_tolerance: float = Field(
         default=0,
         description='The max angle difference in degrees that vertices are '
-            'allowed to differ from one another in order to consider them colinear. '
-            'This value is used in a variety of checks, including checks for '
-            'whether Room faces form a closed volume and subsequently correcting all '
-            'face normals point outward from the Room. A value of 0 will result '
-            'in no attempt to evaluate whether the Room volumes is closed or check '
-            'face direction. So it is recommended that this always be a positive '
-            'number when such checks have not been performed on a given Model. '
-            'Typical tolerances for building geometry are often around 1 degree.'
+        'allowed to differ from one another in order to consider them colinear. '
+        'This value is used in a variety of checks, including checks for '
+        'whether Room faces form a closed volume and subsequently correcting all '
+        'face normals point outward from the Room. A value of 0 will result '
+        'in no attempt to evaluate whether the Room volumes is closed or check '
+        'face direction. So it is recommended that this always be a positive '
+        'number when such checks have not been performed on a given Model. '
+        'Typical tolerances for building geometry are often around 1 degree.'
     )
 
     properties: ModelProperties = Field(
         ...,
         description='Extension properties for particular simulation engines '
-            '(Radiance, EnergyPlus).'
+        '(Radiance, EnergyPlus).'
     )

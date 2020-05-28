@@ -22,10 +22,10 @@ class IDdBaseModel(NoExtraBaseModel):
         min_length=1,
         max_length=100,
         description='Text string for a unique object ID. This identifier remains '
-            'constant as the object is mutated, copied, and serialized to different '
-            'formats (eg. dict, idf, rad). This identifier is also used to reference '
-            'the object across a Model. It must be < 100 characters and not contain '
-            'any spaces or special characters.'
+        'constant as the object is mutated, copied, and serialized to different '
+        'formats (eg. dict, idf, rad). This identifier is also used to reference '
+        'the object across a Model. It must be < 100 characters and not contain '
+        'any spaces or special characters.'
     )
 
     display_name: str = Field(
@@ -36,7 +36,7 @@ class IDdBaseModel(NoExtraBaseModel):
     user_data: dict = Field(
         default=None,
         description='Optional dictionary of user data associated with the object.'
-            'All keys and values of this dictionary should be of a standard data '
-            'type to ensure correct serialization of the object (eg. str, float, '
-            'int, list).'
+        'All keys and values of this dictionary should be of a standard data '
+        'type to ensure correct serialization of the object (eg. str, float, '
+        'int, list).'
     )

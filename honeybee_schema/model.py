@@ -363,30 +363,28 @@ class Model(IDdBaseModel):
     )
 
     tolerance: float = Field(
-        default=0,
+        default=0.01,
+        ge=0,
         description='The maximum difference between x, y, and z values at which '
         'vertices are considered equivalent. This value should be in the Model '
         'units and it is used in a variety of checks, including checks for '
         'whether Room faces form a closed volume and subsequently correcting all '
         'face normals point outward from the Room. A value of 0 will result '
-        'in no attempt to evaluate whether Room volumes are closed or check '
-        'face direction. So it is recommended that this always be a positive '
-        'number when such checks have not been performed on a Model. '
-        'Typical tolerances for building geometry range from 0.1 to 0.0001 '
-        'depending on the units of the geometry.'
+        'in bypassing all checks so it is recommended that this always be a positive '
+        'number when such checks have not already been performed on a Model. '
+        'The default of 0.01 is suitable for models in meters.'
     )
 
     angle_tolerance: float = Field(
-        default=0,
+        default=1.0,
+        ge=0,
         description='The max angle difference in degrees that vertices are '
         'allowed to differ from one another in order to consider them colinear. '
         'This value is used in a variety of checks, including checks for '
         'whether Room faces form a closed volume and subsequently correcting all '
         'face normals point outward from the Room. A value of 0 will result '
-        'in no attempt to evaluate whether the Room volumes is closed or check '
-        'face direction. So it is recommended that this always be a positive '
-        'number when such checks have not been performed on a given Model. '
-        'Typical tolerances for building geometry are often around 1 degree.'
+        'in bypassing all checks so it is recommended that this always be a positive '
+        'number when such checks have not already been performed on a given Model.'
     )
 
     properties: ModelProperties = Field(

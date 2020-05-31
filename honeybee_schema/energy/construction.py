@@ -6,7 +6,7 @@ from ._base import IDdEnergyBaseModel
 from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
-    EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
+    EnergyWindowMaterialGlazing
 from .schedule import ScheduleRuleset, ScheduleFixedInterval
 
 
@@ -17,8 +17,11 @@ class WindowConstructionAbridged(IDdEnergyBaseModel):
 
     layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
-        description='List of strings for material identifiers. The order of the '
-        'materials is from exterior to interior.',
+        description='List of strings for glazing or gas material identifiers. The '
+        'order of the materials is from exterior to interior. If a SimpleGlazSys '
+        'material is used, it must be the only material in the construction. '
+        'For multi-layered constructions, adjacent glass layers must be separated '
+        'by one and only one gas layer.',
         min_items=1,
         max_items=8
     )
@@ -31,14 +34,16 @@ class WindowConstruction(WindowConstructionAbridged):
 
     materials: List[
         Union[
-            EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, EnergyWindowMaterialGasMixture,
-            EnergyWindowMaterialSimpleGlazSys, EnergyWindowMaterialBlind,
-            EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
+            EnergyWindowMaterialSimpleGlazSys, EnergyWindowMaterialGlazing,
+            EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom,
+            EnergyWindowMaterialGasMixture
         ]
     ] = Field(
         ...,
-        description='List of materials. The order of the materials is from outside '
-        'to inside.',
+        description='List of glazing and gas materials. The order of the materials '
+        'is from outside to inside. If a SimpleGlazSys material is used, it must '
+        'be the only material in the construction. For multi-layered constructions, '
+        'adjacent glass layers must be separated by one and only one gas layer.',
         min_items=1,
         max_items=8
     )
@@ -51,8 +56,8 @@ class OpaqueConstructionAbridged(IDdEnergyBaseModel):
 
     layers: List[constr(min_length=1, max_length=100)] = Field(
         ...,
-        description='List of strings for material identifiers. The order of the materials '
-        'is from exterior to interior.',
+        description='List of strings for opaque material identifiers. The order '
+        'of the materials is from exterior to interior.',
         min_items=1,
         max_items=10
     )
@@ -65,8 +70,8 @@ class OpaqueConstruction(OpaqueConstructionAbridged):
 
     materials: List[Union[EnergyMaterial, EnergyMaterialNoMass]] = Field(
         ...,
-        description='List of materials. The order of the materials is from outside to'
-        ' inside.',
+        description='List of opaque materials. The order of the materials is '
+        'from outside to inside.',
         min_items=1,
         max_items=10
     )

@@ -1,5 +1,5 @@
 from honeybee_schema.energy.construction import OpaqueConstructionAbridged, \
-        WindowConstructionAbridged
+    WindowConstructionAbridged, WindowConstructionShadeAbridged
 from copy import copy
 from pydantic import ValidationError
 import pytest
@@ -21,11 +21,6 @@ def test_construction_window_triple():
     WindowConstructionAbridged.parse_file(file_path)
 
 
-def test_construction_window_blinds():
-    file_path = os.path.join(target_folder, 'construction_window_blinds.json')
-    WindowConstructionAbridged.parse_file(file_path)
-
-
 def test_construction_opaque_door():
     file_path = os.path.join(target_folder, 'construction_opaque_door.json')
     OpaqueConstructionAbridged.parse_file(file_path)
@@ -39,6 +34,16 @@ def test_construction_opaque_roof():
 def test_construction_opaque_wall():
     file_path = os.path.join(target_folder, 'construction_opaque_wall.json')
     OpaqueConstructionAbridged.parse_file(file_path)
+
+
+def test_construction_window_shade():
+    file_path = os.path.join(target_folder, 'construction_window_shade.json')
+    WindowConstructionShadeAbridged.parse_file(file_path)
+
+
+def test_construction_window_blinds():
+    file_path = os.path.join(target_folder, 'construction_window_blinds.json')
+    WindowConstructionShadeAbridged.parse_file(file_path)
 
 
 def test_length_opaque():

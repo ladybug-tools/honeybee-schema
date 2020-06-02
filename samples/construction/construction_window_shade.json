@@ -10,7 +10,7 @@
             "Generic Clear Glass"
         ]
     },
-    "shade_material": "Plastic Blind",
+    "shade_material": "Low-e Diffusing Shade",
     "shade_location": "Interior",
     "control_type": "AlwaysOn"
 }

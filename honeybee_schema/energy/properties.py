@@ -6,7 +6,8 @@ from .._base import NoExtraBaseModel
 from .constructionset import ConstructionSetAbridged, ConstructionSet
 from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged, \
     ShadeConstruction, AirBoundaryConstructionAbridged, OpaqueConstruction, \
-    WindowConstruction, AirBoundaryConstruction
+    WindowConstruction, AirBoundaryConstruction, WindowConstructionShadeAbridged, \
+    WindowConstructionShade
 from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
@@ -180,8 +181,9 @@ class ModelEnergyProperties(NoExtraBaseModel):
 
     constructions: List[Union[
         OpaqueConstructionAbridged, WindowConstructionAbridged,
-        ShadeConstruction, AirBoundaryConstructionAbridged,
-        OpaqueConstruction, WindowConstruction, AirBoundaryConstruction]] = Field(
+        WindowConstructionShadeAbridged, AirBoundaryConstructionAbridged,
+        OpaqueConstruction, WindowConstruction, WindowConstructionShade,
+        AirBoundaryConstruction, ShadeConstruction]] = Field(
         default=None,
         description='A list of all unique constructions in the model. This includes '
         'constructions across all Faces, Apertures, Doors, Shades, Room '

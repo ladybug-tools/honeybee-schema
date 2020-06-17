@@ -12,7 +12,6 @@ from honeybee_energy.constructionset import ConstructionSet
 from honeybee_energy.construction.opaque import OpaqueConstruction
 from honeybee_energy.construction.window import WindowConstruction
 from honeybee_energy.construction.shade import ShadeConstruction
-from honeybee_energy.construction.air import AirBoundaryConstruction
 from honeybee_energy.material.opaque import EnergyMaterial
 from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
 
@@ -117,7 +116,7 @@ def model_complete_single_zone_office_user_data(directory):
                       Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
     aperture = Aperture('Front_Aperture', Face3D(aperture_verts))
     north_face.add_aperture(aperture)
-    
+
     model = Model('Tiny_House', [room])
     model_dict = model.to_dict()
 
@@ -571,15 +570,13 @@ def model_5vertex_sub_faces_interior(directory):
     south_face.add_door(s_door)
 
     Room.solve_adjacency([room1, room2], 0.01)
-    
+
     model = Model('TinyHouse', [room1, room2])
     model_dict = model.to_dict()
 
     dest_file = os.path.join(directory, 'model_5vertex_sub_faces_interior.json')
     with open(dest_file, 'w') as fp:
         json.dump(model_dict, fp, indent=4)
-
-
 
 
 # run all functions within the file

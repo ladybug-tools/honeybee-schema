@@ -5,6 +5,7 @@ import os
 # target folder where all of the samples live
 root = os.path.dirname(os.path.dirname(__file__))
 target_folder = os.path.join(root, 'samples', 'model')
+target_folder_large = os.path.join(root, 'samples', 'model_large')
 
 
 def test_model_complete_multi_zone_office():
@@ -60,3 +61,13 @@ def test_model_5vertex_sub_faces():
 def test_model_energy_properties_office():
     file_path  = os.path.join(target_folder, 'model_energy_properties_office.json')
     ModelEnergyProperties.parse_file(file_path)
+
+
+def test_model_large_single_family_home():
+    file_path  = os.path.join(target_folder_large, 'single_family_home.json')
+    Model.parse_file(file_path)
+
+
+def test_model_large_lab_building():
+    file_path  = os.path.join(target_folder_large, 'lab_building.json')
+    Model.parse_file(file_path)

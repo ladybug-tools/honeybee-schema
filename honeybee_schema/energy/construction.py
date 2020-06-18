@@ -164,15 +164,6 @@ class WindowConstructionShadeAbridged(IDdEnergyBaseModel):
                 'be None for control type "{}"'.format(control_type)
         return values
 
-    class Config:
-        @staticmethod
-        def schema_extra(schema, model):
-            schema['properties']['schedule']['anyOf'] = \
-                [
-                    {"$ref": "#/components/schemas/ScheduleRuleset"},
-                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-            ]
-
 
 class WindowConstructionShade(WindowConstructionShadeAbridged):
     """Construction for window objects (Aperture, Door)."""

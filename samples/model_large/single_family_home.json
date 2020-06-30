@@ -10,45 +10,6 @@
             "construction_sets": [
                 {
                     "type": "ConstructionSetAbridged",
-                    "identifier": "Default Generic Construction Set",
-                    "wall_set": {
-                        "type": "WallConstructionSetAbridged",
-                        "exterior_construction": "Generic Exterior Wall",
-                        "interior_construction": "Generic Interior Wall",
-                        "ground_construction": "Generic Underground Wall"
-                    },
-                    "floor_set": {
-                        "type": "FloorConstructionSetAbridged",
-                        "exterior_construction": "Generic Exposed Floor",
-                        "interior_construction": "Generic Interior Floor",
-                        "ground_construction": "Generic Ground Slab"
-                    },
-                    "roof_ceiling_set": {
-                        "type": "RoofCeilingConstructionSetAbridged",
-                        "exterior_construction": "Generic Roof",
-                        "interior_construction": "Generic Interior Ceiling",
-                        "ground_construction": "Generic Underground Roof"
-                    },
-                    "aperture_set": {
-                        "type": "ApertureConstructionSetAbridged",
-                        "window_construction": "Generic Double Pane",
-                        "interior_construction": "Generic Single Pane",
-                        "skylight_construction": "Generic Double Pane",
-                        "operable_construction": "Generic Double Pane"
-                    },
-                    "door_set": {
-                        "type": "DoorConstructionSetAbridged",
-                        "exterior_construction": "Generic Exterior Door",
-                        "interior_construction": "Generic Interior Door",
-                        "exterior_glass_construction": "Generic Double Pane",
-                        "interior_glass_construction": "Generic Single Pane",
-                        "overhead_construction": "Generic Exterior Door"
-                    },
-                    "shade_construction": "Generic Shade",
-                    "air_boundary_construction": "Generic Air Boundary"
-                },
-                {
-                    "type": "ConstructionSetAbridged",
                     "identifier": "2013::ClimateZone5::SteelFramed",
                     "wall_set": {
                         "type": "WallConstructionSetAbridged",
@@ -87,81 +48,21 @@
                     "air_boundary_construction": null
                 }
             ],
-            "global_construction_set": "Default Generic Construction Set",
             "constructions": [
                 {
                     "type": "OpaqueConstructionAbridged",
-                    "identifier": "Typical Insulated Steel Framed Exterior Wall-R19",
+                    "identifier": "Typical Overhead Door-R2",
                     "layers": [
-                        "25mm Stucco",
-                        "5/8 in. Gypsum Board",
-                        "Typical Insulation-R17",
-                        "5/8 in. Gypsum Board"
-                    ]
-                },
-                {
-                    "type": "ShadeConstruction",
-                    "identifier": "Generic Shade",
-                    "solar_reflectance": 0.35,
-                    "visible_reflectance": 0.35,
-                    "is_specular": false
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Interior Wall",
-                    "layers": [
-                        "Generic Gypsum Board",
-                        "Generic Wall Air Gap",
-                        "Generic Gypsum Board"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Typical Insulated Basement Mass Wall-R8",
-                    "layers": [
-                        "Typical Insulation-R7",
-                        "8 in. Concrete Block Basement Wall"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Roof",
-                    "layers": [
-                        "Generic Roof Membrane",
-                        "Generic 50mm Insulation",
-                        "Generic LW Concrete",
-                        "Generic Ceiling Air Gap",
-                        "Generic Acoustic Tile"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Underground Wall",
-                    "layers": [
-                        "Generic 50mm Insulation",
-                        "Generic HW Concrete",
-                        "Generic Wall Air Gap",
-                        "Generic Gypsum Board"
+                        "Typical Insulation-R2"
                     ]
                 },
                 {
                     "type": "WindowConstructionAbridged",
-                    "identifier": "Window_U_0.50_SHGC_0.40_Skylight_Frame_Width_0.430_in",
+                    "identifier": "U 0.44 SHGC 0.26 Dbl Ref-B-H Clr 6mm/13mm Air",
                     "layers": [
-                        "Glass_2052_LayerAvg",
-                        "Gap_1_W_0_0038",
-                        "Glass_2027F_LayerAvg"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Exterior Wall",
-                    "layers": [
-                        "Generic Brick",
-                        "Generic LW Concrete",
-                        "Generic 50mm Insulation",
-                        "Generic Wall Air Gap",
-                        "Generic Gypsum Board"
+                        "REF B CLEAR HI 6MM",
+                        "AIR 13MM",
+                        "CLEAR 6MM"
                     ]
                 },
                 {
@@ -175,22 +76,6 @@
                 },
                 {
                     "type": "OpaqueConstructionAbridged",
-                    "identifier": "Typical Insulated Carpeted 8in Slab Floor-R5",
-                    "layers": [
-                        "Typical Insulation-R4",
-                        "8 in. Normalweight Concrete Floor",
-                        "Typical Carpet Pad"
-                    ]
-                },
-                {
-                    "type": "WindowConstructionAbridged",
-                    "identifier": "Generic Single Pane",
-                    "layers": [
-                        "Generic Clear Glass"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
                     "identifier": "Typical Insulated Metal Door-R2",
                     "layers": [
                         "F08 Metal surface",
@@ -198,44 +83,11 @@
                     ]
                 },
                 {
-                    "type": "WindowConstructionAbridged",
-                    "identifier": "Generic Double Pane",
-                    "layers": [
-                        "Generic Low-e Glass",
-                        "Generic Window Air Gap",
-                        "Generic Clear Glass"
-                    ]
-                },
-                {
                     "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Interior Door",
+                    "identifier": "Typical Insulated Basement Mass Wall-R8",
                     "layers": [
-                        "Generic 25mm Wood"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Exterior Door",
-                    "layers": [
-                        "Generic Painted Metal",
-                        "Generic 25mm Insulation",
-                        "Generic Painted Metal"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Interior Floor",
-                    "layers": [
-                        "Generic Acoustic Tile",
-                        "Generic Ceiling Air Gap",
-                        "Generic LW Concrete"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Typical Overhead Door-R2",
-                    "layers": [
-                        "Typical Insulation-R2"
+                        "Typical Insulation-R7",
+                        "8 in. Concrete Block Basement Wall"
                     ]
                 },
                 {
@@ -248,6 +100,34 @@
                     ]
                 },
                 {
+                    "type": "WindowConstructionAbridged",
+                    "identifier": "Window_U_0.50_SHGC_0.40_Skylight_Frame_Width_0.430_in",
+                    "layers": [
+                        "Glass_2052_LayerAvg",
+                        "Gap_1_W_0_0038",
+                        "Glass_2027F_LayerAvg"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "identifier": "Typical Insulated Steel Framed Exterior Wall-R19",
+                    "layers": [
+                        "25mm Stucco",
+                        "5/8 in. Gypsum Board",
+                        "Typical Insulation-R17",
+                        "5/8 in. Gypsum Board"
+                    ]
+                },
+                {
+                    "type": "OpaqueConstructionAbridged",
+                    "identifier": "Typical Insulated Carpeted 8in Slab Floor-R5",
+                    "layers": [
+                        "Typical Insulation-R4",
+                        "8 in. Normalweight Concrete Floor",
+                        "Typical Carpet Pad"
+                    ]
+                },
+                {
                     "type": "OpaqueConstructionAbridged",
                     "identifier": "Typical Insulated Steel Framed Exterior Floor-R27",
                     "layers": [
@@ -257,78 +137,9 @@
                         "5/8 in. Gypsum Board",
                         "Typical Carpet Pad"
                     ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Exposed Floor",
-                    "layers": [
-                        "Generic Painted Metal",
-                        "Generic Ceiling Air Gap",
-                        "Generic 50mm Insulation",
-                        "Generic LW Concrete"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Ground Slab",
-                    "layers": [
-                        "Generic 50mm Insulation",
-                        "Generic HW Concrete"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Underground Roof",
-                    "layers": [
-                        "Generic 50mm Insulation",
-                        "Generic HW Concrete",
-                        "Generic Ceiling Air Gap",
-                        "Generic Acoustic Tile"
-                    ]
-                },
-                {
-                    "type": "OpaqueConstructionAbridged",
-                    "identifier": "Generic Interior Ceiling",
-                    "layers": [
-                        "Generic LW Concrete",
-                        "Generic Ceiling Air Gap",
-                        "Generic Acoustic Tile"
-                    ]
-                },
-                {
-                    "type": "AirBoundaryConstructionAbridged",
-                    "identifier": "Generic Air Boundary",
-                    "air_mixing_per_area": 0.1,
-                    "air_mixing_schedule": "Always On"
-                },
-                {
-                    "type": "WindowConstructionAbridged",
-                    "identifier": "U 0.44 SHGC 0.26 Dbl Ref-B-H Clr 6mm/13mm Air",
-                    "layers": [
-                        "REF B CLEAR HI 6MM",
-                        "AIR 13MM",
-                        "CLEAR 6MM"
-                    ]
                 }
             ],
             "materials": [
-                {
-                    "type": "EnergyWindowMaterialGlazing",
-                    "identifier": "CLEAR 6MM",
-                    "thickness": 0.005999999999999977,
-                    "solar_transmittance": 0.775,
-                    "solar_reflectance": 0.071,
-                    "solar_reflectance_back": 0.071,
-                    "visible_transmittance": 0.881,
-                    "visible_reflectance": 0.08,
-                    "visible_reflectance_back": 0.08,
-                    "infrared_transmittance": 0.0,
-                    "emissivity": 0.84,
-                    "emissivity_back": 0.84,
-                    "conductivity": 0.8993981199040626,
-                    "dirt_correction": 1.0,
-                    "solar_diffusing": false
-                },
                 {
                     "type": "EnergyWindowMaterialGlazing",
                     "identifier": "Glass_2027F_LayerAvg",
@@ -347,31 +158,13 @@
                     "solar_diffusing": false
                 },
                 {
-                    "type": "EnergyMaterialNoMass",
-                    "identifier": "Typical Insulation-R4",
-                    "r_value": 0.7044407352395393,
-                    "roughness": "MediumSmooth",
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterialNoMass",
-                    "identifier": "Typical Insulation-R17",
-                    "r_value": 2.9938731247680423,
-                    "roughness": "MediumSmooth",
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
                     "type": "EnergyMaterial",
-                    "identifier": "8 in. Normalweight Concrete Floor",
-                    "roughness": "MediumRough",
-                    "thickness": 0.2032,
-                    "conductivity": 2.308455174420426,
-                    "density": 2322.005309227381,
-                    "specific_heat": 831.4635397241673,
+                    "identifier": "F08 Metal surface",
+                    "roughness": "Smooth",
+                    "thickness": 0.0008000000000000003,
+                    "conductivity": 45.249718743617805,
+                    "density": 7824.017889489713,
+                    "specific_heat": 499.6776080073138,
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
@@ -394,71 +187,10 @@
                     "solar_diffusing": false
                 },
                 {
-                    "type": "EnergyWindowMaterialGlazing",
-                    "identifier": "Generic Low-e Glass",
-                    "thickness": 0.006,
-                    "solar_transmittance": 0.45,
-                    "solar_reflectance": 0.36,
-                    "solar_reflectance_back": 0.36,
-                    "visible_transmittance": 0.71,
-                    "visible_reflectance": 0.21,
-                    "visible_reflectance_back": 0.21,
-                    "infrared_transmittance": 0.0,
-                    "emissivity": 0.84,
-                    "emissivity_back": 0.047,
-                    "conductivity": 1.0,
-                    "dirt_correction": 1.0,
-                    "solar_diffusing": false
-                },
-                {
-                    "type": "EnergyWindowMaterialGlazing",
-                    "identifier": "REF D CLEAR 6MM",
-                    "thickness": 0.005999999999999977,
-                    "solar_transmittance": 0.429,
-                    "solar_reflectance": 0.308,
-                    "solar_reflectance_back": 0.379,
-                    "visible_transmittance": 0.334,
-                    "visible_reflectance": 0.453,
-                    "visible_reflectance_back": 0.505,
-                    "infrared_transmittance": 0.0,
-                    "emissivity": 0.84,
-                    "emissivity_back": 0.82,
-                    "conductivity": 0.8993981199040626,
-                    "dirt_correction": 1.0,
-                    "solar_diffusing": false
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic 50mm Insulation",
-                    "roughness": "MediumRough",
-                    "thickness": 0.05,
-                    "conductivity": 0.03,
-                    "density": 43.0,
-                    "specific_heat": 1210.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic HW Concrete",
-                    "roughness": "MediumRough",
-                    "thickness": 0.2,
-                    "conductivity": 1.95,
-                    "density": 2240.0,
-                    "specific_heat": 900.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.8,
-                    "visible_absorptance": 0.8
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "F08 Metal surface",
-                    "roughness": "Smooth",
-                    "thickness": 0.0008000000000000003,
-                    "conductivity": 45.249718743617805,
-                    "density": 7824.017889489713,
-                    "specific_heat": 499.6776080073138,
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R4",
+                    "r_value": 0.7044407352395393,
+                    "roughness": "MediumSmooth",
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
@@ -477,114 +209,12 @@
                 },
                 {
                     "type": "EnergyMaterialNoMass",
-                    "identifier": "Typical Insulation-R2",
-                    "r_value": 0.35222036761976966,
+                    "identifier": "Typical Insulation-R17",
+                    "r_value": 2.9938731247680423,
                     "roughness": "MediumSmooth",
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterialNoMass",
-                    "identifier": "Typical Insulation-R7",
-                    "r_value": 1.2327712866691938,
-                    "roughness": "MediumSmooth",
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Roof Membrane",
-                    "roughness": "MediumRough",
-                    "thickness": 0.01,
-                    "conductivity": 0.16,
-                    "density": 1120.0,
-                    "specific_heat": 1460.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.65,
-                    "visible_absorptance": 0.65
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Metal Roof Surface",
-                    "roughness": "Smooth",
-                    "thickness": 0.0007999999999999979,
-                    "conductivity": 45.24971874361766,
-                    "density": 7824.017889489713,
-                    "specific_heat": 499.67760800730963,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyWindowMaterialGas",
-                    "identifier": "AIR 13MM",
-                    "thickness": 0.0127,
-                    "gas_type": "Air"
-                },
-                {
-                    "type": "EnergyMaterialNoMass",
-                    "identifier": "Typical Insulation-R31",
-                    "r_value": 5.45941569810643,
-                    "roughness": "MediumSmooth",
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyWindowMaterialGas",
-                    "identifier": "Generic Window Air Gap",
-                    "thickness": 0.0127,
-                    "gas_type": "Air"
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Painted Metal",
-                    "roughness": "Smooth",
-                    "thickness": 0.0015,
-                    "conductivity": 45.0,
-                    "density": 7690.0,
-                    "specific_heat": 410.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.5,
-                    "visible_absorptance": 0.5
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Brick",
-                    "roughness": "MediumRough",
-                    "thickness": 0.1,
-                    "conductivity": 0.9,
-                    "density": 1920.0,
-                    "specific_heat": 790.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.65,
-                    "visible_absorptance": 0.65
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic 25mm Insulation",
-                    "roughness": "MediumRough",
-                    "thickness": 0.05,
-                    "conductivity": 0.03,
-                    "density": 43.0,
-                    "specific_heat": 1210.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic 25mm Wood",
-                    "roughness": "MediumSmooth",
-                    "thickness": 0.0254,
-                    "conductivity": 0.15,
-                    "density": 608.0,
-                    "specific_heat": 1630.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.5,
-                    "visible_absorptance": 0.5
                 },
                 {
                     "type": "EnergyMaterial",
@@ -599,22 +229,13 @@
                     "visible_absorptance": 0.7
                 },
                 {
-                    "type": "EnergyMaterialNoMass",
-                    "identifier": "Typical Carpet Pad",
-                    "r_value": 0.2164799871520999,
-                    "roughness": "VeryRough",
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.8
-                },
-                {
                     "type": "EnergyMaterial",
-                    "identifier": "Roof Membrane",
-                    "roughness": "VeryRough",
-                    "thickness": 0.009499999999999998,
-                    "conductivity": 0.15989299909405608,
-                    "density": 1121.29256381722,
-                    "specific_heat": 1459.0586153813556,
+                    "identifier": "8 in. Normalweight Concrete Floor",
+                    "roughness": "MediumRough",
+                    "thickness": 0.2032,
+                    "conductivity": 2.308455174420426,
+                    "density": 2322.005309227381,
+                    "specific_heat": 831.4635397241673,
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
@@ -637,6 +258,77 @@
                     "solar_diffusing": false
                 },
                 {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "Gap_1_W_0_0038",
+                    "thickness": 0.0037999999999999887,
+                    "gas_type": "Air"
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Metal Roof Surface",
+                    "roughness": "Smooth",
+                    "thickness": 0.0007999999999999979,
+                    "conductivity": 45.24971874361766,
+                    "density": 7824.017889489713,
+                    "specific_heat": 499.67760800730963,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R7",
+                    "r_value": 1.2327712866691938,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyWindowMaterialGlazing",
+                    "identifier": "CLEAR 6MM",
+                    "thickness": 0.005999999999999977,
+                    "solar_transmittance": 0.775,
+                    "solar_reflectance": 0.071,
+                    "solar_reflectance_back": 0.071,
+                    "visible_transmittance": 0.881,
+                    "visible_reflectance": 0.08,
+                    "visible_reflectance_back": 0.08,
+                    "infrared_transmittance": 0.0,
+                    "emissivity": 0.84,
+                    "emissivity_back": 0.84,
+                    "conductivity": 0.8993981199040626,
+                    "dirt_correction": 1.0,
+                    "solar_diffusing": false
+                },
+                {
+                    "type": "EnergyWindowMaterialGas",
+                    "identifier": "AIR 13MM",
+                    "thickness": 0.0127,
+                    "gas_type": "Air"
+                },
+                {
+                    "type": "EnergyMaterial",
+                    "identifier": "Roof Membrane",
+                    "roughness": "VeryRough",
+                    "thickness": 0.009499999999999998,
+                    "conductivity": 0.15989299909405608,
+                    "density": 1121.29256381722,
+                    "specific_heat": 1459.0586153813556,
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R31",
+                    "r_value": 5.45941569810643,
+                    "roughness": "MediumSmooth",
+                    "thermal_absorptance": 0.9,
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.7
+                },
+                {
                     "type": "EnergyMaterialNoMass",
                     "identifier": "Typical Insulation-R24",
                     "r_value": 4.226644411437236,
@@ -646,75 +338,30 @@
                     "visible_absorptance": 0.7
                 },
                 {
-                    "type": "EnergyWindowMaterialGas",
-                    "identifier": "Gap_1_W_0_0038",
-                    "thickness": 0.0037999999999999887,
-                    "gas_type": "Air"
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic LW Concrete",
-                    "roughness": "MediumRough",
-                    "thickness": 0.1,
-                    "conductivity": 0.53,
-                    "density": 1280.0,
-                    "specific_heat": 840.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.8,
-                    "visible_absorptance": 0.8
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Ceiling Air Gap",
-                    "roughness": "Smooth",
-                    "thickness": 0.1,
-                    "conductivity": 0.556,
-                    "density": 1.28,
-                    "specific_heat": 1000.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.7,
-                    "visible_absorptance": 0.7
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Wall Air Gap",
-                    "roughness": "Smooth",
-                    "thickness": 0.1,
-                    "conductivity": 0.667,
-                    "density": 1.28,
-                    "specific_heat": 1000.0,
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Insulation-R2",
+                    "r_value": 0.35222036761976966,
+                    "roughness": "MediumSmooth",
                     "thermal_absorptance": 0.9,
                     "solar_absorptance": 0.7,
                     "visible_absorptance": 0.7
                 },
                 {
                     "type": "EnergyWindowMaterialGlazing",
-                    "identifier": "Generic Clear Glass",
-                    "thickness": 0.006,
-                    "solar_transmittance": 0.77,
-                    "solar_reflectance": 0.07,
-                    "solar_reflectance_back": 0.07,
-                    "visible_transmittance": 0.88,
-                    "visible_reflectance": 0.08,
-                    "visible_reflectance_back": 0.08,
+                    "identifier": "REF D CLEAR 6MM",
+                    "thickness": 0.005999999999999977,
+                    "solar_transmittance": 0.429,
+                    "solar_reflectance": 0.308,
+                    "solar_reflectance_back": 0.379,
+                    "visible_transmittance": 0.334,
+                    "visible_reflectance": 0.453,
+                    "visible_reflectance_back": 0.505,
                     "infrared_transmittance": 0.0,
                     "emissivity": 0.84,
-                    "emissivity_back": 0.84,
-                    "conductivity": 1.0,
+                    "emissivity_back": 0.82,
+                    "conductivity": 0.8993981199040626,
                     "dirt_correction": 1.0,
                     "solar_diffusing": false
-                },
-                {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Gypsum Board",
-                    "roughness": "MediumSmooth",
-                    "thickness": 0.0127,
-                    "conductivity": 0.16,
-                    "density": 800.0,
-                    "specific_heat": 1090.0,
-                    "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.5,
-                    "visible_absorptance": 0.5
                 },
                 {
                     "type": "EnergyMaterial",
@@ -729,16 +376,13 @@
                     "visible_absorptance": 0.7
                 },
                 {
-                    "type": "EnergyMaterial",
-                    "identifier": "Generic Acoustic Tile",
-                    "roughness": "MediumSmooth",
-                    "thickness": 0.02,
-                    "conductivity": 0.06,
-                    "density": 368.0,
-                    "specific_heat": 590.0,
+                    "type": "EnergyMaterialNoMass",
+                    "identifier": "Typical Carpet Pad",
+                    "r_value": 0.2164799871520999,
+                    "roughness": "VeryRough",
                     "thermal_absorptance": 0.9,
-                    "solar_absorptance": 0.2,
-                    "visible_absorptance": 0.2
+                    "solar_absorptance": 0.7,
+                    "visible_absorptance": 0.8
                 }
             ],
             "hvacs": [
@@ -858,44 +502,6 @@
             "program_types": [
                 {
                     "type": "ProgramTypeAbridged",
-                    "identifier": "2013::MidriseApartment::Corridor",
-                    "lighting": {
-                        "type": "LightingAbridged",
-                        "identifier": "2013::MidriseApartment::Corridor_Lighting",
-                        "watts_per_area": 8.5250088,
-                        "return_air_fraction": 0.0,
-                        "radiant_fraction": 0.6,
-                        "visible_fraction": 0.2,
-                        "schedule": "ApartmentMidRise LTG_COR_SCH_2013"
-                    },
-                    "electric_equipment": {
-                        "type": "ElectricEquipmentAbridged",
-                        "identifier": "2013::MidriseApartment::Corridor_Electric",
-                        "watts_per_area": 0.0,
-                        "radiant_fraction": 0.5,
-                        "latent_fraction": 0.0,
-                        "lost_fraction": 0.0,
-                        "schedule": "ApartmentMidRise BLDG_ELEVATORS"
-                    },
-                    "infiltration": {
-                        "type": "InfiltrationAbridged",
-                        "identifier": "2013::MidriseApartment::Corridor_Infiltration",
-                        "flow_per_exterior_area": 0.0005689600000000001,
-                        "schedule": "ApartmentMidRise INF_COR_SCH"
-                    },
-                    "ventilation": {
-                        "type": "VentilationAbridged",
-                        "identifier": "2013::MidriseApartment::Corridor_Ventilation"
-                    },
-                    "setpoint": {
-                        "type": "SetpointAbridged",
-                        "identifier": "2013::MidriseApartment::Corridor_Setpoint",
-                        "heating_schedule": "ApartmentMidRise HTGSETP_APT_SCH",
-                        "cooling_schedule": "ApartmentMidRise CLGSETP_APT_SCH"
-                    }
-                },
-                {
-                    "type": "ProgramTypeAbridged",
                     "identifier": "2013::MidriseApartment::Apartment",
                     "people": {
                         "type": "PeopleAbridged",
@@ -943,9 +549,513 @@
                         "heating_schedule": "ApartmentMidRise HTGSETP_APT_SCH",
                         "cooling_schedule": "ApartmentMidRise CLGSETP_APT_SCH"
                     }
+                },
+                {
+                    "type": "ProgramTypeAbridged",
+                    "identifier": "2013::MidriseApartment::Corridor",
+                    "lighting": {
+                        "type": "LightingAbridged",
+                        "identifier": "2013::MidriseApartment::Corridor_Lighting",
+                        "watts_per_area": 8.5250088,
+                        "return_air_fraction": 0.0,
+                        "radiant_fraction": 0.6,
+                        "visible_fraction": 0.2,
+                        "schedule": "ApartmentMidRise LTG_COR_SCH_2013"
+                    },
+                    "electric_equipment": {
+                        "type": "ElectricEquipmentAbridged",
+                        "identifier": "2013::MidriseApartment::Corridor_Electric",
+                        "watts_per_area": 0.0,
+                        "radiant_fraction": 0.5,
+                        "latent_fraction": 0.0,
+                        "lost_fraction": 0.0,
+                        "schedule": "ApartmentMidRise BLDG_ELEVATORS"
+                    },
+                    "infiltration": {
+                        "type": "InfiltrationAbridged",
+                        "identifier": "2013::MidriseApartment::Corridor_Infiltration",
+                        "flow_per_exterior_area": 0.0005689600000000001,
+                        "schedule": "ApartmentMidRise INF_COR_SCH"
+                    },
+                    "ventilation": {
+                        "type": "VentilationAbridged",
+                        "identifier": "2013::MidriseApartment::Corridor_Ventilation"
+                    },
+                    "setpoint": {
+                        "type": "SetpointAbridged",
+                        "identifier": "2013::MidriseApartment::Corridor_Setpoint",
+                        "heating_schedule": "ApartmentMidRise HTGSETP_APT_SCH",
+                        "cooling_schedule": "ApartmentMidRise CLGSETP_APT_SCH"
+                    }
                 }
             ],
             "schedules": [
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "ApartmentMidRise Activity Schedule",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise Activity Schedule_Default",
+                            "values": [
+                                95.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise Activity Schedule_SmrDsn",
+                            "values": [
+                                95.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise Activity Schedule_WntrDsn",
+                            "values": [
+                                95.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "ApartmentMidRise Activity Schedule_Default",
+                    "summer_designday_schedule": "ApartmentMidRise Activity Schedule_SmrDsn",
+                    "winter_designday_schedule": "ApartmentMidRise Activity Schedule_WntrDsn",
+                    "schedule_type_limit": "Activity Level"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "ApartmentMidRise LTG_APT_SCH",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise LTG_APT_SCH_Default",
+                            "values": [
+                                0.011316031,
+                                0.033948092,
+                                0.0735542,
+                                0.079212215,
+                                0.0735542,
+                                0.033948092,
+                                0.022632061,
+                                0.039606108,
+                                0.079212215,
+                                0.113160307,
+                                0.152766415,
+                                0.181056492,
+                                0.124476338,
+                                0.067896184,
+                                0.028290077
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    4,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    9,
+                                    0
+                                ],
+                                [
+                                    15,
+                                    0
+                                ],
+                                [
+                                    16,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ],
+                                [
+                                    19,
+                                    0
+                                ],
+                                [
+                                    21,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ],
+                                [
+                                    23,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise LTG_APT_SCH_SmrDsn",
+                            "values": [
+                                0.011316031,
+                                0.033948092,
+                                0.0735542,
+                                0.079212215,
+                                0.0735542,
+                                0.033948092,
+                                0.022632061,
+                                0.039606108,
+                                0.079212215,
+                                0.113160307,
+                                0.152766415,
+                                0.181056492,
+                                0.124476338,
+                                0.067896184,
+                                0.028290077
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    4,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    9,
+                                    0
+                                ],
+                                [
+                                    15,
+                                    0
+                                ],
+                                [
+                                    16,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ],
+                                [
+                                    19,
+                                    0
+                                ],
+                                [
+                                    21,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ],
+                                [
+                                    23,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise LTG_APT_SCH_WntrDsn",
+                            "values": [
+                                0.011316031,
+                                0.033948092,
+                                0.0735542,
+                                0.079212215,
+                                0.0735542,
+                                0.033948092,
+                                0.022632061,
+                                0.039606108,
+                                0.079212215,
+                                0.113160307,
+                                0.152766415,
+                                0.181056492,
+                                0.124476338,
+                                0.067896184,
+                                0.028290077
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    4,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    9,
+                                    0
+                                ],
+                                [
+                                    15,
+                                    0
+                                ],
+                                [
+                                    16,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ],
+                                [
+                                    19,
+                                    0
+                                ],
+                                [
+                                    21,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ],
+                                [
+                                    23,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "ApartmentMidRise LTG_APT_SCH_Default",
+                    "summer_designday_schedule": "ApartmentMidRise LTG_APT_SCH_SmrDsn",
+                    "winter_designday_schedule": "ApartmentMidRise LTG_APT_SCH_WntrDsn"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "Cooking_Meals",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "Cooking_Meals_Day Schedule",
+                            "values": [
+                                0.0,
+                                0.5,
+                                0.0,
+                                1.0,
+                                0.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    16,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Cooking_Meals_Day Schedule"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "ApartmentMidRise BLDG_ELEVATORS",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise BLDG_ELEVATORS_Default",
+                            "values": [
+                                0.05,
+                                0.1,
+                                0.2,
+                                0.4,
+                                0.5,
+                                0.35,
+                                0.15,
+                                0.35,
+                                0.5,
+                                0.4,
+                                0.3,
+                                0.2,
+                                0.1
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    4,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    9,
+                                    0
+                                ],
+                                [
+                                    10,
+                                    0
+                                ],
+                                [
+                                    16,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    19,
+                                    0
+                                ],
+                                [
+                                    21,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ],
+                                [
+                                    23,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise BLDG_ELEVATORS_SmrDsn",
+                            "values": [
+                                0.5
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise BLDG_ELEVATORS_WntrDsn",
+                            "values": [
+                                0.05
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "ApartmentMidRise BLDG_ELEVATORS_Default",
+                    "summer_designday_schedule": "ApartmentMidRise BLDG_ELEVATORS_SmrDsn",
+                    "winter_designday_schedule": "ApartmentMidRise BLDG_ELEVATORS_WntrDsn",
+                    "schedule_type_limit": "Fractional"
+                },
                 {
                     "type": "ScheduleRulesetAbridged",
                     "identifier": "ApartmentMidRise HTGSETP_APT_SCH",
@@ -1000,11 +1110,62 @@
                 },
                 {
                     "type": "ScheduleRulesetAbridged",
-                    "identifier": "ApartmentMidRise INF_APT_SCH",
+                    "identifier": "ApartmentMidRise LTG_COR_SCH_2013",
                     "day_schedules": [
                         {
                             "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise INF_APT_SCH_Default",
+                            "identifier": "ApartmentMidRise LTG_COR_SCH_2013_Default",
+                            "values": [
+                                0.53144
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise LTG_COR_SCH_2013_SmrDsn",
+                            "values": [
+                                0.53144
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise LTG_COR_SCH_2013_WntrDsn",
+                            "values": [
+                                0.53144
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "ApartmentMidRise LTG_COR_SCH_2013_Default",
+                    "summer_designday_schedule": "ApartmentMidRise LTG_COR_SCH_2013_SmrDsn",
+                    "winter_designday_schedule": "ApartmentMidRise LTG_COR_SCH_2013_WntrDsn"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "ApartmentMidRise INF_COR_SCH",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise INF_COR_SCH_Default",
                             "values": [
                                 1.0
                             ],
@@ -1018,7 +1179,7 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise INF_APT_SCH_SmrDsn",
+                            "identifier": "ApartmentMidRise INF_COR_SCH_SmrDsn",
                             "values": [
                                 1.0
                             ],
@@ -1032,7 +1193,7 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise INF_APT_SCH_WntrDsn",
+                            "identifier": "ApartmentMidRise INF_COR_SCH_WntrDsn",
                             "values": [
                                 1.0
                             ],
@@ -1045,9 +1206,9 @@
                             "interpolate": false
                         }
                     ],
-                    "default_day_schedule": "ApartmentMidRise INF_APT_SCH_Default",
-                    "summer_designday_schedule": "ApartmentMidRise INF_APT_SCH_SmrDsn",
-                    "winter_designday_schedule": "ApartmentMidRise INF_APT_SCH_WntrDsn"
+                    "default_day_schedule": "ApartmentMidRise INF_COR_SCH_Default",
+                    "summer_designday_schedule": "ApartmentMidRise INF_COR_SCH_SmrDsn",
+                    "winter_designday_schedule": "ApartmentMidRise INF_COR_SCH_WntrDsn"
                 },
                 {
                     "type": "ScheduleRulesetAbridged",
@@ -1100,47 +1261,6 @@
                     "summer_designday_schedule": "ApartmentMidRise CLGSETP_APT_SCH_SmrDsn",
                     "winter_designday_schedule": "ApartmentMidRise CLGSETP_APT_SCH_WntrDsn",
                     "schedule_type_limit": "Temperature"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "identifier": "Cooking_Meals",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "Cooking_Meals_Day Schedule",
-                            "values": [
-                                0.0,
-                                0.5,
-                                0.0,
-                                1.0,
-                                0.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ],
-                                [
-                                    17,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Cooking_Meals_Day Schedule"
                 },
                 {
                     "type": "ScheduleRulesetAbridged",
@@ -1298,6 +1418,57 @@
                     "summer_designday_schedule": "ApartmentMidRise OCC_APT_SCH_SmrDsn",
                     "winter_designday_schedule": "ApartmentMidRise OCC_APT_SCH_WntrDsn",
                     "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "ApartmentMidRise INF_APT_SCH",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise INF_APT_SCH_Default",
+                            "values": [
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise INF_APT_SCH_SmrDsn",
+                            "values": [
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "ApartmentMidRise INF_APT_SCH_WntrDsn",
+                            "values": [
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "ApartmentMidRise INF_APT_SCH_Default",
+                    "summer_designday_schedule": "ApartmentMidRise INF_APT_SCH_SmrDsn",
+                    "winter_designday_schedule": "ApartmentMidRise INF_APT_SCH_WntrDsn"
                 },
                 {
                     "type": "ScheduleRulesetAbridged",
@@ -1665,568 +1836,9 @@
                     "summer_designday_schedule": "ApartmentMidRise EQP_APT_SCH_SmrDsn",
                     "winter_designday_schedule": "ApartmentMidRise EQP_APT_SCH_WntrDsn",
                     "schedule_type_limit": "Fractional"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "identifier": "ApartmentMidRise INF_COR_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise INF_COR_SCH_Default",
-                            "values": [
-                                1.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise INF_COR_SCH_SmrDsn",
-                            "values": [
-                                1.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise INF_COR_SCH_WntrDsn",
-                            "values": [
-                                1.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "ApartmentMidRise INF_COR_SCH_Default",
-                    "summer_designday_schedule": "ApartmentMidRise INF_COR_SCH_SmrDsn",
-                    "winter_designday_schedule": "ApartmentMidRise INF_COR_SCH_WntrDsn"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "identifier": "ApartmentMidRise LTG_APT_SCH",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise LTG_APT_SCH_Default",
-                            "values": [
-                                0.011316031,
-                                0.033948092,
-                                0.0735542,
-                                0.079212215,
-                                0.0735542,
-                                0.033948092,
-                                0.022632061,
-                                0.039606108,
-                                0.079212215,
-                                0.113160307,
-                                0.152766415,
-                                0.181056492,
-                                0.124476338,
-                                0.067896184,
-                                0.028290077
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    4,
-                                    0
-                                ],
-                                [
-                                    5,
-                                    0
-                                ],
-                                [
-                                    6,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    9,
-                                    0
-                                ],
-                                [
-                                    15,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ],
-                                [
-                                    17,
-                                    0
-                                ],
-                                [
-                                    18,
-                                    0
-                                ],
-                                [
-                                    19,
-                                    0
-                                ],
-                                [
-                                    21,
-                                    0
-                                ],
-                                [
-                                    22,
-                                    0
-                                ],
-                                [
-                                    23,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise LTG_APT_SCH_SmrDsn",
-                            "values": [
-                                0.011316031,
-                                0.033948092,
-                                0.0735542,
-                                0.079212215,
-                                0.0735542,
-                                0.033948092,
-                                0.022632061,
-                                0.039606108,
-                                0.079212215,
-                                0.113160307,
-                                0.152766415,
-                                0.181056492,
-                                0.124476338,
-                                0.067896184,
-                                0.028290077
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    4,
-                                    0
-                                ],
-                                [
-                                    5,
-                                    0
-                                ],
-                                [
-                                    6,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    9,
-                                    0
-                                ],
-                                [
-                                    15,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ],
-                                [
-                                    17,
-                                    0
-                                ],
-                                [
-                                    18,
-                                    0
-                                ],
-                                [
-                                    19,
-                                    0
-                                ],
-                                [
-                                    21,
-                                    0
-                                ],
-                                [
-                                    22,
-                                    0
-                                ],
-                                [
-                                    23,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise LTG_APT_SCH_WntrDsn",
-                            "values": [
-                                0.011316031,
-                                0.033948092,
-                                0.0735542,
-                                0.079212215,
-                                0.0735542,
-                                0.033948092,
-                                0.022632061,
-                                0.039606108,
-                                0.079212215,
-                                0.113160307,
-                                0.152766415,
-                                0.181056492,
-                                0.124476338,
-                                0.067896184,
-                                0.028290077
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    4,
-                                    0
-                                ],
-                                [
-                                    5,
-                                    0
-                                ],
-                                [
-                                    6,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    9,
-                                    0
-                                ],
-                                [
-                                    15,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ],
-                                [
-                                    17,
-                                    0
-                                ],
-                                [
-                                    18,
-                                    0
-                                ],
-                                [
-                                    19,
-                                    0
-                                ],
-                                [
-                                    21,
-                                    0
-                                ],
-                                [
-                                    22,
-                                    0
-                                ],
-                                [
-                                    23,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "ApartmentMidRise LTG_APT_SCH_Default",
-                    "summer_designday_schedule": "ApartmentMidRise LTG_APT_SCH_SmrDsn",
-                    "winter_designday_schedule": "ApartmentMidRise LTG_APT_SCH_WntrDsn"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "identifier": "Always On",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "Always On_Day Schedule",
-                            "values": [
-                                1.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Always On_Day Schedule",
-                    "schedule_type_limit": "Fractional"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "identifier": "ApartmentMidRise Activity Schedule",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise Activity Schedule_Default",
-                            "values": [
-                                95.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise Activity Schedule_SmrDsn",
-                            "values": [
-                                95.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise Activity Schedule_WntrDsn",
-                            "values": [
-                                95.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "ApartmentMidRise Activity Schedule_Default",
-                    "summer_designday_schedule": "ApartmentMidRise Activity Schedule_SmrDsn",
-                    "winter_designday_schedule": "ApartmentMidRise Activity Schedule_WntrDsn",
-                    "schedule_type_limit": "Activity Level"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "identifier": "ApartmentMidRise BLDG_ELEVATORS",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise BLDG_ELEVATORS_Default",
-                            "values": [
-                                0.05,
-                                0.1,
-                                0.2,
-                                0.4,
-                                0.5,
-                                0.35,
-                                0.15,
-                                0.35,
-                                0.5,
-                                0.4,
-                                0.3,
-                                0.2,
-                                0.1
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    4,
-                                    0
-                                ],
-                                [
-                                    5,
-                                    0
-                                ],
-                                [
-                                    6,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    9,
-                                    0
-                                ],
-                                [
-                                    10,
-                                    0
-                                ],
-                                [
-                                    16,
-                                    0
-                                ],
-                                [
-                                    17,
-                                    0
-                                ],
-                                [
-                                    19,
-                                    0
-                                ],
-                                [
-                                    21,
-                                    0
-                                ],
-                                [
-                                    22,
-                                    0
-                                ],
-                                [
-                                    23,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise BLDG_ELEVATORS_SmrDsn",
-                            "values": [
-                                0.5
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise BLDG_ELEVATORS_WntrDsn",
-                            "values": [
-                                0.05
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "ApartmentMidRise BLDG_ELEVATORS_Default",
-                    "summer_designday_schedule": "ApartmentMidRise BLDG_ELEVATORS_SmrDsn",
-                    "winter_designday_schedule": "ApartmentMidRise BLDG_ELEVATORS_WntrDsn",
-                    "schedule_type_limit": "Fractional"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "identifier": "ApartmentMidRise LTG_COR_SCH_2013",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise LTG_COR_SCH_2013_Default",
-                            "values": [
-                                0.53144
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise LTG_COR_SCH_2013_SmrDsn",
-                            "values": [
-                                0.53144
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "ApartmentMidRise LTG_COR_SCH_2013_WntrDsn",
-                            "values": [
-                                0.53144
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "ApartmentMidRise LTG_COR_SCH_2013_Default",
-                    "summer_designday_schedule": "ApartmentMidRise LTG_COR_SCH_2013_SmrDsn",
-                    "winter_designday_schedule": "ApartmentMidRise LTG_COR_SCH_2013_WntrDsn"
                 }
             ],
             "schedule_type_limits": [
-                {
-                    "type": "ScheduleTypeLimit",
-                    "identifier": "Temperature",
-                    "lower_limit": -273.15,
-                    "upper_limit": {
-                        "type": "NoLimit"
-                    },
-                    "numeric_type": "Continuous",
-                    "unit_type": "Temperature"
-                },
                 {
                     "type": "ScheduleTypeLimit",
                     "identifier": "Activity Level",
@@ -2236,6 +1848,16 @@
                     },
                     "numeric_type": "Continuous",
                     "unit_type": "ActivityLevel"
+                },
+                {
+                    "type": "ScheduleTypeLimit",
+                    "identifier": "Temperature",
+                    "lower_limit": -273.15,
+                    "upper_limit": {
+                        "type": "NoLimit"
+                    },
+                    "numeric_type": "Continuous",
+                    "unit_type": "Temperature"
                 },
                 {
                     "type": "ScheduleTypeLimit",
@@ -2249,146 +1871,8 @@
         },
         "radiance": {
             "type": "ModelRadianceProperties",
-            "modifier_sets": [
-                {
-                    "type": "ModifierSetAbridged",
-                    "identifier": "Generic_Interior_Visible_Modifier_Set",
-                    "wall_set": {
-                        "interior_modifier": "generic_wall_0.50",
-                        "exterior_modifier": "generic_wall_0.50",
-                        "type": "WallModifierSetAbridged"
-                    },
-                    "floor_set": {
-                        "interior_modifier": "generic_floor_0.20",
-                        "exterior_modifier": "generic_floor_0.20",
-                        "type": "FloorModifierSetAbridged"
-                    },
-                    "roof_ceiling_set": {
-                        "interior_modifier": "generic_ceiling_0.80",
-                        "exterior_modifier": "generic_ceiling_0.80",
-                        "type": "RoofCeilingModifierSetAbridged"
-                    },
-                    "aperture_set": {
-                        "operable_modifier": "generic_exterior_window_vis_0.64",
-                        "skylight_modifier": "generic_exterior_window_vis_0.64",
-                        "interior_modifier": "generic_interior_window_vis_0.88",
-                        "type": "ApertureModifierSetAbridged",
-                        "window_modifier": "generic_exterior_window_vis_0.64"
-                    },
-                    "door_set": {
-                        "overhead_modifier": "generic_opaque_door_0.50",
-                        "exterior_glass_modifier": "generic_exterior_window_vis_0.64",
-                        "exterior_modifier": "generic_opaque_door_0.50",
-                        "interior_modifier": "generic_opaque_door_0.50",
-                        "interior_glass_modifier": "generic_interior_window_vis_0.88",
-                        "type": "DoorModifierSetAbridged"
-                    },
-                    "shade_set": {
-                        "interior_modifier": "generic_interior_shade_0.50",
-                        "exterior_modifier": "generic_exterior_shade_0.35",
-                        "type": "ShadeModifierSetAbridged"
-                    },
-                    "air_boundary_modifier": "air_boundary"
-                }
-            ],
-            "global_modifier_set": "Generic_Interior_Visible_Modifier_Set",
+            "modifier_sets": [],
             "modifiers": [
-                {
-                    "modifier": null,
-                    "type": "glass",
-                    "identifier": "generic_interior_window_vis_0.88",
-                    "r_transmissivity": 0.9584154328610596,
-                    "g_transmissivity": 0.9584154328610596,
-                    "b_transmissivity": 0.9584154328610596,
-                    "refraction_index": null,
-                    "dependencies": []
-                },
-                {
-                    "modifier": null,
-                    "type": "plastic",
-                    "identifier": "generic_floor_0.20",
-                    "r_reflectance": 0.2,
-                    "g_reflectance": 0.2,
-                    "b_reflectance": 0.2,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": null,
-                    "type": "plastic",
-                    "identifier": "generic_opaque_door_0.50",
-                    "r_reflectance": 0.5,
-                    "g_reflectance": 0.5,
-                    "b_reflectance": 0.5,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": null,
-                    "type": "glass",
-                    "identifier": "generic_exterior_window_vis_0.64",
-                    "r_transmissivity": 0.6975761815384331,
-                    "g_transmissivity": 0.6975761815384331,
-                    "b_transmissivity": 0.6975761815384331,
-                    "refraction_index": null,
-                    "dependencies": []
-                },
-                {
-                    "modifier": null,
-                    "type": "plastic",
-                    "identifier": "generic_ceiling_0.80",
-                    "r_reflectance": 0.8,
-                    "g_reflectance": 0.8,
-                    "b_reflectance": 0.8,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": null,
-                    "type": "plastic",
-                    "identifier": "generic_interior_shade_0.50",
-                    "r_reflectance": 0.5,
-                    "g_reflectance": 0.5,
-                    "b_reflectance": 0.5,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": null,
-                    "type": "plastic",
-                    "identifier": "generic_wall_0.50",
-                    "r_reflectance": 0.5,
-                    "g_reflectance": 0.5,
-                    "b_reflectance": 0.5,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": null,
-                    "type": "plastic",
-                    "identifier": "generic_exterior_shade_0.35",
-                    "r_reflectance": 0.35,
-                    "g_reflectance": 0.35,
-                    "b_reflectance": 0.35,
-                    "specularity": 0.0,
-                    "roughness": 0.0,
-                    "dependencies": []
-                },
-                {
-                    "modifier": null,
-                    "type": "glass",
-                    "identifier": "air_boundary",
-                    "r_transmissivity": 1.0,
-                    "g_transmissivity": 1.0,
-                    "b_transmissivity": 1.0,
-                    "refraction_index": null,
-                    "dependencies": []
-                },
                 {
                     "modifier": null,
                     "type": "plastic",

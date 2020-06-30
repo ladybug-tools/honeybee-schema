@@ -11,11 +11,13 @@ This code was partially developed under the [Wells Fargo Innovation Incubator gr
 [OpenStudio Team](https://github.com/NREL/OpenStudio) at [NREL](https://www.nrel.gov/).
 
 ## Installation
+
 ```console
 pip install honeybee-schema
 ```
 
 ## QuickStart
+
 ```python
 import honeybee_schema
 
@@ -28,7 +30,9 @@ import honeybee_schema
 [Energy Simulation Parameter Schema](https://ladybug-tools.github.io/honeybee-schema/simulation-parameter.html)
 
 ## Local Development
+
 1. Clone this repo locally
+
 ```console
 git clone git@github.com:ladybug-tools/honeybee-schema
 
@@ -36,7 +40,9 @@ git clone git@github.com:ladybug-tools/honeybee-schema
 
 git clone https://github.com/ladybug-tools/honeybee-schema
 ```
+
 2. Install dependencies:
+
 ```console
 cd honeybee-schema
 pip install -r dev-requirements.txt
@@ -44,16 +50,19 @@ pip install -r requirements.txt
 ```
 
 3. Run Tests:
+
 ```console
 python -m pytest tests/
 ```
 
 4. Generate Documentation:
+
 ```python
 python ./docs.py
 ```
 
 5. Generate Sample Files:
+
 ```python
 python ./scripts/export_samples.py
 ```

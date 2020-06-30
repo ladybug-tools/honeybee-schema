@@ -124,10 +124,3 @@ class ModelRadianceProperties(NoExtraBaseModel):
         description='A list of all unique Room-Assigned ModifierSets in the Model '
                     '(default: None).'
     )
-
-    global_modifier_set: str = Field(
-        default=None,
-        description='Identifier of a ModifierSet or ModifierSetAbridged object to be '
-                    'used as as a default object for all unassigned objects in the '
-                    'Model (default: None).'
-    )

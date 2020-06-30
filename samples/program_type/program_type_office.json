@@ -224,39 +224,11 @@
         },
         "activity_schedule": {
             "type": "ScheduleRuleset",
-            "identifier": "Generic Office Activity",
+            "identifier": "Seated Adult Activity",
             "day_schedules": [
                 {
                     "type": "ScheduleDay",
-                    "identifier": "OfficeMedium ACTIVITY_SCH_Default",
-                    "values": [
-                        120.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium ACTIVITY_SCH_Default_SmrDsn",
-                    "values": [
-                        120.0
-                    ],
-                    "times": [
-                        [
-                            0,
-                            0
-                        ]
-                    ],
-                    "interpolate": false
-                },
-                {
-                    "type": "ScheduleDay",
-                    "identifier": "OfficeMedium ACTIVITY_SCH_Default_WntrDsn",
+                    "identifier": "Seated Adult Activity_Day Schedule",
                     "values": [
                         120.0
                     ],
@@ -269,10 +241,7 @@
                     "interpolate": false
                 }
             ],
-            "default_day_schedule": "OfficeMedium ACTIVITY_SCH_Default",
-            "holiday_schedule": "OfficeMedium ACTIVITY_SCH_Default",
-            "summer_designday_schedule": "OfficeMedium ACTIVITY_SCH_Default_SmrDsn",
-            "winter_designday_schedule": "OfficeMedium ACTIVITY_SCH_Default_WntrDsn",
+            "default_day_schedule": "Seated Adult Activity_Day Schedule",
             "schedule_type_limit": {
                 "type": "ScheduleTypeLimit",
                 "identifier": "Activity Level",

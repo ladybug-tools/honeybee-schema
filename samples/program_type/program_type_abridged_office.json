@@ -10,7 +10,7 @@
             "type": "Autocalculate"
         },
         "occupancy_schedule": "Generic Office Occupancy",
-        "activity_schedule": "Generic Office Activity"
+        "activity_schedule": "Seated Adult Activity"
     },
     "lighting": {
         "type": "LightingAbridged",

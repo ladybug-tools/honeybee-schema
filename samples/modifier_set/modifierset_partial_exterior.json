@@ -2,6 +2,7 @@
     "type": "ModifierSet",
     "identifier": "Generic_Exterior_Visible_Modifier_Set",
     "wall_set": {
+        "interior_modifier": null,
         "exterior_modifier": {
             "modifier": null,
             "type": "plastic",
@@ -13,10 +14,10 @@
             "roughness": 0.0,
             "dependencies": []
         },
-        "interior_modifier": null,
         "type": "WallModifierSet"
     },
     "floor_set": {
+        "interior_modifier": null,
         "exterior_modifier": {
             "modifier": null,
             "type": "plastic",
@@ -28,10 +29,10 @@
             "roughness": 0.0,
             "dependencies": []
         },
-        "interior_modifier": null,
         "type": "FloorModifierSet"
     },
     "roof_ceiling_set": {
+        "interior_modifier": null,
         "exterior_modifier": {
             "modifier": null,
             "type": "plastic",
@@ -43,13 +44,12 @@
             "roughness": 0.0,
             "dependencies": []
         },
-        "interior_modifier": null,
         "type": "RoofCeilingModifierSet"
     },
     "aperture_set": {
+        "interior_modifier": null,
         "skylight_modifier": null,
         "operable_modifier": null,
-        "interior_modifier": null,
         "type": "ApertureModifierSet",
         "window_modifier": null
     },
@@ -57,13 +57,13 @@
         "overhead_modifier": null,
         "exterior_glass_modifier": null,
         "interior_glass_modifier": null,
-        "exterior_modifier": null,
         "interior_modifier": null,
+        "exterior_modifier": null,
         "type": "DoorModifierSet"
     },
     "shade_set": {
-        "exterior_modifier": null,
         "interior_modifier": null,
+        "exterior_modifier": null,
         "type": "ShadeModifierSet"
     },
     "air_boundary_modifier": null

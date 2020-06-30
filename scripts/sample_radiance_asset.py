@@ -45,7 +45,7 @@ def view_parallel(directory):
 
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
-sample_directory = os.path.join(master_dir, 'samples', 'radiance_assets')
+sample_directory = os.path.join(master_dir, 'samples', 'radiance_asset')
 
 sensor_grid_simple(sample_directory)
 sensor_grid_detailed(sample_directory)

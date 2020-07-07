@@ -29,12 +29,20 @@ jobs:
     - git config --global user.name "ladybugbot"
     - pip install -U .
     - npx semantic-release
+  - stage: docs
+    if: tag IS present
+    install:
+    - pip install -r dev-requirements.txt
+    - pip install -r requirements.txt
+    script:
+    - export CLEAN_TAG=$(echo $TRAVIS_TAG | sed 's/v//g')
+    - python docs.py --version $CLEAN_TAG
     - redoc-cli bundle ./docs/model_inheritance.json -o ./docs/model.html
     deploy:
+      on:
+        tags: true
       provider: pages
       skip_cleanup: true
       github-token: $GH_TOKEN
       keep-history: false
       local_dir: docs/
-      on:
-        branch: master

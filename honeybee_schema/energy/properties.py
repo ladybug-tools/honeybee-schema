@@ -15,6 +15,7 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
 from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, InfiltrationAbridged, VentilationAbridged, SetpointAbridged
+from .ventcool import VentilationControlAbridged, VentilationOpening
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
     ScheduleFixedIntervalAbridged, ScheduleRuleset, ScheduleFixedInterval
 from .hvac import IdealAirSystemAbridged
@@ -62,6 +63,12 @@ class DoorEnergyPropertiesAbridged(NoExtraBaseModel):
         'global_construction_set.'
     )
 
+    vent_opening: VentilationOpening = Field(
+        default=None,
+        description='An optional VentilationOpening to specify the operable '
+        'portion of the Door.'
+    )
+
 
 class ApertureEnergyPropertiesAbridged(NoExtraBaseModel):
 
@@ -75,6 +82,12 @@ class ApertureEnergyPropertiesAbridged(NoExtraBaseModel):
         description='Identifier of a WindowConstruction for the aperture. If None, the '
         'construction is set by the parent Room construction_set or the Model '
         'global_construction_set.'
+    )
+
+    vent_opening: VentilationOpening = Field(
+        default=None,
+        description='An optional VentilationOpening to specify the operable '
+        'portion of the Aperture.'
     )
 
 
@@ -157,6 +170,12 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
     setpoint: SetpointAbridged = Field(
         default=None,
         description='Setpoint object for the temperature setpoints of the Room.'
+    )
+
+    window_vent_control: VentilationControlAbridged = Field(
+        default=None,
+        description='An optional VentilationControl object to dictate the opening '
+        'of windows. If None, the windows will never open.'
     )
 
 

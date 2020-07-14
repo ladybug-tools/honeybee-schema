@@ -14,6 +14,10 @@ from honeybee_energy.construction.window import WindowConstruction
 from honeybee_energy.construction.shade import ShadeConstruction
 from honeybee_energy.material.opaque import EnergyMaterial
 from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
+from honeybee_energy.schedule.ruleset import ScheduleRuleset
+from honeybee_energy.load.setpoint import Setpoint
+from honeybee_energy.ventcool.opening import VentilationOpening
+from honeybee_energy.ventcool.control import VentilationControl
 
 import honeybee_energy.lib.programtypes as prog_type_lib
 import honeybee_energy.lib.scheduletypelimits as schedule_types
@@ -349,7 +353,7 @@ def model_energy_fixed_interval(directory):
         directory, 'model_energy_fixed_interval.json')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
-    
+
 
 def model_energy_no_program(directory):
     room = Room.from_box('Abandoned_Tiny_House', 5, 10, 3)
@@ -395,6 +399,35 @@ def model_energy_no_program(directory):
     model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
 
     dest_file = os.path.join(directory, 'model_energy_no_program.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
+
+
+def model_energy_window_ventilation(directory):
+    room = Room.from_box('TinyHouseZone', 5, 10, 3)
+    room.properties.energy.add_default_ideal_air()
+    south_face = room[3]
+    north_face = room[1]
+    south_face.apertures_by_ratio(0.4, 0.01)
+    north_face.apertures_by_ratio(0.4, 0.01)
+    south_face.apertures[0].is_operable = True
+    north_face.apertures[0].is_operable = True
+
+    heat_setpt = ScheduleRuleset.from_constant_value(
+        'House Heating', 20, schedule_types.temperature)
+    cool_setpt = ScheduleRuleset.from_constant_value(
+        'House Cooling', 28, schedule_types.temperature)
+    setpoint = Setpoint('House Setpoint', heat_setpt, cool_setpt)
+    room.properties.energy.setpoint = setpoint
+
+    vent_control = VentilationControl(22, 27, 12, 30)
+    room.properties.energy.window_vent_control = vent_control
+    ventilation = VentilationOpening(wind_cross_vent=True)
+    room.properties.energy.assign_ventilation_opening(ventilation)
+
+    model = Model('TinyHouse', [room])
+
+    dest_file = os.path.join(directory, 'model_energy_window_ventilation.json')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
@@ -485,12 +518,12 @@ def model_radiance_dynamic_states(directory):
     north_face = room[1]
     north_face.overhang(0.25, indoor=False)
     door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1),
-                    Point3D(1, 10, 2.5), Point3D(2, 10, 2.5)]
+                  Point3D(1, 10, 2.5), Point3D(2, 10, 2.5)]
     door = Door('Front_Door', Face3D(door_verts))
     north_face.add_door(door)
 
     aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1),
-                        Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
+                      Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
     aperture = Aperture('Front_Aperture', Face3D(aperture_verts))
     triple_pane = Glass.from_single_transmittance('custom_triple_pane_0.3', 0.3)
     aperture.properties.radiance.modifier = triple_pane
@@ -541,7 +574,7 @@ def model_5vertex_sub_faces(directory):
                   Point3D(1.5, 10, 2.8), Point3D(2, 10, 2.5)]
     door = Door('FrontDoor', Face3D(door_verts))
     north_face.add_door(door)
-    
+
     model = Model('TinyHouse', [room])
     model_dict = model.to_dict()
 
@@ -594,6 +627,7 @@ model_energy_detailed_loads(sample_directory)
 model_energy_fixed_interval(sample_directory)
 model_energy_no_program(sample_directory)
 model_energy_properties_office(sample_directory)
+model_energy_window_ventilation(sample_directory)
 model_5vertex_sub_faces(sample_directory)
 model_5vertex_sub_faces_interior(sample_directory)
 

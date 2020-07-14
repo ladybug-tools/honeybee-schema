@@ -19,7 +19,7 @@ def ideal_air_default(directory):
 
 def ideal_air_detailed(directory):
     ideal_air = IdealAirSystem('Passive House HVAC System')
-    
+
     ideal_air.economizer_type = 'DifferentialEnthalpy'
     ideal_air.demand_controlled_ventilation = True
     ideal_air.sensible_heat_recovery = 0.75

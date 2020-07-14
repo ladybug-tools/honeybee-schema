@@ -1,0 +1,9 @@
+{
+    "type": "VentilationControlAbridged",
+    "min_indoor_temperature": 22.0,
+    "max_indoor_temperature": 28.0,
+    "min_outdoor_temperature": 12.0,
+    "max_outdoor_temperature": 32.0,
+    "delta_temperature": 0.0,
+    "schedule": "Night Flush Schedule"
+}

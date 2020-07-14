@@ -9,65 +9,70 @@ target_folder_large = os.path.join(root, 'samples', 'model_large')
 
 
 def test_model_complete_multi_zone_office():
-    file_path  = os.path.join(target_folder, 'model_complete_multi_zone_office.json')
+    file_path = os.path.join(target_folder, 'model_complete_multi_zone_office.json')
     Model.parse_file(file_path)
 
 
 def test_model_complete_multiroom_radiance():
-    file_path  = os.path.join(target_folder, 'model_complete_multiroom_radiance.json')
-    Model.parse_file(file_path) 
+    file_path = os.path.join(target_folder, 'model_complete_multiroom_radiance.json')
+    Model.parse_file(file_path)
 
 
 def test_model_complete_single_zone_office():
-    file_path  = os.path.join(target_folder, 'model_complete_single_zone_office.json')
+    file_path = os.path.join(target_folder, 'model_complete_single_zone_office.json')
     Model.parse_file(file_path)
 
 
 def test_model_complete_user_data():
-    file_path  = os.path.join(target_folder, 'model_complete_user_data.json')
+    file_path = os.path.join(target_folder, 'model_complete_user_data.json')
     Model.parse_file(file_path)
 
 
 def test_model_complete_patient_room():
-    file_path  = os.path.join(target_folder, 'model_complete_patient_room.json')
-    Model.parse_file(file_path) 
+    file_path = os.path.join(target_folder, 'model_complete_patient_room.json')
+    Model.parse_file(file_path)
 
 
 def test_model_energy_shoe_box():
-    file_path  = os.path.join(target_folder, 'model_energy_shoe_box.json')
+    file_path = os.path.join(target_folder, 'model_energy_shoe_box.json')
     Model.parse_file(file_path)
 
 
 def test_model_energy_detailed_loads():
-    file_path  = os.path.join(target_folder, 'model_energy_detailed_loads.json')
-    Model.parse_file(file_path) 
+    file_path = os.path.join(target_folder, 'model_energy_detailed_loads.json')
+    Model.parse_file(file_path)
 
 
 def test_model_energy_fixed_interval():
-    file_path  = os.path.join(target_folder, 'model_energy_fixed_interval.json')
+    file_path = os.path.join(target_folder, 'model_energy_fixed_interval.json')
     Model.parse_file(file_path)
 
 
 def test_model_energy_no_program():
-    file_path  = os.path.join(target_folder, 'model_energy_no_program.json')
+    file_path = os.path.join(target_folder, 'model_energy_no_program.json')
+    Model.parse_file(file_path)
+
+
+def test_model_energy_window_ventilation():
+    file_path = os.path.join(target_folder, 'model_energy_window_ventilation.json')
     Model.parse_file(file_path)
 
 
 def test_model_5vertex_sub_faces():
-    file_path  = os.path.join(target_folder, 'model_5vertex_sub_faces.json')
+    file_path = os.path.join(target_folder, 'model_5vertex_sub_faces.json')
     Model.parse_file(file_path)
 
 
 def test_model_energy_properties_office():
-    file_path  = os.path.join(target_folder, 'model_energy_properties_office.json')
+    file_path = os.path.join(target_folder, 'model_energy_properties_office.json')
     ModelEnergyProperties.parse_file(file_path)
 
 
 def test_model_large_single_family_home():
-    file_path  = os.path.join(target_folder_large, 'single_family_home.json')
+    file_path = os.path.join(target_folder_large, 'single_family_home.json')
     Model.parse_file(file_path)
 
 
 def test_model_large_lab_building():
-    file_path  = os.path.join(target_folder_large, 'lab_building.json')
+    file_path = os.path.join(target_folder_large, 'lab_building.json')
     Model.parse_file(file_path)

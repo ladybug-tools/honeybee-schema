@@ -1,0 +1,9 @@
+{
+    "type": "VentilationControlAbridged",
+    "min_indoor_temperature": 22.0,
+    "max_indoor_temperature": 100.0,
+    "min_outdoor_temperature": -100.0,
+    "max_outdoor_temperature": 100.0,
+    "delta_temperature": -100.0,
+    "schedule": "Always On"
+}

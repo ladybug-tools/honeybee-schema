@@ -1,0 +1,526 @@
+{
+    "type": "Model",
+    "identifier": "TinyHouse",
+    "display_name": "TinyHouse",
+    "units": "Meters",
+    "properties": {
+        "type": "ModelProperties",
+        "energy": {
+            "type": "ModelEnergyProperties",
+            "construction_sets": [],
+            "constructions": [],
+            "materials": [],
+            "hvacs": [
+                {
+                    "type": "IdealAirSystemAbridged",
+                    "identifier": "TinyHouseZone_IdealAir",
+                    "economizer_type": "DifferentialDryBulb",
+                    "demand_controlled_ventilation": false,
+                    "sensible_heat_recovery": 0.0,
+                    "latent_heat_recovery": 0.0,
+                    "heating_air_temperature": 50.0,
+                    "cooling_air_temperature": 13.0,
+                    "heating_limit": {
+                        "type": "Autosize"
+                    },
+                    "cooling_limit": {
+                        "type": "Autosize"
+                    }
+                }
+            ],
+            "program_types": [],
+            "schedules": [
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "House Heating",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "House Heating_Day Schedule",
+                            "values": [
+                                20.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "House Heating_Day Schedule",
+                    "schedule_type_limit": "Temperature"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "House Cooling",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "House Cooling_Day Schedule",
+                            "values": [
+                                28.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "House Cooling_Day Schedule",
+                    "schedule_type_limit": "Temperature"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "Always On",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "Always On_Day Schedule",
+                            "values": [
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "Always On_Day Schedule",
+                    "schedule_type_limit": "Fractional"
+                }
+            ],
+            "schedule_type_limits": [
+                {
+                    "type": "ScheduleTypeLimit",
+                    "identifier": "Fractional",
+                    "lower_limit": 0.0,
+                    "upper_limit": 1.0,
+                    "numeric_type": "Continuous",
+                    "unit_type": "Dimensionless"
+                },
+                {
+                    "type": "ScheduleTypeLimit",
+                    "identifier": "Temperature",
+                    "lower_limit": -273.15,
+                    "upper_limit": {
+                        "type": "NoLimit"
+                    },
+                    "numeric_type": "Continuous",
+                    "unit_type": "Temperature"
+                }
+            ]
+        }
+    },
+    "rooms": [
+        {
+            "type": "Room",
+            "identifier": "TinyHouseZone",
+            "display_name": "TinyHouseZone",
+            "properties": {
+                "type": "RoomPropertiesAbridged",
+                "energy": {
+                    "type": "RoomEnergyPropertiesAbridged",
+                    "hvac": "TinyHouseZone_IdealAir",
+                    "setpoint": {
+                        "type": "SetpointAbridged",
+                        "identifier": "House Setpoint",
+                        "heating_schedule": "House Heating",
+                        "cooling_schedule": "House Cooling"
+                    },
+                    "window_vent_control": {
+                        "type": "VentilationControlAbridged",
+                        "min_indoor_temperature": 22.0,
+                        "max_indoor_temperature": 27.0,
+                        "min_outdoor_temperature": 12.0,
+                        "max_outdoor_temperature": 30.0,
+                        "delta_temperature": -100.0,
+                        "schedule": "Always On"
+                    }
+                }
+            },
+            "faces": [
+                {
+                    "type": "Face",
+                    "identifier": "TinyHouseZone_Bottom",
+                    "display_name": "TinyHouseZone_Bottom",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                0.0,
+                                0.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Floor",
+                    "boundary_condition": {
+                        "type": "Ground"
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "TinyHouseZone_Front",
+                    "display_name": "TinyHouseZone_Front",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                5.0,
+                                10.0,
+                                3.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    },
+                    "apertures": [
+                        {
+                            "type": "Aperture",
+                            "identifier": "TinyHouseZone_Front_Glz0",
+                            "display_name": "TinyHouseZone_Front_Glz0",
+                            "properties": {
+                                "type": "AperturePropertiesAbridged",
+                                "energy": {
+                                    "type": "ApertureEnergyPropertiesAbridged",
+                                    "vent_opening": {
+                                        "type": "VentilationOpening",
+                                        "fraction_area_operable": 0.5,
+                                        "fraction_height_operable": 1.0,
+                                        "discharge_coefficient": 0.17,
+                                        "wind_cross_vent": true
+                                    }
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        4.08113883008419,
+                                        10.0,
+                                        2.448683298050514
+                                    ],
+                                    [
+                                        4.08113883008419,
+                                        10.0,
+                                        0.5513167019494862
+                                    ],
+                                    [
+                                        0.9188611699158102,
+                                        10.0,
+                                        0.5513167019494862
+                                    ],
+                                    [
+                                        0.9188611699158102,
+                                        10.0,
+                                        2.448683298050514
+                                    ]
+                                ]
+                            },
+                            "is_operable": true,
+                            "boundary_condition": {
+                                "type": "Outdoors",
+                                "sun_exposure": true,
+                                "wind_exposure": true,
+                                "view_factor": {
+                                    "type": "Autocalculate"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "Face",
+                    "identifier": "TinyHouseZone_Right",
+                    "display_name": "TinyHouseZone_Right",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                5.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                5.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "TinyHouseZone_Back",
+                    "display_name": "TinyHouseZone_Back",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                5.0,
+                                0.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    },
+                    "apertures": [
+                        {
+                            "type": "Aperture",
+                            "identifier": "TinyHouseZone_Back_Glz0",
+                            "display_name": "TinyHouseZone_Back_Glz0",
+                            "properties": {
+                                "type": "AperturePropertiesAbridged",
+                                "energy": {
+                                    "type": "ApertureEnergyPropertiesAbridged",
+                                    "vent_opening": {
+                                        "type": "VentilationOpening",
+                                        "fraction_area_operable": 0.5,
+                                        "fraction_height_operable": 1.0,
+                                        "discharge_coefficient": 0.17,
+                                        "wind_cross_vent": true
+                                    }
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        0.9188611699158102,
+                                        0.0,
+                                        2.448683298050514
+                                    ],
+                                    [
+                                        0.9188611699158102,
+                                        0.0,
+                                        0.5513167019494862
+                                    ],
+                                    [
+                                        4.08113883008419,
+                                        0.0,
+                                        0.5513167019494862
+                                    ],
+                                    [
+                                        4.08113883008419,
+                                        0.0,
+                                        2.448683298050514
+                                    ]
+                                ]
+                            },
+                            "is_operable": true,
+                            "boundary_condition": {
+                                "type": "Outdoors",
+                                "sun_exposure": true,
+                                "wind_exposure": true,
+                                "view_factor": {
+                                    "type": "Autocalculate"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "Face",
+                    "identifier": "TinyHouseZone_Left",
+                    "display_name": "TinyHouseZone_Left",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                10.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "TinyHouseZone_Top",
+                    "display_name": "TinyHouseZone_Top",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                5.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                5.0,
+                                10.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                10.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "RoofCeiling",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

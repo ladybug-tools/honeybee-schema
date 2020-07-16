@@ -50,20 +50,6 @@ class ScheduleTypeLimit(IDdEnergyBaseModel):
 
     unit_type: ScheduleUnitType = ScheduleUnitType.dimensionless
 
-    class Config:
-        @staticmethod
-        def schema_extra(schema, model):
-            schema['properties']['lower_limit']['anyOf'] = \
-                [
-                    {"$ref": "#/components/schemas/NoLimit"},
-                    {"type": "number"}
-            ]
-            schema['properties']['upper_limit']['anyOf'] = \
-                [
-                    {"$ref": "#/components/schemas/NoLimit"},
-                    {"type": "number"}
-            ]
-
 
 class ScheduleDay(IDdEnergyBaseModel):
     """Used to describe the daily schedule for a single simulation day."""

@@ -106,22 +106,6 @@ class IdealAirSystemAbridged(IDdEnergyBaseModel):
             'greater than cooling_air_temperature.'
         return values
 
-    class Config:
-        @staticmethod
-        def schema_extra(schema, model):
-            schema['properties']['heating_limit']['anyOf'] = \
-                [
-                    {"$ref": "#/components/schemas/NoLimit"},
-                    {"$ref": "#/components/schemas/Autosize"},
-                    {"type": "number", "minimum": 0}
-            ]
-            schema['properties']['cooling_limit']['anyOf'] = \
-                [
-                    {"$ref": "#/components/schemas/NoLimit"},
-                    {"$ref": "#/components/schemas/Autosize"},
-                    {"type": "number", "minimum": 0}
-            ]
-
 
 if __name__ == '__main__':
     print(IdealAirSystemAbridged.schema_json(indent=2))

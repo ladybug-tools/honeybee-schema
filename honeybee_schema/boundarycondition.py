@@ -28,15 +28,6 @@ class Outdoors(NoExtraBaseModel):
         'an Autocalculate object to have the view factor automatically calculated.'
     )
 
-    class Config:
-        @staticmethod
-        def schema_extra(schema, model):
-            schema['properties']['view_factor']['anyOf'] = \
-                [
-                    {"$ref": "#/components/schemas/Autocalculate"},
-                    {"type": "number", "minimum": 0, "maximum": 1}
-            ]
-
 
 class Surface(NoExtraBaseModel):
 

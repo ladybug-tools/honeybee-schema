@@ -1,1 +1,1 @@
-git+https://github.com/samuelcolvin/pydantic.git@5067508eca6222b9315b1e38a30ddc975dee05e7
+pydantic==1.6.1

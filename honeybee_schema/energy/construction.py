@@ -197,15 +197,6 @@ class WindowConstructionShade(WindowConstructionShadeAbridged):
         'all behavior of the construction.'
     )
 
-    class Config:
-        @staticmethod
-        def schema_extra(schema, model):
-            schema['properties']['schedule']['anyOf'] = \
-                [
-                    {"$ref": "#/components/schemas/ScheduleRuleset"},
-                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-            ]
-
 
 class ShadeConstruction(IDdEnergyBaseModel):
     """Construction for Shade objects."""
@@ -269,12 +260,3 @@ class AirBoundaryConstruction(AirBoundaryConstructionAbridged):
         'ScheduleFixedInterval for the air mixing schedule across '
         'the construction.'
     )
-
-    class Config:
-        @staticmethod
-        def schema_extra(schema, model):
-            schema['properties']['air_mixing_schedule']['anyOf'] = \
-                [
-                    {"$ref": "#/components/schemas/ScheduleRuleset"},
-                    {"$ref": "#/components/schemas/ScheduleFixedInterval"}
-            ]

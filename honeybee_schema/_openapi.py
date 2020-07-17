@@ -1,6 +1,7 @@
 from pydantic.utils import get_model
 from pydantic.schema import schema, get_flat_models_from_model, get_model_name_map
 from typing import Dict, List, Any
+import enum
 
 # base open api dictionary for all schemas
 _base_open_api = {
@@ -67,7 +68,6 @@ def get_openapi(
 
     schema_names = list(schemas.keys())
     schema_names.sort()
-    model_name_map = get_model_mapper(base_object, full=True)
 
     for name in schema_names:
         model_name, tag = create_tag(name)
@@ -79,6 +79,9 @@ def get_openapi(
 
         if 'properties' in s:
             properties = s['properties']
+        elif 'enum' in s:
+            # enum
+            continue
         else:
             properties = s['allOf'][1]['properties']
 
@@ -95,16 +98,6 @@ def get_openapi(
         # add format to numbers and integers
         # this is helpful for C# generators
         for prop in properties:
-            # collect enum object and make them reusable
-            is_new_enum, properties[prop], schemas, enum_name = check_enum(
-                properties[prop], schemas, model_name_map[name], prop
-            )
-            if is_new_enum:
-                # add a new tag
-                model_name, tag = create_tag(enum_name)
-                tag_names.append(model_name)
-                tags.append(tag)
-
             try:
                 properties[prop] = set_format(properties[prop])
             except KeyError:
@@ -116,18 +109,6 @@ def get_openapi(
                     properties[prop]['anyOf'] = new_any_of
                 else:
                     continue
-            else:
-                if 'type' in properties[prop] and properties[prop]['type'] == 'array':
-                    is_new_enum, properties[prop]['items'], schemas, enum_name = \
-                        check_enum(
-                            properties[prop]['items'], schemas, model_name_map[name],
-                            prop
-                        )
-                    if is_new_enum:
-                        # add a new tag
-                        model_name, tag = create_tag(enum_name)
-                        tag_names.append(model_name)
-                        tags.append(tag)
 
         # sort fields to keep required ones on top
         if 'required' in s:
@@ -190,38 +171,22 @@ def set_format(p):
     return p
 
 
-def check_enum(p, schemas, cls_, name):
-    """Check if a property is enum."""
-    enum_name = ''
-    if 'enum' not in p:
-        return False, p, schemas, enum_name
-
-    info = getattr(cls_, '__fields__')[name]  # change gas types to property name
-    enum_name = info.type_.__name__
-    # update property with a reference
-    new_p = {
-        'allOf': [{'$ref': f'#/components/schemas/{enum_name}'}]
-    }
-    for k, v in p.items():
-        if k == 'enum':
-            continue
-        new_p[k] = v
-
-    if enum_name in schemas:
-        return False, new_p, schemas, enum_name
-
-    schemas[enum_name] = dict(p)
-    return True, new_p, schemas, enum_name
-
-
-def get_model_mapper(models, stoppage=None, full=True):
+def get_model_mapper(models, stoppage=None, full=True, include_enum=False):
     """Get a dictionary of name: class for all the objects in model."""
     models = [get_model(model) for model in models]
-    flat_models = [
-        m
-        for model in models
-        for m in get_flat_models_from_model(model)
-    ]
+    if include_enum:
+        flat_models = [
+            m
+            for model in models
+            for m in get_flat_models_from_model(model)
+        ]
+    else:
+        flat_models = [
+            m
+            for model in models
+            for m in get_flat_models_from_model(model)
+            if not isinstance(m, enum.EnumMeta)
+        ]
 
     # this is the list of all the referenced objects
     model_name_map = get_model_name_map(flat_models)
@@ -230,7 +195,12 @@ def get_model_mapper(models, stoppage=None, full=True):
 
     if full:
         if not stoppage:
-            stoppage = set(['NoExtraBaseModel', 'ModelMetaclass', 'BaseModel', 'object'])
+            stoppage = set(
+                [
+                    'NoExtraBaseModel', 'ModelMetaclass', 'BaseModel', 'object', 'str',
+                    'Enum'
+                ]
+            )
         # Pydantic does not necessarily add all the baseclasses to the OpenAPI
         # documentation. We check all of them and them to the list if they are not
         # already added
@@ -252,9 +222,9 @@ def get_schemas_inheritance(model_cls):
     https://swagger.io/docs/specification/data-models/inheritance-and-polymorphism
     """
     # list of top level class names that we should stop at
-    stoppage = set(['NoExtraBaseModel', 'ModelMetaclass', 'BaseModel', 'object'])
+    stoppage = set(['NoExtraBaseModel', 'ModelMetaclass', 'BaseModel', 'object', 'Enum'])
 
-    model_name_map = get_model_mapper(model_cls, stoppage, full=True)
+    model_name_map = get_model_mapper(model_cls, stoppage, full=True, include_enum=False)
 
     # get the standard OpenAPI schema for Pydantic for all the new objects
     ref_prefix = '#/components/schemas/'
@@ -269,7 +239,14 @@ def get_schemas_inheritance(model_cls):
     # baseclasses.
     for name in schemas.keys():
         # find the class from class name
-        main_cls = model_name_map[name]
+        try:
+            main_cls = model_name_map[name]
+        except KeyError:
+            # enum objects are not included.
+            if 'enum' in schemas[name]:
+                continue
+            raise KeyError(f'{name} key not found.')
+
         top_classes = []
         for cls in type.mro(main_cls):
             if cls.__name__ in stoppage:
@@ -300,6 +277,11 @@ def set_inheritance(name, top_classes, schemas):
     top_class = top_classes[0]
     tree = ['....' * (i + 1) + c.__name__ for i, c in enumerate(top_classes)]
     print('\n'.join(tree))
+
+    # the immediate top class openapi schema
+    object_dict = schemas[name]
+    if 'enum' in object_dict:
+        return object_dict
 
     # collect required and properties from top classes so we don't end up with
     # duplicate values in the schema for the subclass
@@ -341,8 +323,6 @@ def set_inheritance(name, top_classes, schemas):
     }
 
     data_copy = dict(data)
-    # the immediate top class openapi schema
-    object_dict = schemas[name]
 
     if not top_classes_required and 'required' in object_dict:
         # no required in top level class
@@ -392,35 +372,31 @@ def set_inheritance(name, top_classes, schemas):
 
 
 def class_mapper(models):
+    """Create a mapper between OpenAPI models and Python modules.
+
+    This mapper is used by dotnet generator to organize the models under similar
+    module structure.
+    """
+
     if not hasattr(models, '__iter__'):
         models = [models]
 
-    mapper = get_model_mapper(models, full=True)
+    mapper = get_model_mapper(models, full=True, include_enum=True)
 
     # add enum classes to mapper
     schemas = get_schemas_inheritance(models)
     enums = {}
     for name in schemas:
         s = schemas[name]
-        if 'properties' in s:
-            properties = s['properties']
-        else:
-            properties = s['allOf'][1]['properties']
-
-        for prop in properties:
-            # collect enum object and make them reusable
-            if 'enum' in properties[prop]:
-                info = getattr(mapper[name], '__fields__')[prop]
-                if info.type_.__name__ not in enums:
-                    enums[info.type_.__name__] = info.type_
-            if 'type' in properties[prop] and properties[prop]['type'] == 'array':
-                if 'enum' in properties[prop]['items']:
-                    info = getattr(mapper[name], '__fields__')[prop]
-                    if info.type_.__name__ not in enums:
-                        enums[info.type_.__name__] = info.type_
+        if 'enum' in s:
+            # add enum
+            info = mapper[name]
+            if info.__name__ not in enums:
+                enums[info.__name__] = info
 
     module_mapper = {}
-    classes = {k: c.__module__ for k, c in mapper.items()}
+    # remove enum from mapper
+    classes = {k: c.__module__ for k, c in mapper.items() if k not in enums}
     enums = {k: c.__module__ for k, c in enums.items()}
     # this sorting only works in python3.7+
     module_mapper['classes'] = {k: classes[k] for k in sorted(classes)}

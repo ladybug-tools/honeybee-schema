@@ -13,7 +13,7 @@ from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.load.equipment import GasEquipment
 import honeybee_energy.lib.programtypes as prog_type_lib
 import honeybee_energy.lib.constructionsets as constr_set_lib
-from dragonfly.windowparameter import RepeatingWindowRatio
+from dragonfly.windowparameter import RepeatingWindowRatio, SimpleWindowRatio
 from dragonfly.room2d import Room2D
 from dragonfly.story import Story
 from dragonfly.building import Building
@@ -132,9 +132,67 @@ def lab_building(directory):
         json.dump(model.to_dict(), fp, indent=4)
 
 
+def urban_district(directory):
+    com_poly_file = './scripts/geometry/urban_commercial_geo.json'
+    res_poly_file = './scripts/geometry/urban_residential_geo.json'
+    with open(com_poly_file, 'r') as fp:
+        com_geo_dict = json.load(fp)
+    with open(res_poly_file, 'r') as fp:
+        res_geo_dict = json.load(fp)
+
+    # get all of the programs and construction sets
+    c_set = constr_set_lib.construction_set_by_identifier('2013::ClimateZone5::SteelFramed')
+    office = prog_type_lib.program_type_by_identifier('2013::MediumOffice::ClosedOffice')
+    apartment = prog_type_lib.program_type_by_identifier('2013::MidriseApartment::Apartment')
+    retail = prog_type_lib.program_type_by_identifier('2013::Retail::Retail')
+
+    # create the Room2Ds
+    rooms = []
+    for bldg in com_geo_dict:
+        for i, floor in enumerate(bldg):
+            room_geo = Face3D.from_dict(floor)
+            if i < 3:
+                hgt = 5 if i == 0 else 4
+            else:
+                hgt = 3
+            program = retail if i == 0 else office
+            room = Room2D('Commercial_{}'.format(i), room_geo, hgt)
+            room.properties.energy.program_type = program
+            room.properties.energy.construction_set = c_set
+            room.properties.energy.add_default_ideal_air()
+            ratio = 0.8 if i == 0 else 0.4
+            room.set_outdoor_window_parameters(SimpleWindowRatio(ratio))
+            if i == 0:
+                room.is_ground_contact = True
+            rooms.append(room)
+
+    for bldg in res_geo_dict:
+        for i, floor in enumerate(bldg):
+            room_geo = Face3D.from_dict(floor)
+            room = Room2D('Residential_{}'.format(i), room_geo, 4)
+            room.properties.energy.program_type = apartment
+            room.properties.energy.construction_set = c_set
+            room.properties.energy.add_default_ideal_air()
+            room.set_outdoor_window_parameters(SimpleWindowRatio(0.35))
+            if i == 0:
+                room.is_ground_contact = True
+            rooms.append(room)
+
+    # create honeybee Rooms
+    hb_rooms = [room.to_honeybee()[0] for room in rooms]
+    model = Model('Mass_Pike_District', rooms=hb_rooms,
+                  units='Meters', tolerance=0.01, angle_tolerance=1.0)
+
+    # write the model to a JSON
+    dest_file = os.path.join(directory, 'urban_district.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(), fp, indent=4)
+
+
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
 sample_directory = os.path.join(master_dir, 'samples', 'model_large')
 
 single_family_home(sample_directory)
 lab_building(sample_directory)
+urban_district(sample_directory)

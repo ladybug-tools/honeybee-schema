@@ -1,0 +1,738 @@
+{
+    "type": "Model",
+    "identifier": "Donut_Building",
+    "display_name": "Donut_Building",
+    "units": "Meters",
+    "properties": {
+        "type": "ModelProperties",
+        "energy": {
+            "type": "ModelEnergyProperties",
+            "construction_sets": [],
+            "constructions": [],
+            "materials": [],
+            "hvacs": [],
+            "program_types": [],
+            "schedules": [],
+            "schedule_type_limits": []
+        },
+        "radiance": {
+            "type": "ModelRadianceProperties",
+            "modifier_sets": [],
+            "modifiers": [
+                {
+                    "modifier": null,
+                    "type": "plastic",
+                    "identifier": "generic_context_0.20",
+                    "r_reflectance": 0.2,
+                    "g_reflectance": 0.2,
+                    "b_reflectance": 0.2,
+                    "specularity": 0.0,
+                    "roughness": 0.0,
+                    "dependencies": []
+                }
+            ]
+        }
+    },
+    "rooms": [
+        {
+            "type": "Room",
+            "identifier": "DonutZone",
+            "display_name": "DonutZone",
+            "properties": {
+                "type": "RoomPropertiesAbridged",
+                "energy": {
+                    "type": "RoomEnergyPropertiesAbridged"
+                },
+                "radiance": {
+                    "type": "RoomRadiancePropertiesAbridged"
+                }
+            },
+            "faces": [
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face0",
+                    "display_name": "DonutZone..Face0",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                9.0,
+                                0.0
+                            ],
+                            [
+                                9.0,
+                                9.0,
+                                0.0
+                            ],
+                            [
+                                9.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ]
+                        ],
+                        "holes": [
+                            [
+                                [
+                                    3.0,
+                                    3.0,
+                                    0.0
+                                ],
+                                [
+                                    6.0,
+                                    3.0,
+                                    0.0
+                                ],
+                                [
+                                    6.0,
+                                    6.0,
+                                    0.0
+                                ],
+                                [
+                                    3.0,
+                                    6.0,
+                                    0.0
+                                ]
+                            ]
+                        ]
+                    },
+                    "face_type": "Floor",
+                    "boundary_condition": {
+                        "type": "Ground"
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face1",
+                    "display_name": "DonutZone..Face1",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                9.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                9.0,
+                                0.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    },
+                    "apertures": [
+                        {
+                            "type": "Aperture",
+                            "identifier": "HoleAperture",
+                            "display_name": "HoleAperture",
+                            "properties": {
+                                "type": "AperturePropertiesAbridged",
+                                "energy": {
+                                    "type": "ApertureEnergyPropertiesAbridged"
+                                },
+                                "radiance": {
+                                    "type": "ApertureRadiancePropertiesAbridged"
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        0.5,
+                                        0.0,
+                                        2.5
+                                    ],
+                                    [
+                                        0.5,
+                                        0.0,
+                                        0.5
+                                    ],
+                                    [
+                                        2.5,
+                                        0.0,
+                                        0.5
+                                    ],
+                                    [
+                                        2.5,
+                                        0.0,
+                                        2.5
+                                    ]
+                                ],
+                                "holes": [
+                                    [
+                                        [
+                                            1.0,
+                                            0.0,
+                                            1.0
+                                        ],
+                                        [
+                                            2.0,
+                                            0.0,
+                                            1.0
+                                        ],
+                                        [
+                                            2.0,
+                                            0.0,
+                                            2.0
+                                        ],
+                                        [
+                                            1.0,
+                                            0.0,
+                                            2.0
+                                        ]
+                                    ]
+                                ]
+                            },
+                            "is_operable": false,
+                            "boundary_condition": {
+                                "type": "Outdoors",
+                                "sun_exposure": true,
+                                "wind_exposure": true,
+                                "view_factor": {
+                                    "type": "Autocalculate"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face2",
+                    "display_name": "DonutZone..Face2",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                9.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                9.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                9.0,
+                                9.0,
+                                0.0
+                            ],
+                            [
+                                9.0,
+                                9.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face3",
+                    "display_name": "DonutZone..Face3",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                9.0,
+                                9.0,
+                                3.0
+                            ],
+                            [
+                                9.0,
+                                9.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                9.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                9.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face4",
+                    "display_name": "DonutZone..Face4",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                9.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                9.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            [
+                                0.0,
+                                0.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face5",
+                    "display_name": "DonutZone..Face5",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                3.0,
+                                6.0,
+                                3.0
+                            ],
+                            [
+                                3.0,
+                                6.0,
+                                0.0
+                            ],
+                            [
+                                6.0,
+                                6.0,
+                                0.0
+                            ],
+                            [
+                                6.0,
+                                6.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face6",
+                    "display_name": "DonutZone..Face6",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                6.0,
+                                6.0,
+                                3.0
+                            ],
+                            [
+                                6.0,
+                                6.0,
+                                0.0
+                            ],
+                            [
+                                6.0,
+                                3.0,
+                                0.0
+                            ],
+                            [
+                                6.0,
+                                3.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face7",
+                    "display_name": "DonutZone..Face7",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                6.0,
+                                3.0,
+                                3.0
+                            ],
+                            [
+                                6.0,
+                                3.0,
+                                0.0
+                            ],
+                            [
+                                3.0,
+                                3.0,
+                                0.0
+                            ],
+                            [
+                                3.0,
+                                3.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face8",
+                    "display_name": "DonutZone..Face8",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                3.0,
+                                3.0,
+                                3.0
+                            ],
+                            [
+                                3.0,
+                                3.0,
+                                0.0
+                            ],
+                            [
+                                3.0,
+                                6.0,
+                                0.0
+                            ],
+                            [
+                                3.0,
+                                6.0,
+                                3.0
+                            ]
+                        ]
+                    },
+                    "face_type": "Wall",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                },
+                {
+                    "type": "Face",
+                    "identifier": "DonutZone..Face9",
+                    "display_name": "DonutZone..Face9",
+                    "properties": {
+                        "type": "FacePropertiesAbridged",
+                        "energy": {
+                            "type": "FaceEnergyPropertiesAbridged"
+                        },
+                        "radiance": {
+                            "type": "FaceRadiancePropertiesAbridged"
+                        }
+                    },
+                    "geometry": {
+                        "type": "Face3D",
+                        "boundary": [
+                            [
+                                0.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                9.0,
+                                0.0,
+                                3.0
+                            ],
+                            [
+                                9.0,
+                                9.0,
+                                3.0
+                            ],
+                            [
+                                0.0,
+                                9.0,
+                                3.0
+                            ]
+                        ],
+                        "holes": [
+                            [
+                                [
+                                    3.0,
+                                    3.0,
+                                    3.0
+                                ],
+                                [
+                                    6.0,
+                                    3.0,
+                                    3.0
+                                ],
+                                [
+                                    6.0,
+                                    6.0,
+                                    3.0
+                                ],
+                                [
+                                    3.0,
+                                    6.0,
+                                    3.0
+                                ]
+                            ]
+                        ]
+                    },
+                    "face_type": "RoofCeiling",
+                    "boundary_condition": {
+                        "type": "Outdoors",
+                        "sun_exposure": true,
+                        "wind_exposure": true,
+                        "view_factor": {
+                            "type": "Autocalculate"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "orphaned_shades": [
+        {
+            "type": "Shade",
+            "identifier": "Canopy",
+            "display_name": "Canopy",
+            "properties": {
+                "type": "ShadePropertiesAbridged",
+                "energy": {
+                    "type": "ShadeEnergyPropertiesAbridged"
+                },
+                "radiance": {
+                    "type": "ShadeRadiancePropertiesAbridged"
+                }
+            },
+            "geometry": {
+                "type": "Face3D",
+                "boundary": [
+                    [
+                        0.0,
+                        0.0,
+                        6.0
+                    ],
+                    [
+                        9.0,
+                        0.0,
+                        6.0
+                    ],
+                    [
+                        9.0,
+                        9.0,
+                        6.0
+                    ],
+                    [
+                        0.0,
+                        9.0,
+                        6.0
+                    ]
+                ],
+                "holes": [
+                    [
+                        [
+                            2.0,
+                            2.0,
+                            6.0
+                        ],
+                        [
+                            4.0,
+                            2.0,
+                            6.0
+                        ],
+                        [
+                            4.0,
+                            4.0,
+                            6.0
+                        ],
+                        [
+                            2.0,
+                            4.0,
+                            6.0
+                        ]
+                    ],
+                    [
+                        [
+                            5.0,
+                            5.0,
+                            6.0
+                        ],
+                        [
+                            7.0,
+                            5.0,
+                            6.0
+                        ],
+                        [
+                            7.0,
+                            7.0,
+                            6.0
+                        ],
+                        [
+                            5.0,
+                            7.0,
+                            6.0
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
+}

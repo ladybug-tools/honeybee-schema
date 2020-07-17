@@ -34,6 +34,7 @@ jobs:
     install:
     - pip install -r dev-requirements.txt
     - pip install -r requirements.txt
+    - npm install -g redoc-cli
     script:
     - export CLEAN_TAG=$(echo $TRAVIS_TAG | sed 's/v//g')
     - python docs.py --version $CLEAN_TAG

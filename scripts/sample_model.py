@@ -251,6 +251,35 @@ def model_complete_office_floor(directory):
         json.dump(model.to_dict(), fp, indent=4)
 
 
+def model_complete_holes(directory):
+    bound_pts = [Point3D(0, 0), Point3D(9, 0), Point3D(9, 9), Point3D(0, 9)]
+    hole_pts = [Point3D(3, 3, 0), Point3D(6, 3, 0), Point3D(6, 6, 0), Point3D(3, 6, 0)]
+    face = Face3D(bound_pts, None, [hole_pts])
+    polyface = Polyface3D.from_offset_face(face, 3)
+    room = Room.from_polyface3d('DonutZone', polyface)
+
+    ap_bound_pts = [Point3D(0.5, 0, 0.5), Point3D(2.5, 0, 0.5), Point3D(2.5, 0, 2.5),
+                    Point3D(0.5, 0, 2.5)]
+    ap_hole_pts = [Point3D(1, 0, 1), Point3D(2, 0, 1), Point3D(2, 0, 2), Point3D(1, 0, 2)]
+    ap_face = Face3D(ap_bound_pts, None, [ap_hole_pts])
+    ap = Aperture('HoleAperture', ap_face)
+    for face in room.faces:
+        if face.geometry.is_sub_face(ap_face, 0.01, 1.0):
+            face.add_aperture(ap)
+
+    shd_bound_pts = [Point3D(0, 0, 6), Point3D(9, 0, 6), Point3D(9, 9, 6), Point3D(0, 9, 6)]
+    shd_hole_pts1 = [Point3D(2, 2, 6), Point3D(4, 2, 6), Point3D(4, 4, 6), Point3D(2, 4, 6)]
+    shd_hole_pts2 = [Point3D(5, 5, 6), Point3D(7, 5, 6), Point3D(7, 7, 6), Point3D(5, 7, 6)]
+    s_face = Face3D(shd_bound_pts, None, [shd_hole_pts1, shd_hole_pts2])
+    shd = Shade('Canopy', s_face)
+
+    model = Model('Donut_Building', [room], orphaned_shades=[shd])
+
+    dest_file = os.path.join(directory, 'model_complete_holes.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(), fp, indent=4)
+
+
 def model_energy_shoe_box(directory):
     room = Room.from_box('Simple_Shoe_Box_Zone', 5, 10, 3)
     room[0].boundary_condition = boundary_conditions.adiabatic

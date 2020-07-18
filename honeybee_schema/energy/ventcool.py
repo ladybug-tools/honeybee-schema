@@ -66,11 +66,6 @@ class VentilationControlAbridged(NoExtraBaseModel):
     )
 
 
-class VerticalOpeningType(str, Enum):
-    non_pivoted = 'NonPivoted'
-    horizontally_pivoted = 'HorizontallyPivoted'
-
-
 class VentilationOpening(NoExtraBaseModel):
 
     type: constr(regex='^VentilationOpening$') = 'VentilationOpening'
@@ -80,8 +75,7 @@ class VentilationOpening(NoExtraBaseModel):
         ge=0,
         le=1,
         description='A number for the fraction of the window area that is operable.'
-        'If this ventilation opening is a crack, this value represents a multiplier'
-        'for crack airflow. Default: 0.5.'
+        'Default: 0.5.'
     )
 
     fraction_height_operable: float = Field(
@@ -112,14 +106,13 @@ class VentilationOpening(NoExtraBaseModel):
         'one side of the Room and there is no wind-driven ventilation. Default: False.'
     )
 
-    # TODO: AFN requirements
     air_mass_flow_coefficient_closed: float = Field(
         default=None,
         gt=0,
-        description='A number in kg/s-m used to calculate the mass '
-        'flow rate (air_mass_flow_coefficient * dP^air_mass_flow_exponent) when the '
-        'opening is closed, defined at 1 Pa per meter of crack length. This property is '
-        'only required if running an AirflowNetwork simulation.'
+        description='A number in kg/s-m used to calculate the mass flow rate '
+        '(air_mass_flow_coefficient * dP^air_mass_flow_exponent) when the opening is '
+        'closed, defined at 1 Pa per meter of crack length. This property is only '
+        'required if running an AirflowNetwork simulation.'
     )
 
     air_mass_flow_exponent_closed: float = Field(
@@ -132,24 +125,44 @@ class VentilationOpening(NoExtraBaseModel):
         'Default: 0.65.'
     )
 
-    vertical_opening_type: VerticalOpeningType = Field(
-        default=VerticalOpeningType.non_pivoted,
-        description='Text representing type of vertical opening. Choices are: '
-        'NonPivoted or HorizontallyPivoted. Default: NonPivoted.'
-    )
-
-    extra_opening_length: float = Field(
-        default=0,
-        ge=0,
-        description='Optional number in meters associated with extra crack length or '
-        'height of pivot axis of the vertical opening. The former is associated with '
-        'a NonPivoted vertical_opening_type referencing multiple openable parts. The '
-        'latter is associated with a HorizontallyPivoted vertical_opening_type '
-        'referencing the height of pivot axis. Default: 0.'
+    minimum_density_difference_two_way_flow: float = Field(
+        default=None,
+        gt=0,
+        description='Number indicating the minimum density difference above which '
+        'two-way flow may occur due to stack effect.'
     )
 
 
-class AFNControl(str, Enum):
+class AFNCrack(NoExtraBaseModel):
+    """Properties for airflow through a crack."""
+
+    type: constr(regex='^AFNCrack$') = 'AFNCrack'
+
+    air_mass_flow_coefficient_reference: float = Field(
+        ...,
+        gt=0,
+        description='The air mass flow coefficient in kg/s at the conditions defined in '
+        'the AFNReferenceCrack condition, defined at a 1 Pa difference across this '
+        'crack.'
+    )
+
+    air_mass_flow_exponent: float = Field(
+        default=0.65,
+        ge=0.5,
+        le=1,
+        description='The air mass flow exponent for the surface crack. Default: 0.65.'
+    )
+
+    crack_factor: float = Field(
+        default=1,
+        gt=0,
+        le=1,
+        description='A number indicating multiplier for air mass flow through a crack.'
+        'Default: 1.'
+    )
+
+
+class AFNControlType(str, Enum):
     multizone_with_distribution = 'MultiZoneWithDistribution'
     multizone_without_distribution = 'MultiZoneWithoutDistribution'
     multizone_with_distribution_only_during_fan_operation = \
@@ -166,20 +179,13 @@ class AFNSimulationControl(NoExtraBaseModel):
 
     type: constr(regex='^AFNSimulationControl$') = 'AFNSimulationControl'
 
-    afn_control: AFNControl = Field(
-        default=AFNControl.multizone_without_distribution,
+    afn_control_type: AFNControlType = Field(
+        default=AFNControlType.multizone_without_distribution,
         description='Text indicating type of control for an Airflow Network simulation. '
         'Choices are: MultiZoneWithDistribution, MultiZoneWithoutDistribution, '
         'or MultiZoneWithDistributionOnlyDuringFanOperation.'
     )
 
-    # TODO: Discussion required: We could calculate these geometric properties from the
-    # model itself however, it will require deriving the oriented bounding box, which I
-    # believe is a geometric method we don't have yet, so until then we may need to have
-    # this option to enter it manually.
-    # I can also easily write up a oriented bbox/ long/short axis method and get rid of this.
-    # Also note that non-rectangular footprints will require manually inputting the wind
-    # pressure coefficients, which is why we are using the rectangular assumption.
     building_type: AFNBuildingType = Field(
         default=AFNBuildingType.lowrise,
         description='Text indicating relationship between building footprint and '
@@ -208,7 +214,7 @@ class AFNSimulationControl(NoExtraBaseModel):
 
 
 class AFNReferenceCrack(NoExtraBaseModel):
-    """Measurement conditions for air mass flow coefficients used in Airflow Network."""
+    """Measurement conditions for air mass flow coefficients used by surface cracks."""
 
     type: constr(regex='^AFNReferenceCrack$') = 'AFNReferenceCrack'
 
@@ -234,40 +240,9 @@ class AFNReferenceCrack(NoExtraBaseModel):
     )
 
 
-class AFNCrack(NoExtraBaseModel):
-    """Properties for airflow through a crack."""
-
-    # TODO: Add reference to Surface to take a ventilation crack reference.
-
-    type: constr(regex='^AFNCrack$') = 'AFNCrack'
-
-    air_mass_flow_coefficient_reference: float = Field(
-        ...,
-        gt=0,
-        description='The air mass flow coefficient in kg/s at the conditions defined in '
-        'the AFNReferenceCrack conditions, defined at a 1 Pa difference across this '
-        'crack.'
-    )
-
-    air_mass_flow_exponent: float = Field(
-        default=0.65,
-        ge=0.5,
-        le=1,
-        description='The air mass flow exponent for the surface crack. Default: 0.65.'
-    )
-
-# TODO: Discussion: EMS:Sensor, EMS:Actuator, EMS:ProgramCallingManager, EMS:Program
-# is required for our implementation of the AFN, but is not referenced explicitly
-# since it links existing objects together.
-
-# TODO: The Ventilation Control Mode will be set to NoVent so it can be controlled with the
-# EMS. If other options (i.e Adaptive Comfort) is desired, we will need to add a lot of extra
-# parameters in the ventilation Control Objective which we are trying to avoid.
-
 if __name__ == '__main__':
-    print(AFNRoomAbridged.schema_json(indent=2))
-    print(AFNRoom.schema_json(indent=2))
-    print(AFNOpeningAbridged.schema_json(indent=2))
-    print(AFNOpening.schema_json(indent=2))
-    print(AFNReferenceCrack.schema_json(indent=2))
+    print(VentilationControlAbridged.schema_json(indent=2))
+    print(VentilationOpening.schema_json(indent=2))
     print(AFNSimulationControl.schema_json(indent=2))
+    print(AFNReferenceCrack.schema_json(indent=2))
+    print(AFNCrack.schema_json(indent=2))

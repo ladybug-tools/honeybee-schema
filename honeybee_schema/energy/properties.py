@@ -15,7 +15,8 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
 from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, InfiltrationAbridged, VentilationAbridged, SetpointAbridged
-from .ventcool import VentilationControlAbridged, VentilationOpening
+from .ventcool import VentilationControlAbridged, VentilationOpening, \
+    AFNSimulationControl, AFNReferenceCrack, AFNCrack
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
     ScheduleFixedIntervalAbridged, ScheduleRuleset, ScheduleFixedInterval
 from .hvac.idealair import IdealAirSystemAbridged
@@ -107,6 +108,14 @@ class FaceEnergyPropertiesAbridged(NoExtraBaseModel):
         description='Identifier of an OpaqueConstruction for the Face. If None, the '
         'construction is set by the parent Room construction_set or the '
         'Model global_construction_set.'
+    )
+
+    # TODO: Figure out how to convert ZoneInfiltration into crack parameters and
+    # eliminate this property.
+    vent_crack: AFNCrack = Field(
+        default=None,
+        description='An optional AFNCrack to specify airflow through a surface crack '
+        'used by the AirflowNetwork.'
     )
 
 
@@ -238,3 +247,16 @@ class ModelEnergyProperties(NoExtraBaseModel):
         description='A list of all unique ScheduleTypeLimits in the model. This '
         'all ScheduleTypeLimits needed to make the Model schedules.'
     )
+
+    afn_simulation_control: AFNSimulationControl = Field(
+        default=None,
+        description='An optional parameter to define the global parameters for '
+        'an Airflow Network simulation.'
+    )
+
+    afn_reference_crack: AFNReferenceCrack = Field(
+        default=None,
+        description='An optional parameter to define the reference measurement '
+        'conditions under which the surface crack data was obtained.'
+    )
+

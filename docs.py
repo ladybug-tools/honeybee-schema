@@ -25,22 +25,22 @@ else:
     VERSION = '.'.join(get_distribution('honeybee_schema').version.split('.')[:3])
 
 info = {
-        "description": "",
-        "version": VERSION,
-        "title": "",
-        "contact": {
-            "name": "Ladybug Tools",
-            "email": "info@ladybug.tools",
-            "url": "https://github.com/ladybug-tools/honeybee-schema"
-        },
-        "x-logo": {
-            "url": "https://www.ladybug.tools/assets/img/honeybee-large.png",
-            "altText": "Honeybee logo"
-        },
-        "license": {
-            "name": "BSD",
-            "url": "https://github.com/ladybug-tools-in2/honeybee-schema/blob/master/LICENSE"
-        }
+    "description": "",
+    "version": VERSION,
+    "title": "",
+    "contact": {
+        "name": "Ladybug Tools",
+        "email": "info@ladybug.tools",
+        "url": "https://github.com/ladybug-tools/honeybee-schema"
+    },
+    "x-logo": {
+        "url": "https://www.ladybug.tools/assets/img/honeybee-large.png",
+        "altText": "Honeybee logo"
+    },
+    "license": {
+        "name": "BSD",
+        "url": "https://github.com/ladybug-tools-in2/honeybee-schema/blob/master/LICENSE"
+    }
 }
 
 
@@ -58,6 +58,8 @@ openapi = get_openapi(
     description='This is the documentation for Honeybee model schema.',
     version=VERSION, info=info,
     external_docs=external_docs)
+# set the version default key in the Model schema
+openapi['components']['schemas']['Model']['properties']['version']['default'] = VERSION
 with open('./docs/model.json', 'w') as out_file:
     json.dump(openapi, out_file, indent=2)
 
@@ -70,7 +72,8 @@ openapi = get_openapi(
     inheritance=True,
     external_docs=external_docs
 )
-
+# set the version default key in the Model schema
+openapi['components']['schemas']['Model']['allOf'][1]['properties']['version']['default'] = VERSION
 with open('./docs/model_inheritance.json', 'w') as out_file:
     json.dump(openapi, out_file, indent=2)
 

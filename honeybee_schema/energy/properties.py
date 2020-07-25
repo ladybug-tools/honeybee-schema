@@ -16,7 +16,7 @@ from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, InfiltrationAbridged, VentilationAbridged, SetpointAbridged
 from .ventcool import VentilationControlAbridged, VentilationOpening, \
-    AFNSimulationControl, AFNReferenceCrack, AFNCrack
+    VentilationSimulationControl, AFNCrack
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
     ScheduleFixedIntervalAbridged, ScheduleRuleset, ScheduleFixedInterval
 from .hvac.idealair import IdealAirSystemAbridged
@@ -110,12 +110,13 @@ class FaceEnergyPropertiesAbridged(NoExtraBaseModel):
         'Model global_construction_set.'
     )
 
-    # TODO: Figure out how to convert ZoneInfiltration into crack parameters and
-    # eliminate this property.
     vent_crack: AFNCrack = Field(
         default=None,
         description='An optional AFNCrack to specify airflow through a surface crack '
-        'used by the AirflowNetwork.'
+        'used by the AirflowNetwork. If this value is None and one of the '
+        'AirflowNetwork options are selected in the VentilationSimulationControl '
+        'object, a default value will be calculated to produce air flow leakages '
+        'equivalent to the zone flow rate defined by the corresponding Infiltration object.'
     )
 
 
@@ -248,15 +249,8 @@ class ModelEnergyProperties(NoExtraBaseModel):
         'all ScheduleTypeLimits needed to make the Model schedules.'
     )
 
-    afn_simulation_control: AFNSimulationControl = Field(
+    ventilation_simulation_control: VentilationSimulationControl = Field(
         default=None,
         description='An optional parameter to define the global parameters for '
-        'an Airflow Network simulation.'
+        'a ventilation cooling.'
     )
-
-    afn_reference_crack: AFNReferenceCrack = Field(
-        default=None,
-        description='An optional parameter to define the reference measurement '
-        'conditions under which the surface crack data was obtained.'
-    )
-

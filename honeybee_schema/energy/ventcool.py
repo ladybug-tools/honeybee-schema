@@ -75,7 +75,6 @@ class VentilationOpening(NoExtraBaseModel):
         ge=0,
         le=1,
         description='A number for the fraction of the window area that is operable.'
-        'Default: 0.5.'
     )
 
     fraction_height_operable: float = Field(
@@ -83,7 +82,7 @@ class VentilationOpening(NoExtraBaseModel):
         ge=0,
         le=1,
         description='A number for the fraction of the distance from the bottom of the '
-        'window to the top that is operable. Default: 1.0.'
+        'window to the top that is operable'
     )
 
     discharge_coefficient: float = Field(
@@ -103,54 +102,74 @@ class VentilationOpening(NoExtraBaseModel):
         description='Boolean to indicate if there is an opening of roughly equal area '
         'on the opposite side of the Room such that wind-driven cross ventilation will '
         'be induced. If False, the assumption is that the operable area is primarily on '
-        'one side of the Room and there is no wind-driven ventilation. Default: False.'
+        'one side of the Room and there is no wind-driven ventilation.'
     )
 
     air_mass_flow_coefficient_closed: float = Field(
         default=None,
         gt=0,
-        description='A number in kg/s-m used to calculate the mass flow rate '
-        '(air_mass_flow_coefficient * dP^air_mass_flow_exponent) when the opening is '
-        'closed, defined at 1 Pa per meter of crack length. This property is only '
-        'required if running an AirflowNetwork simulation.'
+        description='A number in kg/s-m, at 1 Pa per meter of crack length, used to '
+        'calculate the mass flow rate when the opening is closed; required to run an '
+        'AirflowNetwork simulation. The DesignBuilder Cracks template defines the flow '
+        'coefficient for a tight, low-leakage closed external window to be 0.00001, and '
+        'the flow coefficient for a very poor, high-leakage closed external window to be '
+        '0.003. If this value is None and one of the AirflowNetwork options are selected '
+        'in the VentilationSimulationControl object, a default value will be calculated to '
+        'produce air flow leakages equivalent to the  zone flow rate defined by the '
+        'corresponding Infiltration object.'
     )
 
     air_mass_flow_exponent_closed: float = Field(
-        default=0.65,
+        default=0.7,
         ge=0.5,
         le=1,
-        description='A dimensionlesss number used to calculate the mass flow rate '
-        '(air_mass_flow_coefficient * dP^air_mass_flow_exponent) when the opening is '
-        'closed. This property is only required if running an AirflowNetwork simulation.'
-        'Default: 0.65.'
+        description='An optional dimensionless number between 0.5 and 1 used to '
+        'calculate the mass flow rate when the opening is closed; required to run an '
+        'AirflowNetwork simulation. This value represents the leak geometry impact '
+        'on airflow, with 0.5 generally corresponding to turbulent orifice flow and 1 '
+        'generally corresponding to laminar flow. The default of 0.7 is representative '
+        'of internal and external window leakage, according to the DesignBuilder Cracks '
+        'template.'
     )
 
-    minimum_density_difference_two_way_flow: float = Field(
-        default=None,
+    minimum_density_difference_two_way: float = Field(
+        default=0.0001,
         gt=0,
-        description='Number indicating the minimum density difference above which '
-        'two-way flow may occur due to stack effect.'
+        description='A number in kg/m3 indicating the minimum density difference above '
+        'which two-way flow may occur due to stack effect; required to run an '
+        'AirflowNetwork simulation. The default of 0.0001 is a typical default'
+        'value used for AirflowNetwork openings.'
     )
 
 
 class AFNCrack(NoExtraBaseModel):
     """Properties for airflow through a crack."""
 
-    type: constr(regex='^AFNCrack$') = 'AFNCrack'
+    type: constr(regex='^VentilationCrack$') = 'VentilationCrack'
 
     air_mass_flow_coefficient_reference: float = Field(
         ...,
         gt=0,
-        description='The air mass flow coefficient in kg/s at the conditions defined in '
-        'the AFNReferenceCrack condition, defined at a 1 Pa difference across this '
-        'crack.'
+        description='A number in kg/s-m at 1 Pa per meter of crack length at the '
+        'conditions defined in the ReferenceCrack condition; required to run an '
+        'AirflowNetwork simulation. The DesignBuilder Cracks template defines the flow '
+        'coefficient for a tight, low-leakage wall to be 0.00001 and 0.001 for external '
+        'and internal constructions, respectively. Flow coefficients for a very poor, '
+        'high-leakage wall are defined to be 0.0004 and 0.019 for external and internal '
+        'constructions, respectively.'
     )
 
     air_mass_flow_exponent: float = Field(
         default=0.65,
         ge=0.5,
         le=1,
-        description='The air mass flow exponent for the surface crack. Default: 0.65.'
+        description='An optional dimensionless number between 0.5 and 1 used to '
+        'calculate the crack mass flow rate; required to run an '
+        'AirflowNetwork simulation. This value represents the leak geometry impact '
+        'on airflow, with 0.5 generally corresponding to turbulent orifice flow and 1 '
+        'generally corresponding to laminar flow. The default of 0.65 is '
+        'representative of many cases of wall and window leakage, used when the '
+        'exponent cannot be measured.'
     )
 
     crack_factor: float = Field(
@@ -158,70 +177,43 @@ class AFNCrack(NoExtraBaseModel):
         gt=0,
         le=1,
         description='A number indicating multiplier for air mass flow through a crack.'
-        'Default: 1.'
     )
 
 
-class AFNControlType(str, Enum):
-    multizone_with_distribution = 'MultiZoneWithDistribution'
-    multizone_without_distribution = 'MultiZoneWithoutDistribution'
-    multizone_with_distribution_only_during_fan_operation = \
+class VentilationControlType(str, Enum):
+    single_zone = 'SingleZone'
+    multi_zone_with_distribution = 'MultiZoneWithDistribution'
+    multi_zone_without_distribution = 'MultiZoneWithoutDistribution'
+    multi_zone_with_distribution_only_during_fan_operation = \
         'MultiZoneWithDistributionOnlyDuringFanOperation'
 
 
-class AFNBuildingType(str, Enum):
+class BuildingType(str, Enum):
     lowrise = 'LowRise'
     highrise = 'HighRise'
 
 
-class AFNSimulationControl(NoExtraBaseModel):
-    """The global parameters used in the Airflow Network simulation."""
+class VentilationSimulationControl(NoExtraBaseModel):
+    """The global parameters used in the ventilation simulation."""
 
-    type: constr(regex='^AFNSimulationControl$') = 'AFNSimulationControl'
+    type: constr(regex='^VentilationSimulationControl$') = 'VentilationSimulationControl'
 
-    afn_control_type: AFNControlType = Field(
-        default=AFNControlType.multizone_without_distribution,
-        description='Text indicating type of control for an Airflow Network simulation. '
-        'Choices are: MultiZoneWithDistribution, MultiZoneWithoutDistribution, '
-        'or MultiZoneWithDistributionOnlyDuringFanOperation.'
+    vent_control_type: VentilationControlType = Field(
+        default=VentilationControlType.single_zone,
+        description='Text indicating type of ventilation control. Choices are: '
+        'SingleZone, MultiZoneWithDistribution, MultiZoneWithoutDistribution, or '
+        'MultiZoneWithDistributionOnlyDuringFanOperation. The MultiZone '
+        'options will model air flow with the AirflowNetwork model, which '
+        'is generally more accurate then the SingleZone option, but '
+        'requires defining more ventilation parameters to explicitly account '
+        'for weather and building-induced pressure differences, and the leakage '
+        'geometry corresponding to specific windows, doors, and surface cracks.'
     )
-
-    building_type: AFNBuildingType = Field(
-        default=AFNBuildingType.lowrise,
-        description='Text indicating relationship between building footprint and '
-        'height used to calculate the wind pressure coefficients for exterior surfaces.'
-        'Choices are: LowRise and HighRise. LowRise corresponds to rectangular building '
-        'whose height is less then three times the width and length of the footprint. '
-        'HighRise corresponds to rectangular building whose height is more than three '
-        'times the width and length of the footprint. Default: LowRise.'
-    )
-
-    long_axis_angle: float = Field(
-        default=0,
-        ge=0,
-        le=180,
-        description='The clockwise rotation in degrees from true North of the long axis '
-        'of the building. Default: 0.'
-    )
-
-    aspect_ratio: float = Field(
-        default=1,
-        gt=0,
-        le=1,
-        description='Aspect ratio of a rectangular footprint, defined as the ratio of '
-        'length of the short axis divided by the length of the long axis. Default: 1.'
-    )
-
-
-class AFNReferenceCrack(NoExtraBaseModel):
-    """Measurement conditions for air mass flow coefficients used by surface cracks."""
-
-    type: constr(regex='^AFNReferenceCrack$') = 'AFNReferenceCrack'
 
     reference_temperature: float = Field(
         default=20,
         description='Reference temperature measurement in Celsius under which the '
-        'surface crack data were obtained. Default: 20.'
+        'surface crack data were obtained.'
     )
 
     reference_barometric_pressure: float = Field(
@@ -229,20 +221,51 @@ class AFNReferenceCrack(NoExtraBaseModel):
         ge=31000,
         le=120000,
         description='Reference barometric pressure measurement in Pascals under which '
-        'the surface crack data were obtained. Default 101320.'
+        'the surface crack data were obtained.'
     )
 
-    reference_humidty_ratio: float = Field(
+    reference_humidity_ratio: float = Field(
         default=0,
         ge=0,
         description='Reference humidity ratio measurement in kgWater/kgDryAir under '
-        'which the surface crack data were obtained. Default: 0.'
+        'which the surface crack data were obtained.'
     )
 
+    building_type: BuildingType = Field(
+        default=BuildingType.lowrise,
+        description='Text indicating relationship between building footprint and '
+        'height used to calculate the wind pressure coefficients for exterior surfaces.'
+        'Choices are: LowRise and HighRise. LowRise corresponds to rectangular building '
+        'whose height is less then three times the width and length of the footprint. '
+        'HighRise corresponds to a rectangular building whose height is more than three '
+        'times the width and length of the footprint. This parameter is required to '
+        'automatically calculate wind pressure coefficients for the AirflowNetwork '
+        'simulation. If used for complex building geometries that cannot be described '
+        'as a highrise or lowrise rectangular mass, the resulting air flow and pressure '
+        'simulated on the building surfaces may be inaccurate.'
+    )
 
-if __name__ == '__main__':
-    print(VentilationControlAbridged.schema_json(indent=2))
-    print(VentilationOpening.schema_json(indent=2))
-    print(AFNSimulationControl.schema_json(indent=2))
-    print(AFNReferenceCrack.schema_json(indent=2))
-    print(AFNCrack.schema_json(indent=2))
+    long_axis_angle: float = Field(
+        default=0,
+        ge=0,
+        le=180,
+        description='The clockwise rotation in degrees from true North of the long axis '
+        'of the building. This parameter is required to automatically calculate wind '
+        'pressure coefficients for the AirflowNetwork simulation. If used for complex '
+        'building geometries that cannot be described as a highrise or lowrise '
+        'rectangular mass, the resulting air flow and pressure simulated on the '
+        'building surfaces may be inaccurate.'
+    )
+
+    aspect_ratio: float = Field(
+        default=1,
+        gt=0,
+        le=1,
+        description='Aspect ratio of a rectangular footprint, defined as the ratio of '
+        'length of the short axis divided by the length of the long axis. This '
+        'parameter is required to automatically calculate wind '
+        'pressure coefficients for the AirflowNetwork simulation. If used for complex '
+        'building geometries that cannot be described as a highrise or lowrise '
+        'rectangular mass, the resulting air flow and pressure simulated on the '
+        'building surfaces may be inaccurate.'
+    )

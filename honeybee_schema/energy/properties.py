@@ -18,7 +18,11 @@ from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
 from .ventcool import VentilationControlAbridged, VentilationOpening
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
     ScheduleFixedIntervalAbridged, ScheduleRuleset, ScheduleFixedInterval
-from .hvac import IdealAirSystemAbridged
+from .hvac.idealair import IdealAirSystemAbridged
+from .hvac.allair import VAV, PVAV, PSZ, PTAC, ForcedAirFurnace
+from .hvac.doas import FCUwithDOAS, WSHPwithDOAS, VRFwithDOAS
+from .hvac.heatcool import FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential, \
+    WindowAC, GasUnitHeater
 
 
 class ShadeEnergyPropertiesAbridged(NoExtraBaseModel):
@@ -210,7 +214,9 @@ class ModelEnergyProperties(NoExtraBaseModel):
         'materials needed to make the Model constructions.'
     )
 
-    hvacs: List[Union[IdealAirSystemAbridged]] = Field(
+    hvacs: List[Union[IdealAirSystemAbridged, VAV, PVAV, PSZ, PTAC, ForcedAirFurnace,
+                      FCUwithDOAS, WSHPwithDOAS, VRFwithDOAS, FCU, WSHP, VRF, Baseboard,
+                      EvaporativeCooler, Residential, WindowAC, GasUnitHeater]] = Field(
         default=None,
         description='List of all unique HVAC systems in the Model.'
     )

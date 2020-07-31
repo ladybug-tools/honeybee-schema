@@ -3,8 +3,8 @@ from pydantic import Field, root_validator, constr
 from typing import Union
 from enum import Enum
 
-from ._base import IDdEnergyBaseModel
-from ..altnumber import NoLimit, Autosize
+from .._base import IDdEnergyBaseModel
+from ...altnumber import NoLimit, Autosize
 
 
 class EconomizerType(str, Enum):
@@ -105,7 +105,3 @@ class IdealAirSystemAbridged(IDdEnergyBaseModel):
         assert heat_temp > cool_temp, 'IdealAirSystem heating_air_temperature must be ' \
             'greater than cooling_air_temperature.'
         return values
-
-
-if __name__ == '__main__':
-    print(IdealAirSystemAbridged.schema_json(indent=2))

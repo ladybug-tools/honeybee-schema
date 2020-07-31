@@ -18,6 +18,9 @@ from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.load.setpoint import Setpoint
 from honeybee_energy.ventcool.opening import VentilationOpening
 from honeybee_energy.ventcool.control import VentilationControl
+from honeybee_energy.hvac.allair.vav import VAV
+from honeybee_energy.hvac.doas.fcu import FCUwithDOAS
+from honeybee_energy.hvac.heatcool.windowac import WindowAC
 
 import honeybee_energy.lib.programtypes as prog_type_lib
 import honeybee_energy.lib.scheduletypelimits as schedule_types
@@ -86,8 +89,6 @@ def model_complete_single_zone_office(directory):
     room.add_indoor_shade(table)
 
     model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
-
-    model_dict = model.to_dict()
 
     dest_file = os.path.join(directory, 'model_complete_single_zone_office.json')
     with open(dest_file, 'w') as fp:
@@ -461,6 +462,85 @@ def model_energy_window_ventilation(directory):
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
 
+def model_energy_allair_hvac(directory):
+    first_floor = Room.from_box('First_Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
+    second_floor = Room.from_box('Second_Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
+    first_floor.properties.energy.program_type = prog_type_lib.office_program
+    second_floor.properties.energy.program_type = prog_type_lib.office_program
+    first_floor.properties.energy.add_default_ideal_air()
+    second_floor.properties.energy.add_default_ideal_air()
+    for face in first_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+    for face in second_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+
+    vav_sys = VAV('VAV System with Glycol Loop')
+    vav_sys.vintage = '90.1-2010'
+    vav_sys.economizer_type = 'DifferentialDryBulb'
+    vav_sys.sensible_heat_recovery = 0.55
+    vav_sys.latent_heat_recovery = 0
+    first_floor.properties.energy.hvac = vav_sys
+    second_floor.properties.energy.hvac = vav_sys
+
+    Room.solve_adjacency([first_floor, second_floor], 0.01)
+    model = Model('Model_Energy_Allair_HVAC', [first_floor, second_floor])
+
+    dest_file = os.path.join(directory, 'model_energy_allair_hvac.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
+
+
+def model_energy_doas_hvac(directory):
+    first_floor = Room.from_box('First_Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
+    second_floor = Room.from_box('Second_Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
+    first_floor.properties.energy.program_type = prog_type_lib.office_program
+    second_floor.properties.energy.program_type = prog_type_lib.office_program
+    first_floor.properties.energy.add_default_ideal_air()
+    second_floor.properties.energy.add_default_ideal_air()
+    for face in first_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+    for face in second_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+
+    fcu_sys = FCUwithDOAS('FCU System with DOAS Enthalpy Wheel')
+    fcu_sys.sensible_heat_recovery = 0.81
+    fcu_sys.latent_heat_recovery = 0.67
+    first_floor.properties.energy.hvac = fcu_sys
+    second_floor.properties.energy.hvac = fcu_sys
+
+    Room.solve_adjacency([first_floor, second_floor], 0.01)
+    model = Model('Model_Energy_DOAS_HVAC', [first_floor, second_floor])
+
+    dest_file = os.path.join(directory, 'model_energy_doas_hvac.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
+
+
+def model_energy_window_ac(directory):
+    first_floor = Room.from_box('First_Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
+    second_floor = Room.from_box('Second_Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
+    first_floor.properties.energy.program_type = prog_type_lib.office_program
+    second_floor.properties.energy.program_type = prog_type_lib.office_program
+    first_floor.properties.energy.add_default_ideal_air()
+    second_floor.properties.energy.add_default_ideal_air()
+    for face in first_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+    for face in second_floor[1:5]:
+        face.apertures_by_ratio(0.2, 0.01)
+
+    ac_sys = WindowAC('FCU System with DOAS Heat Recovery')
+    ac_sys.equipment_type = 'Window AC with baseboard gas boiler'
+    first_floor.properties.energy.hvac = ac_sys
+    second_floor.properties.energy.hvac = ac_sys
+
+    Room.solve_adjacency([first_floor, second_floor], 0.01)
+    model = Model('Model_Energy_Window_AC', [first_floor, second_floor])
+
+    dest_file = os.path.join(directory, 'model_energy_window_ac.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
+
+
 def model_energy_properties_office(directory):
     room = Room.from_box('Closed_Office', 5, 10, 3)
     room.properties.energy.program_type = prog_type_lib.office_program
@@ -655,6 +735,9 @@ model_energy_shoe_box(sample_directory)
 model_energy_detailed_loads(sample_directory)
 model_energy_fixed_interval(sample_directory)
 model_energy_no_program(sample_directory)
+model_energy_allair_hvac(sample_directory)
+model_energy_doas_hvac(sample_directory)
+model_energy_window_ac(sample_directory)
 model_energy_properties_office(sample_directory)
 model_energy_window_ventilation(sample_directory)
 model_5vertex_sub_faces(sample_directory)

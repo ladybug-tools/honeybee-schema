@@ -210,7 +210,3 @@ class DesignDay(NoExtraBaseModel):
     )
 
     sky_condition: Union[ASHRAEClearSky, ASHRAETau]
-
-
-if __name__ == '__main__':
-    print(DesignDay.schema_json(indent=2))

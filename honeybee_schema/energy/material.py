@@ -739,15 +739,3 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         description='The effective area for air flow at the right side of the shade,'
         ' divided by the vertical area between glass and shade. The default value is 0.5.'
     )
-
-
-if __name__ == '__main__':
-    print(EnergyMaterial.schema_json(indent=2))
-    print(EnergyMaterialNoMass.schema_json(indent=2))
-    print(EnergyWindowMaterialSimpleGlazSys.schema_json(indent=2))
-    print(EnergyWindowMaterialGlazing.schema_json(indent=2))
-    print(EnergyWindowMaterialGas.schema_json(indent=2))
-    print(EnergyWindowMaterialGasMixture.schema_json(indent=2))
-    print(EnergyWindowMaterialGasCustom.schema_json(indent=2))
-    print(EnergyWindowMaterialBlind.schema_json(indent=2))
-    print(EnergyWindowMaterialShade.schema_json(indent=2))

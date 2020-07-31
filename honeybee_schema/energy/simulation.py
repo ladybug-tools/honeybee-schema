@@ -339,7 +339,3 @@ class SimulationParameter(NoExtraBaseModel):
         description='Text for the terrain in which the model sits. This is used '
         'to determine the wind profile over the height of the rooms.'
     )
-
-
-if __name__ == '__main__':
-    print(SimulationParameter.schema_json(indent=2))

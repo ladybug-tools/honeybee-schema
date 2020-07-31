@@ -1,0 +1,9 @@
+{
+    "type": "VAV",
+    "identifier": "VAV System with Glycol Loop",
+    "vintage": "90.1-2010",
+    "equipment_type": "VAV chiller with gas boiler reheat",
+    "economizer_type": "DifferentialDryBulb",
+    "sensible_heat_recovery": 0.55,
+    "latent_heat_recovery": 0.0
+}

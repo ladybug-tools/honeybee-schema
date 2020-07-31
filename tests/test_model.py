@@ -58,6 +58,21 @@ def test_model_energy_window_ventilation():
     Model.parse_file(file_path)
 
 
+def test_model_energy_allair_hvac():
+    file_path = os.path.join(target_folder, 'model_energy_allair_hvac.json')
+    Model.parse_file(file_path)
+
+
+def test_model_energy_doas_hvac():
+    file_path = os.path.join(target_folder, 'model_energy_doas_hvac.json')
+    Model.parse_file(file_path)
+
+
+def test_model_energy_window_ac():
+    file_path = os.path.join(target_folder, 'model_energy_window_ac.json')
+    Model.parse_file(file_path)
+
+
 def test_model_5vertex_sub_faces():
     file_path = os.path.join(target_folder, 'model_5vertex_sub_faces.json')
     Model.parse_file(file_path)

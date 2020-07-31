@@ -1,0 +1,8 @@
+{
+    "type": "FCUwithDOAS",
+    "identifier": "FCU System with DOAS Enthalpy Wheel",
+    "vintage": "90.1-2013",
+    "equipment_type": "DOAS with fan coil chiller with boiler",
+    "sensible_heat_recovery": 0.81,
+    "latent_heat_recovery": 0.67
+}

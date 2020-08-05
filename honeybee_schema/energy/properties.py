@@ -113,10 +113,7 @@ class FaceEnergyPropertiesAbridged(NoExtraBaseModel):
     vent_crack: AFNCrack = Field(
         default=None,
         description='An optional AFNCrack to specify airflow through a surface crack '
-        'used by the AirflowNetwork. If this value is None and one of the '
-        'AirflowNetwork options are selected in the VentilationSimulationControl '
-        'object, a default value will be calculated to produce air flow leakages '
-        'equivalent to the zone flow rate defined by the corresponding Infiltration object.'
+        'used by the AirflowNetwork.'
     )
 
 

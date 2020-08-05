@@ -108,28 +108,25 @@ class VentilationOpening(NoExtraBaseModel):
     air_mass_flow_coefficient_closed: float = Field(
         default=None,
         gt=0,
-        description='A number in kg/s-m, at 1 Pa per meter of crack length, used to '
-        'calculate the mass flow rate when the opening is closed; required to run an '
-        'AirflowNetwork simulation. The DesignBuilder Cracks template defines the flow '
-        'coefficient for a tight, low-leakage closed external window to be 0.00001, and '
-        'the flow coefficient for a very poor, high-leakage closed external window to be '
-        '0.003. If this value is None and one of the AirflowNetwork options are selected '
-        'in the VentilationSimulationControl object, a default value will be calculated to '
-        'produce air flow leakages equivalent to the  zone flow rate defined by the '
-        'corresponding Infiltration object.'
+        description='An optional number in kg/s-m, at 1 Pa per meter of crack length, '
+        'used to calculate the mass flow rate when the opening is closed; required to '
+        'run an AirflowNetwork simulation. The DesignBuilder Cracks template defines '
+        'the flow coefficient for a tight, low-leakage closed external window to be '
+        '0.00001, and the flow coefficient for a very poor, high-leakage closed '
+        'external window to be 0.003.'
     )
 
     air_mass_flow_exponent_closed: float = Field(
-        default=0.7,
+        default=0.65,
         ge=0.5,
         le=1,
         description='An optional dimensionless number between 0.5 and 1 used to '
         'calculate the mass flow rate when the opening is closed; required to run an '
         'AirflowNetwork simulation. This value represents the leak geometry impact '
         'on airflow, with 0.5 generally corresponding to turbulent orifice flow and 1 '
-        'generally corresponding to laminar flow. The default of 0.7 is representative '
-        'of internal and external window leakage, according to the DesignBuilder Cracks '
-        'template.'
+        'generally corresponding to laminar flow. The default of 0.65 is '
+        'representative of many cases of wall and window leakage, used when the '
+        'exponent cannot be measured.'
     )
 
     minimum_density_difference_two_way: float = Field(
@@ -176,7 +173,12 @@ class AFNCrack(NoExtraBaseModel):
         default=1,
         gt=0,
         le=1,
-        description='A number indicating multiplier for air mass flow through a crack.'
+        description='A numerical multiplier for air mass flow through a crack. '
+            'While the air_mass_flow_coefficient_reference and air_mass_flow_exponent '
+            'parameters describe crack geometry and orifice sharpness, this value '
+            'reflects linear reduction in flow rate due to equivalant area reduction, '
+            'similar to how the fraction_area_operable parameter is used in the '
+            'VentilationOpening object.'
     )
 
 
@@ -184,8 +186,6 @@ class VentilationControlType(str, Enum):
     single_zone = 'SingleZone'
     multi_zone_with_distribution = 'MultiZoneWithDistribution'
     multi_zone_without_distribution = 'MultiZoneWithoutDistribution'
-    multi_zone_with_distribution_only_during_fan_operation = \
-        'MultiZoneWithDistributionOnlyDuringFanOperation'
 
 
 class BuildingType(str, Enum):
@@ -201,13 +201,13 @@ class VentilationSimulationControl(NoExtraBaseModel):
     vent_control_type: VentilationControlType = Field(
         default=VentilationControlType.single_zone,
         description='Text indicating type of ventilation control. Choices are: '
-        'SingleZone, MultiZoneWithDistribution, MultiZoneWithoutDistribution, or '
-        'MultiZoneWithDistributionOnlyDuringFanOperation. The MultiZone '
-        'options will model air flow with the AirflowNetwork model, which '
-        'is generally more accurate then the SingleZone option, but '
-        'requires defining more ventilation parameters to explicitly account '
-        'for weather and building-induced pressure differences, and the leakage '
-        'geometry corresponding to specific windows, doors, and surface cracks.'
+        'SingleZone, MultiZoneWithDistribution, MultiZoneWithoutDistribution. The '
+        'MultiZone options will model air flow with the AirflowNetwork model, which '
+        'is generally more accurate then the SingleZone option, but will take '
+        'considerably longer to simulate, and requires defining more ventilation '
+        'parameters to explicitly account for weather and building-induced pressure '
+        'differences, and the leakage geometry corresponding to specific windows, '
+        'doors, and surface cracks.'
     )
 
     reference_temperature: float = Field(

@@ -85,15 +85,15 @@ class VentilationOpening(NoExtraBaseModel):
     )
 
     discharge_coefficient: float = Field(
-        0.17,
+        0.45,
         ge=0,
         le=1,
         description='A number that will be multipled by the area of the window in the '
         'stack (buoyancy-driven) part of the equation to account for additional '
         'friction from window geometry, insect screens, etc. Typical values include '
-        '0.17, for unobstructed windows with insect screens and 0.25 for unobstructed '
-        'windows without insect screens. This value should be lowered if windows are '
-        'of an awning or casement type and not allowed to fully open.'
+        '0.45, for unobstructed windows WITH insect screens and 0.65 for unobstructed '
+        'windows WITHOUT insect screens. This value should be lowered if windows are '
+        'of an awning or casement type and are not allowed to fully open.'
     )
 
     wind_cross_vent: bool = Field(

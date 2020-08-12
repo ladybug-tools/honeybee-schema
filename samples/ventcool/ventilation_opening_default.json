@@ -2,6 +2,6 @@
     "type": "VentilationOpening",
     "fraction_area_operable": 0.5,
     "fraction_height_operable": 1.0,
-    "discharge_coefficient": 0.17,
+    "discharge_coefficient": 0.45,
     "wind_cross_vent": false
 }

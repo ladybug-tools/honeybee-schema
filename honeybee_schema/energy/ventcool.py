@@ -105,9 +105,9 @@ class VentilationOpening(NoExtraBaseModel):
         'one side of the Room and there is no wind-driven ventilation.'
     )
 
-    air_mass_flow_coefficient_closed: float = Field(
+    flow_coefficient_closed: float = Field(
         default=None,
-        gt=0,
+        ge=0,
         description='An optional number in kg/s-m, at 1 Pa per meter of crack length, '
         'used to calculate the mass flow rate when the opening is closed; required to '
         'run an AirflowNetwork simulation. The DesignBuilder Cracks template defines '
@@ -116,7 +116,7 @@ class VentilationOpening(NoExtraBaseModel):
         'external window to be 0.003.'
     )
 
-    air_mass_flow_exponent_closed: float = Field(
+    flow_exponent_closed: float = Field(
         default=0.65,
         ge=0.5,
         le=1,
@@ -133,9 +133,12 @@ class VentilationOpening(NoExtraBaseModel):
         default=0.0001,
         gt=0,
         description='A number in kg/m3 indicating the minimum density difference above '
-        'which two-way flow may occur due to stack effect; required to run an '
-        'AirflowNetwork simulation. The default of 0.0001 is a typical default'
-        'value used for AirflowNetwork openings.'
+        'which two-way flow may occur due to stack effect, required to run an '
+        'AirflowNetwork simulation. This value is required because the air density '
+        'difference between two zones (which drives two-way air flow) will tend '
+        'towards division by zero errors as the air density difference approaches '
+        'zero. The default of 0.0001 is a typical default value used for AirflowNetwork '
+        'openings.'
     )
 
 
@@ -144,7 +147,7 @@ class AFNCrack(NoExtraBaseModel):
 
     type: constr(regex='^VentilationCrack$') = 'VentilationCrack'
 
-    air_mass_flow_coefficient_reference: float = Field(
+    flow_coefficient: float = Field(
         ...,
         gt=0,
         description='A number in kg/s-m at 1 Pa per meter of crack length at the '
@@ -156,7 +159,7 @@ class AFNCrack(NoExtraBaseModel):
         'constructions, respectively.'
     )
 
-    air_mass_flow_exponent: float = Field(
+    flow_exponent: float = Field(
         default=0.65,
         ge=0.5,
         le=1,
@@ -167,18 +170,6 @@ class AFNCrack(NoExtraBaseModel):
         'generally corresponding to laminar flow. The default of 0.65 is '
         'representative of many cases of wall and window leakage, used when the '
         'exponent cannot be measured.'
-    )
-
-    crack_factor: float = Field(
-        default=1,
-        gt=0,
-        le=1,
-        description='A numerical multiplier for air mass flow through a crack. '
-            'While the air_mass_flow_coefficient_reference and air_mass_flow_exponent '
-            'parameters describe crack geometry and orifice sharpness, this value '
-            'reflects linear reduction in flow rate due to equivalant area reduction, '
-            'similar to how the fraction_area_operable parameter is used in the '
-            'VentilationOpening object.'
     )
 
 
@@ -212,12 +203,13 @@ class VentilationSimulationControl(NoExtraBaseModel):
 
     reference_temperature: float = Field(
         default=20,
+        ge=-273.15,
         description='Reference temperature measurement in Celsius under which the '
         'surface crack data were obtained.'
     )
 
-    reference_barometric_pressure: float = Field(
-        default=101320,
+    reference_pressure: float = Field(
+        default=101325,
         ge=31000,
         le=120000,
         description='Reference barometric pressure measurement in Pascals under which '

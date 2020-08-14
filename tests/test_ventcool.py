@@ -1,4 +1,6 @@
-from honeybee_schema.energy.ventcool import VentilationControlAbridged, VentilationOpening
+from honeybee_schema.energy.ventcool import VentilationControlAbridged, \
+    VentilationOpening, VentilationSimulationControl, AFNCrack
+
 import os
 
 # target folder where all of the samples live
@@ -15,6 +17,17 @@ def test_ventilation_control_simple():
     file_path = os.path.join(target_folder, 'ventilation_control_simple.json')
     VentilationControlAbridged.parse_file(file_path)
 
+
 def test_ventilation_control_detailed():
     file_path = os.path.join(target_folder, 'ventilation_control_detailed.json')
     VentilationControlAbridged.parse_file(file_path)
+
+
+def test_ventilation_crack():
+    file_path = os.path.join(target_folder, 'ventilation_crack.json')
+    AFNCrack.parse_file(file_path)
+
+
+def ventilation_simulation_control(directory):
+    file_path = os.path.join(target_folder, 'ventilation_simulation_control.json')
+    VentilationSimulationControl.parse_file(file_path)

@@ -129,7 +129,7 @@ class VentilationOpening(NoExtraBaseModel):
         'exponent cannot be measured.'
     )
 
-    minimum_density_difference_two_way: float = Field(
+    two_way_threshold: float = Field(
         default=0.0001,
         gt=0,
         description='A number in kg/m3 indicating the minimum density difference above '
@@ -145,7 +145,7 @@ class VentilationOpening(NoExtraBaseModel):
 class AFNCrack(NoExtraBaseModel):
     """Properties for airflow through a crack."""
 
-    type: constr(regex='^VentilationCrack$') = 'VentilationCrack'
+    type: constr(regex='^AFNCrack$') = 'AFNCrack'
 
     flow_coefficient: float = Field(
         ...,

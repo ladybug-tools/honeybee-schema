@@ -4,6 +4,7 @@ from typing import List, Union
 
 from .modifier import _REFERENCE_UNION_MODIFIERS
 from .modifierset import ModifierSet, ModifierSetAbridged
+from .asset import SensorGrid, View
 from .._base import NoExtraBaseModel
 
 from honeybee_schema.radiance.state import RadianceShadeStateAbridged, \
@@ -115,12 +116,20 @@ class ModelRadianceProperties(NoExtraBaseModel):
         default=None,
         description='A list of all unique modifiers in the model. '
                     'This includes modifiers across all Faces, Apertures, Doors, '
-                    'Shades, Room ModifierSets, and the global_modifier_set '
-                    '(default: None).'
+                    'Shades, Room ModifierSets, and the global_modifier_set.'
     )
 
     modifier_sets: List[Union[ModifierSet, ModifierSetAbridged]] = Field(
         default=None,
-        description='A list of all unique Room-Assigned ModifierSets in the Model '
-                    '(default: None).'
+        description='A list of all unique Room-Assigned ModifierSets in the Model.'
+    )
+
+    sensor_grids: List[SensorGrid] = Field(
+        default=None,
+        description='An array of SensorGrids that are associated with the model.'
+    )
+
+    views: List[View] = Field(
+        default=None,
+        description='An array of Views that are associated with the model.'
     )

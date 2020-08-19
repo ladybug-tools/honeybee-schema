@@ -590,6 +590,36 @@ def model_complete_multiroom_radiance(directory):
         json.dump(model.to_dict(), fp, indent=4)
 
 
+def model_radiance_grid_views(directory):
+    room = Room.from_box('Tiny_House_Zone', 5, 10, 3)
+    garage = Room.from_box('Tiny_Garage', 5, 10, 3, origin=Point3D(5, 0, 0))
+
+    south_face = room[3]
+    south_face.apertures_by_ratio(0.4, 0.01)
+    south_face.apertures[0].overhang(0.5, indoor=False)
+    south_face.apertures[0].overhang(0.5, indoor=True)
+    south_face.move_shades(Vector3D(0, 0, -0.5))
+    north_face = garage[1]
+    north_face.apertures_by_ratio(0.1, 0.01)
+
+    room_grid = room.properties.radiance.generate_sensor_grid(0.5, 0.5, 1)
+    garage_grid = garage.properties.radiance.generate_sensor_grid(0.5, 0.5, 1)
+    room_view = room.properties.radiance.generate_view((0, -1, 0))
+    garage_view = garage.properties.radiance.generate_view((0, 1, 0))
+
+    Room.solve_adjacency([room, garage], 0.01)
+
+    model = Model('Tiny_House', [room, garage])
+    model.properties.radiance.sensor_grids = [room_grid]
+    model.properties.radiance.add_sensor_grids([garage_grid])
+    model.properties.radiance.views = [room_view]
+    model.properties.radiance.add_views([garage_view])
+
+    dest_file = os.path.join(directory, 'model_radiance_grid_views.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(included_prop=['radiance']), fp, indent=4)
+
+
 def model_radiance_dynamic_states(directory):
     room = Room.from_box('Tiny_House_Zone', 5, 10, 3)
     garage = Room.from_box('Tiny_Garage', 5, 10, 3, origin=Point3D(5, 0, 0))
@@ -665,7 +695,7 @@ def model_radiance_dynamic_states(directory):
 
     model = Model('Tiny_House', [room, garage], orphaned_shades=[ground, tree_canopy])
 
-    model_dict = model.to_dict()
+    model_dict = model.to_dict(included_prop=['radiance'])
 
     dest_file = os.path.join(directory, 'model_radiance_dynamic_states.json')
     with open(dest_file, 'w') as fp:
@@ -744,4 +774,5 @@ model_5vertex_sub_faces(sample_directory)
 model_5vertex_sub_faces_interior(sample_directory)
 
 model_complete_multiroom_radiance(sample_directory)
+model_radiance_grid_views(sample_directory)
 model_radiance_dynamic_states(sample_directory)

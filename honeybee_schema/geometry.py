@@ -56,3 +56,57 @@ class Face3D(NoExtraBaseModel):
         description='Optional Plane indicating the plane in which the face exists.'
         'If None, the plane will usually be derived from the boundary points.'
     )
+
+
+class Color(NoExtraBaseModel):
+    """A mesh in 3D space."""
+
+    type: constr(regex='^Color$') = 'Color'
+
+    r: int = Field(
+        ...,
+        ge=0,
+        le=255,
+        description='Integer for red value.'
+    )
+
+    g: int = Field(
+        ...,
+        ge=0,
+        le=255,
+        description='Integer for green value.'
+    )
+
+    b: int = Field(
+        ...,
+        ge=0,
+        le=255,
+        description='Integer for blue value.'
+    )
+
+
+class Mesh3D(NoExtraBaseModel):
+    """A mesh in 3D space."""
+
+    type: constr(regex='^Mesh3D$') = 'Mesh3D'
+
+    vertices: List[conlist(float, min_items=3, max_items=3)] = Field(
+        ...,
+        min_items=3,
+        description='A list of points representing the vertices of the mesh. '
+        'The list should include at least 3 points and each point '
+        'should be a list of 3 (x, y, z) values.'
+    )
+
+    faces: List[conlist(int, min_items=3, max_items=4)] = Field(
+        ...,
+        min_items=1,
+        description='A list of lists with each sub-list having either 3 or 4 '
+        'integers. These integers correspond to indices within the list of vertices.'
+    )
+
+    colors: List[Color] = Field(
+        None,
+        description='An optional list of colors that correspond to either the faces '
+        'of the mesh or the vertices of the mesh.'
+    )

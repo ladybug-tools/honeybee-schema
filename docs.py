@@ -3,7 +3,6 @@ from pkg_resources import get_distribution
 from honeybee_schema._openapi import get_openapi, class_mapper
 from honeybee_schema.model import Model
 from honeybee_schema.energy.simulation import SimulationParameter
-from honeybee_schema.radiance.asset import SensorGrid, View
 from honeybee_schema.radiance.lightsource import CertainIrradiance, CIE, \
     ClimateBased, SunMatrix, SkyMatrix
 
@@ -122,7 +121,7 @@ external_docs = {
 }
 
 openapi = get_openapi(
-    [SensorGrid, View, CertainIrradiance, CIE, ClimateBased, SunMatrix, SkyMatrix],
+    [CertainIrradiance, CIE, ClimateBased, SunMatrix, SkyMatrix],
     title='Honeybee Radiance Asset Schema',
     description='This is the documentation for Honeybee Radiance Asset schema.',
     version=VERSION, info=info,
@@ -131,7 +130,7 @@ with open('./docs/radiance-asset.json', 'w') as out_file:
     json.dump(openapi, out_file, indent=2)
 
 openapi = get_openapi(
-    [SensorGrid, View, CertainIrradiance, CIE, ClimateBased, SunMatrix, SkyMatrix],
+    [CertainIrradiance, CIE, ClimateBased, SunMatrix, SkyMatrix],
     title='Honeybee Radiance Asset Schema',
     description='This is the documentation for Honeybee Radiance Asset Schema.',
     version=VERSION, inheritance=True, info=info,
@@ -142,5 +141,5 @@ with open('./docs/radiance-asset_inheritance.json', 'w') as out_file:
 
 # add the mapper file
 with open('./docs/radiance-asset_mapper.json', 'w') as out_file:
-    json.dump(class_mapper([SensorGrid, View, CertainIrradiance, CIE, ClimateBased,
+    json.dump(class_mapper([CertainIrradiance, CIE, ClimateBased,
                             SunMatrix, SkyMatrix]), out_file, indent=2)

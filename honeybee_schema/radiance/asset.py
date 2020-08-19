@@ -2,6 +2,7 @@
 from pydantic import Field, constr
 from typing import List
 from enum import Enum
+from ..geometry import Mesh3D
 from .._base import NoExtraBaseModel
 from ._base import IDdRadianceBaseModel
 
@@ -57,7 +58,15 @@ class SensorGrid(_RadianceAsset):
 
     sensors: List[Sensor] = Field(
         ...,
-        description="A list of sensors that belong to the grid."
+        description='A list of sensors that belong to the grid.'
+    )
+
+    mesh: Mesh3D = Field(
+        None,
+        description='An optional Mesh3D that aligns with the sensors and can be '
+        'used for visualization of the grid. Note that the number of sensors in '
+        'the grid must match the number of faces or the number vertices within '
+        'the Mesh3D.'
     )
 
 

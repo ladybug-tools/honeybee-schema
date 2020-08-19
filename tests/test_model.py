@@ -13,11 +13,6 @@ def test_model_complete_multi_zone_office():
     Model.parse_file(file_path)
 
 
-def test_model_complete_multiroom_radiance():
-    file_path = os.path.join(target_folder, 'model_complete_multiroom_radiance.json')
-    Model.parse_file(file_path)
-
-
 def test_model_complete_single_zone_office():
     file_path = os.path.join(target_folder, 'model_complete_single_zone_office.json')
     Model.parse_file(file_path)
@@ -30,6 +25,21 @@ def test_model_complete_user_data():
 
 def test_model_complete_patient_room():
     file_path = os.path.join(target_folder, 'model_complete_patient_room.json')
+    Model.parse_file(file_path)
+
+
+def test_model_complete_multiroom_radiance():
+    file_path = os.path.join(target_folder, 'model_complete_multiroom_radiance.json')
+    Model.parse_file(file_path)
+
+
+def test_model_radiance_grid_views():
+    file_path = os.path.join(target_folder, 'model_radiance_grid_views.json')
+    Model.parse_file(file_path)
+
+
+def test_model_radiance_dynamic_states():
+    file_path = os.path.join(target_folder, 'model_radiance_dynamic_states.json')
     Model.parse_file(file_path)
 
 
@@ -75,6 +85,11 @@ def test_model_energy_window_ac():
 
 def test_model_5vertex_sub_faces():
     file_path = os.path.join(target_folder, 'model_5vertex_sub_faces.json')
+    Model.parse_file(file_path)
+
+
+def test_model_5vertex_sub_faces_interior():
+    file_path = os.path.join(target_folder, 'model_5vertex_sub_faces_interior.json')
     Model.parse_file(file_path)
 
 

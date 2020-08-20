@@ -1,0 +1,5 @@
+{
+    "type": "AFNCrack",
+    "flow_coefficient": 0.01,
+    "flow_exponent": 0.65
+}

@@ -32,28 +32,6 @@
             "schedules": [
                 {
                     "type": "ScheduleRulesetAbridged",
-                    "identifier": "House Heating",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "House Heating_Day Schedule",
-                            "values": [
-                                20.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "House Heating_Day Schedule",
-                    "schedule_type_limit": "Temperature"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
                     "identifier": "House Cooling",
                     "day_schedules": [
                         {
@@ -72,6 +50,28 @@
                         }
                     ],
                     "default_day_schedule": "House Cooling_Day Schedule",
+                    "schedule_type_limit": "Temperature"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "House Heating",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "House Heating_Day Schedule",
+                            "values": [
+                                20.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "House Heating_Day Schedule",
                     "schedule_type_limit": "Temperature"
                 },
                 {
@@ -116,7 +116,17 @@
                     "numeric_type": "Continuous",
                     "unit_type": "Temperature"
                 }
-            ]
+            ],
+            "ventilation_simulation_control": {
+                "type": "VentilationSimulationControl",
+                "vent_control_type": "SingleZone",
+                "reference_temperature": 20.0,
+                "reference_pressure": 101325.0,
+                "reference_humidity_ratio": 0.0,
+                "building_type": "LowRise",
+                "long_axis_angle": 0.0,
+                "aspect_ratio": 1.0
+            }
         }
     },
     "rooms": [
@@ -141,8 +151,7 @@
                         "max_indoor_temperature": 27.0,
                         "min_outdoor_temperature": 12.0,
                         "max_outdoor_temperature": 30.0,
-                        "delta_temperature": -100.0,
-                        "schedule": "Always On"
+                        "delta_temperature": -100.0
                     }
                 }
             },
@@ -522,5 +531,6 @@
                 }
             ]
         }
-    ]
+    ],
+    "version": "1.33.1"
 }

@@ -1,4 +1,5 @@
 # coding=utf-8
+
 from honeybee.model import Model
 from honeybee.room import Room
 from honeybee.face import Face
@@ -18,6 +19,7 @@ from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.load.setpoint import Setpoint
 from honeybee_energy.ventcool.opening import VentilationOpening
 from honeybee_energy.ventcool.control import VentilationControl
+from honeybee_energy.ventcool import afn
 from honeybee_energy.hvac.allair.vav import VAV
 from honeybee_energy.hvac.doas.fcu import FCUwithDOAS
 from honeybee_energy.hvac.heatcool.windowac import WindowAC
@@ -462,6 +464,45 @@ def model_energy_window_ventilation(directory):
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
 
+def model_energy_afn_multizone(directory):
+
+    # South Room
+    szone_pts = Face3D(
+        [Point3D(0, 0), Point3D(20, 0), Point3D(20, 10), Point3D(0, 10)])
+    sroom = Room.from_polyface3d(
+        'SouthRoom', Polyface3D.from_offset_face(szone_pts, 3))
+
+    # North Room
+    nzone_pts = Face3D(
+        [Point3D(0, 10), Point3D(20, 10), Point3D(20, 20), Point3D(0, 20)])
+    nroom = Room.from_polyface3d(
+        'NorthRoom', Polyface3D.from_offset_face(nzone_pts, 3))
+
+    # Add adjacent interior windows
+    sroom[3].apertures_by_ratio(0.3)  # Window on south face
+    nroom[1].apertures_by_ratio(0.3)  # Window on north face
+
+    # rooms
+    rooms = [sroom, nroom]
+    for room in rooms:
+        # Add program and hvac
+        room.properties.energy.program_type = prog_type_lib.office_program
+
+    # Make model
+    model = Model('Two_Zone_Simple', rooms)
+
+    # Make interior faces
+    Room.solve_adjacency(rooms, 0.01)
+
+    # Make afn
+    window_vent_controls = [VentilationControl().duplicate() for _ in rooms]
+    afn.generate(model.rooms, window_vent_controls)
+
+    dest_file = os.path.join(directory, 'model_energy_afn.json')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
+
+
 def model_energy_allair_hvac(directory):
     first_floor = Room.from_box('First_Floor', 10, 10, 3, origin=Point3D(0, 0, 0))
     second_floor = Room.from_box('Second_Floor', 10, 10, 3, origin=Point3D(0, 0, 3))
@@ -770,6 +811,7 @@ model_energy_doas_hvac(sample_directory)
 model_energy_window_ac(sample_directory)
 model_energy_properties_office(sample_directory)
 model_energy_window_ventilation(sample_directory)
+model_energy_afn_multizone(sample_directory)
 model_5vertex_sub_faces(sample_directory)
 model_5vertex_sub_faces_interior(sample_directory)
 

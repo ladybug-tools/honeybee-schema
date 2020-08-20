@@ -1,0 +1,10 @@
+{
+    "type": "VentilationSimulationControl",
+    "vent_control_type": "MultiZoneWithoutDistribution",
+    "reference_temperature": 21.0,
+    "reference_pressure": 101325.0,
+    "reference_humidity_ratio": 0.5,
+    "building_type": "LowRise",
+    "long_axis_angle": 90.0,
+    "aspect_ratio": 0.5
+}

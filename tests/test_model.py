@@ -68,6 +68,11 @@ def test_model_energy_window_ventilation():
     Model.parse_file(file_path)
 
 
+def test_model_energy_afn():
+    file_path = os.path.join(target_folder, 'model_energy_afn.json')
+    Model.parse_file(file_path)
+
+
 def test_model_energy_allair_hvac():
     file_path = os.path.join(target_folder, 'model_energy_allair_hvac.json')
     Model.parse_file(file_path)

@@ -23,7 +23,7 @@ def sensor_grid_simple(directory):
 def sensor_grid_detailed(directory):
     room1 = Room.from_box('Tiny_House_Room', 5, 10, 3)
     sensor_grid = room1.properties.radiance.generate_sensor_grid(1, 1, 1)
-    sensor_grid.display_name = 'Tiny House Sensor Grid'
+    sensor_grid.display_name = 'Tiny_House_Sensor_Grid'
     dest_file = os.path.join(directory, 'sensor_grid_detailed.json')
     with open(dest_file, 'w') as fp:
         json.dump(sensor_grid.to_dict(), fp, indent=4)

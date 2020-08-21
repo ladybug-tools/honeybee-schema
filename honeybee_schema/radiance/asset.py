@@ -1,14 +1,41 @@
 """SensorGrid and Sensor Schema"""
-from pydantic import Field, constr
+from pydantic import Field, constr, validator
 from typing import List
 from enum import Enum
 from ..geometry import Mesh3D
 from .._base import NoExtraBaseModel
 from ._base import IDdRadianceBaseModel
 
+import re
+
 
 class _RadianceAsset(IDdRadianceBaseModel):
     """Hidden base class for all Radiance Assets."""
+
+    display_name: str = Field(
+        default=None,
+        description='Text string for a unique display name, used to set the default '
+        'file name that the radiance asset is written to within a radiance folder. '
+        'Must not contain spaces or special characters.'
+    )
+
+    @validator('display_name')
+    def valid_rad_string_display_name(cls, value):
+        """Check that a string is valid for Radiance.
+
+        This method is modified from the honeybee-core.typing.valid_rad_string method.
+        """
+        if value is not None:
+            try:
+                illegal_match = re.search(r'[^.A-Za-z0-9_-]', value)
+            except TypeError:
+                raise TypeError('display_name must be a text string. Got {}: {}.'.format(
+                    type(value), value))
+            assert illegal_match is None, \
+                'Illegal character "{}" found in display_name'.format(illegal_match.group(0))
+            assert len(value) > 0, \
+                'Input display_name "{}" contains no characters.'.format(value)
+        return value
 
     room_identifier: str = Field(
         None,

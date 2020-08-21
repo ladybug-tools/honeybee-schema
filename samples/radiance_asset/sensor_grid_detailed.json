@@ -603,7 +603,7 @@
             ]
         }
     ],
-    "display_name": "Tiny House Sensor Grid",
+    "display_name": "Tiny_House_Sensor_Grid",
     "room_identifier": "Tiny_House_Room",
     "mesh": {
         "type": "Mesh3D",

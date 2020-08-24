@@ -67,6 +67,207 @@
             "schedules": [
                 {
                     "type": "ScheduleRulesetAbridged",
+                    "identifier": "Generic Office Lighting",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_Sun",
+                            "values": [
+                                0.05,
+                                0.04311628,
+                                0.05
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_SmrDsn",
+                            "values": [
+                                1.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_WntrDsn",
+                            "values": [
+                                0.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_Sat",
+                            "values": [
+                                0.05,
+                                0.08623256,
+                                0.25869768,
+                                0.12934884,
+                                0.04311628,
+                                0.05
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    12,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    19,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_Wkdy",
+                            "values": [
+                                0.05,
+                                0.1,
+                                0.08623256,
+                                0.25869768,
+                                0.77609304,
+                                0.4311628,
+                                0.25869768,
+                                0.17246512,
+                                0.08623256,
+                                0.04311628
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ],
+                                [
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    8,
+                                    0
+                                ],
+                                [
+                                    17,
+                                    0
+                                ],
+                                [
+                                    18,
+                                    0
+                                ],
+                                [
+                                    20,
+                                    0
+                                ],
+                                [
+                                    22,
+                                    0
+                                ],
+                                [
+                                    23,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_Sun",
+                    "schedule_rules": [
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium BLDG_LIGHT_SCH_2013_Wkdy",
+                            "apply_sunday": false,
+                            "apply_monday": true,
+                            "apply_tuesday": true,
+                            "apply_wednesday": true,
+                            "apply_thursday": true,
+                            "apply_friday": true,
+                            "apply_saturday": false,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        },
+                        {
+                            "type": "ScheduleRuleAbridged",
+                            "schedule_day": "OfficeMedium BLDG_LIGHT_SCH_2013_Sat",
+                            "apply_sunday": false,
+                            "apply_monday": false,
+                            "apply_tuesday": false,
+                            "apply_wednesday": false,
+                            "apply_thursday": false,
+                            "apply_friday": false,
+                            "apply_saturday": true,
+                            "start_date": [
+                                1,
+                                1
+                            ],
+                            "end_date": [
+                                12,
+                                31
+                            ]
+                        }
+                    ],
+                    "holiday_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_Sat",
+                    "summer_designday_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_SmrDsn",
+                    "winter_designday_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_WntrDsn",
+                    "schedule_type_limit": "Fractional"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
                     "identifier": "Always On",
                     "day_schedules": [
                         {
@@ -270,59 +471,13 @@
                 },
                 {
                     "type": "ScheduleRulesetAbridged",
-                    "identifier": "Seated Adult Activity",
+                    "identifier": "Generic Office Cooling",
                     "day_schedules": [
                         {
                             "type": "ScheduleDay",
-                            "identifier": "Seated Adult Activity_Day Schedule",
+                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
                             "values": [
-                                120.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        }
-                    ],
-                    "default_day_schedule": "Seated Adult Activity_Day Schedule",
-                    "schedule_type_limit": "Activity Level"
-                },
-                {
-                    "type": "ScheduleRulesetAbridged",
-                    "identifier": "Generic Office Lighting",
-                    "day_schedules": [
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_Sun",
-                            "values": [
-                                0.05,
-                                0.04311628,
-                                0.05
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    6,
-                                    0
-                                ],
-                                [
-                                    18,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_SmrDsn",
-                            "values": [
-                                1.0
+                                26.7
                             ],
                             "times": [
                                 [
@@ -334,71 +489,13 @@
                         },
                         {
                             "type": "ScheduleDay",
-                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_WntrDsn",
+                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
                             "values": [
-                                0.0
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_Sat",
-                            "values": [
-                                0.05,
-                                0.08623256,
-                                0.25869768,
-                                0.12934884,
-                                0.04311628,
-                                0.05
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    6,
-                                    0
-                                ],
-                                [
-                                    8,
-                                    0
-                                ],
-                                [
-                                    12,
-                                    0
-                                ],
-                                [
-                                    17,
-                                    0
-                                ],
-                                [
-                                    19,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "OfficeMedium BLDG_LIGHT_SCH_2013_Wkdy",
-                            "values": [
-                                0.05,
-                                0.1,
-                                0.08623256,
-                                0.25869768,
-                                0.77609304,
-                                0.4311628,
-                                0.25869768,
-                                0.17246512,
-                                0.08623256,
-                                0.04311628
+                                26.7,
+                                25.7,
+                                25.0,
+                                24.0,
+                                26.7
                             ],
                             "times": [
                                 [
@@ -418,38 +515,100 @@
                                     0
                                 ],
                                 [
-                                    8,
+                                    22,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
+                            "values": [
+                                26.7
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
+                            "values": [
+                                26.7,
+                                25.6,
+                                25.0,
+                                24.0,
+                                26.7
+                            ],
+                            "times": [
+                                [
+                                    0,
                                     0
                                 ],
                                 [
-                                    17,
+                                    5,
                                     0
                                 ],
                                 [
-                                    18,
+                                    6,
                                     0
                                 ],
                                 [
-                                    20,
+                                    7,
                                     0
                                 ],
                                 [
                                     22,
                                     0
+                                ]
+                            ],
+                            "interpolate": false
+                        },
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
+                            "values": [
+                                26.7,
+                                25.7,
+                                25.0,
+                                24.0,
+                                26.7
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
                                 ],
                                 [
-                                    23,
+                                    5,
+                                    0
+                                ],
+                                [
+                                    6,
+                                    0
+                                ],
+                                [
+                                    7,
+                                    0
+                                ],
+                                [
+                                    17,
                                     0
                                 ]
                             ],
                             "interpolate": false
                         }
                     ],
-                    "default_day_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_Sun",
+                    "default_day_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
                     "schedule_rules": [
                         {
                             "type": "ScheduleRuleAbridged",
-                            "schedule_day": "OfficeMedium BLDG_LIGHT_SCH_2013_Wkdy",
+                            "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
                             "apply_sunday": false,
                             "apply_monday": true,
                             "apply_tuesday": true,
@@ -468,7 +627,7 @@
                         },
                         {
                             "type": "ScheduleRuleAbridged",
-                            "schedule_day": "OfficeMedium BLDG_LIGHT_SCH_2013_Sat",
+                            "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
                             "apply_sunday": false,
                             "apply_monday": false,
                             "apply_tuesday": false,
@@ -486,10 +645,32 @@
                             ]
                         }
                     ],
-                    "holiday_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_Sat",
-                    "summer_designday_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_SmrDsn",
-                    "winter_designday_schedule": "OfficeMedium BLDG_LIGHT_SCH_2013_WntrDsn",
-                    "schedule_type_limit": "Fractional"
+                    "holiday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
+                    "summer_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
+                    "winter_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
+                    "schedule_type_limit": "Temperature"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "House Heating",
+                    "day_schedules": [
+                        {
+                            "type": "ScheduleDay",
+                            "identifier": "House Heating_Day Schedule",
+                            "values": [
+                                20.0
+                            ],
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
+                            ],
+                            "interpolate": false
+                        }
+                    ],
+                    "default_day_schedule": "House Heating_Day Schedule",
+                    "schedule_type_limit": "Temperature"
                 },
                 {
                     "type": "ScheduleRulesetAbridged",
@@ -1046,187 +1227,60 @@
                 },
                 {
                     "type": "ScheduleRulesetAbridged",
-                    "identifier": "Generic Office Cooling",
+                    "identifier": "Seated Adult Activity",
                     "day_schedules": [
                         {
                             "type": "ScheduleDay",
-                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
+                            "identifier": "Seated Adult Activity_Day Schedule",
                             "values": [
-                                26.7
+                                120.0
                             ],
                             "times": [
                                 [
                                     0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
-                            "values": [
-                                26.7,
-                                25.7,
-                                25.0,
-                                24.0,
-                                26.7
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    5,
-                                    0
-                                ],
-                                [
-                                    6,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    22,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
-                            "values": [
-                                26.7
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
-                            "values": [
-                                26.7,
-                                25.6,
-                                25.0,
-                                24.0,
-                                26.7
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    5,
-                                    0
-                                ],
-                                [
-                                    6,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    22,
-                                    0
-                                ]
-                            ],
-                            "interpolate": false
-                        },
-                        {
-                            "type": "ScheduleDay",
-                            "identifier": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
-                            "values": [
-                                26.7,
-                                25.7,
-                                25.0,
-                                24.0,
-                                26.7
-                            ],
-                            "times": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    5,
-                                    0
-                                ],
-                                [
-                                    6,
-                                    0
-                                ],
-                                [
-                                    7,
-                                    0
-                                ],
-                                [
-                                    17,
                                     0
                                 ]
                             ],
                             "interpolate": false
                         }
                     ],
-                    "default_day_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
-                    "schedule_rules": [
+                    "default_day_schedule": "Seated Adult Activity_Day Schedule",
+                    "schedule_type_limit": "Activity Level"
+                },
+                {
+                    "type": "ScheduleRulesetAbridged",
+                    "identifier": "House Cooling",
+                    "day_schedules": [
                         {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Wkdy",
-                            "apply_sunday": false,
-                            "apply_monday": true,
-                            "apply_tuesday": true,
-                            "apply_wednesday": true,
-                            "apply_thursday": true,
-                            "apply_friday": true,
-                            "apply_saturday": false,
-                            "start_date": [
-                                1,
-                                1
+                            "type": "ScheduleDay",
+                            "identifier": "House Cooling_Day Schedule",
+                            "values": [
+                                28.0
                             ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
-                        },
-                        {
-                            "type": "ScheduleRuleAbridged",
-                            "schedule_day": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Sat",
-                            "apply_sunday": false,
-                            "apply_monday": false,
-                            "apply_tuesday": false,
-                            "apply_wednesday": false,
-                            "apply_thursday": false,
-                            "apply_friday": false,
-                            "apply_saturday": true,
-                            "start_date": [
-                                1,
-                                1
+                            "times": [
+                                [
+                                    0,
+                                    0
+                                ]
                             ],
-                            "end_date": [
-                                12,
-                                31
-                            ]
+                            "interpolate": false
                         }
                     ],
-                    "holiday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default",
-                    "summer_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_SmrDsn",
-                    "winter_designday_schedule": "OfficeMedium CLGSETP_SCH_YES_OPTIMUM_Default_WntrDsn",
+                    "default_day_schedule": "House Cooling_Day Schedule",
                     "schedule_type_limit": "Temperature"
                 }
             ],
             "schedule_type_limits": [
+                {
+                    "type": "ScheduleTypeLimit",
+                    "identifier": "Activity Level",
+                    "lower_limit": 0.0,
+                    "upper_limit": {
+                        "type": "NoLimit"
+                    },
+                    "numeric_type": "Continuous",
+                    "unit_type": "ActivityLevel"
+                },
                 {
                     "type": "ScheduleTypeLimit",
                     "identifier": "Fractional",
@@ -1244,21 +1298,11 @@
                     },
                     "numeric_type": "Continuous",
                     "unit_type": "Temperature"
-                },
-                {
-                    "type": "ScheduleTypeLimit",
-                    "identifier": "Activity Level",
-                    "lower_limit": 0.0,
-                    "upper_limit": {
-                        "type": "NoLimit"
-                    },
-                    "numeric_type": "Continuous",
-                    "unit_type": "ActivityLevel"
                 }
             ],
             "ventilation_simulation_control": {
                 "type": "VentilationSimulationControl",
-                "vent_control_type": "SingleZone",
+                "vent_control_type": "MultiZoneWithoutDistribution",
                 "reference_temperature": 20.0,
                 "reference_pressure": 101325.0,
                 "reference_humidity_ratio": 0.0,
@@ -1278,12 +1322,18 @@
                 "energy": {
                     "type": "RoomEnergyPropertiesAbridged",
                     "program_type": "Generic Office Program",
+                    "setpoint": {
+                        "type": "SetpointAbridged",
+                        "identifier": "House Setpoint",
+                        "heating_schedule": "House Heating",
+                        "cooling_schedule": "House Cooling"
+                    },
                     "window_vent_control": {
                         "type": "VentilationControlAbridged",
-                        "min_indoor_temperature": -100.0,
-                        "max_indoor_temperature": 100.0,
-                        "min_outdoor_temperature": -100.0,
-                        "max_outdoor_temperature": 100.0,
+                        "min_indoor_temperature": 22.0,
+                        "max_indoor_temperature": 27.0,
+                        "min_outdoor_temperature": 12.0,
+                        "max_outdoor_temperature": 30.0,
                         "delta_temperature": -100.0
                     }
                 }
@@ -1389,7 +1439,7 @@
                             "type": "FaceEnergyPropertiesAbridged",
                             "vent_crack": {
                                 "type": "AFNCrack",
-                                "flow_coefficient": 0.0033242924640518984,
+                                "flow_coefficient": 0.0023270047248363287,
                                 "flow_exponent": 0.65
                             }
                         }
@@ -1427,7 +1477,64 @@
                         "view_factor": {
                             "type": "Autocalculate"
                         }
-                    }
+                    },
+                    "apertures": [
+                        {
+                            "type": "Aperture",
+                            "identifier": "SouthRoom..Face2_Glz0",
+                            "display_name": "SouthRoom..Face2_Glz0",
+                            "properties": {
+                                "type": "AperturePropertiesAbridged",
+                                "energy": {
+                                    "type": "ApertureEnergyPropertiesAbridged",
+                                    "vent_opening": {
+                                        "type": "VentilationOpening",
+                                        "fraction_area_operable": 1.0,
+                                        "fraction_height_operable": 1.0,
+                                        "discharge_coefficient": 0.6,
+                                        "wind_cross_vent": false,
+                                        "flow_coefficient_closed": 7.003038347329447e-05,
+                                        "flow_exponent_closed": 0.667,
+                                        "two_way_threshold": 0.0001
+                                    }
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        20.0,
+                                        2.26138721247417,
+                                        2.3215838362577492
+                                    ],
+                                    [
+                                        20.0,
+                                        2.26138721247417,
+                                        0.6784161637422509
+                                    ],
+                                    [
+                                        20.0,
+                                        7.73861278752583,
+                                        0.6784161637422509
+                                    ],
+                                    [
+                                        20.0,
+                                        7.73861278752583,
+                                        2.3215838362577492
+                                    ]
+                                ]
+                            },
+                            "is_operable": true,
+                            "boundary_condition": {
+                                "type": "Outdoors",
+                                "sun_exposure": true,
+                                "wind_exposure": true,
+                                "view_factor": {
+                                    "type": "Autocalculate"
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
                     "type": "Face",
@@ -1439,7 +1546,7 @@
                             "type": "FaceEnergyPropertiesAbridged",
                             "vent_crack": {
                                 "type": "AFNCrack",
-                                "flow_coefficient": 0.126,
+                                "flow_coefficient": 0.153,
                                 "flow_exponent": 0.75
                             }
                         }
@@ -1488,9 +1595,9 @@
                                     "type": "ApertureEnergyPropertiesAbridged",
                                     "vent_opening": {
                                         "type": "VentilationOpening",
-                                        "fraction_area_operable": 0.5,
+                                        "fraction_area_operable": 1.0,
                                         "fraction_height_operable": 1.0,
-                                        "discharge_coefficient": 0.45,
+                                        "discharge_coefficient": 0.6,
                                         "wind_cross_vent": false,
                                         "flow_coefficient_closed": 0.0014,
                                         "flow_exponent_closed": 0.65,
@@ -1502,24 +1609,24 @@
                                 "type": "Face3D",
                                 "boundary": [
                                     [
-                                        15.47722557505166,
+                                        13.872983346207416,
                                         10.0,
-                                        2.3215838362577492
+                                        2.0809475019311128
                                     ],
                                     [
-                                        15.47722557505166,
+                                        13.872983346207416,
                                         10.0,
-                                        0.6784161637422509
+                                        0.9190524980688874
                                     ],
                                     [
-                                        4.52277442494834,
+                                        6.127016653792583,
                                         10.0,
-                                        0.6784161637422509
+                                        0.9190524980688874
                                     ],
                                     [
-                                        4.52277442494834,
+                                        6.127016653792583,
                                         10.0,
-                                        2.3215838362577492
+                                        2.0809475019311128
                                     ]
                                 ]
                             },
@@ -1646,12 +1753,18 @@
                 "energy": {
                     "type": "RoomEnergyPropertiesAbridged",
                     "program_type": "Generic Office Program",
+                    "setpoint": {
+                        "type": "SetpointAbridged",
+                        "identifier": "House Setpoint",
+                        "heating_schedule": "House Heating",
+                        "cooling_schedule": "House Cooling"
+                    },
                     "window_vent_control": {
                         "type": "VentilationControlAbridged",
-                        "min_indoor_temperature": -100.0,
-                        "max_indoor_temperature": 100.0,
-                        "min_outdoor_temperature": -100.0,
-                        "max_outdoor_temperature": 100.0,
+                        "min_indoor_temperature": 22.0,
+                        "max_indoor_temperature": 27.0,
+                        "min_outdoor_temperature": 12.0,
+                        "max_outdoor_temperature": 30.0,
                         "delta_temperature": -100.0
                     }
                 }
@@ -1707,7 +1820,7 @@
                             "type": "FaceEnergyPropertiesAbridged",
                             "vent_crack": {
                                 "type": "AFNCrack",
-                                "flow_coefficient": 0.126,
+                                "flow_coefficient": 0.153,
                                 "flow_exponent": 0.75
                             }
                         }
@@ -1756,9 +1869,9 @@
                                     "type": "ApertureEnergyPropertiesAbridged",
                                     "vent_opening": {
                                         "type": "VentilationOpening",
-                                        "fraction_area_operable": 0.5,
+                                        "fraction_area_operable": 1.0,
                                         "fraction_height_operable": 1.0,
-                                        "discharge_coefficient": 0.45,
+                                        "discharge_coefficient": 0.6,
                                         "wind_cross_vent": false,
                                         "flow_coefficient_closed": 0.0014,
                                         "flow_exponent_closed": 0.65,
@@ -1770,24 +1883,24 @@
                                 "type": "Face3D",
                                 "boundary": [
                                     [
-                                        4.52277442494834,
+                                        6.127016653792583,
                                         10.0,
-                                        2.3215838362577492
+                                        2.0809475019311128
                                     ],
                                     [
-                                        4.52277442494834,
+                                        6.127016653792583,
                                         10.0,
-                                        0.6784161637422509
+                                        0.9190524980688874
                                     ],
                                     [
-                                        15.47722557505166,
+                                        13.872983346207416,
                                         10.0,
-                                        0.6784161637422509
+                                        0.9190524980688874
                                     ],
                                     [
-                                        15.47722557505166,
+                                        13.872983346207416,
                                         10.0,
-                                        2.3215838362577492
+                                        2.0809475019311128
                                     ]
                                 ]
                             },
@@ -1913,7 +2026,7 @@
                             "type": "FaceEnergyPropertiesAbridged",
                             "vent_crack": {
                                 "type": "AFNCrack",
-                                "flow_coefficient": 0.0033242924640518984,
+                                "flow_coefficient": 0.0023270047248363287,
                                 "flow_exponent": 0.65
                             }
                         }
@@ -1951,7 +2064,64 @@
                         "view_factor": {
                             "type": "Autocalculate"
                         }
-                    }
+                    },
+                    "apertures": [
+                        {
+                            "type": "Aperture",
+                            "identifier": "NorthRoom..Face4_Glz0",
+                            "display_name": "NorthRoom..Face4_Glz0",
+                            "properties": {
+                                "type": "AperturePropertiesAbridged",
+                                "energy": {
+                                    "type": "ApertureEnergyPropertiesAbridged",
+                                    "vent_opening": {
+                                        "type": "VentilationOpening",
+                                        "fraction_area_operable": 1.0,
+                                        "fraction_height_operable": 1.0,
+                                        "discharge_coefficient": 0.6,
+                                        "wind_cross_vent": false,
+                                        "flow_coefficient_closed": 7.003038347329447e-05,
+                                        "flow_exponent_closed": 0.667,
+                                        "two_way_threshold": 0.0001
+                                    }
+                                }
+                            },
+                            "geometry": {
+                                "type": "Face3D",
+                                "boundary": [
+                                    [
+                                        0.0,
+                                        17.73861278752583,
+                                        2.3215838362577492
+                                    ],
+                                    [
+                                        0.0,
+                                        17.73861278752583,
+                                        0.6784161637422509
+                                    ],
+                                    [
+                                        0.0,
+                                        12.261387212474169,
+                                        0.6784161637422509
+                                    ],
+                                    [
+                                        0.0,
+                                        12.261387212474169,
+                                        2.3215838362577492
+                                    ]
+                                ]
+                            },
+                            "is_operable": true,
+                            "boundary_condition": {
+                                "type": "Outdoors",
+                                "sun_exposure": true,
+                                "wind_exposure": true,
+                                "view_factor": {
+                                    "type": "Autocalculate"
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
                     "type": "Face",

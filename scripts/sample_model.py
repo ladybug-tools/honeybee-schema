@@ -20,6 +20,7 @@ from honeybee_energy.load.setpoint import Setpoint
 from honeybee_energy.ventcool.opening import VentilationOpening
 from honeybee_energy.ventcool.control import VentilationControl
 from honeybee_energy.ventcool import afn
+from honeybee_energy.ventcool.simulation import VentilationSimulationControl
 from honeybee_energy.hvac.allair.vav import VAV
 from honeybee_energy.hvac.doas.fcu import FCUwithDOAS
 from honeybee_energy.hvac.heatcool.windowac import WindowAC
@@ -466,21 +467,51 @@ def model_energy_window_ventilation(directory):
 
 def model_energy_afn_multizone(directory):
 
-    # South Room
+    # south Room
     szone_pts = Face3D(
         [Point3D(0, 0), Point3D(20, 0), Point3D(20, 10), Point3D(0, 10)])
     sroom = Room.from_polyface3d(
         'SouthRoom', Polyface3D.from_offset_face(szone_pts, 3))
 
-    # North Room
+    # north Room
     nzone_pts = Face3D(
         [Point3D(0, 10), Point3D(20, 10), Point3D(20, 20), Point3D(0, 20)])
     nroom = Room.from_polyface3d(
         'NorthRoom', Polyface3D.from_offset_face(nzone_pts, 3))
 
-    # Add adjacent interior windows
-    sroom[3].apertures_by_ratio(0.3)  # Window on south face
-    nroom[1].apertures_by_ratio(0.3)  # Window on north face
+    # add exterior windows on east/west faces
+    sroom[2].apertures_by_ratio(0.3)
+    nroom[4].apertures_by_ratio(0.3)
+    sroom[2].apertures[0].is_operable = True
+    nroom[4].apertures[0].is_operable = True
+
+    # add small interior windows on north/south faces
+    sroom[3].apertures_by_ratio(0.15)
+    nroom[1].apertures_by_ratio(0.15)
+    sroom[3].apertures[0].is_operable = True
+    nroom[1].apertures[0].is_operable = True
+
+    # ventilation openings
+    vent_openings = VentilationOpening(
+        fraction_area_operable=1, fraction_height_operable=1, discharge_coefficient=0.6,
+        wind_cross_vent=False, flow_coefficient_closed=0.001, flow_exponent_closed=0.667,
+        two_way_threshold=0.0001)
+
+    sroom.properties.energy.assign_ventilation_opening(vent_openings)
+    nroom.properties.energy.assign_ventilation_opening(vent_openings.duplicate())
+
+    # make ventilation control
+    heat_setpt = ScheduleRuleset.from_constant_value(
+        'House Heating', 20, schedule_types.temperature)
+    cool_setpt = ScheduleRuleset.from_constant_value(
+        'House Cooling', 28, schedule_types.temperature)
+    setpoint = Setpoint('House Setpoint', heat_setpt, cool_setpt)
+    sroom.properties.energy.setpoint = setpoint
+    nroom.properties.energy.setpoint = setpoint.duplicate()
+
+    vent_control = VentilationControl(22, 27, 12, 30)
+    sroom.properties.energy.window_vent_control = vent_control
+    nroom.properties.energy.window_vent_control = vent_control.duplicate()
 
     # rooms
     rooms = [sroom, nroom]
@@ -488,15 +519,18 @@ def model_energy_afn_multizone(directory):
         # Add program and hvac
         room.properties.energy.program_type = prog_type_lib.office_program
 
-    # Make model
+    # make model
     model = Model('Two_Zone_Simple', rooms)
+    vsc = VentilationSimulationControl(
+        vent_control_type='MultiZoneWithoutDistribution', building_type='LowRise',
+        long_axis_angle=0, aspect_ratio=1)
+    model.properties.energy.ventilation_simulation_control = vsc
 
-    # Make interior faces
+    # make interior faces
     Room.solve_adjacency(rooms, 0.01)
 
-    # Make afn
-    window_vent_controls = [VentilationControl().duplicate() for _ in rooms]
-    afn.generate(model.rooms, window_vent_controls)
+    # make afn
+    afn.generate(model.rooms)
 
     dest_file = os.path.join(directory, 'model_energy_afn.json')
     with open(dest_file, 'w') as fp:

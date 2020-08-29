@@ -50,8 +50,8 @@ class VentilationControlAbridged(NoExtraBaseModel):
         le=100,
         description='A number for the temperature differential in Celsius between '
         'indoor and outdoor below which ventilation is shut off.  This should usually '
-        'be a negative number so that ventilation only occurs when the outdoors is '
-        'cooler than the indoors. Positive numbers indicate how much hotter the '
+        'be a positive number so that ventilation only occurs when the outdoors is '
+        'cooler than the indoors. Negative numbers indicate how much hotter the '
         'outdoors can be than the indoors before ventilation is stopped.'
     )
 

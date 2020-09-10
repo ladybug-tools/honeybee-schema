@@ -129,6 +129,16 @@ class LightingAbridged(IDdEnergyBaseModel):
         'air. Default value is `0`.'
     )
 
+    baseline_watts_per_area: float = Field(
+        11.84029,
+        ge=0,
+        description='The baseline lighting power density in [W/m2] of floor area. '
+        'This baseline is useful to track how much better the installed lights are '
+        'in comparison to a standard like ASHRAE 90.1. If set to None, it will '
+        'default to 11.84029 W/m2, which is that ASHRAE 90.1-2004 baseline for '
+        'an office.'
+    )
+
     @root_validator
     def check_sum_fractions(cls, values):
         "Ensure sum is less than 1."

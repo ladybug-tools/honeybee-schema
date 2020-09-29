@@ -47,6 +47,14 @@ class Shade(IDdBaseModel):
         '(Radiance, EnergyPlus).'
     )
 
+    is_detached: bool = Field(
+        False,
+        description='Boolean to note whether this shade is detached from any of '
+        'the other geometry in the model. Cases where this should be True include '
+        'shade representing surrounding buildings or context. Note that this '
+        'should always be False for shades assigned to parent objects.'
+    )
+
 
 class DoorPropertiesAbridged(BaseModel):
 

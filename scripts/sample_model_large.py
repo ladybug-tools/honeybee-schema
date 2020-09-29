@@ -70,7 +70,7 @@ def single_family_home(directory):
     # put it all together in a Model and write out the JSON
     model = Model('Single_Family_Home', rooms=rooms, orphaned_shades=shades,
                   units='Meters', tolerance=0.01, angle_tolerance=1.0)
-    dest_file = os.path.join(directory, 'single_family_home.json')
+    dest_file = os.path.join(directory, 'single_family_home.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -127,7 +127,7 @@ def lab_building(directory):
         ap.louvers_by_count(1, 0.5, 0.0, 0.0, Vector2D(1, 0))
 
     # write the model to a JSON
-    dest_file = os.path.join(directory, 'lab_building.json')
+    dest_file = os.path.join(directory, 'lab_building.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -184,7 +184,7 @@ def urban_district(directory):
                   units='Meters', tolerance=0.01, angle_tolerance=1.0)
 
     # write the model to a JSON
-    dest_file = os.path.join(directory, 'urban_district.json')
+    dest_file = os.path.join(directory, 'urban_district.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 

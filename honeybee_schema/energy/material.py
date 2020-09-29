@@ -85,7 +85,7 @@ class EnergyMaterial(IDdEnergyBaseModel):
 
     specific_heat: float = Field(
         ...,
-        gt=0,
+        ge=100,
         description='Specific heat of the material layer in J/(kg-K).'
     )
 

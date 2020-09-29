@@ -93,7 +93,7 @@ def model_complete_single_zone_office(directory):
 
     model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
 
-    dest_file = os.path.join(directory, 'model_complete_single_zone_office.json')
+    dest_file = os.path.join(directory, 'model_complete_single_zone_office.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -138,7 +138,7 @@ def model_complete_single_zone_office_user_data(directory):
     model_dict['rooms'][0]['faces'][3]['apertures'][0]['outdoor_shades'][0]['user_data'] = \
         {'alt_name': 'Awning'}
 
-    dest_file = os.path.join(directory, 'model_complete_user_data.json')
+    dest_file = os.path.join(directory, 'model_complete_user_data.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -181,7 +181,7 @@ def model_complete_multi_zone_office(directory):
 
     model = Model('Multi_Zone_Single_Family_House', [first_floor, second_floor, attic])
 
-    dest_file = os.path.join(directory, 'model_complete_multi_zone_office.json')
+    dest_file = os.path.join(directory, 'model_complete_multi_zone_office.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -220,7 +220,7 @@ def model_complete_patient_room(directory):
 
     model = Model('Patient_Room_Test_Box', [room])
 
-    dest_file = os.path.join(directory, 'model_complete_patient_room.json')
+    dest_file = os.path.join(directory, 'model_complete_patient_room.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -250,7 +250,7 @@ def model_complete_office_floor(directory):
 
     model = Model('Core_Perimeter_Office_Floor', rooms)
 
-    dest_file = os.path.join(directory, 'model_complete_office_floor.json')
+    dest_file = os.path.join(directory, 'model_complete_office_floor.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -279,7 +279,7 @@ def model_complete_holes(directory):
 
     model = Model('Donut_Building', [room], orphaned_shades=[shd])
 
-    dest_file = os.path.join(directory, 'model_complete_holes.json')
+    dest_file = os.path.join(directory, 'model_complete_holes.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -303,7 +303,7 @@ def model_energy_shoe_box(directory):
 
     model = Model('Shoe_Box', [room])
 
-    dest_file = os.path.join(directory, 'model_energy_shoe_box.json')
+    dest_file = os.path.join(directory, 'model_energy_shoe_box.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
@@ -329,7 +329,7 @@ def model_energy_detailed_loads(directory):
     model = Model('Office_Model', [room])
 
     dest_file = os.path.join(
-        directory, 'model_energy_detailed_loads.json')
+        directory, 'model_energy_detailed_loads.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
@@ -383,7 +383,7 @@ def model_energy_fixed_interval(directory):
     model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
 
     dest_file = os.path.join(
-        directory, 'model_energy_fixed_interval.json')
+        directory, 'model_energy_fixed_interval.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
@@ -431,7 +431,7 @@ def model_energy_no_program(directory):
 
     model = Model('Tiny_House', [room], orphaned_shades=[tree_canopy])
 
-    dest_file = os.path.join(directory, 'model_energy_no_program.json')
+    dest_file = os.path.join(directory, 'model_energy_no_program.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
@@ -460,7 +460,7 @@ def model_energy_window_ventilation(directory):
 
     model = Model('TinyHouse', [room])
 
-    dest_file = os.path.join(directory, 'model_energy_window_ventilation.json')
+    dest_file = os.path.join(directory, 'model_energy_window_ventilation.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
@@ -532,7 +532,7 @@ def model_energy_afn_multizone(directory):
     # make afn
     afn.generate(model.rooms)
 
-    dest_file = os.path.join(directory, 'model_energy_afn.json')
+    dest_file = os.path.join(directory, 'model_energy_afn.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
@@ -560,7 +560,7 @@ def model_energy_allair_hvac(directory):
     Room.solve_adjacency([first_floor, second_floor], 0.01)
     model = Model('Model_Energy_Allair_HVAC', [first_floor, second_floor])
 
-    dest_file = os.path.join(directory, 'model_energy_allair_hvac.json')
+    dest_file = os.path.join(directory, 'model_energy_allair_hvac.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
@@ -586,7 +586,7 @@ def model_energy_doas_hvac(directory):
     Room.solve_adjacency([first_floor, second_floor], 0.01)
     model = Model('Model_Energy_DOAS_HVAC', [first_floor, second_floor])
 
-    dest_file = os.path.join(directory, 'model_energy_doas_hvac.json')
+    dest_file = os.path.join(directory, 'model_energy_doas_hvac.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
@@ -611,22 +611,9 @@ def model_energy_window_ac(directory):
     Room.solve_adjacency([first_floor, second_floor], 0.01)
     model = Model('Model_Energy_Window_AC', [first_floor, second_floor])
 
-    dest_file = os.path.join(directory, 'model_energy_window_ac.json')
+    dest_file = os.path.join(directory, 'model_energy_window_ac.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
-
-
-def model_energy_properties_office(directory):
-    room = Room.from_box('Closed_Office', 5, 10, 3)
-    room.properties.energy.program_type = prog_type_lib.office_program
-    room.properties.energy.add_default_ideal_air()
-
-    model = Model('Office_Test_Box', [room])
-    model_dict = model.to_dict()
-
-    dest_file = os.path.join(directory, 'model_energy_properties_office.json')
-    with open(dest_file, 'w') as fp:
-        json.dump(model_dict['properties']['energy'], fp, indent=4)
 
 
 def model_complete_multiroom_radiance(directory):
@@ -660,7 +647,7 @@ def model_complete_multiroom_radiance(directory):
 
     model = Model('Multi_Room_Radiance_House', [first_floor, second_floor, attic])
 
-    dest_file = os.path.join(directory, 'model_complete_multiroom_radiance.json')
+    dest_file = os.path.join(directory, 'model_complete_multiroom_radiance.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(), fp, indent=4)
 
@@ -690,7 +677,7 @@ def model_radiance_grid_views(directory):
     model.properties.radiance.views = [room_view]
     model.properties.radiance.add_views([garage_view])
 
-    dest_file = os.path.join(directory, 'model_radiance_grid_views.json')
+    dest_file = os.path.join(directory, 'model_radiance_grid_views.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model.to_dict(included_prop=['radiance']), fp, indent=4)
 
@@ -772,7 +759,7 @@ def model_radiance_dynamic_states(directory):
 
     model_dict = model.to_dict(included_prop=['radiance'])
 
-    dest_file = os.path.join(directory, 'model_radiance_dynamic_states.json')
+    dest_file = os.path.join(directory, 'model_radiance_dynamic_states.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model_dict, fp, indent=4)
 
@@ -792,7 +779,7 @@ def model_5vertex_sub_faces(directory):
     model = Model('TinyHouse', [room])
     model_dict = model.to_dict()
 
-    dest_file = os.path.join(directory, 'model_5vertex_sub_faces.json')
+    dest_file = os.path.join(directory, 'model_5vertex_sub_faces.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model_dict, fp, indent=4)
 
@@ -821,7 +808,7 @@ def model_5vertex_sub_faces_interior(directory):
     model = Model('TinyHouse', [room1, room2])
     model_dict = model.to_dict()
 
-    dest_file = os.path.join(directory, 'model_5vertex_sub_faces_interior.json')
+    dest_file = os.path.join(directory, 'model_5vertex_sub_faces_interior.hbjson')
     with open(dest_file, 'w') as fp:
         json.dump(model_dict, fp, indent=4)
 
@@ -843,7 +830,6 @@ model_energy_no_program(sample_directory)
 model_energy_allair_hvac(sample_directory)
 model_energy_doas_hvac(sample_directory)
 model_energy_window_ac(sample_directory)
-model_energy_properties_office(sample_directory)
 model_energy_window_ventilation(sample_directory)
 model_energy_afn_multizone(sample_directory)
 model_5vertex_sub_faces(sample_directory)

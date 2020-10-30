@@ -1,6 +1,7 @@
 """generate openapi docs."""
 from pkg_resources import get_distribution
-from honeybee_schema._openapi import get_openapi, class_mapper
+from pydantic_openapi_helper.core import get_openapi
+from pydantic_openapi_helper.inheritance import class_mapper
 from honeybee_schema.model import Model
 from honeybee_schema.energy.simulation import SimulationParameter
 from honeybee_schema.radiance.lightsource import CertainIrradiance, CIE, \
@@ -11,8 +12,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Generate OpenAPI JSON schemas')
 
-parser.add_argument('--version',
-                    help='Set the version of the new OpenAPI Schema')
+parser.add_argument('--version', help='Set the version of the new OpenAPI Schema')
 
 args = parser.parse_args()
 
@@ -42,104 +42,65 @@ info = {
     }
 }
 
-
-# generate Model open api schema
-print('Generating Model documentation...')
-
-external_docs = {
-    "description": "OpenAPI Specification with Inheritance",
-    "url": "./model_inheritance.json"
-}
-
-openapi = get_openapi(
-    [Model],
-    title='Honeybee Model Schema',
-    description='This is the documentation for Honeybee model schema.',
-    version=VERSION, info=info,
-    external_docs=external_docs)
-# set the version default key in the Model schema
-openapi['components']['schemas']['Model']['properties']['version']['default'] = VERSION
-with open('./docs/model.json', 'w') as out_file:
-    json.dump(openapi, out_file, indent=2)
-
-# with inheritance
-openapi = get_openapi(
-    [Model],
-    title='Honeybee Model Schema',
-    description='This is the documentation for Honeybee model schema.',
-    version=VERSION, info=info,
-    inheritance=True,
-    external_docs=external_docs
-)
-# set the version default key in the Model schema
-openapi['components']['schemas']['Model']['allOf'][1]['properties']['version']['default'] = VERSION
-with open('./docs/model_inheritance.json', 'w') as out_file:
-    json.dump(openapi, out_file, indent=2)
-
-# add the mapper file
-with open('./docs/model_mapper.json', 'w') as out_file:
-    json.dump(class_mapper([Model]), out_file, indent=2)
-
-# generate SimulationParameter open api schema
-print('Generating Energy Simulation Parameter documentation...')
-
-external_docs = {
-    "description": "OpenAPI Specification with Inheritance",
-    "url": "./simulation-parameter_inheritance.json"
-}
-
-openapi = get_openapi(
-    [SimulationParameter],
-    title='Honeybee Energy Simulation Parameter Schema',
-    description='This is the documentation for Honeybee energy simulation parameter schema.',
-    version=VERSION, info=info,
-    external_docs=external_docs)
-with open('./docs/simulation-parameter.json', 'w') as out_file:
-    json.dump(openapi, out_file, indent=2)
-
-openapi = get_openapi(
-    [SimulationParameter],
-    title='Honeybee Energy Simulation Parameter Schema',
-    description='This is the documentation for Honeybee energy simulation parameter schema.',
-    version=VERSION, inheritance=True, info=info,
-    external_docs=external_docs
-)
-with open('./docs/simulation-parameter_inheritance.json', 'w') as out_file:
-    json.dump(openapi, out_file, indent=2)
-
-# add the mapper file
-with open('./docs/simulation-parameter_mapper.json', 'w') as out_file:
-    json.dump(class_mapper([SimulationParameter]), out_file, indent=2)
+modules = [
+    {'module': [Model], 'name': 'Model'},
+    {'module': [SimulationParameter], 'name': 'Simulation Parameter'},
+    {
+        'module': [CertainIrradiance, CIE, ClimateBased, SunMatrix, SkyMatrix],
+        'name': 'Radiance Asset'
+    }
+]
 
 
-# generate Radiance Asset open api schema
-print('Generating Radiance Asset documentation...')
+def _process_name(name):
+    """Process module name."""
+    new_name = '-'.join(n.lower() for n in name.split())
+    return new_name
 
-external_docs = {
-    "description": "OpenAPI Specification with Inheritance",
-    "url": "./radiance-asset_inheritance.json"
-}
 
-openapi = get_openapi(
-    [CertainIrradiance, CIE, ClimateBased, SunMatrix, SkyMatrix],
-    title='Honeybee Radiance Asset Schema',
-    description='This is the documentation for Honeybee Radiance Asset schema.',
-    version=VERSION, info=info,
-    external_docs=external_docs)
-with open('./docs/radiance-asset.json', 'w') as out_file:
-    json.dump(openapi, out_file, indent=2)
+for module in modules:
+    # generate Recipe open api schema
+    print(f'Generating {module["name"]} documentation...')
 
-openapi = get_openapi(
-    [CertainIrradiance, CIE, ClimateBased, SunMatrix, SkyMatrix],
-    title='Honeybee Radiance Asset Schema',
-    description='This is the documentation for Honeybee Radiance Asset Schema.',
-    version=VERSION, inheritance=True, info=info,
-    external_docs=external_docs
-)
-with open('./docs/radiance-asset_inheritance.json', 'w') as out_file:
-    json.dump(openapi, out_file, indent=2)
+    external_docs = {
+        "description": "OpenAPI Specification with Inheritance",
+        "url": f"./{_process_name(module['name'])}_inheritance.json"
+    }
 
-# add the mapper file
-with open('./docs/radiance-asset_mapper.json', 'w') as out_file:
-    json.dump(class_mapper([CertainIrradiance, CIE, ClimateBased,
-                            SunMatrix, SkyMatrix]), out_file, indent=2)
+    openapi = get_openapi(
+        module['module'],
+        title=f'Honeybee {module["name"]} Schema',
+        description=f'Honeybee {_process_name(module["name"])} schema.',
+        version=VERSION, info=info,
+        external_docs=external_docs
+    )
+
+    # set the version default key in the Model schema
+    if module['module'] is Model:
+        openapi['components']['schemas']['Model']['properties']['version']['default'] = \
+            VERSION
+    with open(f'./docs/{_process_name(module["name"])}.json', 'w') as out_file:
+        json.dump(openapi, out_file, indent=2)
+
+    # with inheritance
+    openapi = get_openapi(
+        module['module'],
+        title=f'Honeybee {module["name"]} Schema',
+        description=f'Documentation for Honeybee {_process_name(module["name"])} schema',
+        version=VERSION, info=info,
+        inheritance=True,
+        external_docs=external_docs
+    )
+
+    # set the version default key in the Recipe schema
+    if module['module'] is Model:
+        openapi['components']['schemas']['Model']['properties']['version']['default'] = \
+            VERSION
+
+    with open(f'./docs/{_process_name(module["name"])}_inheritance.json', 'w') \
+            as out_file:
+        json.dump(openapi, out_file, indent=2)
+
+    # add the mapper file
+    with open(f'./docs/{_process_name(module["name"])}_mapper.json', 'w') as out_file:
+        json.dump(class_mapper(module['module']), out_file, indent=2)

@@ -36,7 +36,7 @@
                     },
                     {
                         "path": "docs/simulation-parameter_mapper.json",
-                        "label": "Simulation parameters schema mapper"
+                        "label": "Energy simulation parameters schema mapper"
                     },
                     {
                         "path": "docs/radiance-asset_mapper.json",

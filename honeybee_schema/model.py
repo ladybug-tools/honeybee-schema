@@ -1,4 +1,5 @@
 """Model schema and the 5 geometry objects that define it."""
+from pkg_resources import get_distribution
 from pydantic import BaseModel, Field, validator, root_validator, constr
 from typing import List, Union
 from enum import Enum
@@ -328,15 +329,16 @@ class ModelProperties(BaseModel):
     )
 
 
+def _get_honeybee_schema_version():
+    return '.'.join(get_distribution('honeybee_schema').version.split('.')[:3])
+
+
 class Model(IDdBaseModel):
 
     type: constr(regex='^Model$') = 'Model'
 
-    version: str = Field(
-        default='0.0.0',
-        regex=r'([0-9]+)\.([0-9]+)\.([0-9]+)',
-        description='Text string for the current version of the schema.'
-    )
+    version: constr(regex=f'^{_get_honeybee_schema_version()}$') = \
+        _get_honeybee_schema_version()
 
     rooms: List[Room] = Field(
         default=None,

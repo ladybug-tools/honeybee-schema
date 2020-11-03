@@ -75,10 +75,11 @@ for module in modules:
         external_docs=external_docs
     )
 
-    # set the version default key in the Model schema
-    if module['module'] is Model:
-        openapi['components']['schemas']['Model']['properties']['version']['default'] = \
-            VERSION
+    # Make Model version read-only
+    if module['module'][0] is Model:
+        model_object = openapi['components']['schemas']['Model']
+        model_object['properties']['version']['readOnly'] = True
+
     with open(f'./docs/{_process_name(module["name"])}.json', 'w') as out_file:
         json.dump(openapi, out_file, indent=2)
 
@@ -93,9 +94,9 @@ for module in modules:
     )
 
     # set the version default key in the Recipe schema
-    if module['module'] is Model:
-        openapi['components']['schemas']['Model']['properties']['version']['default'] = \
-            VERSION
+    if module['module'][0] is Model:
+        model_object = openapi['components']['schemas']['Model']
+        model_object['allOf'][1]['properties']['version']['readOnly'] = True
 
     with open(f'./docs/{_process_name(module["name"])}_inheritance.json', 'w') \
             as out_file:

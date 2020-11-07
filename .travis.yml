@@ -28,7 +28,6 @@ jobs:
     script:
     - git config --global user.email "releases@ladybug.tools"
     - git config --global user.name "ladybugbot"
-    - pip install -U .
     - npx semantic-release
   - stage: docs
     if: tag IS present

@@ -79,6 +79,7 @@ for module in modules:
     if module['module'][0] is Model:
         model_object = openapi['components']['schemas']['Model']
         model_object['properties']['version']['readOnly'] = True
+        model_object['properties']['version']['default'] = VERSION
 
     with open(f'./docs/{_process_name(module["name"])}.json', 'w') as out_file:
         json.dump(openapi, out_file, indent=2)
@@ -97,6 +98,7 @@ for module in modules:
     if module['module'][0] is Model:
         model_object = openapi['components']['schemas']['Model']
         model_object['allOf'][1]['properties']['version']['readOnly'] = True
+        model_object['allOf'][1]['properties']['version']['default'] = VERSION
 
     with open(f'./docs/{_process_name(module["name"])}_inheritance.json', 'w') \
             as out_file:

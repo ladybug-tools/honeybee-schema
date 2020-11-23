@@ -1,1 +1,1 @@
-pydantic-openapi-helper==0.2.1
+pydantic-openapi-helper==0.2.2

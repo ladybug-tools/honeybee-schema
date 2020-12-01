@@ -82,7 +82,6 @@ class PSZEquipmentType(str, Enum):
     psz_ac = 'PSZ-AC with no heat'
     psz_dcw_e_base = 'PSZ-AC district chilled water with baseboard electric'
     psz_dcw_gb_base = 'PSZ-AC district chilled water with baseboard gas boiler'
-    psz_dcw_dhw_base = 'PSZ-AC district chilled water with baseboard district hot water'
     psz_dcw_guh = 'PSZ-AC district chilled water with gas unit heaters'
     psz_dcw_ec = 'PSZ-AC district chilled water with electric coil'
     psz_dcw_gc = 'PSZ-AC district chilled water with gas coil'

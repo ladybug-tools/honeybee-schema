@@ -107,3 +107,28 @@ for module in modules:
     # add the mapper file
     with open(f'./docs/{_process_name(module["name"])}_mapper.json', 'w') as out_file:
         json.dump(class_mapper(module['module']), out_file, indent=2)
+
+# generate JSONSchema for Honeybee model
+with open('./docs/model_json_schema.json', 'w') as out_file:
+    out_file.write(Model.schema_json(indent=2))
+
+# generate schema for mode with inheritance but without descriminator
+# we will use this file for generating redocly - the full model is too big, and the
+# model with inheritance and discriminators is renders incorrectly
+external_docs = {
+    "description": "OpenAPI Specification with Inheritance",
+    "url": "./model_inheritance.json"
+}
+
+openapi = get_openapi(
+    [Model],
+    title='Honeybee Model Schema',
+    description='Documentation for Honeybee model schema',
+    version=VERSION, info=info,
+    inheritance=True,
+    external_docs=external_docs,
+    add_discriminator=False
+)
+
+with open('./docs/model_redoc.json', 'w') as out_file:
+    json.dump(openapi, out_file, indent=2)

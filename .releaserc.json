@@ -41,6 +41,10 @@
                     {
                         "path": "docs/radiance-asset_mapper.json",
                         "label": "Radiance simulation asset schema mapper"
+                    },
+                    {
+                        "path": "docs/model_json_schema.json",
+                        "label": "Model JSONSchema"
                     }
                 ]
             }

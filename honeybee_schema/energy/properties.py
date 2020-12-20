@@ -14,7 +14,8 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
 from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
-    GasEquipmentAbridged, InfiltrationAbridged, VentilationAbridged, SetpointAbridged
+    GasEquipmentAbridged, ServiceHotWaterAbridged, InfiltrationAbridged, \
+    VentilationAbridged, SetpointAbridged
 from .ventcool import VentilationControlAbridged, VentilationOpening, \
     VentilationSimulationControl, AFNCrack
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
@@ -166,6 +167,11 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
     gas_equipment: GasEquipmentAbridged = Field(
         default=None,
         description='GasEquipment object to describe the gas equipment usage.'
+    )
+
+    service_hot_water: ServiceHotWaterAbridged = Field(
+        default=None,
+        description='ServiceHotWater object to describe the hot water usage.'
     )
 
     infiltration: InfiltrationAbridged = Field(

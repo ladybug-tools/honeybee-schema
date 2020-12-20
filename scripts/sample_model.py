@@ -16,7 +16,9 @@ from honeybee_energy.construction.shade import ShadeConstruction
 from honeybee_energy.material.opaque import EnergyMaterial
 from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
+from honeybee_energy.schedule.day import ScheduleDay
 from honeybee_energy.load.setpoint import Setpoint
+from honeybee_energy.load.hotwater import  ServiceHotWater
 from honeybee_energy.ventcool.opening import VentilationOpening
 from honeybee_energy.ventcool.control import VentilationControl
 from honeybee_energy.ventcool import afn
@@ -38,6 +40,7 @@ from honeybee_radiance.modifier.material import Glass, Plastic, Trans
 from honeybee_radiance.dynamic import RadianceShadeState, RadianceSubFaceState, \
     StateGeometry
 
+from ladybug.dt import Time
 from ladybug_geometry.geometry3d.pointvector import Point3D, Vector3D
 from ladybug_geometry.geometry3d.plane import Plane
 from ladybug_geometry.geometry3d.face import Face3D
@@ -465,8 +468,25 @@ def model_energy_window_ventilation(directory):
         json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
 
 
-def model_energy_afn_multizone(directory):
 
+def model_energy_service_hot_water(directory):
+    room = Room.from_box('TinyHouseZone', 5, 10, 3)
+    room.properties.energy.program_type = prog_type_lib.office_program
+    simple_office = ScheduleDay('Simple Weekday', [0, 1, 0],
+                                [Time(0, 0), Time(9, 0), Time(17, 0)])
+    schedule = ScheduleRuleset('Office Water Use', simple_office,
+                               None, schedule_types.fractional)
+    shw = ServiceHotWater('Office Hot Water', 0.1, schedule)
+    room.properties.energy.service_hot_water = shw
+    room.properties.energy.add_default_ideal_air()
+    model = Model('TinyHouse', [room])
+
+    dest_file = os.path.join(directory, 'model_energy_service_hot_water.hbjson')
+    with open(dest_file, 'w') as fp:
+        json.dump(model.to_dict(included_prop=['energy']), fp, indent=4)
+
+
+def model_energy_afn_multizone(directory):
     # south Room
     szone_pts = Face3D(
         [Point3D(0, 0), Point3D(20, 0), Point3D(20, 10), Point3D(0, 10)])
@@ -831,6 +851,7 @@ model_energy_allair_hvac(sample_directory)
 model_energy_doas_hvac(sample_directory)
 model_energy_window_ac(sample_directory)
 model_energy_window_ventilation(sample_directory)
+model_energy_service_hot_water(sample_directory)
 model_energy_afn_multizone(sample_directory)
 model_5vertex_sub_faces(sample_directory)
 model_5vertex_sub_faces_interior(sample_directory)

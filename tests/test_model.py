@@ -72,6 +72,11 @@ def test_model_energy_afn():
     Model.parse_file(file_path)
 
 
+def test_model_energy_service_hot_water():
+    file_path = os.path.join(target_folder, 'model_energy_service_hot_water.hbjson')
+    Model.parse_file(file_path)
+
+
 def test_model_energy_allair_hvac():
     file_path = os.path.join(target_folder, 'model_energy_allair_hvac.hbjson')
     Model.parse_file(file_path)

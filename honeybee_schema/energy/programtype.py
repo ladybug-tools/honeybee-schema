@@ -3,9 +3,10 @@ from pydantic import Field, constr
 
 from ._base import IDdEnergyBaseModel
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
-    GasEquipmentAbridged, InfiltrationAbridged, VentilationAbridged, SetpointAbridged, \
-    People, Lighting, ElectricEquipment, GasEquipment, Infiltration, Ventilation, \
-    Setpoint
+    GasEquipmentAbridged, ServiceHotWaterAbridged, \
+    InfiltrationAbridged, VentilationAbridged, SetpointAbridged, \
+    People, Lighting, ElectricEquipment, GasEquipment, ServiceHotWater, \
+    Infiltration, Ventilation, Setpoint
 
 
 class ProgramTypeAbridged(IDdEnergyBaseModel):
@@ -34,6 +35,12 @@ class ProgramTypeAbridged(IDdEnergyBaseModel):
         default=None,
         description='GasEquipment to describe the usage of gas equipment '
         'within the program. If None, no gas equipment will be assumed.'
+    )
+
+    service_hot_water: ServiceHotWaterAbridged = Field(
+        default=None,
+        description='ServiceHotWater object to describe the usage of hot water '
+        'within the program. If None, no hot water will be assumed.'
     )
 
     infiltration: InfiltrationAbridged = Field(
@@ -82,6 +89,12 @@ class ProgramType(ProgramTypeAbridged):
         default=None,
         description='GasEquipment to describe the usage of gas equipment '
         'within the program. If None, no gas equipment will be assumed.'
+    )
+
+    service_hot_water: ServiceHotWater = Field(
+        default=None,
+        description='ServiceHotWater object to describe the usage of hot water '
+        'within the program. If None, no hot water will be assumed.'
     )
 
     infiltration: Infiltration = Field(

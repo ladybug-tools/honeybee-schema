@@ -253,6 +253,76 @@ class GasEquipment(GasEquipmentAbridged):
     )
 
 
+class ServiceHotWaterAbridged(IDdEnergyBaseModel):
+
+    type: constr(regex='^ServiceHotWaterAbridged$') = 'ServiceHotWaterAbridged'
+
+    flow_per_area: float = Field(
+        ...,
+        ge=0,
+        description='Number for the total volume flow rate of water per unit area '
+        'of floor [L/h-m2].'
+    )
+
+    schedule: str = Field(
+        ...,
+        min_length=1,
+        max_length=100,
+        description='Identifier of the schedule for the hot water use over the course '
+        'of the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the flow_per_area to yield a '
+        'complete water usage profile.'
+    )
+
+    target_temperature: float = Field(
+        60,
+        gt=0,
+        description='Number for the target temperature of water out of the tap (C). '
+        'This the temperature after hot water has been mixed with cold water '
+        'from the water mains. The default is 60C, which essentially assumes that the '
+        'flow_per_area on this object is only for water straight out of the '
+        'water heater.'
+    )
+
+    sensible_fraction: float = Field(
+        0.2,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 for the fraction of the total hot water '
+        'load given off as sensible heat in the zone.'
+    )
+
+    latent_fraction: float = Field(
+        0.05,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 for the fraction of the total hot '
+        'water load that is latent.'
+    )
+
+    @root_validator
+    def check_sum_fractions(cls, values):
+        "Ensure sum is less than 1."
+        sens = values.get('sensible_fraction')
+        lat = values.get('latent_fraction')
+        assert sum((sens, lat)) <= 1, \
+            'Sum of sensible and latent fractions cannot be greater than 1.'
+        return values
+
+
+class ServiceHotWater(ServiceHotWaterAbridged):
+
+    type: constr(regex='^ServiceHotWater$') = 'ServiceHotWater'
+
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='The schedule for the use of hot water over the course of '
+        'the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the flow_per_area to yield a '
+        'complete water usage profile.'
+    )
+
+
 class InfiltrationAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^InfiltrationAbridged$') = 'InfiltrationAbridged'

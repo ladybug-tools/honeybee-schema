@@ -30,35 +30,35 @@ class _DOASBase(_TemplateSystem):
 
 
 class FCUwithDOASEquipmentType(str, Enum):
-    fcu_chill_gb = 'DOAS with fan coil chiller with boiler'
-    fcu_chill_ashp = 'DOAS with fan coil chiller with central air source heat pump'
-    fcu_chill_dhw = 'DOAS with fan coil chiller with district hot water'
-    fcu_chill_base = 'DOAS with fan coil chiller with baseboard electric'
-    fcu_chill_guh = 'DOAS with fan coil chiller with gas unit heaters'
-    fcu_chill = 'DOAS with fan coil chiller with no heat'
-    fcu_ac_chill_gb = 'DOAS with fan coil air-cooled chiller with boiler'
-    fcu_ac_chill_ashp = 'DOAS with fan coil air-cooled chiller with central air source heat pump'
-    fcu_ac_chill_dhw = 'DOAS with fan coil air-cooled chiller with district hot water'
-    fcu_ac_chill_base = 'DOAS with fan coil air-cooled chiller with baseboard electric'
-    fcu_ac_chill_guh = 'DOAS with fan coil air-cooled chiller with gas unit heaters'
-    fcu_ac_chill = 'DOAS with fan coil air-cooled chiller with no heat'
-    fcu_dcw_gb = 'DOAS with fan coil district chilled water with boiler'
-    fcu_dcw_ashp = 'DOAS with fan coil district chilled water with central air source heat pump'
-    fcu_dcw_dhw = 'DOAS with fan coil district chilled water with district hot water'
-    fcu_dcw_base = 'DOAS with fan coil district chilled water with baseboard electric'
-    fcu_dcw_guh = 'DOAS with fan coil district chilled water with gas unit heaters'
-    fcu_dcw = 'DOAS with fan coil district chilled water with no heat'
+    fcu_chill_gb = 'DOAS_FCU_Chiller_Boiler'
+    fcu_chill_ashp = 'DOAS_FCU_Chiller_ASHP'
+    fcu_chill_dhw = 'DOAS_FCU_Chiller_DHW'
+    fcu_chill_base = 'DOAS_FCU_Chiller_ElectricBaseboard'
+    fcu_chill_guh = 'DOAS_FCU_Chiller_GasHeaters'
+    fcu_chill = 'DOAS_FCU_Chiller'
+    fcu_ac_chill_gb = 'DOAS_FCU_ACChiller_Boiler'
+    fcu_ac_chill_ashp = 'DOAS_FCU_ACChiller_ASHP'
+    fcu_ac_chill_dhw = 'DOAS_FCU_ACChiller_DHW'
+    fcu_ac_chill_base = 'DOAS_FCU_ACChiller_ElectricBaseboard'
+    fcu_ac_chill_guh = 'DOAS_FCU_ACChiller_GasHeaters'
+    fcu_ac_chill = 'DOAS_FCU_ACChiller'
+    fcu_dcw_gb = 'DOAS_FCU_DCW_Boiler'
+    fcu_dcw_ashp = 'DOAS_FCU_DCW_ASHP'
+    fcu_dcw_dhw = 'DOAS_FCU_DCW_DHW'
+    fcu_dcw_base = 'DOAS_FCU_DCW_ElectricBaseboard'
+    fcu_dcw_guh = 'DOAS_FCU_DCW_GasHeaters'
+    fcu_dcw = 'DOAS_FCU_DCW'
 
 
 class WSHPwithDOASEquipmentType(str, Enum):
-    wshp_fc_gb = 'DOAS with water source heat pumps fluid cooler with boiler'
-    wshp_ct_gb = 'DOAS with water source heat pumps cooling tower with boiler'
-    wshp_gshp = 'DOAS with water source heat pumps with ground source heat pump'
-    wshp_dcw_dhw = 'DOAS with water source heat pumps district chilled water with district hot water'
+    wshp_fc_gb = 'DOAS_WSHP_FluidCooler_Boiler'
+    wshp_ct_gb = 'DOAS_WSHP_CoolingTower_Boiler'
+    wshp_gshp = 'DOAS_WSHP_GSHP'
+    wshp_dcw_dhw = 'DOAS_WSHP_DCW_DHW'
 
 
 class VRFwithDOASEquipmentType(str, Enum):
-    vrf = 'DOAS with VRF'
+    vrf = 'DOAS_VRF'
 
 
 class FCUwithDOAS(_DOASBase):

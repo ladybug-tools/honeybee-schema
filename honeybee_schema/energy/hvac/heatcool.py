@@ -10,70 +10,70 @@ class _HeatCoolBase(_TemplateSystem):
 
 
 class FCUEquipmentType(str, Enum):
-    fcu_chill_gb = 'Fan coil chiller with boiler'
-    fcu_chill_ashp = 'Fan coil chiller with central air source heat pump'
-    fcu_chill_dhw = 'Fan coil chiller with district hot water'
-    fcu_chill_base = 'Fan coil chiller with baseboard electric'
-    fcu_chill_guh = 'Fan coil chiller with gas unit heaters'
-    fcu_chill = 'Fan coil chiller with no heat'
-    fcu_ac_chill_gb = 'Fan coil air-cooled chiller with boiler'
-    fcu_ac_chill_ashp = 'Fan coil air-cooled chiller with central air source heat pump'
-    fcu_ac_chill_dhw = 'Fan coil air-cooled chiller with district hot water'
-    fcu_ac_chill_base = 'Fan coil air-cooled chiller with baseboard electric'
-    fcu_ac_chill_guh = 'Fan coil air-cooled chiller with gas unit heaters'
-    fcu_ac_chill = 'Fan coil air-cooled chiller with no heat'
-    fcu_dcw_gb = 'Fan coil district chilled water with boiler'
-    fcu_dcw_ashp = 'Fan coil district chilled water with central air source heat pump'
-    fcu_dcw_dhw = 'Fan coil district chilled water with district hot water'
-    fcu_dcw_base = 'Fan coil district chilled water with baseboard electric'
-    fcu_dcw_guh = 'Fan coil district chilled water with gas unit heaters'
-    fcu_dcw = 'Fan coil district chilled water with no heat'
+    fcu_chill_gb = 'FCU_Chiller_Boiler'
+    fcu_chill_ashp = 'FCU_Chiller_ASHP'
+    fcu_chill_dhw = 'FCU_Chiller_DHW'
+    fcu_chill_base = 'FCU_Chiller_ElectricBaseboard'
+    fcu_chill_guh = 'FCU_Chiller_GasHeaters'
+    fcu_chill = 'FCU_Chiller'
+    fcu_ac_chill_gb = 'FCU_ACChiller_Boiler'
+    fcu_ac_chill_ashp = 'FCU_ACChiller_ASHP'
+    fcu_ac_chill_dhw = 'FCU_ACChiller_DHW'
+    fcu_ac_chill_base = 'FCU_ACChiller_ElectricBaseboard'
+    fcu_ac_chill_guh = 'FCU_ACChiller_GasHeaters'
+    fcu_ac_chill = 'FCU_ACChiller'
+    fcu_dcw_gb = 'FCU_DCW_Boiler'
+    fcu_dcw_ashp = 'FCU_DCW_ASHP'
+    fcu_dcw_dhw = 'FCU_DCW_DHW'
+    fcu_dcw_base = 'FCU_DCW_ElectricBaseboard'
+    fcu_dcw_guh = 'FCU_DCW_GasHeaters'
+    fcu_dcw = 'FCU_DCW'
 
 
 class BaseboardEquipmentType(str, Enum):
-    e_base = 'Baseboard electric'
-    gb_base = 'Baseboard gas boiler'
-    ashp_base = 'Baseboard central air source heat pump'
-    dhw_base = 'Baseboard district hot water'
+    e_base = 'ElectricBaseboard'
+    gb_base = 'BoilerBaseboard'
+    ashp_base = 'ASHPBaseboard'
+    dhw_base = 'DHWBaseboard'
 
 
 class EvaporativeCoolerEquipmentType(str, Enum):
-    evap_e_base = 'Direct evap coolers with baseboard electric'
-    evap_gb_base = 'Direct evap coolers with baseboard gas boiler'
-    evap_ashp_base = 'Direct evap coolers with baseboard central air source heat pump'
-    evap_dhw_base = 'Direct evap coolers with baseboard district hot water'
-    evap_furnace = 'Direct evap coolers with forced air furnace'
-    evap_guh = 'Direct evap coolers with gas unit heaters'
-    evap = 'Direct evap coolers with no heat'
+    evap_e_base = 'EvapCoolers_ElectricBaseboard'
+    evap_gb_base = 'EvapCoolers_BoilerBaseboard'
+    evap_ashp_base = 'EvapCoolers_ASHPBaseboard'
+    evap_dhw_base = 'EvapCoolers_DHWBaseboard'
+    evap_furnace = 'EvapCoolers_Furnace'
+    evap_guh = 'EvapCoolers_UnitHeaters'
+    evap = 'EvapCoolers'
 
 
 class WSHPEquipmentType(str, Enum):
-    wshp_fc_gb = 'Water source heat pumps fluid cooler with boiler'
-    wshp_ct_gb = 'Water source heat pumps cooling tower with boiler'
-    wshp_gshp = 'Water source heat pumps with ground source heat pump'
-    wshp_dcw_dhw = 'Water source heat pumps district chilled water with district hot water'
+    wshp_fc_gb = 'WSHP_FluidCooler_Boiler'
+    wshp_ct_gb = 'WSHP_CoolingTower_Boiler'
+    wshp_gshp = 'WSHP_GSHP'
+    wshp_dcw_dhw = 'WSHP_DCW_DHW'
 
 
 class ResidentialEquipmentType(str, Enum):
-    res_ac_e_base = 'Residential AC with baseboard electric'
-    res_ac_gb_base = 'Residential AC with baseboard gas boiler'
-    res_ac_ashp_base = 'Residential AC with baseboard central air source heat pump'
-    res_ac_dhw_base = 'Residential AC with baseboard district hot water'
-    res_ac_furnace = 'Residential AC with residential forced air furnace'
-    res_ac = 'Residential AC with no heat'
-    res_hp = 'Residential heat pump'
-    res_hp_no_cool = 'Residential heat pump with no cooling'
-    res_furnace = 'Residential forced air furnace'
+    res_ac_e_base = 'ResidentialAC_ElectricBaseboard'
+    res_ac_gb_base = 'ResidentialAC_BoilerBaseboard'
+    res_ac_ashp_base = 'ResidentialAC_ASHPBaseboard'
+    res_ac_dhw_base = 'ResidentialAC_DHWBaseboard'
+    res_ac_furnace = 'ResidentialAC_ResidentialFurnace'
+    res_ac = 'ResidentialAC'
+    res_hp = 'ResidentialHP'
+    res_hp_no_cool = 'ResidentialHPNoCool'
+    res_furnace = 'ResidentialFurnace'
 
 
 class WindowACEquipmentType(str, Enum):
-    win_ac_e_base = 'Window AC with baseboard electric'
-    win_ac_gb_base = 'Window AC with baseboard gas boiler'
-    win_ac_ashp_base = 'Window AC with baseboard central air source heat pump'
-    win_ac_dhw_base = 'Window AC with baseboard district hot water'
-    win_ac_furnace = 'Window AC with forced air furnace'
-    win_ac_guh = 'Window AC with unit heaters'
-    win_ac = 'Window AC with no heat'
+    win_ac_e_base = 'WindowAC_ElectricBaseboard'
+    win_ac_gb_base = 'WindowAC_BoilerBaseboard'
+    win_ac_ashp_base = 'WindowAC_ASHPBaseboard'
+    win_ac_dhw_base = 'WindowAC_DHWBaseboard'
+    win_ac_furnace = 'WindowAC_Furnace'
+    win_ac_guh = 'WindowAC_GasHeaters'
+    win_ac = 'WindowAC'
 
 
 class VRFEquipmentType(str, Enum):
@@ -81,7 +81,7 @@ class VRFEquipmentType(str, Enum):
 
 
 class GasUnitHeaterEquipmentType(str, Enum):
-    guh = 'Gas unit heaters'
+    guh = 'GasHeaters'
 
 
 class FCU(_HeatCoolBase):

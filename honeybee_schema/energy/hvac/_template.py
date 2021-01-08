@@ -6,12 +6,12 @@ from .._base import IDdEnergyBaseModel
 
 
 class Vintages(str, Enum):
-    ashrae_2013 = '90.1-2013'
-    ashrae_2010 = '90.1-2010'
-    ashrae_2007 = '90.1-2007'
-    ashrae_2004 = '90.1-2004'
-    doe_ref_1980_2004 = 'DOE Ref 1980-2004'
-    doe_ref_pre_1980 = 'DOE Ref Pre-1980'
+    ashrae_2013 = 'ASHRAE_2013'
+    ashrae_2010 = 'ASHRAE_2010'
+    ashrae_2007 = 'ASHRAE_2007'
+    ashrae_2004 = 'ASHRAE_2004'
+    doe_ref_1980_2004 = 'DOE_Ref_1980_2004'
+    doe_ref_pre_1980 = 'DOE_Ref_Pre_1980'
 
 
 class _TemplateSystem(IDdEnergyBaseModel):

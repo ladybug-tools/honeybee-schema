@@ -1,5 +1,5 @@
 """SensorGrid and Sensor Schema"""
-from pydantic import Field, constr, validator
+from pydantic import Field, constr
 from typing import List
 from enum import Enum
 from ..geometry import Mesh3D, Face3D
@@ -75,6 +75,14 @@ class SensorGrid(_RadianceAsset):
         'There are no restrictions on how this property relates to the sensors and it '
         'is provided only to assist with the display of the grid when the number '
         'of sensors or the mesh is too large to be practically visualized.'
+    )
+
+    group_identifier: str = Field(
+        default=None,
+        description="An optional string to note the sensor grid group ' \
+            'to which the sensor is a part of. Grids sharing the same ' \
+            'group_identifier will be written to the same subfolder in Radiance ' \
+            'folder (default: None)."
     )
 
 
@@ -172,4 +180,12 @@ class View(_RadianceAsset):
         'direction for perspective and parallel view types. For fisheye '
         'view types, the clipping plane is actually a clipping sphere, '
         'centered on the view point with radius val.'
+    )
+
+    group_identifier: str = Field(
+        default=None,
+        description="An optional string to note the view group ' \
+            'to which the sensor is a part of. Views sharing the same ' \
+            'group_identifier will be written to the same subfolder in Radiance ' \
+            'folder (default: None)."
     )

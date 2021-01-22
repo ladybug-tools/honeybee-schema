@@ -86,7 +86,7 @@ jobs:
           pip install -r dev-requirements.txt
       - name: generate docs
         run: |
-          python docs.py --version $(echo $VERSION | sed 's/v//')
+          python docs.py --version $VERSION
           redoc-cli bundle ./docs/model_redoc.json -o ./docs/model.html
         env:
           VERSION: ${{ github.event.release.tag_name }}

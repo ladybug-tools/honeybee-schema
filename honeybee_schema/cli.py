@@ -10,10 +10,11 @@ except ImportError:
 import sys
 import logging
 import json
-import os
 import importlib
+from inspect import getmembers, isfunction
+import pkgutil
 
-import honeybee_schema.updater
+from honeybee_schema import updater
 
 
 @click.group()
@@ -48,47 +49,60 @@ def update_model(model_json, version, output_file):
         up_version = (999, 999, 999) if version is None else \
             tuple(int(v) for v in version.split('.'))
 
-        # build an array of all versions to date with breaking changes
-        root_dir = os.path.join(os.path.dirname(__file__), 'updater')
-        modules = os.listdir(root_dir)
-        modules = [os.path.join(root_dir, mod) for mod in modules]
-        updaters = ['.{}'.format(os.path.basename(f)[:-3]) for f in modules
-                    if os.path.isfile(f) and f.endswith('.py')
-                    and not f.endswith('__init__.py')
-                    and not f.endswith('base.py')]
-        versions = [tuple(int(v) for v in mod.split('_')[-3:]) for mod in updaters]
-
         # load the model dictionary from the json file and get the version of it
         with open(model_json) as json_file:
             model_dict = json.load(json_file)
         assert 'version' in model_dict, 'No version was found in the input model ' \
             'JSON. Update process cannot be run.'
+        print(f'Input model version: {model_dict["version"]}', file=sys.stderr)
         model_version = tuple(int(v) for v in model_dict['version'].split('.'))
 
-        # figure out which update modules need to run and import them
-        update_functions, update_vers = [], []
-        for mod, ver in zip(updaters, versions):
-            if ver < up_version and model_version < ver:
-                importlib.import_module(mod, 'honeybee_schema.updater')
-                update_vers.append(ver)
-                update_functions.append('version_{}_{}_{}'.format(*ver))
-        func_mapper = {}
-        base_state = 'getattr(subpackage.{0}, "{0}")'
-        for func in update_functions:
-            statement = base_state.format(func)
-            namespace = {'subpackage': honeybee_schema.updater}
-            func_mapper[func] = eval(statement, namespace)
+        if model_version >= up_version:
+            # no point for updating. Normally we should assert here but by writing
+            # the same file to a new file we make this command more flexible for cases
+            # that we don't know the version for the input model and we want to update
+            # it just in case.
+            mv = '.'.join(map(str, model_version))
+            uv = '.'.join(map(str, up_version))
+            print(
+                f'The input file has a higher version ({mv}) than the tagert version'
+                f' ({uv}).', file=sys.stderr
+            )
+            output_file.write(json.dumps(model_dict))
+            # let's consider exporting the same file as success
+            sys.exit(0)
 
-        # execute the update modules on the Model dictionary to update it
-        update_vers, update_functions = zip(*sorted(zip(update_vers, update_functions)))
-        statement = 'update_funct(model_dict)'
-        for up_func in update_functions:
-            namespace = {'update_funct': func_mapper[up_func], 'model_dict': model_dict}
-            model_dict = eval(statement, namespace)
+        # get functions with a higher version than model_version
+        updaters = []
+
+        for sub_module in pkgutil.walk_packages(updater.__path__):
+            if not sub_module.name.startswith('version_'):
+                continue
+            module = importlib.import_module(f'honeybee_schema.updater.{sub_module.name}')
+            for name, func in getmembers(module, isfunction):
+                if not name.startswith('version_'):
+                    continue
+                func_version = tuple(int(v) for v in name.split('_')[1:])
+                if model_version > func_version or func_version > up_version:
+                    continue
+                updaters.append((func_version, func))
+
+        # sort updaters based on version
+        updaters = sorted(updaters, key=lambda x: x[0])
+
+        # update the dictionary
+        for func_version, up_func in updaters:
+            print(
+                f'Updating to version {".".join(map(str, func_version))}',
+                file=sys.stderr
+            )
+            model_dict = up_func(model_dict)
 
         # update the model dictionary version and write it to log file
-        final_ver = up_version if version is not None else update_vers[-1]
-        model_dict['version'] = '.'.join((str(i) for i in final_ver))
+        if version:
+            model_dict['version'] = version
+        elif updaters:
+            model_dict['version'] = '.'.join((str(i) for i in updaters[-1][0]))
         output_file.write(json.dumps(model_dict))
     except Exception as e:
         _logger.exception('Failed to update Honeybee Model JSON.\n{}'.format(e))

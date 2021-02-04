@@ -10,11 +10,15 @@ Honeybee Data-Model Objects
 This code was partially developed under the [Wells Fargo Innovation Incubator grant](https://newsroom.wf.com/press-release/community/five-clean-tech-startups-added-wells-fargo-innovation-incubator) with help from the
 [OpenStudio Team](https://github.com/NREL/OpenStudio) at [NREL](https://www.nrel.gov/).
 
-## Installation
+# Installation
 
-```console
-pip install honeybee-schema
-```
+To install the core library use:
+
+`pip install -U honeybee-schema`
+
+If you want to also include the command line interface use:
+
+`pip install -U honeybee-schema[cli]`
 
 ## QuickStart
 

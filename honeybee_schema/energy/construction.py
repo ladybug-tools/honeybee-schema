@@ -32,8 +32,9 @@ class OpaqueConstruction(OpaqueConstructionAbridged):
 
     materials: List[Union[EnergyMaterial, EnergyMaterialNoMass]] = Field(
         ...,
-        description='List of opaque materials. The order of the materials is '
-        'from outside to inside.',
+        description='List of opaque material definitions that are referenced in the '
+        'layers. Note that the order of materials does not matter and there is no '
+        'need to specify duplicated materials in this list.',
         min_items=1,
         max_items=10
     )
@@ -69,10 +70,9 @@ class WindowConstruction(WindowConstructionAbridged):
         ]
     ] = Field(
         ...,
-        description='List of glazing and gas materials. The order of the materials '
-        'is from outside to inside. If a SimpleGlazSys material is used, it must '
-        'be the only material in the construction. For multi-layered constructions, '
-        'adjacent glass layers must be separated by one and only one gas layer.',
+        description='List of glazing and gas material definitions that are referenced '
+        'in the layers. Note that the order of materials does not matter and '
+        'there is no need to specify duplicated materials in this list.',
         min_items=1,
         max_items=8
     )

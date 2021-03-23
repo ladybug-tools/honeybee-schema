@@ -1,8 +1,9 @@
 """Programtype Schema"""
 from pydantic import Field, root_validator, constr
-from typing import Union
+from typing import Union, List
 
 from ._base import IDdEnergyBaseModel
+from .._base import NoExtraBaseModel
 from .schedule import ScheduleRuleset, ScheduleFixedInterval
 from ..altnumber import Autocalculate
 
@@ -31,8 +32,8 @@ class PeopleAbridged(IDdEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Identifier of a schedule for the activity of the occupants over the '
-        'course of the year. The type of this schedule should be Power and the '
+        description='Identifier of a schedule for the activity of the occupants over '
+        'the course of the year. The type of this schedule should be Power and the '
         'values of the schedule equal to the number of Watts given off by an '
         'individual person in the room.'
     )
@@ -41,8 +42,8 @@ class PeopleAbridged(IDdEnergyBaseModel):
         0.3,
         ge=0,
         le=1,
-        description='The radiant fraction of sensible heat released by people. The default'
-        'value is 0.30.'
+        description='The radiant fraction of sensible heat released by people. '
+        '(Default: 0.3).'
     )
 
     latent_fraction: Union[Autocalculate, float] = Field(
@@ -99,8 +100,8 @@ class LightingAbridged(IDdEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Identifier of the schedule for the use of lights over the course of '
-        'the year. The type of this schedule should be Fractional and the '
+        description='Identifier of the schedule for the use of lights over the course '
+        'of the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the watts_per_area to yield a '
         'complete lighting profile.'
     )
@@ -109,24 +110,24 @@ class LightingAbridged(IDdEnergyBaseModel):
         0.25,
         ge=0,
         le=1,
-        description='The fraction of heat from lights that goes into the zone as visible '
-        '(short-wave) radiation. The default value is `0.25`.'
+        description='The fraction of heat from lights that goes into the zone as '
+        'visible (short-wave) radiation. (Default: 0.25).'
     )
 
     radiant_fraction: float = Field(
         0.32,
         ge=0,
         le=1,
-        description='The fraction of heat from lights that is long-wave radiation. Default'
-        ' value is `0.32`.'
+        description='The fraction of heat from lights that is long-wave radiation. '
+        '(Default: 0.32).'
     )
 
     return_air_fraction: float = Field(
         0.0,
         ge=0,
         le=1,
-        description='The fraction of the heat from lights that goes into the zone return '
-        'air. Default value is `0`.'
+        description='The fraction of the heat from lights that goes into the zone '
+        'return air. (Default: 0).'
     )
 
     baseline_watts_per_area: float = Field(
@@ -175,8 +176,8 @@ class _EquipmentBase(IDdEnergyBaseModel):
         ...,
         min_length=1,
         max_length=100,
-        description='Identifier of the schedule for the use of equipment over the course '
-        'of the year. The type of this schedule should be Fractional and the '
+        description='Identifier of the schedule for the use of equipment over the '
+        'course of the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the watts_per_area to yield '
         'a complete equipment profile.'
     )
@@ -508,4 +509,62 @@ class Setpoint(SetpointAbridged):
         default=None,
         description='Schedule for the dehumidification setpoint. The values '
         'in this schedule should be in [%].'
+    )
+
+
+class DaylightingControl(NoExtraBaseModel):
+
+    type: constr(regex='^DaylightingControl$') = 'DaylightingControl'
+
+    sensor_position: List[float] = Field(
+        ...,
+        description='A point as 3 (x, y, z) values for the position of the daylight '
+        'sensor within the parent Room. This point should lie within the Room '
+        'volume in order for the results to be meaningful.',
+        min_items=3,
+        max_items=3
+    )
+
+    illuminance_setpoint: float = Field(
+        300,
+        gt=0,
+        description='A number for the illuminance setpoint in lux beyond '
+        'which electric lights are dimmed if there is sufficient daylight.'
+    )
+
+    control_fraction: float = Field(
+        1,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 that represents the fraction of '
+        'the Room lights that are dimmed when the illuminance at the sensor '
+        'position is at the specified illuminance. 1 indicates that all lights are '
+        'dim-able while 0 indicates that no lights are dim-able. Deeper rooms '
+        'should have lower control fractions to account for the face that the '
+        'lights in the back of the space do not dim in response to suitable '
+        'daylight at the front of the room.'
+    )
+
+    min_power_input: float = Field(
+        0.3,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 for the the lowest power the '
+        'lighting system can dim down to, expressed as a fraction of maximum '
+        'input power.'
+    )
+
+    min_light_output: float = Field(
+        0.2,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 the lowest lighting output the '
+        'lighting system can dim down to, expressed as a fraction of maximum '
+        'light output.'
+    )
+
+    off_at_minimum: bool = Field(
+        default=False,
+        description='Boolean to note whether lights should switch off completely '
+        'when they get to the minimum power input.'
     )

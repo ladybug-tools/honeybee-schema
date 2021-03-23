@@ -1,0 +1,9 @@
+{
+    "type": "DaylightingControl",
+    "sensor_position": [5, 5, 0.8],
+    "illuminance_setpoint": 300,
+    "control_fraction": 0.5,
+    "min_power_input": 0.3,
+    "min_light_output": 0.2,
+    "off_at_minimum": true
+}

@@ -15,7 +15,7 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
 from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, ServiceHotWaterAbridged, InfiltrationAbridged, \
-    VentilationAbridged, SetpointAbridged
+    VentilationAbridged, SetpointAbridged, DaylightingControl
 from .ventcool import VentilationControlAbridged, VentilationOpening, \
     VentilationSimulationControl, AFNCrack
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
@@ -187,6 +187,13 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
     setpoint: SetpointAbridged = Field(
         default=None,
         description='Setpoint object for the temperature setpoints of the Room.'
+    )
+
+    daylighting_control: DaylightingControl = Field(
+        default=None,
+        description='An optional DaylightingControl object to dictate the dimming '
+        'of lights. If None, the lighting will respond only to the schedule and '
+        'not the daylight conditions within the room.'
     )
 
     window_vent_control: VentilationControlAbridged = Field(

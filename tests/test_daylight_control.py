@@ -1,4 +1,4 @@
-from honeybee_schema.energy.load import DaylightingControl
+from honeybee_schema.energy.daylight import DaylightingControl
 import os
 
 # target folder where all of the samples live

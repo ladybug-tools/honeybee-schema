@@ -15,14 +15,15 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
 from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, ServiceHotWaterAbridged, InfiltrationAbridged, \
-    VentilationAbridged, SetpointAbridged, DaylightingControl
+    VentilationAbridged, SetpointAbridged
+from .daylight import DaylightingControl
 from .ventcool import VentilationControlAbridged, VentilationOpening, \
     VentilationSimulationControl, AFNCrack
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
     ScheduleFixedIntervalAbridged, ScheduleRuleset, ScheduleFixedInterval
 from .hvac.idealair import IdealAirSystemAbridged
 from .hvac.allair import VAV, PVAV, PSZ, PTAC, ForcedAirFurnace
-from .hvac.doas import FCUwithDOAS, WSHPwithDOAS, VRFwithDOAS
+from .hvac.doas import FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged
 from .hvac.heatcool import FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential, \
     WindowAC, GasUnitHeater
 
@@ -235,8 +236,9 @@ class ModelEnergyProperties(NoExtraBaseModel):
     )
 
     hvacs: List[Union[IdealAirSystemAbridged, VAV, PVAV, PSZ, PTAC, ForcedAirFurnace,
-                      FCUwithDOAS, WSHPwithDOAS, VRFwithDOAS, FCU, WSHP, VRF, Baseboard,
-                      EvaporativeCooler, Residential, WindowAC, GasUnitHeater]] = Field(
+                      FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged,
+                      FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential,
+                      WindowAC, GasUnitHeater]] = Field(
         default=None,
         description='List of all unique HVAC systems in the Model.'
     )

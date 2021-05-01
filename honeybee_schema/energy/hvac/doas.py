@@ -4,28 +4,43 @@ from typing import Union
 from enum import Enum
 
 from ._template import _TemplateSystem
-from ...altnumber import Autosize
 
 
 class _DOASBase(_TemplateSystem):
     """Base class for DOAS systems."""
 
-    sensible_heat_recovery: Union[Autosize, float] = Field(
-        Autosize(),
+    sensible_heat_recovery: float = Field(
+        0,
         ge=0,
         le=1,
         description='A number between 0 and 1 for the effectiveness of sensible '
-        'heat recovery within the system. If None or Autosize, it will be whatever '
-        'is recommended for the given vintage.'
+        'heat recovery within the system.'
     )
 
-    latent_heat_recovery: Union[Autosize, float] = Field(
-        Autosize(),
+    latent_heat_recovery: float = Field(
+        0,
         ge=0,
         le=1,
         description='A number between 0 and 1 for the effectiveness of latent '
-        'heat recovery within the system. If None or Autosize, it will be whatever '
-        'is recommended for the given vintage.'
+        'heat recovery within the system.'
+    )
+
+    demand_controlled_ventilation: bool = Field(
+        False,
+        description='Boolean to note whether demand controlled ventilation should be '
+        'used on the system, which will vary the amount of ventilation air according '
+        'to the occupancy schedule of the Rooms.'
+    )
+
+    doas_availability_schedule: str = Field(
+        None,
+        min_length=1,
+        max_length=100,
+        description='An optional On/Off discrete schedule to set when the dedicated '
+        'outdoor air system (DOAS) shuts off. This will not only prevent any outdoor '
+        'air from flowing thorough the system but will also shut off the fans, which '
+        'can result in more energy savings when spaces served by the DOAS are '
+        'completely unoccupied. If None, the DOAS will be always on.'
     )
 
 
@@ -61,10 +76,10 @@ class VRFwithDOASEquipmentType(str, Enum):
     vrf = 'DOAS_VRF'
 
 
-class FCUwithDOAS(_DOASBase):
+class FCUwithDOASAbridged(_DOASBase):
     """Fan Coil Unit (FCU) with DOAS HVAC system."""
 
-    type: constr(regex='^FCUwithDOAS$') = 'FCUwithDOAS'
+    type: constr(regex='^FCUwithDOASAbridged$') = 'FCUwithDOASAbridged'
 
     equipment_type: FCUwithDOASEquipmentType = Field(
         FCUwithDOASEquipmentType.fcu_chill_gb,
@@ -73,10 +88,10 @@ class FCUwithDOAS(_DOASBase):
     )
 
 
-class WSHPwithDOAS(_DOASBase):
+class WSHPwithDOASAbridged(_DOASBase):
     """Water Source Heat Pump (WSHP) with DOAS HVAC system."""
 
-    type: constr(regex='^WSHPwithDOAS$') = 'WSHPwithDOAS'
+    type: constr(regex='^WSHPwithDOASAbridged$') = 'WSHPwithDOASAbridged'
 
     equipment_type: WSHPwithDOASEquipmentType = Field(
         WSHPwithDOASEquipmentType.wshp_fc_gb,
@@ -85,10 +100,10 @@ class WSHPwithDOAS(_DOASBase):
     )
 
 
-class VRFwithDOAS(_DOASBase):
+class VRFwithDOASAbridged(_DOASBase):
     """Variable Refrigerant Flow (VRF) with DOAS HVAC system."""
 
-    type: constr(regex='^VRFwithDOAS$') = 'VRFwithDOAS'
+    type: constr(regex='^VRFwithDOASAbridged$') = 'VRFwithDOASAbridged'
 
     equipment_type: VRFwithDOASEquipmentType = Field(
         VRFwithDOASEquipmentType.vrf,

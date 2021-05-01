@@ -12,7 +12,7 @@
             "materials": [],
             "hvacs": [
                 {
-                    "type": "FCUwithDOAS",
+                    "type": "FCUwithDOASAbridged",
                     "identifier": "FCU System with DOAS Enthalpy Wheel",
                     "vintage": "ASHRAE_2013",
                     "equipment_type": "DOAS_FCU_Chiller_Boiler",

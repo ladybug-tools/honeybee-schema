@@ -4,42 +4,48 @@ from typing import Union
 from enum import Enum
 
 from ._template import _TemplateSystem
-from ...altnumber import Autosize
 
 
 class AllAirEconomizerType(str, Enum):
-    inferred = 'Inferred'
     no_economizer = 'NoEconomizer'
     differential_dry_bulb = 'DifferentialDryBulb'
     differential_enthalpy = 'DifferentialEnthalpy'
+    differential_dry_bulb_and_enthalpy = 'DifferentialDryBulbAndEnthalpy'
+    fixed_dry_bulb = 'FixedDryBulb'
+    fixed_enthalpy = 'FixedEnthalpy'
+    electronic_enthalpy = 'ElectronicEnthalpy'
 
 
 class _AllAirBase(_TemplateSystem):
     """Base class for all-air systems."""
 
     economizer_type: AllAirEconomizerType = Field(
-        AllAirEconomizerType.inferred,
+        AllAirEconomizerType.no_economizer,
         description='Text to indicate the type of air-side economizer used on '
-        'the system (from the AllAirEconomizerType enumeration). If Inferred, the '
-        'economizer will be set to whatever is recommended for the given vintage.'
+        'the system (from the AllAirEconomizerType enumeration).'
     )
 
-    sensible_heat_recovery: Union[Autosize, float] = Field(
-        Autosize(),
+    sensible_heat_recovery: float = Field(
+        0,
         ge=0,
         le=1,
         description='A number between 0 and 1 for the effectiveness of sensible '
-        'heat recovery within the system. If None or Autosize, it will be whatever '
-        'is recommended for the given vintage.'
+        'heat recovery within the system.'
     )
 
-    latent_heat_recovery: Union[Autosize, float] = Field(
-        Autosize(),
+    latent_heat_recovery: float = Field(
+        0,
         ge=0,
         le=1,
         description='A number between 0 and 1 for the effectiveness of latent '
-        'heat recovery within the system. If None or Autosize, it will be whatever '
-        'is recommended for the given vintage.'
+        'heat recovery within the system.'
+    )
+
+    demand_controlled_ventilation: bool = Field(
+        False,
+        description='Boolean to note whether demand controlled ventilation should be '
+        'used on the system, which will vary the amount of ventilation air according '
+        'to the occupancy schedule of the Rooms.'
     )
 
 
@@ -146,7 +152,7 @@ class PSZ(_AllAirBase):
     )
 
 
-class PTAC(_AllAirBase):
+class PTAC(_TemplateSystem):
     """Packaged Terminal Air Conditioning (PTAC) or Heat Pump (PTHP) HVAC system."""
 
     type: constr(regex='^PTAC$') = 'PTAC'

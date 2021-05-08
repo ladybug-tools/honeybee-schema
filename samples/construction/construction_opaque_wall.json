@@ -1,7 +1,7 @@
 {
     "type": "OpaqueConstructionAbridged",
     "identifier": "Generic Exterior Wall",
-    "layers": [
+    "materials": [
         "Generic Brick",
         "Generic LW Concrete",
         "Generic 50mm Insulation",

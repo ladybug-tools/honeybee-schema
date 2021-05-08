@@ -52,10 +52,10 @@ def test_length_opaque():
         construction_wall = json.load(json_file)
     cons_length_test = copy(construction_wall)
     for i in range(10):
-        cons_length_test['layers'].append('material_{}'.format(i))
+        cons_length_test['materials'].append('material_{}'.format(i))
     with pytest.raises(ValidationError):
         OpaqueConstructionAbridged.parse_obj(cons_length_test)
-    cons_length_test['layers'] = []
+    cons_length_test['materials'] = []
     with pytest.raises(ValidationError):
         OpaqueConstructionAbridged.parse_obj(cons_length_test)
 
@@ -66,9 +66,9 @@ def test_length_window():
         construction_window = json.load(json_file)
     cons_length_test = copy(construction_window)
     for i in range(8):
-        cons_length_test['layers'].append('material_{}'.format(i))
+        cons_length_test['materials'].append('material_{}'.format(i))
     with pytest.raises(ValidationError):
         WindowConstructionAbridged.parse_obj(cons_length_test)
-    cons_length_test['layers'] = []
+    cons_length_test['materials'] = []
     with pytest.raises(ValidationError):
         WindowConstructionAbridged.parse_obj(cons_length_test)

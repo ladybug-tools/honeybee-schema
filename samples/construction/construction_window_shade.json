@@ -4,7 +4,7 @@
     "window_construction": {
         "type": "WindowConstructionAbridged",
         "identifier": "Double Low-E",
-        "layers": [
+        "materials": [
             "Generic Low-e Glass",
             "Generic Window Argon Gap",
             "Generic Clear Glass"

@@ -52,7 +52,7 @@
                 {
                     "type": "OpaqueConstructionAbridged",
                     "identifier": "Attic Floor Construction",
-                    "layers": [
+                    "materials": [
                         "Generic 25mm Wood",
                         "Generic 50mm Insulation",
                         "Generic 25mm Wood"
@@ -61,7 +61,7 @@
                 {
                     "type": "OpaqueConstructionAbridged",
                     "identifier": "Attic Roof Construction",
-                    "layers": [
+                    "materials": [
                         "Generic Roof Membrane",
                         "PolyIso",
                         "Generic 25mm Wood"

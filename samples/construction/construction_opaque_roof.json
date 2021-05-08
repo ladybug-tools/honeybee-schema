@@ -1,7 +1,7 @@
 {
     "type": "OpaqueConstructionAbridged",
     "identifier": "Generic Roof",
-    "layers": [
+    "materials": [
         "Generic Roof Membrane",
         "Generic 50mm Insulation",
         "Generic LW Concrete",

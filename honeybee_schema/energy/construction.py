@@ -16,7 +16,7 @@ class OpaqueConstructionAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^OpaqueConstructionAbridged$') = 'OpaqueConstructionAbridged'
 
-    layers: List[constr(min_length=1, max_length=100)] = Field(
+    materials: List[constr(min_length=1, max_length=100)] = Field(
         ...,
         description='List of strings for opaque material identifiers. The order '
         'of the materials is from exterior to interior.',
@@ -32,9 +32,8 @@ class OpaqueConstruction(OpaqueConstructionAbridged):
 
     materials: List[Union[EnergyMaterial, EnergyMaterialNoMass]] = Field(
         ...,
-        description='List of opaque material definitions that are referenced in the '
-        'layers. Note that the order of materials does not matter and there is no '
-        'need to specify duplicated materials in this list.',
+        description='List of opaque material definitions. The order '
+        'of the materials is from exterior to interior.',
         min_items=1,
         max_items=10
     )
@@ -45,7 +44,7 @@ class WindowConstructionAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^WindowConstructionAbridged$') = 'WindowConstructionAbridged'
 
-    layers: List[constr(min_length=1, max_length=100)] = Field(
+    materials: List[constr(min_length=1, max_length=100)] = Field(
         ...,
         description='List of strings for glazing or gas material identifiers. The '
         'order of the materials is from exterior to interior. If a SimpleGlazSys '
@@ -70,9 +69,11 @@ class WindowConstruction(WindowConstructionAbridged):
         ]
     ] = Field(
         ...,
-        description='List of glazing and gas material definitions that are referenced '
-        'in the layers. Note that the order of materials does not matter and '
-        'there is no need to specify duplicated materials in this list.',
+        description='List of glazing and gas material definitions. The order '
+        'of the materials is from exterior to interior. If a SimpleGlazSys '
+        'material is used, it must be the only material in the construction. '
+        'For multi-layered constructions, adjacent glass layers must be separated '
+        'by one and only one gas layer.',
         min_items=1,
         max_items=8
     )

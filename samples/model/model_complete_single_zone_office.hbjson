@@ -19,7 +19,7 @@
                 {
                     "type": "OpaqueConstructionAbridged",
                     "identifier": "Thermal Mass Floor",
-                    "layers": [
+                    "materials": [
                         "Thick Stone"
                     ]
                 },
@@ -33,7 +33,7 @@
                 {
                     "type": "WindowConstructionAbridged",
                     "identifier": "Triple Pane Window",
-                    "layers": [
+                    "materials": [
                         "Generic Clear Glass",
                         "Generic Window Air Gap",
                         "Generic Clear Glass",

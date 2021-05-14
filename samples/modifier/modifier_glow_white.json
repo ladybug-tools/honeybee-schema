@@ -1,6 +1,6 @@
 {
     "modifier": null,
-    "type": "glow",
+    "type": "Glow",
     "identifier": "white_glow",
     "r_emittance": 1.0,
     "g_emittance": 1.0,

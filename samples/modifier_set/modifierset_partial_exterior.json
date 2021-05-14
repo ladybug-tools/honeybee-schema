@@ -5,7 +5,7 @@
         "interior_modifier": null,
         "exterior_modifier": {
             "modifier": null,
-            "type": "plastic",
+            "type": "Plastic",
             "identifier": "generic_wall_exterior_side_0.35",
             "r_reflectance": 0.35,
             "g_reflectance": 0.35,
@@ -20,7 +20,7 @@
         "interior_modifier": null,
         "exterior_modifier": {
             "modifier": null,
-            "type": "plastic",
+            "type": "Plastic",
             "identifier": "generic_floor_exterior_side_0.50",
             "r_reflectance": 0.5,
             "g_reflectance": 0.5,
@@ -35,7 +35,7 @@
         "interior_modifier": null,
         "exterior_modifier": {
             "modifier": null,
-            "type": "plastic",
+            "type": "Plastic",
             "identifier": "generic_ceiling_exterior_side_0.35",
             "r_reflectance": 0.35,
             "g_reflectance": 0.35,

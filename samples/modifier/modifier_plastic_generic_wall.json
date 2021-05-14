@@ -1,6 +1,6 @@
 {
     "modifier": null,
-    "type": "plastic",
+    "type": "Plastic",
     "identifier": "generic_wall_0.50",
     "r_reflectance": 0.5,
     "g_reflectance": 0.5,

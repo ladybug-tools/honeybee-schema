@@ -1,6 +1,6 @@
 {
     "modifier": null,
-    "type": "glass",
+    "type": "Glass",
     "identifier": "air_boundary",
     "r_transmissivity": 1.0,
     "g_transmissivity": 1.0,

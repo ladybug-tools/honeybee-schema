@@ -1327,7 +1327,7 @@
             "modifiers": [
                 {
                     "modifier": null,
-                    "type": "plastic",
+                    "type": "Plastic",
                     "identifier": "generic_context_0.20",
                     "r_reflectance": 0.2,
                     "g_reflectance": 0.2,

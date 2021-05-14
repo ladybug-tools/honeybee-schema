@@ -1,6 +1,6 @@
 {
     "modifier": null,
-    "type": "mirror",
+    "type": "Mirror",
     "identifier": "Silver_Glass_Typical_Mirror",
     "r_reflectance": 0.85,
     "g_reflectance": 0.85,

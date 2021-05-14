@@ -21,7 +21,7 @@
             "modifiers": [
                 {
                     "modifier": null,
-                    "type": "trans",
+                    "type": "Trans",
                     "identifier": "SummerLeaves",
                     "r_reflectance": 0.3,
                     "g_reflectance": 0.3,
@@ -34,7 +34,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "plastic",
+                    "type": "Plastic",
                     "identifier": "indoor_light_shelf_0.70",
                     "r_reflectance": 0.7,
                     "g_reflectance": 0.7,
@@ -45,7 +45,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "trans",
+                    "type": "Trans",
                     "identifier": "WinterLeaves",
                     "r_reflectance": 0.1,
                     "g_reflectance": 0.1,
@@ -58,7 +58,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "glass",
+                    "type": "Glass",
                     "identifier": "ElectrochromicState3",
                     "r_transmissivity": 0.15272298493612294,
                     "g_transmissivity": 0.15272298493612294,
@@ -68,7 +68,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "glass",
+                    "type": "Glass",
                     "identifier": "ElectrochromicState1",
                     "r_transmissivity": 0.43621953425431875,
                     "g_transmissivity": 0.43621953425431875,
@@ -78,7 +78,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "plastic",
+                    "type": "Plastic",
                     "identifier": "snow",
                     "r_reflectance": 0.7,
                     "g_reflectance": 0.7,
@@ -89,7 +89,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "plastic",
+                    "type": "Plastic",
                     "identifier": "outdoor_light_shelf_0.5",
                     "r_reflectance": 0.5,
                     "g_reflectance": 0.5,
@@ -100,7 +100,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "glass",
+                    "type": "Glass",
                     "identifier": "ElectrochromicState2",
                     "r_transmissivity": 0.2945034602948791,
                     "g_transmissivity": 0.2945034602948791,
@@ -110,7 +110,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "glass",
+                    "type": "Glass",
                     "identifier": "ElectrochromicState4",
                     "r_transmissivity": 0.010907888742458781,
                     "g_transmissivity": 0.010907888742458781,
@@ -120,7 +120,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "glass",
+                    "type": "Glass",
                     "identifier": "custom_triple_pane_0.3",
                     "r_transmissivity": 0.3272140103902576,
                     "g_transmissivity": 0.3272140103902576,
@@ -130,7 +130,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "plastic",
+                    "type": "Plastic",
                     "identifier": "generic_context_0.20",
                     "r_reflectance": 0.2,
                     "g_reflectance": 0.2,
@@ -141,7 +141,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "plastic",
+                    "type": "Plastic",
                     "identifier": "grass",
                     "r_reflectance": 0.3,
                     "g_reflectance": 0.3,
@@ -152,7 +152,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "plastic",
+                    "type": "Plastic",
                     "identifier": "generic_exterior_shade_0.35",
                     "r_reflectance": 0.35,
                     "g_reflectance": 0.35,

@@ -4,8 +4,6 @@ from pydantic_openapi_helper.core import get_openapi
 from pydantic_openapi_helper.inheritance import class_mapper
 from honeybee_schema.model import Model
 from honeybee_schema.energy.simulation import SimulationParameter
-from honeybee_schema.radiance.lightsource import CertainIrradiance, CIE, \
-    ClimateBased, SunMatrix, SkyMatrix
 
 import json
 import argparse
@@ -42,11 +40,7 @@ info = {
 
 modules = [
     {'module': [Model], 'name': 'Model'},
-    {'module': [SimulationParameter], 'name': 'Simulation Parameter'},
-    {
-        'module': [CertainIrradiance, CIE, ClimateBased, SunMatrix, SkyMatrix],
-        'name': 'Radiance Asset'
-    }
+    {'module': [SimulationParameter], 'name': 'Simulation Parameter'}
 ]
 
 

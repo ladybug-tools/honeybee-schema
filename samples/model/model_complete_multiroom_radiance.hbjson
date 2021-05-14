@@ -62,7 +62,7 @@
             "modifiers": [
                 {
                     "modifier": null,
-                    "type": "plastic",
+                    "type": "Plastic",
                     "identifier": "PolyIso",
                     "r_reflectance": 0.45,
                     "g_reflectance": 0.45,
@@ -73,7 +73,7 @@
                 },
                 {
                     "modifier": null,
-                    "type": "glass",
+                    "type": "Glass",
                     "identifier": "Triple_Pane_0.35",
                     "r_transmissivity": 0.38172294125333217,
                     "g_transmissivity": 0.38172294125333217,

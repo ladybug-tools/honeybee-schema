@@ -19,7 +19,7 @@ setuptools.setup(
     packages=setuptools.find_packages(exclude=["tests", "scripts", "samples"]),
     install_requires=requirements,
     extras_require={
-        'cli': ['click==8.0.0']
+        'cli': ['click==8.0.1']
     },
     entry_points={
         "console_scripts": ["honeybee-schema = honeybee_schema.cli:main"]

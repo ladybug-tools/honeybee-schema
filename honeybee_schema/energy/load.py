@@ -28,13 +28,15 @@ class PeopleAbridged(IDdEnergyBaseModel):
     )
 
     activity_schedule: str = Field(
-        ...,
+        default=None,
         min_length=1,
         max_length=100,
         description='Identifier of a schedule for the activity of the occupants over '
-        'the course of the year. The type of this schedule should be Power and the '
-        'values of the schedule equal to the number of Watts given off by an '
-        'individual person in the room.'
+        'the course of the year. The type of this schedule should be ActivityLevel '
+        'and the values of the schedule equal to the number of Watts given off by an '
+        'individual person in the room. If None, a default constant schedule with '
+        '120 Watts per person will be used, which is typical of awake, adult humans '
+        'who are seated.'
     )
 
     radiant_fraction: float = Field(
@@ -77,11 +79,13 @@ class People(PeopleAbridged):
     )
 
     activity_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
-        ...,
+        default=None,
         description='A schedule for the activity of the occupants over the '
-        'course of the year. The type of this schedule should be Power and the '
-        'values of the schedule equal to the number of Watts given off by an '
-        'individual person in the room.'
+        'course of the year. The type of this schedule should be ActivityLevel '
+        'and the values of the schedule equal to the number of Watts given off by an '
+        'individual person in the room. If None, a default constant schedule with '
+        '120 Watts per person will be used, which is typical of awake, adult humans '
+        'who are seated.'
     )
 
 

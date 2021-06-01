@@ -241,12 +241,12 @@ class AirBoundaryConstructionAbridged(IDdEnergyBaseModel):
         'typical of what would be induced by a HVAC system.'
     )
 
-    air_mixing_schedule: str = Field(
-        ...,
+    air_mixing_schedule: str = Field( 
+        default=None,
         min_length=1,
         max_length=100,
         description='Identifier of a fractional schedule for the air mixing schedule '
-        'across the construction.'
+        'across the construction. If unspecified, an Always On schedule will be assumed.'
     )
 
 
@@ -256,8 +256,8 @@ class AirBoundaryConstruction(AirBoundaryConstructionAbridged):
     type: constr(regex='^AirBoundaryConstruction$') = 'AirBoundaryConstruction'
 
     air_mixing_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
-        ...,
+        default=None,
         description='A fractional schedule as a ScheduleRuleset or '
         'ScheduleFixedInterval for the air mixing schedule across '
-        'the construction.'
+        'the construction. If unspecified, an Always On schedule will be assumed.'
     )

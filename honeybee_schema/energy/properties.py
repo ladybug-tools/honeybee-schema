@@ -19,6 +19,7 @@ from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
 from .daylight import DaylightingControl
 from .ventcool import VentilationControlAbridged, VentilationOpening, \
     VentilationSimulationControl, AFNCrack
+from .internalmass import InternalMassAbridged
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
     ScheduleFixedIntervalAbridged, ScheduleRuleset, ScheduleFixedInterval
 from .hvac.idealair import IdealAirSystemAbridged
@@ -201,6 +202,16 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
         default=None,
         description='An optional VentilationControl object to dictate the opening '
         'of windows. If None, the windows will never open.'
+    )
+
+    internal_masses: List[InternalMassAbridged] = Field(
+        default=None,
+        description='An optional list of of InternalMass objects for thermal mass '
+        'exposed to Room air. Note that internal masses assigned this way cannot "see" '
+        'solar radiation that may potentially hit them and, as such, caution should be '
+        'taken when using this component with internal mass objects that are not '
+        'always in shade. Masses are factored into the the thermal calculations '
+        'of the Room by undergoing heat transfer with the indoor air.'
     )
 
 

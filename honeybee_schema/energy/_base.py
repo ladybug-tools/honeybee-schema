@@ -1,5 +1,5 @@
 """Base class used by various schema objects."""
-from pydantic import Field, validator
+from pydantic import Field
 import datetime
 
 from .._base import NoExtraBaseModel
@@ -10,6 +10,7 @@ class IDdEnergyBaseModel(NoExtraBaseModel):
 
     identifier: str = Field(
         ...,
+        regex=r'^[^,;!\n\t]+$',
         min_length=1,
         max_length=100,
         description='Text string for a unique object ID. This identifier remains '
@@ -18,13 +19,6 @@ class IDdEnergyBaseModel(NoExtraBaseModel):
         'the object across a Model. It must be < 100 characters, use only '
         'ASCII characters and exclude (, ; ! \\n \\t).'
     )
-
-    @validator('identifier')
-    def check_identifier(cls, v):
-        assert all(ord(i) < 128 for i in v), 'Identifier contains non ASCII characters.'
-        assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
-            'Identifier contains an invalid character for EnergyPlus (, ; ! \\n \\t).'
-        return v
 
     display_name: str = Field(
         default=None,

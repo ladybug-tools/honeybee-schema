@@ -18,7 +18,7 @@ class IDdBaseModel(NoExtraBaseModel):
 
     identifier: str = Field(
         ...,
-        regex=r'[A-Za-z0-9_-]',
+        regex=r'^[.A-Za-z0-9_-]+$',
         min_length=1,
         max_length=100,
         description='Text string for a unique object ID. This identifier remains '

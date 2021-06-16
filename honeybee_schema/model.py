@@ -292,7 +292,7 @@ class Room(IDdBaseModel):
 
     story: str = Field(
         default=None,
-        regex=r'[A-Za-z0-9_-]',
+        regex=r'[.A-Za-z0-9_-]',
         min_length=1,
         max_length=100,
         description='Text string for the story identifier to which this Room belongs. '

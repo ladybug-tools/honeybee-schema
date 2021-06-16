@@ -116,7 +116,7 @@ def test_window_simpleglaz_wrong():
     with open(file_path) as json_file:
         window_simpleglazing = json.load(json_file)
     wrong_values = copy(window_simpleglazing)
-    wrong_values['u_factor'] = 6
+    wrong_values['u_factor'] = 18
     with pytest.raises(ValidationError):
         EnergyWindowMaterialSimpleGlazSys.parse_obj(wrong_values)
     wrong_values['SHGC'] = 2

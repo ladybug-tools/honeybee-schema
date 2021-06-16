@@ -1,9 +1,10 @@
 """Material Schema"""
-from pydantic import Field, validator, root_validator, constr
-from typing import List
+from pydantic import Field, validator, root_validator, constr, confloat
+from typing import Union, List
 from enum import Enum
 
 from ._base import IDdEnergyBaseModel
+from ..altnumber import Autocalculate
 
 
 class Roughness(str, Enum):
@@ -37,7 +38,7 @@ class EnergyMaterialNoMass(IDdEnergyBaseModel):
         gt=0,
         le=0.99999,
         description='Fraction of incident long wavelength radiation that is absorbed by'
-        ' the material. Default value is 0.9.'
+        ' the material. Default: 0.9.'
     )
 
     solar_absorptance: float = Field(
@@ -45,7 +46,7 @@ class EnergyMaterialNoMass(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Fraction of incident solar radiation absorbed by the material.'
-        ' Default value is 0.7.'
+        ' Default: 0.7.'
     )
 
     visible_absorptance: float = Field(
@@ -53,7 +54,7 @@ class EnergyMaterialNoMass(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Fraction of incident visible wavelength radiation absorbed by the'
-        ' material. Default value is 0.7.'
+        ' material. Default: 0.7.'
     )
 
 
@@ -74,7 +75,7 @@ class EnergyMaterial(IDdEnergyBaseModel):
     conductivity: float = Field(
         ...,
         gt=0,
-        description='Thermal conductivity of the material layer in W/(m-K).',
+        description='Thermal conductivity of the material layer in W/m-K.',
     )
 
     density: float = Field(
@@ -86,7 +87,7 @@ class EnergyMaterial(IDdEnergyBaseModel):
     specific_heat: float = Field(
         ...,
         ge=100,
-        description='Specific heat of the material layer in J/(kg-K).'
+        description='Specific heat of the material layer in J/kg-K.'
     )
 
     thermal_absorptance: float = Field(
@@ -94,7 +95,7 @@ class EnergyMaterial(IDdEnergyBaseModel):
         gt=0,
         le=0.99999,
         description='Fraction of incident long wavelength radiation that is absorbed by'
-        ' the material. Default value is 0.9.'
+        ' the material. Default: 0.9.'
     )
 
     solar_absorptance: float = Field(
@@ -102,7 +103,7 @@ class EnergyMaterial(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Fraction of incident solar radiation absorbed by the material.'
-        ' Default value is 0.7.'
+        ' Default: 0.7.'
     )
 
     visible_absorptance: float = Field(
@@ -110,7 +111,7 @@ class EnergyMaterial(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Fraction of incident visible wavelength radiation absorbed by the'
-        ' material. Default value is 0.7.'
+        ' material. Default: 0.7.'
     )
 
 
@@ -127,17 +128,18 @@ class EnergyWindowMaterialSimpleGlazSys(IDdEnergyBaseModel):
     u_factor: float = Field(
         ...,
         gt=0,
-        le=5.8,
-        description='Used to describe the value for window system U-Factor, or overall'
-        ' heat transfer coefficient in W/(m2-K).'
+        le=12,
+        description='The overall heat transfer coefficient for window system in W/m2-K. '
+        'Note that constructions with U-values above 5.8 cannot be assigned to '
+        'skylights without EnergyPlus thorwing an error.'
     )
 
     shgc: float = Field(
         ...,
         gt=0,
         lt=1,
-        description='Unitless  quantity describing Solar Heat Gain Coefficient for'
-        ' normal incidence and vertical orientation.'
+        description='Unitless quantity for the Solar Heat Gain Coefficient (solar '
+        'transmittance + conduction) at normal incidence and vertical orientation.'
     )
 
     vt: float = Field(
@@ -157,7 +159,7 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
     thickness: float = Field(
         0.003,
         gt=0,
-        description='The surface-to-surface of the glass in meters. Default value is'
+        description='The surface-to-surface thickness of the glass in meters. Default: '
         ' 0.003.'
     )
 
@@ -166,7 +168,7 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Transmittance of solar radiation through the glass at normal'
-        ' incidence. Default value is 0.85 for clear glass.'
+        ' incidence. Default: 0.85 for clear glass.'
     )
 
     solar_reflectance: float = Field(
@@ -174,12 +176,12 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Reflectance of solar radiation off of the front side of the glass'
-        ' at normal incidence, averaged over the solar spectrum. Default value is 0.075'
+        ' at normal incidence, averaged over the solar spectrum. Default: 0.075'
         ' for clear glass.'
     )
 
-    solar_reflectance_back: float = Field(
-        default=None,
+    solar_reflectance_back: Union[Autocalculate, float] = Field(
+        default=Autocalculate(),
         description='Reflectance of solar radiation off of the back side of the glass at'
         ' normal incidence, averaged over the solar spectrum.'
     )
@@ -189,7 +191,7 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Transmittance of visible light through the glass at normal incidence.'
-        ' Default value is 0.9 for clear glass.'
+        ' Default: 0.9 for clear glass.'
     )
 
     visible_reflectance: float = Field(
@@ -197,11 +199,11 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Reflectance of visible light off of the front side of the glass at'
-        ' normal incidence. Default value is 0.075 for clear glass.'
+        ' normal incidence. Default: 0.075 for clear glass.'
     )
 
-    visible_reflectance_back: float = Field(
-        default=None,
+    visible_reflectance_back: Union[Autocalculate, float] = Field(
+        default=Autocalculate(),
         ge=0,
         le=1,
         description='Reflectance of visible light off of the back side of the glass at'
@@ -221,7 +223,7 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Infrared hemispherical emissivity of the front (outward facing)'
-        ' side of the glass.  Default value is 0.84, which is typical for clear glass'
+        ' side of the glass.  Default: 0.84, which is typical for clear glass'
         ' without a low-e coating.'
     )
 
@@ -230,14 +232,14 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Infrared hemispherical emissivity of the back (inward facing) side'
-        ' of the glass.  Default value is 0.84, which is typical for clear glass without'
+        ' of the glass.  Default: 0.84, which is typical for clear glass without'
         ' a low-e coating.'
     )
 
     conductivity: float = Field(
         0.9,
         gt=0,
-        description='Thermal conductivity of the glass in W/(m-K). Default value is 0.9,'
+        description='Thermal conductivity of the glass in W/(m-K). Default: 0.9,'
         ' which is  typical for clear glass without a low-e coating.'
     )
 
@@ -274,7 +276,7 @@ class EnergyWindowMaterialGas(IDdEnergyBaseModel):
     thickness: float = Field(
         0.0125,
         gt=0,
-        description='Thickness of the gas layer in meters. Default value is 0.0125.'
+        description='Thickness of the gas layer in meters. Default: 0.0125.'
     )
 
     gas_type: GasType = GasType.air
@@ -300,7 +302,7 @@ class EnergyWindowMaterialGasMixture(IDdEnergyBaseModel):
         description='List of gases in the gas mixture.'
     )
 
-    gas_fractions: List[float] = Field(
+    gas_fractions: List[confloat(gt=0, lt=1)] = Field(
         ...,
         min_items=2,
         max_items=4,
@@ -308,13 +310,6 @@ class EnergyWindowMaterialGasMixture(IDdEnergyBaseModel):
         'of gas types in the mixture. This list must align with the gas_types '
         'list and must sum to 1.'
     )
-
-    @validator('gas_fractions')
-    def check_fractions(cls, v):
-        """Check that all of the fractions are fractional."""
-        for f in v:
-            assert 0 < f < 1, 'gas_fraction must be between 0 and 1. Not {}.'.format(f)
-        return v
 
     @validator('gas_fractions')
     def check_sum(cls, v):
@@ -341,7 +336,7 @@ class EnergyWindowMaterialGasCustom(IDdEnergyBaseModel):
     thickness: float = Field(
         0.0125,
         gt=0,
-        description='Thickness of the gas layer in meters. Default value is 0.0125.'
+        description='Thickness of the gas layer in meters. Default: 0.0125.'
     )
 
     conductivity_coeff_a: float = Field(
@@ -415,7 +410,7 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The transmittance averaged over the solar spectrum. It is assumed'
-        ' independent of incidence angle. Default value is 0.4.'
+        ' independent of incidence angle. Default: 0.4.'
     )
 
     solar_reflectance: float = Field(
@@ -433,7 +428,7 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         lt=1,
         description='The transmittance averaged over the solar spectrum and weighted by'
         ' the response of the human eye. It is assumed independent of incidence angle.'
-        ' Default value is 0.4.'
+        ' Default: 0.4.'
     )
 
     visible_reflectance: float = Field(
@@ -442,7 +437,7 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         lt=1,
         description='The transmittance averaged over the solar spectrum and weighted by'
         ' the response of the human eye. It is assumed independent of incidence angle.'
-        ' Default value is 0.4'
+        ' Default: 0.4'
     )
 
     emissivity: float = Field(
@@ -450,7 +445,7 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         gt=0,
         lt=1,
         description='The effective long-wave infrared hemispherical emissivity. It is'
-        ' assumed same on both sides of shade. Default value is 0.9.'
+        ' assumed same on both sides of shade. Default: 0.9.'
     )
 
     infrared_transmittance: float = Field(
@@ -458,13 +453,13 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The effective long-wave transmittance. It is assumed independent'
-        ' of incidence angle. Default value is 0.'
+        ' of incidence angle. Default: 0.'
     )
 
     thickness: float = Field(
         0.005,
         gt=0,
-        description='The thickness of the shade material in meters. Default value is'
+        description='The thickness of the shade material in meters. Default:'
         ' 0.005.'
     )
 
@@ -488,7 +483,7 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='The effective area for air flow at the top of the shade, divided by'
-        ' the horizontal area between glass and shade. Default value is 0.5.'
+        ' the horizontal area between glass and shade. Default: 0.5.'
     )
 
     bottom_opening_multiplier: float = Field(
@@ -496,7 +491,7 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='The effective area for air flow at the bottom of the shade, divided'
-        ' by the horizontal area between glass and shade. Default value is 0.5.'
+        ' by the horizontal area between glass and shade. Default: 0.5.'
     )
 
     left_opening_multiplier: float = Field(
@@ -504,7 +499,7 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='The effective area for air flow at the left side of the shade,'
-        ' divided by the vertical area between glass and shade. Default value is 0.5.'
+        ' divided by the vertical area between glass and shade. Default: 0.5.'
     )
 
     right_opening_multiplier: float = Field(
@@ -512,7 +507,7 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='The effective area for air flow at the right side of the shade,'
-        ' divided by the vertical area between glass and shade. Default value is 0.5.'
+        ' divided by the vertical area between glass and shade. Default: 0.5.'
     )
 
     airflow_permeability: float = Field(
@@ -521,7 +516,7 @@ class EnergyWindowMaterialShade (IDdEnergyBaseModel):
         le=0.8,
         description='The fraction of the shade surface that is open to air flow.'
         ' If air cannot pass through the shade material, airflow_permeability = 0.'
-        ' Default value is 0.'
+        ' Default: 0.'
     )
 
 
@@ -572,7 +567,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
     slat_conductivity: float = Field(
         221,
         gt=0,
-        description='The thermal conductivity of the slat in W/(m-K). Default value is'
+        description='The thermal conductivity of the slat in W/(m-K). Default:'
         ' 221.'
     )
 
@@ -590,7 +585,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The beam solar reflectance of the front side of the slat, it is'
-        ' assumed to be independent of the angle of incidence. Default value is 0.5.'
+        ' assumed to be independent of the angle of incidence. Default: 0.5.'
     )
 
     beam_solar_reflectance_back: float = Field(
@@ -598,7 +593,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The beam solar reflectance of the back side of the slat, it is'
-        ' assumed to be independent of the angle of incidence. Default value is 0.5.'
+        ' assumed to be independent of the angle of incidence. Default: 0.5.'
     )
 
     diffuse_solar_transmittance: float = Field(
@@ -606,7 +601,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The slat transmittance for hemisperically diffuse solar radiation.'
-        ' Default value is 0.'
+        ' Default: 0.'
     )
 
     diffuse_solar_reflectance: float = Field(
@@ -614,7 +609,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The front-side slat reflectance for hemispherically diffuse solar'
-        ' radiation. Default value is 0.5.'
+        ' radiation. Default: 0.5.'
     )
 
     diffuse_solar_reflectance_back: float = Field(
@@ -622,7 +617,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The back-side slat reflectance for hemispherically diffuse solar'
-        ' radiation. Default value is 0.5.'
+        ' radiation. Default: 0.5.'
     )
 
     beam_visible_transmittance: float = Field(
@@ -630,7 +625,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The beam visible transmittance of the slat, it is assumed to be'
-        ' independent of the angle of incidence. Default value is 0.'
+        ' independent of the angle of incidence. Default: 0.'
     )
 
     beam_visible_reflectance: float = Field(
@@ -638,7 +633,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The beam visible reflectance on the front side of the slat, it is'
-        ' assumed to be independent of the angle of incidence. Default value is 0.5.'
+        ' assumed to be independent of the angle of incidence. Default: 0.5.'
     )
 
     beam_visible_reflectance_back: float = Field(
@@ -646,7 +641,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         lt=1,
         description='The beam visible reflectance on the back side of the slat, it is'
-        ' assumed to be independent of the angle of incidence. Default value is 0.5.'
+        ' assumed to be independent of the angle of incidence. Default: 0.5.'
     )
 
     diffuse_visible_transmittance: float = Field(
@@ -663,7 +658,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         lt=1,
         description='The front-side slat reflectance for hemispherically diffuse visible'
         ' radiation. This value should equal “Front Side Slat Beam Visible Reflectance.”'
-        ' Default value is 0.5.'
+        ' Default: 0.5.'
     )
 
     diffuse_visible_reflectance_back: float = Field(
@@ -672,7 +667,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         lt=1,
         description='The back-side slat reflectance for hemispherically diffuse visible'
         ' radiation. This value should equal “Back Side Slat Beam Visible Reflectance.'
-        ' Default value is 0.5.”'
+        ' Default: 0.5.”'
     )
 
     infrared_transmittance: float = Field(

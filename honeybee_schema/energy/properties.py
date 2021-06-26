@@ -4,6 +4,7 @@ from typing import List, Union
 
 from .._base import NoExtraBaseModel
 from .constructionset import ConstructionSetAbridged, ConstructionSet
+from .global_constructionset import GlobalConstructionSet
 from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged, \
     ShadeConstruction, AirBoundaryConstructionAbridged, OpaqueConstruction, \
     WindowConstruction, AirBoundaryConstruction, WindowConstructionShadeAbridged, \
@@ -219,6 +220,12 @@ class ModelEnergyProperties(NoExtraBaseModel):
 
     type: constr(regex='^ModelEnergyProperties$') = \
         'ModelEnergyProperties'
+
+    global_construction_set: GlobalConstructionSet = Field(
+        default=GlobalConstructionSet(),
+        description='Global Energy construction set.',
+        readOnly=True
+    )
 
     construction_sets: List[Union[ConstructionSetAbridged, ConstructionSet]] = Field(
         default=None,

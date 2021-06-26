@@ -4,6 +4,7 @@ from typing import List, Union
 
 from .modifier import _REFERENCE_UNION_MODIFIERS
 from .modifierset import ModifierSet, ModifierSetAbridged
+from .global_modifierset import GlobalModifierSet
 from .asset import SensorGrid, View
 from .._base import NoExtraBaseModel
 
@@ -111,6 +112,12 @@ class ModelRadianceProperties(NoExtraBaseModel):
     """Radiance Properties for Honeybee Model."""
 
     type: constr(regex='^ModelRadianceProperties$') = 'ModelRadianceProperties'
+
+    global_modifier_set: GlobalModifierSet = Field(
+        default=GlobalModifierSet(),
+        description='Global Radiance modifier set.',
+        readOnly=True
+    )
 
     modifiers: List[_REFERENCE_UNION_MODIFIERS] = Field(
         default=None,

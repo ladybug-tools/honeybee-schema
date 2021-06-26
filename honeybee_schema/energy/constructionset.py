@@ -270,7 +270,8 @@ class ConstructionSetAbridged(IDdEnergyBaseModel):
 
     roof_ceiling_set: RoofCeilingConstructionSetAbridged = Field(
         default=None,
-        description='A RoofCeilingConstructionSetAbridged object for this ConstructionSet.'
+        description='A RoofCeilingConstructionSetAbridged object for this '
+        'ConstructionSet.'
     )
 
     aperture_set: ApertureConstructionSetAbridged = Field(

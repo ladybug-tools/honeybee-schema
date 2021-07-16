@@ -106,17 +106,17 @@ class ApertureConstructionSetAbridged(NoExtraBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='Identifier for a WindowConstruction for apertures with an '
-        'Outdoors boundary condition, False is_operable property, and a Wall '
-        'face type for their parent face.'
+        description='Identifier for a WindowConstruction for all apertures with a '
+        'Surface boundary condition.'
     )
 
     window_construction: str = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description='Identifier for a WindowConstruction for all apertures with a '
-        'Surface boundary condition.'
+        description='Identifier for a WindowConstruction for apertures with an '
+        'Outdoors boundary condition, False is_operable property, and a Wall '
+        'face type for their parent face.'
     )
 
     skylight_construction: str = Field(
@@ -143,16 +143,14 @@ class ApertureConstructionSet(NoExtraBaseModel):
     type: constr(regex='^ApertureConstructionSet$') = 'ApertureConstructionSet'
 
     interior_construction: WindowConstruction = Field(
-        default=None,
-        description='A WindowConstruction for apertures with an '
-        'Outdoors boundary condition, False is_operable property, and a Wall '
-        'face type for their parent face.'
+        default=None, description='A WindowConstruction for all apertures with a '
+        'Surface boundary condition.'
     )
 
     window_construction: WindowConstruction = Field(
-        default=None,
-        description='A WindowConstruction for all apertures with a '
-        'Surface boundary condition.'
+        default=None, description='A WindowConstruction for apertures with an '
+        'Outdoors boundary condition, False is_operable property, and a Wall '
+        'face type for their parent face.'
     )
 
     skylight_construction: WindowConstruction = Field(

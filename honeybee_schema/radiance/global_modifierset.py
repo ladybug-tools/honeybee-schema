@@ -11,7 +11,7 @@ from .._base import NoExtraBaseModel
 from .modifierset import WallModifierSetAbridged, FloorModifierSetAbridged, \
     RoofCeilingModifierSetAbridged, ApertureModifierSetAbridged, \
     DoorModifierSetAbridged, ShadeModifierSetAbridged
-from .modifier import Plastic, Glass
+from .modifier import Plastic, Glass, Trans
 
 
 # import modifierset default values from honeybee standards
@@ -26,7 +26,9 @@ _MODIFIER_NAMES = [
     'generic_exterior_shade_0.35', 'air_boundary'
 ]
 _MODIFIERS = [
-    Plastic.parse_obj(m) if m['type'] == 'Plastic' else Glass.parse_obj(m)
+    Plastic.parse_obj(m) if m['type'] == 'Plastic'
+    else Glass.parse_obj(m) if m['type'] == 'Glass'
+    else Trans.parse_obj(m)
     for m in _DEFAULTS['modifiers'] if m['identifier'] in _MODIFIER_NAMES
 ]
 

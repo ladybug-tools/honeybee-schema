@@ -1,6 +1,6 @@
 """Modifier Schema"""
 from __future__ import annotations
-from pydantic import Field, BaseModel, constr, validator, root_validator
+from pydantic import Field, BaseModel, constr, validator
 from typing import List, Union, Optional
 from ._base import IDdRadianceBaseModel
 
@@ -155,21 +155,6 @@ class Trans(Plastic):
         le=1,
         description='The fraction of transmitted light that is not diffusely scattered.'
     )
-
-    @root_validator
-    def check_sum_fractions(cls, values):
-        """Ensure sum is less than 1."""
-        trans_diff = values.get('transmitted_diff')
-        trans_spec = values.get('transmitted_spec')
-        r_refl = values.get('r_reflectance')
-        g_refl = values.get('g_reflectance')
-        b_refl = values.get('b_reflectance')
-        identifier = values.get('identifier')
-        summed = trans_diff + trans_spec + (r_refl + g_refl + b_refl) / 3.0
-        assert summed <= 1, 'The sum of the transmitted and reflected ' \
-            'fractions cannot be greater than 1, but is {} for modifier {}.'.format(
-                summed, identifier)
-        return values
 
 
 class Glass(ModifierBase):

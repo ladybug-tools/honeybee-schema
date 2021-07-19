@@ -6,6 +6,8 @@ from .._base import IDdEnergyBaseModel
 
 
 class Vintages(str, Enum):
+    ashrae_2019 = 'ASHRAE_2019'
+    ashrae_2016 = 'ASHRAE_2016'
     ashrae_2013 = 'ASHRAE_2013'
     ashrae_2010 = 'ASHRAE_2010'
     ashrae_2007 = 'ASHRAE_2007'
@@ -18,7 +20,7 @@ class _TemplateSystem(IDdEnergyBaseModel):
     """Base class for HVAC systems following a standards template."""
 
     vintage: Vintages = Field(
-        Vintages.ashrae_2013,
+        Vintages.ashrae_2019,
         description='Text for the vintage of the template system. This will be used '
         'to set efficiencies for various pieces of equipment within the system. '
         'Further information about these defaults can be found in the version of '

@@ -64,6 +64,30 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
           PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+      - name: sleep for 10 minutes for PyPI update
+        if: contains(steps.new_release.outputs.tag, '.')
+        run: sleep 600s
+        shell: bash
+      - name: Update honeybee-core
+        if: contains(steps.new_release.outputs.tag, '.')
+        env:
+          DISPATCH_REPO: ladybug-tools/honeybee-core
+          DEPS_TOKEN: ${{ secrets.DEPS_UPDATING }}
+        run: |
+          curl -X POST https://api.github.com/repos/$DISPATCH_REPO/dispatches \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          -d '{"event_type": "honeybee_schema_release", "client_payload": {"version": "${{ steps.new_release.outputs.tag }}"}}' \
+          -u ladybugbot:$DEPS_TOKEN
+      - name: Update dragonfly-schema
+        if: contains(steps.new_release.outputs.tag, '.')
+        env:
+          DISPATCH_REPO: ladybug-tools/dragonfly-schema
+          DEPS_TOKEN: ${{ secrets.DEPS_UPDATING }}
+        run: |
+          curl -X POST https://api.github.com/repos/$DISPATCH_REPO/dispatches \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          -d '{"event_type": "honeybee_schema_release", "client_payload": {"version": "${{ steps.new_release.outputs.tag }}"}}' \
+          -u ladybugbot:$DEPS_TOKEN
     outputs:
       tag: ${{ steps.new_release.outputs.tag }}
 

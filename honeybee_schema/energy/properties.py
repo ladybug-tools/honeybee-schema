@@ -8,7 +8,7 @@ from .global_constructionset import GlobalConstructionSet
 from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged, \
     ShadeConstruction, AirBoundaryConstructionAbridged, OpaqueConstruction, \
     WindowConstruction, AirBoundaryConstruction, WindowConstructionShadeAbridged, \
-    WindowConstructionShade
+    WindowConstructionShade, WindowConstructionDynamicAbridged, WindowConstructionDynamic
 from .material import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
@@ -236,6 +236,7 @@ class ModelEnergyProperties(NoExtraBaseModel):
         OpaqueConstructionAbridged, WindowConstructionAbridged,
         WindowConstructionShadeAbridged, AirBoundaryConstructionAbridged,
         OpaqueConstruction, WindowConstruction, WindowConstructionShade,
+        WindowConstructionDynamicAbridged, WindowConstructionDynamic,
         AirBoundaryConstruction, ShadeConstruction]] = Field(
         default=None,
         description='A list of all unique constructions in the model. This includes '

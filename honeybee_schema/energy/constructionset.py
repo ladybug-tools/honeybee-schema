@@ -1,10 +1,11 @@
 """ConstructionSet Schema"""
 from pydantic import Field, constr
+from typing import Union
 
 from .._base import NoExtraBaseModel
 from ._base import IDdEnergyBaseModel
 from .construction import OpaqueConstruction, WindowConstruction, ShadeConstruction, \
-    AirBoundaryConstruction
+    AirBoundaryConstruction, WindowConstructionShade, WindowConstructionDynamic
 
 
 class _FaceSubSetAbridged(NoExtraBaseModel):
@@ -142,25 +143,33 @@ class ApertureConstructionSet(NoExtraBaseModel):
 
     type: constr(regex='^ApertureConstructionSet$') = 'ApertureConstructionSet'
 
-    interior_construction: WindowConstruction = Field(
+    interior_construction: Union[
+        WindowConstruction, WindowConstructionShade, WindowConstructionDynamic
+    ] = Field(
         default=None, description='A WindowConstruction for all apertures with a '
         'Surface boundary condition.'
     )
 
-    window_construction: WindowConstruction = Field(
+    window_construction: Union[
+        WindowConstruction, WindowConstructionShade, WindowConstructionDynamic
+    ] = Field(
         default=None, description='A WindowConstruction for apertures with an '
         'Outdoors boundary condition, False is_operable property, and a Wall '
         'face type for their parent face.'
     )
 
-    skylight_construction: WindowConstruction = Field(
+    skylight_construction: Union[
+        WindowConstruction, WindowConstructionShade, WindowConstructionDynamic
+    ] = Field(
         default=None,
         description='A WindowConstruction for apertures with a Outdoors boundary '
         'condition, False is_operable property, and a RoofCeiling or '
         'Floor face type for their parent face.'
     )
 
-    operable_construction: WindowConstruction = Field(
+    operable_construction: Union[
+        WindowConstruction, WindowConstructionShade, WindowConstructionDynamic
+    ] = Field(
         default=None,
         description='A WindowConstruction for all apertures with an '
         'Outdoors boundary condition and True is_operable property.'
@@ -238,13 +247,17 @@ class DoorConstructionSet(NoExtraBaseModel):
         'their parent face.'
     )
 
-    exterior_glass_construction: WindowConstruction = Field(
+    exterior_glass_construction: Union[
+        WindowConstruction, WindowConstructionShade, WindowConstructionDynamic
+    ] = Field(
         default=None,
         description='A WindowConstruction for all glass doors with an '
         'Outdoors boundary condition.'
     )
 
-    interior_glass_construction: WindowConstruction = Field(
+    interior_glass_construction: Union[
+        WindowConstruction, WindowConstructionShade, WindowConstructionDynamic
+    ] = Field(
         default=None,
         description='A WindowConstruction for all glass doors with a '
         'Surface boundary condition.'

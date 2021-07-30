@@ -1,5 +1,5 @@
 """Construction Schema"""
-from pydantic import Field, constr, root_validator
+from pydantic import Field, constr
 from typing import List, Union
 from enum import Enum
 
@@ -155,16 +155,6 @@ class WindowConstructionShadeAbridged(IDdEnergyBaseModel):
         'the construction.'
     )
 
-    @root_validator
-    def check_setpoint_exists(cls, values):
-        "Ensure the setpoint exists if control_type isn't AlwaysOn."
-        control_type = values.get('control_type')
-        setpoint = values.get('setpoint')
-        if control_type != 'AlwaysOn':
-            assert setpoint is not None, 'Control setpoint cannot ' \
-                'be None for control type "{}"'.format(control_type)
-        return values
-
 
 class WindowConstructionShade(WindowConstructionShadeAbridged):
     """Construction for window objects (Aperture, Door)."""
@@ -196,6 +186,60 @@ class WindowConstructionShade(WindowConstructionShadeAbridged):
         description='An optional ScheduleRuleset or ScheduleFixedInterval to be '
         'applied on top of the control_type. If None, the control_type will govern '
         'all behavior of the construction.'
+    )
+
+
+class WindowConstructionDynamicAbridged(IDdEnergyBaseModel):
+    """Construction for window objects with an included shade layer."""
+
+    type: constr(regex='^WindowConstructionDynamicAbridged$') = \
+        'WindowConstructionDynamicAbridged'
+
+    constructions: List[WindowConstructionAbridged] = Field(
+        ...,
+        description='A list of WindowConstructionAbridged objects that define the '
+        'various states that the dynamic window can assume.'
+    )
+
+    schedule: str = Field(
+        ...,
+        min_length=1,
+        max_length=100,
+        description='An identifier for a control schedule that dictates which '
+        'constructions are active at given times throughout the simulation. The values '
+        'of the schedule should be intergers and range from 0 to one less then the '
+        'number of constructions. Zero indicates that the first construction is active, '
+        'one indicates that the second on is active, etc. The schedule type limits '
+        'of this schedule should be "Control Level." If building custom schedule '
+        'type limits that describe a particular range of states, the type limits '
+        'should be "Discrete" and the unit type should be "Mode," "Control," or '
+        'some other fractional unit.'
+    )
+
+
+class WindowConstructionDynamic(IDdEnergyBaseModel):
+    """Construction for window objects with an included shade layer."""
+
+    type: constr(regex='^WindowConstructionDynamic$') = \
+        'WindowConstructionDynamic'
+
+    constructions: List[WindowConstruction] = Field(
+        ...,
+        description='A list of WindowConstruction objects that define the '
+        'various states that the dynamic window can assume.'
+    )
+
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+        ...,
+        description='A control schedule that dictates which constructions '
+        'are active at given times throughout the simulation. The values of the '
+        'schedule should be intergers and range from 0 to one less then the number '
+        'of constructions. Zero indicates that the first construction is active, '
+        'one indicates that the second on is active, etc. The schedule type limits '
+        'of this schedule should be "Control Level." If building custom schedule '
+        'type limits that describe a particular range of states, the type limits '
+        'should be "Discrete" and the unit type should be "Mode," "Control," or '
+        'some other fractional unit.'
     )
 
 

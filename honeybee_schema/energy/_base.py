@@ -5,7 +5,7 @@ import datetime
 from .._base import NoExtraBaseModel
 
 
-class IDdEnergyBaseModel(NoExtraBaseModel):
+class EnergyBaseModel(NoExtraBaseModel):
     """Base class for all objects requiring a valid EnergyPlus identifier."""
 
     identifier: str = Field(
@@ -23,6 +23,18 @@ class IDdEnergyBaseModel(NoExtraBaseModel):
     display_name: str = Field(
         default=None,
         description='Display name of the object with no character restrictions.'
+    )
+
+
+class IDdEnergyBaseModel(EnergyBaseModel):
+    """Base class for all objects requiring an EnergyPlus identifier and user_data."""
+
+    user_data: dict = Field(
+        default=None,
+        description='Optional dictionary of user data associated with the object.'
+        'All keys and values of this dictionary should be of a standard data '
+        'type to ensure correct serialization of the object (eg. str, float, '
+        'int, list).'
     )
 
 

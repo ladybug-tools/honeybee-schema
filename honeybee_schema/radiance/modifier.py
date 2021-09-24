@@ -197,8 +197,9 @@ class Glass(ModifierBase):
 
     refraction_index: Optional[float] = Field(
         default=1.52,
-        ge=0,
-        description='A value between 0 and 1 for the index of refraction.'
+        gt=1,
+        description='A value greater than 1 for the index of refraction. Typical '
+        'values are 1.52 for float glass and 1.4 for ETFE.'
     )
 
 

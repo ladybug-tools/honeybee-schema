@@ -4,7 +4,7 @@ from typing import List, Union
 from enum import Enum
 import datetime
 
-from ._base import IDdEnergyBaseModel, DatedBaseModel
+from ._base import IDdEnergyBaseModel, DatedBaseModel, EnergyBaseModel
 from ..altnumber import NoLimit
 
 
@@ -31,7 +31,7 @@ class ScheduleUnitType (str, Enum):
     mode = 'Mode'
 
 
-class ScheduleTypeLimit(IDdEnergyBaseModel):
+class ScheduleTypeLimit(EnergyBaseModel):
     """Specifies the data types and limits for values contained in schedules."""
 
     type: constr(regex='^ScheduleTypeLimit$') = 'ScheduleTypeLimit'
@@ -51,7 +51,7 @@ class ScheduleTypeLimit(IDdEnergyBaseModel):
     unit_type: ScheduleUnitType = ScheduleUnitType.dimensionless
 
 
-class ScheduleDay(IDdEnergyBaseModel):
+class ScheduleDay(EnergyBaseModel):
     """Used to describe the daily schedule for a single simulation day."""
 
     type: constr(regex='^ScheduleDay$') = 'ScheduleDay'

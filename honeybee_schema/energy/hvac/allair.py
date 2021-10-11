@@ -1,6 +1,5 @@
 """All-air HVAC systems, providing ventilation and meeting thermal demand with air."""
 from pydantic import Field, constr
-from typing import Union
 from enum import Enum
 
 from ._template import _TemplateSystem

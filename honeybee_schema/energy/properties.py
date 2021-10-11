@@ -28,6 +28,7 @@ from .hvac.allair import VAV, PVAV, PSZ, PTAC, ForcedAirFurnace
 from .hvac.doas import FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged
 from .hvac.heatcool import FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential, \
     WindowAC, GasUnitHeater
+from .shw import SHWSystem
 
 
 class ShadeEnergyPropertiesAbridged(NoExtraBaseModel):
@@ -152,6 +153,16 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
         'that the Room is not conditioned.'
     )
 
+    shw: str = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description='An optional identifier of a Service Hot Water (SHW) system '
+        'that specifies how the hot water load of the Room is met. If None, the hot '
+        'water load will be met with a generic system that only measures thermal load'
+        'and does not account for system efficiencies.'
+    )
+
     people: PeopleAbridged = Field(
         default=None,
         description='People object to describe the occupancy of the Room.'
@@ -260,6 +271,11 @@ class ModelEnergyProperties(NoExtraBaseModel):
                       WindowAC, GasUnitHeater]] = Field(
         default=None,
         description='List of all unique HVAC systems in the Model.'
+    )
+
+    shws: List[SHWSystem] = Field(
+        default=None,
+        description='List of all unique Service Hot Water (SHW) systems in the Model.'
     )
 
     program_types: List[Union[ProgramTypeAbridged, ProgramType]] = Field(

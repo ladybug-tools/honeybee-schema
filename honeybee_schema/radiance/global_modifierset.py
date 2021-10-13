@@ -37,7 +37,7 @@ class GlobalModifierSet(NoExtraBaseModel):
 
     type: constr(regex='^GlobalModifierSet$') = 'GlobalModifierSet'
 
-    modifiers: List[Union[Plastic, Glass]] = Field(
+    modifiers: List[Union[Plastic, Glass, Trans]] = Field(
         default=_MODIFIERS,
         description='Global Honeybee Radiance modifiers.',
         readOnly=True

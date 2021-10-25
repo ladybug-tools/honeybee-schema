@@ -2,7 +2,6 @@
 from pydantic import Field, constr
 
 from ._base import IDdEnergyBaseModel
-from enum import Enum
 
 
 class InternalMassAbridged(IDdEnergyBaseModel):

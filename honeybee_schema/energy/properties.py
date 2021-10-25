@@ -16,7 +16,7 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, \
 from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, ServiceHotWaterAbridged, InfiltrationAbridged, \
-    VentilationAbridged, SetpointAbridged
+    VentilationAbridged, SetpointAbridged, ProcessAbridged
 from .daylight import DaylightingControl
 from .ventcool import VentilationControlAbridged, VentilationOpening, \
     VentilationSimulationControl, AFNCrack
@@ -224,6 +224,15 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
         'taken when using this component with internal mass objects that are not '
         'always in shade. Masses are factored into the the thermal calculations '
         'of the Room by undergoing heat transfer with the indoor air.'
+    )
+
+    process_loads: List[ProcessAbridged] = Field(
+        default=None,
+        description='An optional list of of Process objects for process loads within '
+        'the room. These can represent kilns, manufacturing equipment, and various '
+        'industrial processes. They can also be used to represent wood burning '
+        'fireplaces or certain pieces of equipment to be separated from the other '
+        'end uses.'
     )
 
 

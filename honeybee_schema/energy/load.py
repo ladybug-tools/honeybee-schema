@@ -1,6 +1,7 @@
 """Load Schemas"""
 from pydantic import Field, root_validator, constr
-from typing import Union, List
+from typing import Union
+from enum import Enum
 
 from ._base import IDdEnergyBaseModel
 from .schedule import ScheduleRuleset, ScheduleFixedInterval
@@ -190,14 +191,14 @@ class _EquipmentBase(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='Number for the amount of long-wave radiation heat given off'
-        ' by electric equipment. Default value is 0.'
+        ' by equipment. Default value is 0.'
     )
 
     latent_fraction: float = Field(
         0,
         ge=0,
         le=1,
-        description='Number for the amount of latent heat given off by electric'
+        description='Number for the amount of latent heat given off by '
         'equipment. Default value is 0.'
 
     )
@@ -513,3 +514,94 @@ class Setpoint(SetpointAbridged):
         description='Schedule for the dehumidification setpoint. The values '
         'in this schedule should be in [%].'
     )
+
+
+class FuelTypes (str, Enum):
+    """Designates the acceptable fuel types for process loads."""
+    electricity = 'Electricity'
+    natural_gas = 'NaturalGas'
+    propane = 'Propane'
+    fuel_oil_no_1 = 'FuelOilNo1'
+    fuel_oil_no_2 = 'FuelOilNo2'
+    diesel = 'Diesel'
+    gasoline = 'Gasoline'
+    coal = 'Coal'
+    steam = 'Steam'
+    district_heating = 'DistrictHeating'
+    district_cooling = 'DistrictCooling'
+    other_fuel_1 = 'OtherFuel1'
+    other_fuel_2 = 'OtherFuel2'
+    none = 'None'
+
+
+class ProcessAbridged(IDdEnergyBaseModel):
+
+    type: constr(regex='^ProcessAbridged$') = 'ProcessAbridged'
+
+    watts: float = Field(
+        ...,
+        ge=0,
+        description='A number for the process load power in Watts.'
+    )
+
+    schedule: str = Field(
+        ...,
+        min_length=1,
+        max_length=100,
+        description='Identifier of the schedule for the use of the process over the '
+        'course of the year. The type of this schedule should be Fractional and the '
+        'fractional values will get multiplied by the watts to yield a complete '
+        'equipment profile.'
+    )
+
+    fuel_type: FuelTypes = Field(
+        ...,
+        description='Text to denote the type of fuel consumed by the process. '
+        'Using the "None" type indicates that no end uses will be associated '
+        'with the process, only the zone gains.'
+    )
+
+    end_use_category: str = Field(
+        'Process',
+        min_length=1,
+        max_length=100,
+        description='Text to indicate the end-use subcategory, which will identify '
+        'the process load in the end use output. For example, “Cooking”, '
+        '“Clothes Drying”, etc. A new meter for reporting is created for each '
+        'unique subcategory.'
+    )
+
+    radiant_fraction: float = Field(
+        0,
+        ge=0,
+        le=1,
+        description='Number for the amount of long-wave radiation heat given off'
+        ' by the process load. Default value is 0.'
+    )
+
+    latent_fraction: float = Field(
+        0,
+        ge=0,
+        le=1,
+        description='Number for the amount of latent heat given off by the process '
+        'load. Default value is 0.'
+
+    )
+
+    lost_fraction: float = Field(
+        0,
+        ge=0,
+        le=1,
+        description='Number for the amount of “lost” heat being given off by '
+        'the process load. The default value is 0.'
+    )
+
+    @root_validator
+    def check_sum_fractions(cls, values):
+        "Ensure sum is less than 1."
+        rad = values.get('radiant_fraction')
+        latent = values.get('latent_fraction')
+        lost = values.get('lost_fraction')
+        assert sum((rad, latent, lost)) <= 1, \
+            'Sum of radiant, latent, and lost fractions cannot be greater than 1.'
+        return values

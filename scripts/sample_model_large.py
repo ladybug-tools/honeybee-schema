@@ -148,7 +148,7 @@ def urban_district(directory):
 
     # create the Room2Ds
     rooms = []
-    for bldg in com_geo_dict:
+    for j, bldg in enumerate(com_geo_dict):
         for i, floor in enumerate(bldg):
             room_geo = Face3D.from_dict(floor)
             if i < 3:
@@ -156,7 +156,7 @@ def urban_district(directory):
             else:
                 hgt = 3
             program = retail if i == 0 else office
-            room = Room2D('Commercial_{}'.format(i), room_geo, hgt)
+            room = Room2D('Commercial_{}_Room_{}'.format(j, i), room_geo, hgt)
             room.properties.energy.program_type = program
             room.properties.energy.construction_set = c_set
             room.properties.energy.add_default_ideal_air()
@@ -166,10 +166,10 @@ def urban_district(directory):
                 room.is_ground_contact = True
             rooms.append(room)
 
-    for bldg in res_geo_dict:
+    for j, bldg in enumerate(res_geo_dict):
         for i, floor in enumerate(bldg):
             room_geo = Face3D.from_dict(floor)
-            room = Room2D('Residential_{}'.format(i), room_geo, 4)
+            room = Room2D('Residential_{}_Room_{}'.format(j, i), room_geo, 4)
             room.properties.energy.program_type = apartment
             room.properties.energy.construction_set = c_set
             room.properties.energy.add_default_ideal_air()

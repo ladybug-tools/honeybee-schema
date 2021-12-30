@@ -308,8 +308,8 @@ class ConstructionSetAbridged(IDdEnergyBaseModel):
         default=None,
         min_length=1,
         max_length=100,
-        description='The identifier of an AirBoundaryConstruction to set the properties '
-        'of Faces with an AirBoundary type.'
+        description='The identifier of an AirBoundaryConstruction or OpaqueConstruction '
+        'to set the properties of Faces with an AirBoundary type.'
     )
 
 
@@ -350,8 +350,10 @@ class ConstructionSet(ConstructionSetAbridged):
         'ConstructionSet is assigned.'
     )
 
-    air_boundary_construction: AirBoundaryConstruction = Field(
+    air_boundary_construction: Union[
+        AirBoundaryConstruction, OpaqueConstruction
+    ] = Field(
         default=None,
-        description='An AirBoundaryConstruction to set the properties '
-        'of Faces with an AirBoundary type.'
+        description='An AirBoundaryConstruction or OpaqueConstruction to set '
+        'the properties of Faces with an AirBoundary type.'
     )

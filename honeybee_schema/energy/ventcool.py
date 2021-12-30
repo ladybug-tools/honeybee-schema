@@ -106,7 +106,7 @@ class VentilationOpening(NoExtraBaseModel):
     )
 
     flow_coefficient_closed: float = Field(
-        default=None,
+        default=0,
         ge=0,
         description='An optional number in kg/s-m, at 1 Pa per meter of crack length, '
         'used to calculate the mass flow rate when the opening is closed; required to '

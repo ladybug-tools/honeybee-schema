@@ -23,18 +23,6 @@ class SimulationOutput(NoExtraBaseModel):
 
     reporting_frequency: ReportingFrequency = ReportingFrequency.hourly
 
-    include_sqlite: bool = Field(
-        default=True,
-        description='Boolean to note whether a SQLite report should be requested '
-        'from the simulation.'
-    )
-
-    include_html: bool = Field(
-        default=True,
-        description='Boolean to note whether an HTML report should be requested '
-        'from the simulation.'
-    )
-
     outputs: List[str] = Field(
         default=None,
         description='A list of EnergyPlus output names as strings, which are requested '

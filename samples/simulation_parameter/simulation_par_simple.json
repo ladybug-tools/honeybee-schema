@@ -3,8 +3,6 @@
     "output": {
         "type": "SimulationOutput",
         "reporting_frequency": "Hourly",
-        "include_sqlite": true,
-        "include_html": true,
         "summary_reports": [
             "AllSummary"
         ]

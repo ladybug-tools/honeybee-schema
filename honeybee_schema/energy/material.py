@@ -17,6 +17,12 @@ class Roughness(str, Enum):
     very_smooth = 'VerySmooth'
 
 
+class MoistureDiffusionModel(str, Enum):
+    """Acceptable values for the moisture diffusion model for vegetation."""
+    simple = 'Simple'
+    advanced = 'Advanced'
+
+
 class EnergyMaterialNoMass(IDdEnergyBaseModel):
     """No mass opaque material representing a layer within an opaque construction.
 
@@ -113,6 +119,128 @@ class EnergyMaterial(IDdEnergyBaseModel):
         description='Fraction of incident visible wavelength radiation absorbed by the'
         ' material. Default: 0.7.'
     )
+
+
+class EnergyMaterialVegetation(IDdEnergyBaseModel):
+    """Material representing vegetation on the exterior of an opaque construction."""
+
+    type: constr(regex='^EnergyMaterialVegetation$') = 'EnergyMaterialVegetation'
+
+    roughness: Roughness = Roughness.medium_rough
+
+    thickness: float = Field(
+        0.1,
+        gt=0,
+        le=3,
+        description='Thickness of the soil layer in meters.'
+    )
+
+    conductivity: float = Field(
+        0.35,
+        gt=0,
+        description='Thermal conductivity of the dry soil in W/m-K.',
+    )
+
+    density: float = Field(
+        1100,
+        gt=0,
+        description='Density of the dry soil in kg/m3.'
+    )
+
+    specific_heat: float = Field(
+        1200,
+        ge=100,
+        description='Specific heat of the dry soil in J/kg-K.'
+    )
+
+    soil_thermal_absorptance: float = Field(
+        0.9,
+        gt=0,
+        le=0.99999,
+        description='Fraction of incident long wavelength radiation that is absorbed by'
+        ' the soil. Default: 0.9.'
+    )
+
+    soil_solar_absorptance: float = Field(
+        0.7,
+        ge=0,
+        le=1,
+        description='Fraction of incident solar radiation absorbed by the soil.'
+        ' Default: 0.7.'
+    )
+
+    soil_visible_absorptance: float = Field(
+        0.7,
+        ge=0,
+        le=1,
+        description='Fraction of incident visible wavelength radiation absorbed by the'
+        ' material. Default: 0.7.'
+    )
+
+    plant_height: float = Field(
+        0.2,
+        ge=0.005,
+        le=1.0,
+        description='The height of plants in the vegetation in meters.'
+    )
+
+    leaf_area_index: float = Field(
+        1.0,
+        ge=0.001,
+        le=5.0,
+        description='The projected leaf area per unit area of soil surface '
+        '(aka. Leaf Area Index or LAI). Note that the fraction of vegetation '
+        'cover is calculated directly from LAI using an empirical relation.'
+    )
+
+    leaf_reflectivity: float = Field(
+        0.22,
+        ge=0.005,
+        le=0.5,
+        description='The fraction of incident solar radiation that is reflected '
+        'by the leaf surfaces. Solar radiation includes the visible spectrum as '
+        'well as infrared and ultraviolet wavelengths. Typical values are 0.18 to 0.25.'
+    )
+
+    leaf_emissivity: float = Field(
+        0.95,
+        ge=0.8,
+        le=1.0,
+        description='The ratio of thermal radiation emitted from leaf surfaces to '
+        'that emitted by an ideal black body at the same temperature.'
+    )
+
+    min_stomatal_resist: float = Field(
+        180,
+        ge=50,
+        le=300,
+        description='The resistance of the plants to moisture transport [s/m]. '
+        'Plants with low values of stomatal resistance will result in higher '
+        'evapotranspiration rates than plants with high resistance.'
+    )
+
+    sat_vol_moist_cont: float = Field(
+        0.3,
+        ge=0.1,
+        le=0.5,
+        description='The saturation moisture content of the soil by volume.'
+    )
+
+    residual_vol_moist_cont: float = Field(
+        0.01,
+        ge=0.01,
+        le=0.1,
+        description='The residual moisture content of the soil by volume.'
+    )
+
+    init_vol_moist_cont: float = Field(
+        0.01,
+        ge=0.05,
+        le=0.5,
+        description='The initial moisture content of the soil by volume.'
+    )
+
+    moist_diff_model: MoistureDiffusionModel = MoistureDiffusionModel.simple
 
 
 class EnergyWindowMaterialSimpleGlazSys(IDdEnergyBaseModel):

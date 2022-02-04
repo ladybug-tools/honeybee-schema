@@ -4,7 +4,7 @@ from typing import List, Union
 from enum import Enum
 
 from ._base import IDdEnergyBaseModel
-from .material import EnergyMaterial, EnergyMaterialNoMass, \
+from .material import EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegetation, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
     EnergyWindowMaterialGlazing, EnergyWindowMaterialShade, EnergyWindowMaterialBlind
@@ -30,7 +30,9 @@ class OpaqueConstruction(OpaqueConstructionAbridged):
 
     type: constr(regex='^OpaqueConstruction$') = 'OpaqueConstruction'
 
-    materials: List[Union[EnergyMaterial, EnergyMaterialNoMass]] = Field(
+    materials: List[
+        Union[EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegetation]
+    ] = Field(
         ...,
         description='List of opaque material definitions. The order '
         'of the materials is from exterior to interior.',

@@ -9,7 +9,7 @@ from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged
     ShadeConstruction, AirBoundaryConstructionAbridged, OpaqueConstruction, \
     WindowConstruction, AirBoundaryConstruction, WindowConstructionShadeAbridged, \
     WindowConstructionShade, WindowConstructionDynamicAbridged, WindowConstructionDynamic
-from .material import EnergyMaterial, EnergyMaterialNoMass, \
+from .material import EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegetation, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
     EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
@@ -252,32 +252,43 @@ class ModelEnergyProperties(NoExtraBaseModel):
         description='List of all unique ConstructionSets in the Model.'
     )
 
-    constructions: List[Union[
-        OpaqueConstructionAbridged, WindowConstructionAbridged,
-        WindowConstructionShadeAbridged, AirBoundaryConstructionAbridged,
-        OpaqueConstruction, WindowConstruction, WindowConstructionShade,
-        WindowConstructionDynamicAbridged, WindowConstructionDynamic,
-        AirBoundaryConstruction, ShadeConstruction]] = Field(
+    constructions: List[
+        Union[
+            OpaqueConstructionAbridged, WindowConstructionAbridged,
+            WindowConstructionShadeAbridged, AirBoundaryConstructionAbridged,
+            OpaqueConstruction, WindowConstruction, WindowConstructionShade,
+            WindowConstructionDynamicAbridged, WindowConstructionDynamic,
+            AirBoundaryConstruction, ShadeConstruction
+        ]
+    ] = Field(
         default=None,
         description='A list of all unique constructions in the model. This includes '
         'constructions across all Faces, Apertures, Doors, Shades, Room '
         'ConstructionSets, and the global_construction_set.'
     )
 
-    materials: List[Union[EnergyMaterial, EnergyMaterialNoMass, EnergyWindowMaterialGas,
-                          EnergyWindowMaterialGasCustom, EnergyWindowMaterialGasMixture,
-                          EnergyWindowMaterialSimpleGlazSys, EnergyWindowMaterialBlind,
-                          EnergyWindowMaterialGlazing,
-                          EnergyWindowMaterialShade]] = Field(
+    materials: List[
+        Union[
+            EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegetation,
+            EnergyWindowMaterialGlazing, EnergyWindowMaterialSimpleGlazSys,
+            EnergyWindowMaterialGas, EnergyWindowMaterialGasMixture,
+            EnergyWindowMaterialGasCustom,
+            EnergyWindowMaterialBlind, EnergyWindowMaterialShade
+        ]
+    ] = Field(
         default=None,
         description='A list of all unique materials in the model. This includes '
         'materials needed to make the Model constructions.'
     )
 
-    hvacs: List[Union[IdealAirSystemAbridged, VAV, PVAV, PSZ, PTAC, ForcedAirFurnace,
-                      FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged,
-                      FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential,
-                      WindowAC, GasUnitHeater]] = Field(
+    hvacs: List[
+        Union[
+            IdealAirSystemAbridged, VAV, PVAV, PSZ, PTAC, ForcedAirFurnace,
+            FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged,
+            FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential,
+            WindowAC, GasUnitHeater
+        ]
+    ] = Field(
         default=None,
         description='List of all unique HVAC systems in the Model.'
     )

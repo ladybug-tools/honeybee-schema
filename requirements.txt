@@ -1,2 +1,2 @@
-pydantic-openapi-helper==0.2.7
+pydantic-openapi-helper==0.2.9
 honeybee-standards==2.0.5

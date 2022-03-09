@@ -290,6 +290,14 @@ class Room(IDdBaseModel):
         'Room is run once and then the result is mutliplied by the multiplier.'
     )
 
+    exclude_floor_area: bool = Field(
+        False,
+        description='A boolean for whether the Room floor area contributes to Models '
+        'it is a part of. Note that this will not affect the floor_area property of '
+        'this Room itself but it will ensure the Room floor area is excluded from '
+        'any calculations when the Room is part of a Model, including EUI calculations.'
+    )
+
     story: str = Field(
         default=None,
         regex=r'[.A-Za-z0-9_-]',

@@ -25,9 +25,10 @@ from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
     ScheduleFixedIntervalAbridged, ScheduleRuleset, ScheduleFixedInterval
 from .hvac.idealair import IdealAirSystemAbridged
 from .hvac.allair import VAV, PVAV, PSZ, PTAC, ForcedAirFurnace
-from .hvac.doas import FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged
+from .hvac.doas import FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged, \
+    RadiantwithDOASAbridged
 from .hvac.heatcool import FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential, \
-    WindowAC, GasUnitHeater
+    WindowAC, GasUnitHeater, Radiant
 from .shw import SHWSystem
 
 
@@ -285,8 +286,9 @@ class ModelEnergyProperties(NoExtraBaseModel):
         Union[
             IdealAirSystemAbridged, VAV, PVAV, PSZ, PTAC, ForcedAirFurnace,
             FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged,
+            RadiantwithDOASAbridged,
             FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential,
-            WindowAC, GasUnitHeater
+            WindowAC, GasUnitHeater, Radiant
         ]
     ] = Field(
         default=None,

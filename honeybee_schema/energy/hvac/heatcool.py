@@ -2,7 +2,7 @@
 from pydantic import Field, constr
 from enum import Enum
 
-from ._template import _TemplateSystem
+from ._template import _TemplateSystem, RadiantFaceTypes
 
 
 class _HeatCoolBase(_TemplateSystem):
@@ -82,6 +82,18 @@ class VRFEquipmentType(str, Enum):
 
 class GasUnitHeaterEquipmentType(str, Enum):
     guh = 'GasHeaters'
+
+
+class RadiantEquipmentType(str, Enum):
+    radiant_chill_gb = 'Radiant_Chiller_Boiler'
+    radiant_chill_ashp = 'Radiant_Chiller_ASHP'
+    radiant_chill_dhw = 'Radiant_Chiller_DHW'
+    radiant_ac_chill_gb = 'Radiant_ACChiller_Boiler'
+    radiant_ac_chill_ashp = 'Radiant_ACChiller_ASHP'
+    radiant_ac_chill_dhw = 'Radiant_ACChiller_DHW'
+    radiant_dcw_gb = 'Radiant_DCW_Boiler'
+    radiant_dcw_ashp = 'Radiant_DCW_ASHP'
+    radiant_dcw_dhw = 'Radiant_DCW_DHW'
 
 
 class FCU(_HeatCoolBase):
@@ -177,4 +189,47 @@ class GasUnitHeater(_HeatCoolBase):
         GasUnitHeaterEquipmentType.guh,
         description='Text for the specific type of system equipment from the '
         'GasUnitHeaterEquipmentType enumeration.'
+    )
+
+
+class Radiant(_HeatCoolBase):
+    """Low Temperature Radiant system."""
+
+    type: constr(regex='^Radiant$') = 'Radiant'
+
+    equipment_type: RadiantEquipmentType = Field(
+        RadiantEquipmentType.radiant_chill_gb,
+        description='Text for the specific type of system equipment from the '
+        'RadiantEquipmentType enumeration.'
+    )
+
+    proportional_gain: float = Field(
+        0.3,
+        ge=0,
+        le=1,
+        description='A fractional number for the proportional gain constant. '
+        'Recommended values are 0.3 or less.'
+    )
+
+    minimum_operation_time: float = Field(
+        1.0,
+        gt=0,
+        description='A number for the minimum number of hours of operation '
+        'for the radiant system before it shuts off.'
+    )
+
+    switch_over_time: float = Field(
+        24.0,
+        gt=0,
+        description='A number for the minimum number of hours for when the system '
+        'can switch between heating and cooling.'
+    )
+
+    radiant_face_type: RadiantFaceTypes = Field(
+        RadiantFaceTypes.floor,
+        description='Text to indicate which faces are thermally active by default. '
+        'Note that this property has no effect when the rooms to which the HVAC '
+        'system is assigned have constructions with internal source materials. '
+        'In this case, those constructions will dictate the thermally active '
+        'surfaces.'
     )

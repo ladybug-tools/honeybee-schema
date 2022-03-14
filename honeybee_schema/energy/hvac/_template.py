@@ -28,3 +28,9 @@ class _TemplateSystem(IDdEnergyBaseModel):
         'of the standard can be found at: https://www.ashrae.org/technical-resources/'
         'standards-and-guidelines/read-only-versions-of-ashrae-standards'
     )
+
+
+class RadiantFaceTypes(str, Enum):
+    floor = 'Floor'
+    ceiling = 'Ceiling'
+    floor_with_carpet = 'FloorWithCarpet'

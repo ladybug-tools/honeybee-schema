@@ -300,12 +300,9 @@ class Room(IDdBaseModel):
 
     story: str = Field(
         default=None,
-        regex=r'[.A-Za-z0-9_-]',
-        min_length=1,
-        max_length=100,
         description='Text string for the story identifier to which this Room belongs. '
         'Rooms sharing the same story identifier are considered part of the same '
-        'story in a Model.'
+        'story in a Model. Note that this property has no character restrictions.'
     )
 
     properties: RoomPropertiesAbridged = Field(

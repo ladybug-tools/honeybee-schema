@@ -34,3 +34,4 @@ class RadiantFaceTypes(str, Enum):
     floor = 'Floor'
     ceiling = 'Ceiling'
     floor_with_carpet = 'FloorWithCarpet'
+    ceiling_metal_panel='CeilingMetalPanel'

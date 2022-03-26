@@ -134,12 +134,13 @@ class RadiantwithDOASAbridged(_DOASBase):
         'RadiantwithDOASEquipmentType enumeration.'
     )
 
-    proportional_gain: float = Field(
-        0.3,
-        ge=0,
-        le=1,
-        description='A fractional number for the proportional gain constant. '
-        'Recommended values are 0.3 or less.'
+    radiant_face_type: RadiantFaceTypes = Field(
+        RadiantFaceTypes.floor,
+        description='Text to indicate which faces are thermally active by default. '
+        'Note that this property has no effect when the rooms to which the HVAC '
+        'system is assigned have constructions with internal source materials. '
+        'In this case, those constructions will dictate the thermally active '
+        'surfaces.'
     )
 
     minimum_operation_time: float = Field(
@@ -154,13 +155,4 @@ class RadiantwithDOASAbridged(_DOASBase):
         gt=0,
         description='A number for the minimum number of hours for when the system '
         'can switch between heating and cooling.'
-    )
-
-    radiant_face_type: RadiantFaceTypes = Field(
-        RadiantFaceTypes.floor,
-        description='Text to indicate which faces are thermally active by default. '
-        'Note that this property has no effect when the rooms to which the HVAC '
-        'system is assigned have constructions with internal source materials. '
-        'In this case, those constructions will dictate the thermally active '
-        'surfaces.'
     )

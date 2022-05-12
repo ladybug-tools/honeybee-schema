@@ -1,5 +1,5 @@
 """Schema for the error objects returned by the validation command"""
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, constr
 from typing import List, Union
 from enum import Enum
 
@@ -32,7 +32,7 @@ class ObjectTypes(str, Enum):
     shw = 'SHW'
 
 
-class ParentObjectTypes(str, Enum):
+class ParentTypes(str, Enum):
     """Types of Honeybee objects that can be parents."""
     aperture = 'Aperture'
     door = 'Door'
@@ -40,9 +40,11 @@ class ParentObjectTypes(str, Enum):
     room = 'Room'
 
 
-class ParentObject(BaseModel):
+class ValidationParent(BaseModel):
 
-    type: ParentObjectTypes = Field(
+    type: constr(regex='^ValidationParent$') = 'ValidationParent'
+
+    parent_type: ParentTypes = Field(
         ...,
         description='Text for the type of object that the parent is.'
     )
@@ -63,6 +65,8 @@ class ParentObject(BaseModel):
 
 class ValidationError(BaseModel):
 
+    type: constr(regex='^ValidationError$') = 'ValidationError'
+
     code: str = Field(
         ...,
         min_length=6,
@@ -77,7 +81,7 @@ class ValidationError(BaseModel):
         'to coarser/more abstract objects/errors.'
     )
 
-    type: ExtensionTypes = Field(
+    extension_type: ExtensionTypes = Field(
         ...,
         description='Text for the Honeybee extension from which the error originated '
         '(from the ExtensionTypes enumeration).'
@@ -109,7 +113,7 @@ class ValidationError(BaseModel):
         'what exactly is ivalid about the element.'
     )
 
-    parents: List[ParentObject] = Field(
+    parents: List[ValidationParent] = Field(
         default=None,
         description='A list of the parent objects for the objet that caused the error. '
         'This can be useful for locating the problematic object in the model. '
@@ -117,7 +121,7 @@ class ValidationError(BaseModel):
         'for an Aperture that has a parent Face with a parent Room.'
     )
 
-    top_parents: List[ParentObject] = Field(
+    top_parents: List[ValidationParent] = Field(
         default=None,
         description='A list of top-level parent objects for the specific case of '
         'duplicate child-object identifiers, where several top-level parents '
@@ -126,6 +130,8 @@ class ValidationError(BaseModel):
 
 
 class ValidationReport(BaseModel):
+
+    type: constr(regex='^ValidationReport$') = 'ValidationReport'
 
     honeybee_core: str = Field(
         ...,

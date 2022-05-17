@@ -1,6 +1,6 @@
 """Schema for the error objects returned by the validation command"""
 from pydantic import BaseModel, Field, constr
-from typing import List, Union
+from typing import List
 from enum import Enum
 
 
@@ -110,14 +110,14 @@ class ValidationError(BaseModel):
     message: str = Field(
         ...,
         description='Text for the error message with a detailed description of '
-        'what exactly is ivalid about the element.'
+        'what exactly is invalid about the element.'
     )
 
     parents: List[ValidationParent] = Field(
         default=None,
-        description='A list of the parent objects for the objet that caused the error. '
+        description='A list of the parent objects for the object that caused the error. '
         'This can be useful for locating the problematic object in the model. '
-        'This will contain 1 item for a Face with a perant Room. It will contain 2 '
+        'This will contain 1 item for a Face with a parent Room. It will contain 2 '
         'for an Aperture that has a parent Face with a parent Room.'
     )
 

@@ -30,7 +30,6 @@ def single_family_home(directory):
     rooms = []
     for i, room_geo_dict in enumerate(geo_dict['rooms']):
         room_geo = Polyface3D.from_dict(room_geo_dict)
-        room_geo.merge_overlapping_edges(0.01, math.radians(1))
         room = Room.from_polyface3d('House_Room_{}'.format(i), room_geo)
         room.properties.energy.program_type = program
         room.properties.energy.construction_set = c_set
@@ -57,7 +56,7 @@ def single_family_home(directory):
     for room in rooms:
         for face in room.faces:
             for sf in apertures:
-                if face.geometry.is_sub_face(sf.geometry, 0.5, 1.0):
+                if face.geometry.is_sub_face(sf.geometry, 0.01, 1.0):
                     face.add_aperture(sf)
     Room.solve_adjacency(rooms, 0.01)
 

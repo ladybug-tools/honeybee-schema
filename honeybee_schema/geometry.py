@@ -1,5 +1,5 @@
 """Geometry objects for model."""
-from pydantic import Field, constr, conlist
+from pydantic import Field, constr, conlist, conint
 from typing import List
 from ._base import NoExtraBaseModel
 
@@ -59,7 +59,7 @@ class Face3D(NoExtraBaseModel):
 
 
 class Color(NoExtraBaseModel):
-    """A mesh in 3D space."""
+    """A RGB color."""
 
     type: constr(regex='^Color$') = 'Color'
 
@@ -67,21 +67,29 @@ class Color(NoExtraBaseModel):
         ...,
         ge=0,
         le=255,
-        description='Integer for red value.'
+        description='Value for red channel.'
     )
 
     g: int = Field(
         ...,
         ge=0,
         le=255,
-        description='Integer for green value.'
+        description='Value for green channel.'
     )
 
     b: int = Field(
         ...,
         ge=0,
         le=255,
-        description='Integer for blue value.'
+        description='Value for blue channel.'
+    )
+
+    a: int = Field(
+        default=255,
+        ge=0,
+        le=255,
+        description='Value for the alpha channel, which defines the opacity as a '
+        'number between 0 (fully transparent) and 255 (fully opaque).'
     )
 
 
@@ -98,7 +106,7 @@ class Mesh3D(NoExtraBaseModel):
         'should be a list of 3 (x, y, z) values.'
     )
 
-    faces: List[conlist(int, min_items=3, max_items=4)] = Field(
+    faces: List[conlist(conint(ge=0), min_items=3, max_items=4)] = Field(
         ...,
         min_items=1,
         description='A list of lists with each sub-list having either 3 or 4 '

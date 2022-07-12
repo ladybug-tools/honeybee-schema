@@ -287,7 +287,7 @@ class Room(IDdBaseModel):
         description='An integer noting how many times this Room is repeated. '
         'Multipliers are used to speed up the calculation when similar Rooms are '
         'repeated more than once. Essentially, a given simulation with the '
-        'Room is run once and then the result is mutliplied by the multiplier.'
+        'Room is run once and then the result is multiplied by the multiplier.'
     )
 
     exclude_floor_area: bool = Field(

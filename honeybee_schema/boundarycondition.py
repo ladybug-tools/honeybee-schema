@@ -37,8 +37,8 @@ class Surface(NoExtraBaseModel):
         ...,
         min_items=2,
         max_items=3,
-        description='A list of up to 3 object identifiers that are adjacent to this one. '
-        'The first object is always the one that is immediately adjacent and is of '
+        description='A list of up to 3 object identifiers that are adjacent to this one.'
+        ' The first object is always the one that is immediately adjacent and is of '
         'the same object type (Face, Aperture, Door). When this boundary condition '
         'is applied to a Face, the second object in the tuple will be the parent '
         'Room of the adjacent object. When the boundary condition is applied to a '
@@ -56,3 +56,26 @@ class Ground(NoExtraBaseModel):
 class Adiabatic(NoExtraBaseModel):
 
     type: constr(regex='^Adiabatic$') = 'Adiabatic'
+
+
+class OtherSideTemperature(NoExtraBaseModel):
+
+    type: constr(regex='^OtherSideTemperature$') = 'OtherSideTemperature'
+
+    heat_transfer_coefficient: float = Field(
+        0,
+        ge=0,
+        description='A value in W/m2-K to indicate the combined convective/radiative '
+        'film coefficient. If equal to 0, then the specified temperature above is '
+        'equal to the exterior surface temperature. Otherwise, the temperature above '
+        'is considered the outside air temperature and this coefficient is used to '
+        'determine the difference between this outside air temperature and the '
+        'exterior surface temperature.'
+    )
+
+    temperature: Union[Autocalculate, float] = Field(
+        Autocalculate(),
+        description='A temperature value in Celsius to note the temperature on the '
+        'other side of the object. This input can also be an Autocalculate object '
+        'to signify that the temperature is equal to the outdoor air temperature.'
+    )

@@ -4,7 +4,7 @@ from typing import List, Union
 from enum import Enum
 
 from ._base import IDdBaseModel
-from .boundarycondition import Outdoors, Surface, Ground, Adiabatic
+from .boundarycondition import Outdoors, Surface, Ground, Adiabatic, OtherSideTemperature
 
 from .energy.properties import ShadeEnergyPropertiesAbridged, \
     DoorEnergyPropertiesAbridged, ApertureEnergyPropertiesAbridged, \
@@ -198,7 +198,7 @@ class Face(IDdBaseModel):
 
     face_type: FaceType
 
-    boundary_condition: Union[Ground, Outdoors, Adiabatic, Surface]
+    boundary_condition: Union[Ground, Outdoors, Adiabatic, Surface, OtherSideTemperature]
 
     @validator('boundary_condition')
     def surface_bc_objects(cls, v):

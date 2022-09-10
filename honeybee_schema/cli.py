@@ -65,7 +65,7 @@ def update_model(model_json, version, output_file):
             mv = '.'.join(map(str, model_version))
             uv = '.'.join(map(str, up_version))
             print(
-                f'The input file has a higher version ({mv}) than the tagert version'
+                f'The input file has a higher version ({mv}) than the target version'
                 f' ({uv}).', file=sys.stderr
             )
             output_file.write(json.dumps(model_dict))

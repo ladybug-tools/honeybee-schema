@@ -1,4 +1,4 @@
-"""Programtype Schema"""
+"""Ventilative cooling Schema"""
 from pydantic import Field, constr
 
 from .._base import NoExtraBaseModel
@@ -89,7 +89,7 @@ class VentilationOpening(NoExtraBaseModel):
         0.45,
         ge=0,
         le=1,
-        description='A number that will be multipled by the area of the window in the '
+        description='A number that will be multiplied by the area of the window in the '
         'stack (buoyancy-driven) part of the equation to account for additional '
         'friction from window geometry, insect screens, etc. Typical values include '
         '0.45, for unobstructed windows WITH insect screens and 0.65 for unobstructed '

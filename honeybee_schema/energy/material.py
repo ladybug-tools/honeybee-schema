@@ -258,15 +258,16 @@ class EnergyWindowMaterialSimpleGlazSys(IDdEnergyBaseModel):
         gt=0,
         le=12,
         description='The overall heat transfer coefficient for window system in W/m2-K. '
-        'Note that constructions with U-values above 5.8 cannot be assigned to '
-        'skylights without EnergyPlus thorwing an error.'
+        'Note that constructions with U-values above 5.8 should not be assigned to '
+        'skylights as this implies the resistance of the window is negative when '
+        'air films are subtracted.'
     )
 
     shgc: float = Field(
         ...,
         gt=0,
         lt=1,
-        description='Unitless quantity for the Solar Heat Gain Coefficient (solar '
+        description='Unit-less quantity for the Solar Heat Gain Coefficient (solar '
         'transmittance + conduction) at normal incidence and vertical orientation.'
     )
 
@@ -318,8 +319,8 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
         0.9,
         ge=0,
         le=1,
-        description='Transmittance of visible light through the glass at normal incidence.'
-        ' Default: 0.9 for clear glass.'
+        description='Transmittance of visible light through the glass at '
+        'normal incidence. Default: 0.9 for clear glass.'
     )
 
     visible_reflectance: float = Field(
@@ -379,10 +380,91 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
 
     solar_diffusing: bool = Field(
         False,
-        description='Takes values True and False. If False (default), the beam solar radiation'
-        ' incident on the glass is transmitted as beam radiation with no diffuse component.'
+        description='If False (default), the beam solar radiation incident on the '
+        'glass is transmitted as beam radiation with no diffuse component.'
         'If True, the beam  solar radiation incident on the glass is transmitted as '
         'hemispherical diffuse radiation with no beam component.'
+    )
+
+
+class EnergyWindowFrame(IDdEnergyBaseModel):
+    """Opaque material representing a layer within an opaque construction."""
+
+    type: constr(regex='^EnergyWindowFrame$') = 'EnergyWindowFrame'
+
+    width: float = Field(
+        ...,
+        gt=0,
+        le=1,
+        description='Number for the width of frame in plane of window [m]. '
+        'The frame width is assumed to be the same on all sides of window..'
+    )
+
+    conductance: float = Field(
+        ...,
+        gt=0,
+        description='Number for the thermal conductance of the frame material '
+        'measured from inside to outside of the frame surface (no air films) '
+        'and taking 2D conduction effects into account [W/m2-K].',
+    )
+
+    edge_to_center_ratio: float = Field(
+        1,
+        gt=0,
+        le=4,
+        description='Number between 0 and 4 for the ratio of the glass '
+        'conductance near the frame (excluding air films) divided by the glass '
+        'conductance at the center of the glazing (excluding air films). '
+        'This is used only for multi-pane glazing constructions. This ratio should '
+        'usually be greater than 1.0 since the spacer material that separates '
+        'the glass panes is usually more conductive than the gap between panes. '
+        'A value of 1 effectively indicates no spacer. Values should usually be '
+        'obtained from the LBNL WINDOW program so that the unique characteristics '
+        'of the window construction can be accounted for.'
+    )
+
+    outside_projection: float = Field(
+        0,
+        ge=0,
+        le=0.5,
+        description='Number for the distance that the frame projects outward from '
+        'the outside face of the glazing [m]. This is used to calculate shadowing '
+        'of frame onto glass, solar absorbed by the frame, IR emitted and '
+        'absorbed by the frame, and convection from frame.'
+    )
+
+    inside_projection: float = Field(
+        0,
+        ge=0,
+        le=0.5,
+        description='Number for the distance that the frame projects inward from '
+        'the inside face of the glazing [m]. This is used to calculate solar '
+        'absorbed by the frame, IR emitted and absorbed by the frame, and '
+        'convection from frame.'
+    )
+
+    thermal_absorptance: float = Field(
+        0.9,
+        gt=0,
+        le=0.99999,
+        description='Fraction of incident long wavelength radiation that is absorbed by'
+        ' the frame material.'
+    )
+
+    solar_absorptance: float = Field(
+        0.7,
+        ge=0,
+        le=1,
+        description='Fraction of incident solar radiation absorbed by the '
+        'frame material.'
+    )
+
+    visible_absorptance: float = Field(
+        0.7,
+        ge=0,
+        le=1,
+        description='Fraction of incident visible wavelength radiation absorbed by the'
+        ' frame material.'
     )
 
 
@@ -451,7 +533,8 @@ class EnergyWindowMaterialGasMixture(IDdEnergyBaseModel):
         gas_types = values.get('gas_types')
         gas_fractions = values.get('gas_fractions')
         assert len(gas_types) == len(gas_fractions), 'Length of gas_types must match ' \
-            'length of gas_fractions. {} != {}'.format(len(gas_types), len(gas_fractions))
+            'length of gas_fractions. {} != {}'.format(
+                len(gas_types), len(gas_fractions))
         return values
 
 
@@ -528,7 +611,7 @@ class EnergyWindowMaterialGasCustom(IDdEnergyBaseModel):
     )
 
 
-class EnergyWindowMaterialShade (IDdEnergyBaseModel):
+class EnergyWindowMaterialShade(IDdEnergyBaseModel):
     """This object specifies the properties of window shade materials."""
 
     type: constr(regex='^EnergyWindowMaterialShade$') = 'EnergyWindowMaterialShade'
@@ -728,7 +811,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         0,
         ge=0,
         lt=1,
-        description='The slat transmittance for hemisperically diffuse solar radiation.'
+        description='The slat transmittance for hemispherically diffuse solar radiation.'
         ' Default: 0.'
     )
 
@@ -802,9 +885,9 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         0,
         ge=0,
         lt=1,
-        description='The slat infrared hemispherical transmittance. It is zero for solid '
-        'metallic, wooden or glass slats, but may be non-zero in some cases such as for thin'
-        ' plastic slats. The default value is 0.'
+        description='The slat infrared hemispherical transmittance. It is zero for '
+        'solid metallic, wooden or glass slats, but may be non-zero in some cases '
+        'such as for thin plastic slats. The default value is 0.'
     )
 
     emissivity: float = Field(
@@ -836,7 +919,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='The effective area for air flow at the top of the shade, divided by'
-        ' the horizontal area between glass and shade. The default value is 0.5'
+        ' the horizontal area between glass and shade.'
     )
 
     bottom_opening_multiplier: float = Field(
@@ -844,7 +927,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='The effective area for air flow at the bottom of the shade, divided'
-        ' by the horizontal area between glass and shade. The default value is 0.'
+        ' by the horizontal area between glass and shade.'
     )
 
     left_opening_multiplier: float = Field(
@@ -852,7 +935,7 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='The effective area for air flow at the left side of the shade,'
-        ' divided by the vertical area between glass and shade. The default value is 0.5.'
+        ' divided by the vertical area between glass and shade.'
     )
 
     right_opening_multiplier: float = Field(
@@ -860,5 +943,5 @@ class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
         ge=0,
         le=1,
         description='The effective area for air flow at the right side of the shade,'
-        ' divided by the vertical area between glass and shade. The default value is 0.5.'
+        ' divided by the vertical area between glass and shade.'
     )

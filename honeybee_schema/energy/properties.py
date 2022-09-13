@@ -10,9 +10,10 @@ from .construction import OpaqueConstructionAbridged, WindowConstructionAbridged
     WindowConstruction, AirBoundaryConstruction, WindowConstructionShadeAbridged, \
     WindowConstructionShade, WindowConstructionDynamicAbridged, WindowConstructionDynamic
 from .material import EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegetation, \
+    EnergyWindowMaterialSimpleGlazSys, EnergyWindowMaterialGlazing, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
-    EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
-    EnergyWindowMaterialBlind, EnergyWindowMaterialGlazing, EnergyWindowMaterialShade
+    EnergyWindowMaterialGasMixture, EnergyWindowFrame, \
+    EnergyWindowMaterialBlind, EnergyWindowMaterialShade
 from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, ServiceHotWaterAbridged, InfiltrationAbridged, \
@@ -273,7 +274,7 @@ class ModelEnergyProperties(NoExtraBaseModel):
             EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegetation,
             EnergyWindowMaterialGlazing, EnergyWindowMaterialSimpleGlazSys,
             EnergyWindowMaterialGas, EnergyWindowMaterialGasMixture,
-            EnergyWindowMaterialGasCustom,
+            EnergyWindowMaterialGasCustom, EnergyWindowFrame,
             EnergyWindowMaterialBlind, EnergyWindowMaterialShade
         ]
     ] = Field(

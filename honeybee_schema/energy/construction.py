@@ -7,7 +7,8 @@ from ._base import IDdEnergyBaseModel
 from .material import EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegetation, \
     EnergyWindowMaterialGas, EnergyWindowMaterialGasCustom, \
     EnergyWindowMaterialGasMixture, EnergyWindowMaterialSimpleGlazSys, \
-    EnergyWindowMaterialGlazing, EnergyWindowMaterialShade, EnergyWindowMaterialBlind
+    EnergyWindowMaterialGlazing, EnergyWindowFrame, \
+    EnergyWindowMaterialShade, EnergyWindowMaterialBlind
 from .schedule import ScheduleRuleset, ScheduleFixedInterval
 
 
@@ -57,6 +58,14 @@ class WindowConstructionAbridged(IDdEnergyBaseModel):
         max_items=8
     )
 
+    frame: str = Field(
+        None,
+        min_length=1,
+        max_length=100,
+        description='An optional identifier for a frame material that '
+        'surrounds the window construction.'
+    )
+
 
 class WindowConstruction(WindowConstructionAbridged):
     """Construction for window objects (Aperture, Door)."""
@@ -78,6 +87,12 @@ class WindowConstruction(WindowConstructionAbridged):
         'by one and only one gas layer.',
         min_items=1,
         max_items=8
+    )
+
+    frame: EnergyWindowFrame = Field(
+        None,
+        description='An optional window frame material for the frame that '
+        'surrounds the window construction.'
     )
 
 
@@ -131,7 +146,7 @@ class WindowConstructionShadeAbridged(IDdEnergyBaseModel):
         description='Text to indicate where in the window assembly the shade_material '
         'is located.  Note that the WindowConstruction must have at least one gas '
         'gap to use the "Between" option. Also note that, for a WindowConstruction '
-        'with more than one gas gap, the "Between" option defalts to using the '
+        'with more than one gas gap, the "Between" option defaults to using the '
         'inner gap as this is the only option that EnergyPlus supports.'
     )
 

@@ -16,6 +16,7 @@ class ObjectTypes(str, Enum):
     shade = 'Shade'
     aperture = 'Aperture'
     door = 'Door'
+    sub_face = 'SubFace'
     face = 'Face'
     room = 'Room'
     sensor_grid = 'SensorGrid'

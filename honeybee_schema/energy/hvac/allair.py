@@ -16,7 +16,14 @@ class AllAirEconomizerType(str, Enum):
 
 
 class _AllAirBase(_TemplateSystem):
-    """Base class for all-air systems."""
+    """Base class for all-air systems.
+    
+    All-air systems provide both ventilation and heating + cooling demand with
+    the same stream of warm/cool air. As such, they often grant tight control
+    over zone humidity. However, because such systems often involve the
+    cooling of air only to reheat it again, they are often more energy intensive
+    than systems that separate ventilation from the meeting of thermal loads.
+    """
 
     economizer_type: AllAirEconomizerType = Field(
         AllAirEconomizerType.no_economizer,

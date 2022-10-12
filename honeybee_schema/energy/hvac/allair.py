@@ -17,7 +17,7 @@ class AllAirEconomizerType(str, Enum):
 
 class _AllAirBase(_TemplateSystem):
     """Base class for all-air systems.
-    
+
     All-air systems provide both ventilation and heating + cooling demand with
     the same stream of warm/cool air. As such, they often grant tight control
     over zone humidity. However, because such systems often involve the
@@ -123,7 +123,28 @@ class FurnaceEquipmentType(str, Enum):
 
 
 class VAV(_AllAirBase):
-    """Variable Air Volume (VAV) HVAC system."""
+    """Variable Air Volume (VAV) HVAC system (aka. System 7 or 8).
+
+    All rooms/zones are connected to a central air loop that is kept at a constant
+    central temperature of 12.8C (55F). The central temperature is maintained by a
+    cooling coil, which runs whenever the combination of return air and fresh outdoor
+    air is greater than 12.8C, as well as a heating coil, which runs whenever
+    the combination of return air and fresh outdoor air is less than 12.8C.
+
+    Each air terminal for the connected rooms/zones contains its own reheat coil,
+    which runs whenever the room is not in need of the cooling supplied by the 12.8C
+    central air.
+
+    The central cooling coil is always a chilled water coil, which is connected to a
+    chilled water loop operating at 6.7C (44F). All heating coils are hot water coils
+    except when Gas Coil equipment_type is used (in which case coils are gas)
+    or when Parallel Fan-Powered (PFP) boxes equipment_type is used (in which case
+    coils are electric resistance). Hot water temperature is 82C (180F) for
+    boiler/district heating and 49C (120F) when ASHP is used.
+
+    VAV systems are the traditional baseline system for commercial buildings
+    taller than 5 stories or larger than 14,000 m2 (150,000 ft2) of floor area.
+    """
 
     type: constr(regex='^VAV$') = 'VAV'
 
@@ -135,7 +156,29 @@ class VAV(_AllAirBase):
 
 
 class PVAV(_AllAirBase):
-    """Packaged Variable Air Volume (PVAV) HVAC system."""
+    """Packaged Variable Air Volume (PVAV) HVAC system (aka. System 5 or 6).
+
+    All rooms/zones are connected to a central air loop that is kept at a constant
+    central temperature of 12.8C (55F). The central temperature is maintained by a
+    cooling coil, which runs whenever the combination of return air and fresh outdoor
+    air is greater than 12.8C, as well as a heating coil, which runs whenever
+    the combination of return air and fresh outdoor air is less than 12.8C.
+
+    Each air terminal for the connected rooms/zones contains its own reheat coil,
+    which runs whenever the room is not in need of the cooling supplied by the 12.8C
+    central air.
+
+    The central cooling coil is always a two-speed direct expansion (DX) coil.
+    All heating coils are hot water coils except when Gas Coil equipment_type is
+    used (in which case the central coil is gas and all reheat is electric)
+    or when Parallel Fan-Powered (PFP) boxes equipment_type is used (in which case
+    coils are electric resistance). Hot water temperature is 82C (180F) for
+    boiler/district heating and 49C (120F) when ASHP is used.
+
+    PVAV systems are the traditional baseline system for commercial buildings
+    with than 4-5 stories or between 2,300 m2 and 14,000 m2 (25,000 ft2 and
+    150,000 ft2) of floor area.
+    """
 
     type: constr(regex='^PVAV$') = 'PVAV'
 
@@ -147,7 +190,21 @@ class PVAV(_AllAirBase):
 
 
 class PSZ(_AllAirBase):
-    """Packaged Single-Zone (PSZ) HVAC system."""
+    """Packaged Single-Zone (PSZ) HVAC system (aka. System 3 or 4).
+
+    Each room/zone receives its own air loop with its own single-speed direct expansion
+    (DX) cooling coil, which will condition the supply air to a value in between
+    12.8C (55F) and 50C (122F) depending on the heating/cooling needs of the room/zone.
+    As long as a Baseboard equipment_type is NOT selected, heating will be supplied
+    by a heating coil in the air loop. Otherwise, heating is accomplished with
+    baseboards and the air loop only supplies cooling and ventilation air.
+    Fans are constant volume.
+
+    PSZ systems are the traditional baseline system for commercial buildings
+    with less than 4 stories or less than 2,300 m2 (25,000 ft2) of floor area.
+    They are also the default for all retail with less than 3 stories and all public
+    assembly spaces.
+    """
 
     type: constr(regex='^PSZ$') = 'PSZ'
 
@@ -159,7 +216,15 @@ class PSZ(_AllAirBase):
 
 
 class PTAC(_TemplateSystem):
-    """Packaged Terminal Air Conditioning (PTAC) or Heat Pump (PTHP) HVAC system."""
+    """Packaged Terminal Air Conditioning (PTAC/HP) HVAC system. (aka. System 1 or 2).
+
+    Each room/zone receives its own packaged unit that supplies heating, cooling
+    and ventilation. Cooling is always done via a single-speed direct expansion (DX)
+    cooling coil. Heating can be done via a heating coil in the unit or via an
+    external baseboard. Fans are constant volume.
+
+    PTAC/HP systems are the traditional baseline system for residential buildings.
+    """
 
     type: constr(regex='^PTAC$') = 'PTAC'
 
@@ -171,7 +236,16 @@ class PTAC(_TemplateSystem):
 
 
 class ForcedAirFurnace(_AllAirBase):
-    """Forced Air Furnace HVAC system. Intended for spaces only requiring heating."""
+    """Forced Air Furnace HVAC system (aka. System 9 or 10).
+
+    Forced air furnaces are intended only for spaces only requiring heating and
+    ventilation. Each room/zone receives its own air loop with its own gas heating
+    coil, which will supply air at a temperature up to 50C (122F) to meet the
+    heating needs of the room/zone. Fans are constant volume.
+
+    PTAC/HP systems are the traditional baseline system for storage spaces that
+    only require heating.
+    """
 
     type: constr(regex='^ForcedAirFurnace$') = 'ForcedAirFurnace'
 

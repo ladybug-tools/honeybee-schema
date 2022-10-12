@@ -6,7 +6,15 @@ from ._template import _TemplateSystem, RadiantFaceTypes
 
 
 class _HeatCoolBase(_TemplateSystem):
-    """Base class for all heating/cooling systems without any ventilation."""
+    """Base class for all heating/cooling systems without any ventilation.
+
+    These systems are only designed to satisfy heating + cooling demand and they
+    cannot meet any minimum ventilation requirements.
+
+    As such, these systems tend to be used in residential or storage settings where
+    meeting minimum ventilation requirements may not be required or the density
+    of occupancy is so low that infiltration is enough to meet fresh air demand.
+    """
 
 
 class FCUEquipmentType(str, Enum):
@@ -97,7 +105,15 @@ class RadiantEquipmentType(str, Enum):
 
 
 class FCU(_HeatCoolBase):
-    """Fan Coil Unit (FCU) heating/cooling system (with no ventilation)."""
+    """Fan Coil Unit (FCU) heating/cooling system (with no ventilation).
+
+    Each room/zone receives its own Fan Coil Unit (FCU), which meets the heating
+    and cooling loads of the space. The cooling coil in the FCU is always chilled
+    water cooling coil, which is connected to a chilled water loop operating
+    at 6.7C (44F). The heating coil is a hot water coil except when when electric
+    baseboards or gas heaters are specified. Hot water temperature is 82C (180F) for
+    boiler/district heating and 49C (120F) when ASHP is used.
+    """
 
     type: constr(regex='^FCU$') = 'FCU'
 
@@ -109,7 +125,12 @@ class FCU(_HeatCoolBase):
 
 
 class Baseboard(_HeatCoolBase):
-    """Baseboard heating system. Intended for spaces only requiring heating."""
+    """Baseboard heating system.
+
+    Baseboard systems are intended for spaces only requiring heating and
+    no ventilation or cooling. Each room/zone will get its own baseboard
+    heating unit that satisfies the heating load.
+    """
 
     type: constr(regex='^Baseboard$') = 'Baseboard'
 
@@ -121,7 +142,17 @@ class Baseboard(_HeatCoolBase):
 
 
 class EvaporativeCooler(_HeatCoolBase):
-    """Direct evaporative cooling systems (with optional heating)."""
+    """Direct evaporative cooling systems (with optional heating).
+
+    Each room/zone will receive its own air loop sized to meet the sensible load,
+    which contains an evaporative cooler that directly adds humidity to the room
+    air to cool it. The loop contains an outdoor air mixer, which is used whenever
+    the outdoor air has a lower wet bulb temperature than the return air from
+    the room. In the event that the combination of outdoor and room return air
+    air is too humid, a backup single-speed direct expansion (DX) cooling coil
+    will be used. Heating loads can be met with various options, including
+    several types of baseboards, a furnace, or gas unit heaters.
+    """
 
     type: constr(regex='^EvaporativeCooler$') = 'EvaporativeCooler'
 
@@ -133,7 +164,13 @@ class EvaporativeCooler(_HeatCoolBase):
 
 
 class WSHP(_HeatCoolBase):
-    """Direct evaporative cooling systems (with optional heating)."""
+    """Water Source Heat Pump (WSHP) heating/cooling system (with no ventilation).
+
+    Each room/zone receives its own Water Source Heat Pump (WSHP), which meets
+    the heating and cooling loads of the space. All WSHPs are connected to the
+    same water condenser loop, which has its temperature maintained by the
+    equipment_type (eg. Boiler with Cooling Tower).
+    """
 
     type: constr(regex='^WSHP$') = 'WSHP'
 
@@ -145,7 +182,18 @@ class WSHP(_HeatCoolBase):
 
 
 class Residential(_HeatCoolBase):
-    """Residential Air Conditioning, Heat Pump or Furnace system."""
+    """Residential Air Conditioning, Heat Pump or Furnace system.
+
+    Residential HVAC systems are intended primarily for single-family homes and
+    include a wide variety of options. In all cases, each room/zone will receive
+    its own air loop WITHOUT an outdoor air inlet (air is simply being recirculated
+    through the loop). Residential air conditioning (AC) systems are modeled
+    using a unitary system with a single-speed direct expansion (DX) cooling
+    coil in the loop. Residential heat pump (HP) systems use a single-speed DX
+    heating coil in the unitary system and the residential furnace option uses
+    a gas coil in the unitary system. In all cases, the properties of these coils
+    are set to reflect a typical residential system.
+    """
 
     type: constr(regex='^Residential$') = 'Residential'
 
@@ -157,7 +205,15 @@ class Residential(_HeatCoolBase):
 
 
 class WindowAC(_HeatCoolBase):
-    """Window Air Conditioning cooling system (with optional heating)."""
+    """Window Air Conditioning cooling system (with optional heating).
+
+    Each room/zone will receive its own Packaged Terminal Air Conditioner (PTAC)
+    with properties set to reflect a typical window air conditioning (AC) unit.
+    No ventilation air is supplied by the unit and the cooling coil within the
+    unit is a single-speed direct expansion (DX) cooling coil. Heating loads
+    can be met with various options, including several types of baseboards,
+    a furnace, or gas unit heaters.
+    """
 
     type: constr(regex='^WindowAC$') = 'WindowAC'
 
@@ -169,7 +225,13 @@ class WindowAC(_HeatCoolBase):
 
 
 class VRF(_HeatCoolBase):
-    """Variable Refrigerant Flow (VRF) heating/cooling system (with no ventilation)."""
+    """Variable Refrigerant Flow (VRF) heating/cooling system (with no ventilation).
+
+    Each room/zone receives its own Variable Refrigerant Flow (VRF) terminal,
+    which meets the heating and cooling loads of the space. All room/zone terminals
+    are connected to the same outdoor unit, meaning that either all rooms must be
+    in cooling or heating mode together.
+    """
 
     type: constr(regex='^VRF$') = 'VRF'
 
@@ -181,7 +243,12 @@ class VRF(_HeatCoolBase):
 
 
 class GasUnitHeater(_HeatCoolBase):
-    """Gas unit heating system. Intended for spaces only requiring heating."""
+    """Gas unit heating system.
+
+    Gas unit systems are intended for spaces only requiring heating and no
+    ventilation or cooling. Each room/zone will get its own gaa heating unit
+    that satisfies the heating load.
+    """
 
     type: constr(regex='^GasUnitHeater$') = 'GasUnitHeater'
 
@@ -193,7 +260,22 @@ class GasUnitHeater(_HeatCoolBase):
 
 
 class Radiant(_HeatCoolBase):
-    """Low Temperature Radiant system."""
+    """Low temperature radiant HVAC system.
+
+    This HVAC template will change the floor and/or ceiling constructions
+    of the Rooms that it is applied to, replacing them with a construction that
+    aligns with the radiant_type property (eg. CeilingMetalPanel).
+
+    The heating and cooling needs of the space are met with the radiant constructions,
+    which use chilled water at 12.8C (55F) and a hot water temperature somewhere
+    between 32.2C (90F) and 49C (120F) (warmer temperatures are used in colder
+    climate zones).
+
+    Note that radiant systems are particularly limited in cooling capacity and
+    using them may result in many unmet hours. To reduce unmet hours, one can
+    remove carpets, reduce internal loads, reduce solar and envelope gains during
+    peak times, add thermal mass, and use an expanded comfort range.
+    """
 
     type: constr(regex='^Radiant$') = 'Radiant'
 

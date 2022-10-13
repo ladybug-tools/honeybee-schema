@@ -6,7 +6,20 @@ from ._template import _TemplateSystem, RadiantFaceTypes
 
 
 class _DOASBase(_TemplateSystem):
-    """Base class for DOAS systems."""
+    """Base class for Dedicated Outdoor Air System (DOAS) HVACs.
+
+    DOAS systems separate minimum ventilation supply from the satisfaction of heating
+    + cooling demand. Ventilation air tends to be supplied at neutral temperatures
+    (close to room air temperature) and heating / cooling loads are met with additional
+    pieces of zone equipment (eg. Fan Coil Units (FCUs)).
+
+    Because DOAS systems only have to cool down and re-heat the minimum ventilation air,
+    they tend to use less energy than all-air systems. They also tend to use less energy
+    to distribute heating + cooling by pumping around hot/cold water or refrigerant
+    instead of blowing hot/cold air. However, they do not provide as good of control
+    over humidity and so they may not be appropriate for rooms with high latent loads
+    like auditoriums, kitchens, laundromats, etc.
+    """
 
     sensible_heat_recovery: float = Field(
         0,
@@ -88,7 +101,31 @@ class RadiantwithDOASEquipmentType(str, Enum):
 
 
 class FCUwithDOASAbridged(_DOASBase):
-    """Fan Coil Unit (FCU) with DOAS HVAC system."""
+    """Fan Coil Unit (FCU) with DOAS HVAC system.
+
+    All rooms/zones in the system are connected to a Dedicated Outdoor Air System
+    (DOAS) that supplies a constant volume of ventilation air at the same temperature
+    to all rooms/zones. The ventilation air temperature will vary from 21.1C (70F)
+    to 15.5C (60F) depending on the outdoor air temperature (the DOAS supplies cooler air
+    when outdoor conditions are warmer). The ventilation air temperature is maintained
+    by a chilled water cooling coil and a heating coil. The heating coil is a hot
+    water coil except when electric baseboards or gas heaters are specified, in
+    which case the heating coil is a single-speed direct expansion (DX) heat pump
+    with a backup electrical resistance coil.
+
+    Each room/zone also receives its own Fan Coil Unit (FCU), which meets the heating
+    and cooling loads of the space. The cooling coil in the FCU is always chilled
+    water cooling coil, which is connected to a chilled water loop operating
+    at 6.7C (44F). The heating coil is a hot water coil except when when electric
+    baseboards or gas heaters are specified. Hot water temperature is 82C (180F) for
+    boiler/district heating and 49C (120F) when ASHP is used.
+
+    The FCU with DOAS template is relatively close in performance to active chilled
+    beams (ACBs). When using this template to represent ACBs, care must be taken
+    to ensure that the DOAS ventilation air requirement is sufficient to extract
+    the heating cooling from the ACB. If so, then this FCUwithDOAS template can be
+    used but with the energy use of the FCU fans ignored.
+    """
 
     type: constr(regex='^FCUwithDOASAbridged$') = 'FCUwithDOASAbridged'
 
@@ -100,7 +137,23 @@ class FCUwithDOASAbridged(_DOASBase):
 
 
 class WSHPwithDOASAbridged(_DOASBase):
-    """Water Source Heat Pump (WSHP) with DOAS HVAC system."""
+    """Water Source Heat Pump (WSHP) with DOAS HVAC system.
+
+    All rooms/zones in the system are connected to a Dedicated Outdoor Air System
+    (DOAS) that supplies a constant volume of ventilation air at the same temperature
+    to all rooms/zones. The ventilation air temperature will vary from 21.1C (70F)
+    to 15.5C (60F) depending on the outdoor air temperature (the DOAS supplies cooler air
+    when outdoor conditions are warmer). The ventilation air temperature is maintained
+    by a chilled water cooling coil and a hot water heating coil except when the
+    ground source heat pump (GSHP) option is selected. In this case, the ventilation
+    air temperature is maintained by a two-speed direct expansion (DX) cooling coil
+    and a single-speed DX heating coil with backup electrical resistance heat.
+
+    Each room/zone also receives its own Water Source Heat Pump (WSHP), which meets
+    the heating and cooling loads of the space. All WSHPs are connected to the
+    same water condenser loop, which has its temperature maintained by the
+    equipment_type (eg. Boiler with Cooling Tower).
+    """
 
     type: constr(regex='^WSHPwithDOASAbridged$') = 'WSHPwithDOASAbridged'
 
@@ -112,7 +165,21 @@ class WSHPwithDOASAbridged(_DOASBase):
 
 
 class VRFwithDOASAbridged(_DOASBase):
-    """Variable Refrigerant Flow (VRF) with DOAS HVAC system."""
+    """Variable Refrigerant Flow (VRF) with DOAS HVAC system.
+
+    All rooms/zones in the system are connected to a Dedicated Outdoor Air System
+    (DOAS) that supplies a constant volume of ventilation air at the same temperature
+    to all rooms/zones. The ventilation air temperature will vary from 21.1C (70F)
+    to 15.5C (60F) depending on the outdoor air temperature (the DOAS supplies cooler air
+    when outdoor conditions are warmer). The ventilation air temperature is maintained
+    by a single speed direct expansion (DX) cooling coil along with a single-speed
+    direct expansion (DX) heat pump with a backup electrical resistance coil.
+
+    Each room/zone also receives its own Variable Refrigerant Flow (VRF) terminal,
+    which meets the heating and cooling loads of the space. All room/zone terminals
+    are connected to the same outdoor unit, meaning that either all rooms must be
+    in cooling or heating mode together.
+    """
 
     type: constr(regex='^VRFwithDOASAbridged$') = 'VRFwithDOASAbridged'
 
@@ -124,7 +191,30 @@ class VRFwithDOASAbridged(_DOASBase):
 
 
 class RadiantwithDOASAbridged(_DOASBase):
-    """Low Temperature Radiant with DOAS HVAC system."""
+    """Low Temperature Radiant with DOAS HVAC system.
+
+    This HVAC template will change the floor and/or ceiling constructions
+    of the Rooms that it is applied to, replacing them with a construction that
+    aligns with the radiant_type property (eg. CeilingMetalPanel).
+
+    All rooms/zones in the system are connected to a Dedicated Outdoor Air System
+    (DOAS) that supplies a constant volume of ventilation air at the same temperature
+    to all rooms/zones. The ventilation air temperature will vary from 21.1C (70F)
+    to 15.5C (60F) depending on the outdoor air temperature (the DOAS supplies cooler air
+    when outdoor conditions are warmer). The ventilation air temperature is maintained
+    by a two-speed direct expansion (DX) cooling coil and a single-speed DX
+    heating coil with backup electrical resistance heat.
+
+    The heating and cooling needs of the space are met with the radiant constructions,
+    which use chilled water at 12.8C (55F) and a hot water temperature somewhere
+    between 32.2C (90F) and 49C (120F) (warmer temperatures are used in colder
+    climate zones).
+
+    Note that radiant systems are particularly limited in cooling capacity and
+    using them may result in many unmet hours. To reduce unmet hours, one can
+    remove carpets, reduce internal loads, reduce solar and envelope gains during
+    peak times, add thermal mass, and use an expanded comfort range.
+    """
 
     type: constr(regex='^RadiantwithDOASAbridged$') = 'RadiantwithDOASAbridged'
 

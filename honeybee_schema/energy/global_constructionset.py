@@ -27,7 +27,7 @@ _CONSTRUCTION_NAMES = [
     'Generic Exposed Floor', 'Generic Interior Floor', 'Generic Ground Slab',
     'Generic Roof', 'Generic Interior Ceiling', 'Generic Underground Roof',
     'Generic Double Pane', 'Generic Single Pane', 'Generic Exterior Door',
-    'Generic Interior Door', 'Generic Shade', 'Generic Air Boundary'
+    'Generic Interior Door', 'Generic Shade', 'Generic Context', 'Generic Air Boundary'
 ]
 _CONSTRUCTIONS = [
     OpaqueConstructionAbridged.parse_obj(m)
@@ -112,7 +112,13 @@ class GlobalConstructionSet(NoExtraBaseModel):
 
     shade_construction: str = Field(
         default=_CSET['shade_construction'],
-        description='Global Honeybee Construction for Shades.',
+        description='Global Honeybee Construction for building-attached Shades.',
+        readOnly=True
+    )
+
+    context_construction: str = Field(
+        default='Generic Context',
+        description='Global Honeybee Construction for context Shades.',
         readOnly=True
     )
 

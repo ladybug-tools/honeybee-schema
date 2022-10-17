@@ -23,7 +23,7 @@ _MODIFIER_NAMES = [
     'generic_wall_0.50', 'generic_floor_0.20', 'generic_ceiling_0.80',
     'generic_interior_window_vis_0.88', 'generic_exterior_window_vis_0.64',
     'generic_opaque_door_0.50', 'generic_interior_shade_0.50',
-    'generic_exterior_shade_0.35', 'air_boundary'
+    'generic_exterior_shade_0.35', 'generic_context_0.20', 'air_boundary'
 ]
 _MODIFIERS = [
     Plastic.parse_obj(m) if m['type'] == 'Plastic'
@@ -82,5 +82,11 @@ class GlobalModifierSet(NoExtraBaseModel):
     air_boundary_modifier: str = Field(
         default=_MOD_SET['air_boundary_modifier'],
         description='Global Honeybee Modifier for AirBoundary Faces.',
+        readOnly=True
+    )
+
+    context_modifier: str = Field(
+        default='generic_context_0.20',
+        description='Global Honeybee Modifier for context Shades.',
         readOnly=True
     )

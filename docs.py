@@ -5,6 +5,7 @@ from pydantic_openapi_helper.inheritance import class_mapper
 from honeybee_schema.model import Model
 from honeybee_schema.energy.simulation import SimulationParameter
 from honeybee_schema.validation import ValidationReport
+from honeybee_schema.comparison import ComparisonReport, SyncInstructions
 
 import json
 import argparse
@@ -42,7 +43,9 @@ info = {
 modules = [
     {'module': [Model], 'name': 'Model'},
     {'module': [SimulationParameter], 'name': 'Simulation Parameter'},
-    {'module': [ValidationReport], 'name': 'Validation Report'}
+    {'module': [ValidationReport], 'name': 'Validation Report'},
+    {'module': [ComparisonReport], 'name': 'Comparison Report'},
+    {'module': [SyncInstructions], 'name': 'Sync Instructions'}
 ]
 
 
@@ -106,7 +109,7 @@ for module in modules:
 with open('./docs/model_json_schema.json', 'w') as out_file:
     out_file.write(Model.schema_json(indent=2))
 
-# generate schema for mode with inheritance but without descriminator
+# generate schema for mode with inheritance but without discriminator
 # we will use this file for generating redocly - the full model is too big, and the
 # model with inheritance and discriminators is renders incorrectly
 external_docs = {

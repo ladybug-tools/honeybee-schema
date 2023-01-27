@@ -224,7 +224,7 @@ class WindowConstructionDynamicAbridged(IDdEnergyBaseModel):
         max_length=100,
         description='An identifier for a control schedule that dictates which '
         'constructions are active at given times throughout the simulation. The values '
-        'of the schedule should be intergers and range from 0 to one less then the '
+        'of the schedule should be integers and range from 0 to one less then the '
         'number of constructions. Zero indicates that the first construction is active, '
         'one indicates that the second on is active, etc. The schedule type limits '
         'of this schedule should be "Control Level." If building custom schedule '
@@ -250,7 +250,7 @@ class WindowConstructionDynamic(IDdEnergyBaseModel):
         ...,
         description='A control schedule that dictates which constructions '
         'are active at given times throughout the simulation. The values of the '
-        'schedule should be intergers and range from 0 to one less then the number '
+        'schedule should be integers and range from 0 to one less then the number '
         'of constructions. Zero indicates that the first construction is active, '
         'one indicates that the second on is active, etc. The schedule type limits '
         'of this schedule should be "Control Level." If building custom schedule '
@@ -302,7 +302,7 @@ class AirBoundaryConstructionAbridged(IDdEnergyBaseModel):
         'typical of what would be induced by a HVAC system.'
     )
 
-    air_mixing_schedule: str = Field( 
+    air_mixing_schedule: str = Field(
         default=None,
         min_length=1,
         max_length=100,

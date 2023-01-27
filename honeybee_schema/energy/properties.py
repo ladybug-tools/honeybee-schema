@@ -30,6 +30,7 @@ from .hvac.doas import FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbr
     RadiantwithDOASAbridged
 from .hvac.heatcool import FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential, \
     WindowAC, GasUnitHeater, Radiant
+from .hvac.detailed import DetailedHVAC
 from .shw import SHWSystem
 
 
@@ -289,7 +290,8 @@ class ModelEnergyProperties(NoExtraBaseModel):
             FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged,
             RadiantwithDOASAbridged,
             FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential,
-            WindowAC, GasUnitHeater, Radiant
+            WindowAC, GasUnitHeater, Radiant,
+            DetailedHVAC
         ]
     ] = Field(
         default=None,

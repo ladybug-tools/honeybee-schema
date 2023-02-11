@@ -120,6 +120,7 @@ class PTACEquipmentType(str, Enum):
 
 class FurnaceEquipmentType(str, Enum):
     furnace = 'Furnace'
+    furnace_electric = 'Furnace_Electric'
 
 
 class VAV(_AllAirBase):
@@ -235,7 +236,7 @@ class PTAC(_TemplateSystem):
     )
 
 
-class ForcedAirFurnace(_AllAirBase):
+class ForcedAirFurnace(_TemplateSystem):
     """Forced Air Furnace HVAC system (aka. System 9 or 10).
 
     Forced air furnaces are intended only for spaces only requiring heating and
@@ -243,8 +244,8 @@ class ForcedAirFurnace(_AllAirBase):
     coil, which will supply air at a temperature up to 50C (122F) to meet the
     heating needs of the room/zone. Fans are constant volume.
 
-    PTAC/HP systems are the traditional baseline system for storage spaces that
-    only require heating.
+    ForcedAirFurnace systems are the traditional baseline system for storage
+    spaces that only require heating.
     """
 
     type: constr(regex='^ForcedAirFurnace$') = 'ForcedAirFurnace'

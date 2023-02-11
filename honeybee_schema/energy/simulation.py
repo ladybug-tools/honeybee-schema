@@ -73,7 +73,8 @@ class SolarDistribution(str, Enum):
     full_exterior = 'FullExterior'
     full_interior_and_exterior = 'FullInteriorAndExterior'
     full_exterior_with_reflection = 'FullExteriorWithReflections'
-    full_interior_and_exterior_with_reflections = 'FullInteriorAndExteriorWithReflections'
+    full_interior_and_exterior_with_reflections = \
+        'FullInteriorAndExteriorWithReflections'
 
 
 class CalculationMethod(str, Enum):
@@ -228,6 +229,39 @@ class RunPeriod(DatedBaseModel):
         return values
 
 
+class EfficiencyStandards(str, Enum):
+    ashrae_2019 = 'ASHRAE_2019'
+    ashrae_2016 = 'ASHRAE_2016'
+    ashrae_2013 = 'ASHRAE_2013'
+    ashrae_2010 = 'ASHRAE_2010'
+    ashrae_2007 = 'ASHRAE_2007'
+    ashrae_2004 = 'ASHRAE_2004'
+    doe_ref_1980_2004 = 'DOE_Ref_1980_2004'
+    doe_ref_pre_1980 = 'DOE_Ref_Pre_1980'
+
+
+class ClimateZones(str, Enum):
+    zone_0A = '0A'
+    zone_1A = '1A'
+    zone_2A = '2A'
+    zone_3A = '3A'
+    zone_4A = '4A'
+    zone_5A = '5A'
+    zone_6A = '6A'
+    zone_0B = '0B'
+    zone_1B = '1B'
+    zone_2B = '2B'
+    zone_3B = '3B'
+    zone_4B = '4B'
+    zone_5B = '5B'
+    zone_6B = '6B'
+    zone_3C = '3C'
+    zone_4C = '4C'
+    zone_5C = '5C'
+    zone_7 = '7'
+    zone_8 = '8'
+
+
 class SizingParameter(NoExtraBaseModel):
     """Used to specify heating and cooling sizing criteria and safety factors."""
 
@@ -251,6 +285,37 @@ class SizingParameter(NoExtraBaseModel):
         gt=0,
         description='A number that will be multiplied by the peak cooling load'
         ' for each zone in order to size the heating system.'
+    )
+
+    efficiency_standard: EfficiencyStandards = Field(
+        default=None,
+        description='Text to specify the efficiency standard, which will '
+        'automatically set the efficiencies of all HVAC equipment when provided. '
+        'Note that providing a standard here will cause the OpenStudio translation '
+        'process to perform an additional sizing calculation with EnergyPlus, '
+        'which is needed since the default efficiencies of equipment vary depending '
+        'on their size. THIS WILL SIGNIFICANTLY INCREASE TRANSLATION TIME TO '
+        'OPENSTUDIO. However, it is often worthwhile when the goal is to match the '
+        'HVAC specification with a particular standard.'
+    )
+
+    climate_zone: ClimateZones = Field(
+        default=None,
+        description='Text indicating the ASHRAE climate zone to be used with the '
+        'efficiency_standard. When unspecified, the climate zone will be inferred from '
+        'the design days on this sizing parameter object.'
+    )
+
+    building_type: str = Field(
+        default=None,
+        description='Text for the building type to be used in the efficiency_standard. '
+        'If the type is not recognized or is None, it will be assumed that the building '
+        'is a generic NonResidential. The following have specified systems per the '
+        'standard:  Residential, NonResidential, MidriseApartment, HighriseApartment, '
+        'LargeOffice, MediumOffice, SmallOffice, Retail, StripMall, '
+        'PrimarySchool, SecondarySchool, SmallHotel, LargeHotel, Hospital, Outpatient, '
+        'Warehouse, SuperMarket, FullServiceRestaurant, QuickServiceRestaurant, '
+        'Laboratory, Courthouse.'
     )
 
 

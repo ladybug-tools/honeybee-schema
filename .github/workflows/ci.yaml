@@ -117,7 +117,7 @@ jobs:
           node-version: 14.2.0
       - name: install semantic-release
         run:
-          npm install -g redoc-cli
+          npm install -g redoc-cli@0.13.16
       - name: install python dependencies
         run: |
           pip install -U .

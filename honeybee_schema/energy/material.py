@@ -311,6 +311,8 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
 
     solar_reflectance_back: Union[Autocalculate, float] = Field(
         default=Autocalculate(),
+        ge=0,
+        le=1,
         description='Reflectance of solar radiation off of the back side of the glass at'
         ' normal incidence, averaged over the solar spectrum.'
     )

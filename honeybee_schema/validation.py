@@ -5,7 +5,7 @@ from enum import Enum
 
 
 class ExtensionTypes(str, Enum):
-    """Types of Honeybee extensions."""
+    """Types of Honeybee/Dragonfly extensions."""
     core = 'Core'
     radiance = 'Radiance'
     energy = 'Energy'
@@ -31,6 +31,10 @@ class ObjectTypes(str, Enum):
     program_type = 'ProgramType'
     hvac = 'HVAC'
     shw = 'SHW'
+    roof_spec = 'RoofSpecification'
+    room_2d = 'Room2D'
+    story = 'Story'
+    building = 'Building'
 
 
 class ParentTypes(str, Enum):
@@ -39,6 +43,8 @@ class ParentTypes(str, Enum):
     door = 'Door'
     face = 'Face'
     room = 'Room'
+    story = 'Story'
+    building = 'Building'
 
 
 class ValidationParent(BaseModel):
@@ -142,18 +148,24 @@ class ValidationReport(BaseModel):
 
     type: constr(regex='^ValidationReport$') = 'ValidationReport'
 
-    honeybee_core: str = Field(
-        ...,
-        regex=r'([0-9]+)\.([0-9]+)\.([0-9]+)',
-        description='Text string for the version of honeybee-core that '
-        'performed the validation.'
+    app_name: str = Field(
+        'Honeybee',
+        description='Text string for the name of the application that performed '
+        'the validation. This is typically either Honeybee or Dragonfly.'
     )
 
-    honeybee_schema: str = Field(
+    app_version: str = Field(
         ...,
         regex=r'([0-9]+)\.([0-9]+)\.([0-9]+)',
-        description='Text string for the version of honeybee-schema that '
-        'performed the validation.'
+        description='Text string for the version of honeybee-core or dragonfly-core '
+        'that performed the validation.'
+    )
+
+    schema_version: str = Field(
+        ...,
+        regex=r'([0-9]+)\.([0-9]+)\.([0-9]+)',
+        description='Text string for the version of honeybee-schema or dragonfly-schema '
+        'that performed the validation.'
     )
 
     valid: bool = Field(

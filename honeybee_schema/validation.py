@@ -107,19 +107,22 @@ class ValidationError(BaseModel):
         description='Text for the type of object that caused the error.'
     )
 
-    element_id: str = Field(
+    element_id: List[
+        constr(min_length=1, max_length=100, regex=r'^[^,;!\n\t]+$')
+    ] = Field(
         ...,
-        regex=r'^[^,;!\n\t]+$',
-        min_length=1,
-        max_length=100,
-        description='Text string for the unique object ID that caused the error. '
-        'Note that this can be the identifier of a core object like a Room or a Face. '
-        'Or it can be for an extension object like a SensorGrid or a Construction.'
+        description='A list of text strings for the unique object IDs that caused '
+        'the error. The list typically contains a single item but there are some types '
+        'errors that stem from multiple objects like mis-matched area adjacencies '
+        'or overlapping Room geometries. Note that the IDs in this list can be the '
+        'identifier of a core object like a Room or a Face or it can be for an '
+        'extension object like a SensorGrid or a Construction.'
     )
 
-    element_name: str = Field(
+    element_name: List[str] = Field(
         default=None,
-        description='Display name of the object that caused the error.'
+        description='A list of text strings for the display names of the objects '
+        'that caused the error.'
     )
 
     message: str = Field(
@@ -128,9 +131,11 @@ class ValidationError(BaseModel):
         'what exactly is invalid about the element.'
     )
 
-    parents: List[ValidationParent] = Field(
+    parents: List[List[ValidationParent]] = Field(
         default=None,
-        description='A list of the parent objects for the object that caused the error. '
+        description='A list lists where each sub-list corresponds to one of the '
+        'objects in the element_id property. Each sub-list contains information for '
+        'the parent objects of the object that caused the error. '
         'This can be useful for locating the problematic object in the model. '
         'This will contain 1 item for a Face with a parent Room. It will contain 2 '
         'for an Aperture that has a parent Face with a parent Room.'

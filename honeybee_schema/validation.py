@@ -1,7 +1,9 @@
 """Schema for the error objects returned by the validation command"""
 from pydantic import BaseModel, Field, constr
-from typing import List
+from typing import List, Union
 from enum import Enum
+
+from .geometry import Point3D, LineSegment3D
 
 
 class ExtensionTypes(str, Enum):
@@ -146,6 +148,18 @@ class ValidationError(BaseModel):
         description='A list of top-level parent objects for the specific case of '
         'duplicate child-object identifiers, where several top-level parents '
         'are involved.'
+    )
+
+    helper_geometry: List[Union[Point3D, LineSegment3D]] = Field(
+        default=None,
+        description='An optional list of geometry objects that helps illustrate '
+        'where exactly issues with invalid geometry exist within the Honeybee object. '
+        'Examples include the naked and non-manifold line segments for non-solid Room '
+        'geometries, the points of self-intersection for cases of self-intersecting '
+        'geometry and out-of-plane vertices for non-planar objects. Oftentimes, '
+        'zooming directly to these helper geometries will help end users understand '
+        'invalid situations in their model faster than simple zooming to the invalid '
+        'Honeybee object in its totality.'
     )
 
 

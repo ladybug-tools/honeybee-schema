@@ -4,6 +4,47 @@ from typing import List
 from ._base import NoExtraBaseModel
 
 
+class Point3D(NoExtraBaseModel):
+    """A point object in 3D space."""
+
+    type: constr(regex='^Point3D$') = 'Point3D'
+
+    x: float = Field(
+        ...,
+        description='Number for X coordinate.'
+    )
+
+    y: float = Field(
+        ...,
+        description='Number for Y coordinate.'
+    )
+
+    z: float = Field(
+        ...,
+        description='Number for Z coordinate.'
+    )
+
+
+class LineSegment3D(NoExtraBaseModel):
+    """A single line segment face in 3D space."""
+
+    type: constr(regex='^LineSegment3D$') = 'LineSegment3D'
+
+    p: List[float] = Field(
+        ...,
+        description="Line segment base point as 3 (x, y, z) values.",
+        min_items=3,
+        max_items=3
+    )
+
+    v: List[float] = Field(
+        ...,
+        description="Line segment direction vector as 3 (x, y, z) values.",
+        min_items=3,
+        max_items=3
+    )
+
+
 class Plane(NoExtraBaseModel):
 
     type: constr(regex='^Plane$') = 'Plane'

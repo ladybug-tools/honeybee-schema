@@ -28,6 +28,13 @@ class _PropertiesBaseAbridged(NoExtraBaseModel):
     )
 
 
+class ShadeMeshRadiancePropertiesAbridged(_PropertiesBaseAbridged):
+    """Radiance Properties for Honeybee ShadeMesh Abridged."""
+
+    type: constr(regex='^ShadeMeshRadiancePropertiesAbridged$') = \
+        'ShadeMeshRadiancePropertiesAbridged'
+
+
 class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Aperture Abridged."""
 

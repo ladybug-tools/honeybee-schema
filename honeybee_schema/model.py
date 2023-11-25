@@ -9,14 +9,50 @@ from .boundarycondition import Outdoors, Surface, Ground, Adiabatic, OtherSideTe
 from .energy.properties import ShadeEnergyPropertiesAbridged, \
     DoorEnergyPropertiesAbridged, ApertureEnergyPropertiesAbridged, \
     FaceEnergyPropertiesAbridged, RoomEnergyPropertiesAbridged, \
-    ModelEnergyProperties
+    ModelEnergyProperties, ShadeMeshEnergyPropertiesAbridged
 
 from .radiance.properties import ShadeRadiancePropertiesAbridged, \
     DoorRadiancePropertiesAbridged, ApertureRadiancePropertiesAbridged, \
     FaceRadiancePropertiesAbridged, RoomRadiancePropertiesAbridged, \
-    ModelRadianceProperties
+    ModelRadianceProperties, ShadeMeshRadiancePropertiesAbridged
 
-from .geometry import Face3D
+from .geometry import Face3D, Mesh3D
+
+
+class ShadeMeshPropertiesAbridged(BaseModel):
+
+    type: constr(regex='^ShadeMeshPropertiesAbridged$') = 'ShadeMeshPropertiesAbridged'
+
+    energy: ShadeMeshEnergyPropertiesAbridged = Field(
+        default=None
+    )
+
+    radiance: ShadeMeshRadiancePropertiesAbridged = Field(
+        default=None
+    )
+
+
+class ShadeMesh(IDdBaseModel):
+
+    type: constr(regex='^ShadeMesh$') = 'ShadeMesh'
+
+    geometry: Mesh3D = Field(
+        ...,
+        description='A Mesh3D for the geometry.'
+    )
+
+    properties: ShadeMeshPropertiesAbridged = Field(
+        ...,
+        description='Extension properties for particular simulation engines '
+        '(Radiance, EnergyPlus).'
+    )
+
+    is_detached: bool = Field(
+        True,
+        description='Boolean to note whether this shade is detached from any of '
+        'the other geometry in the model. Cases where this should be True include '
+        'shade representing surrounding buildings or context.'
+    )
 
 
 class ShadePropertiesAbridged(BaseModel):
@@ -372,6 +408,11 @@ class Model(IDdBaseModel):
         description='A list of Doors in the model that lack a parent Face. '
         'Note that orphaned Doors are not acceptable for Models that are '
         'to be exported for energy simulation.'
+    )
+
+    shade_meshes: List[ShadeMesh] = Field(
+        default=None,
+        description='A list of ShadeMesh in the model.'
     )
 
     units: Units = Field(

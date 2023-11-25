@@ -34,6 +34,32 @@ from .hvac.detailed import DetailedHVAC
 from .shw import SHWSystem
 
 
+class ShadeMeshEnergyPropertiesAbridged(NoExtraBaseModel):
+
+    type: constr(regex='^ShadeMeshEnergyPropertiesAbridged$') = \
+        'ShadeMeshEnergyPropertiesAbridged'
+
+    construction: str = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description='Identifier of a ShadeConstruction to set the reflectance and '
+        'specularity of the Shade. If None, it will be a generic context '
+        'construction that is completely diffuse with 0.2 visible and solar '
+        'reflectance. Unless it is building attached, in which case it will be '
+        'set by the default generic ConstructionSet.'
+    )
+
+    transmittance_schedule: str = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description='Identifier of a schedule to set the transmittance of the shade, '
+        'which can vary throughout the simulation. If None, the shade will '
+        'be completely opaque.'
+    )
+
+
 class ShadeEnergyPropertiesAbridged(NoExtraBaseModel):
 
     type: constr(regex='^ShadeEnergyPropertiesAbridged$') = \

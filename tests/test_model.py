@@ -102,6 +102,11 @@ def test_model_5vertex_sub_faces_interior():
     Model.parse_file(file_path)
 
 
+def test_model_with_shade_mesh():
+    file_path = os.path.join(target_folder, 'model_with_shade_mesh.hbjson')
+    Model.parse_file(file_path)
+
+
 def test_model_large_single_family_home():
     file_path = os.path.join(target_folder_large, 'single_family_home.hbjson')
     Model.parse_file(file_path)

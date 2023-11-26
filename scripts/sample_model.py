@@ -6,6 +6,7 @@ from honeybee.face import Face
 from honeybee.shade import Shade
 from honeybee.aperture import Aperture
 from honeybee.door import Door
+from honeybee.shademesh import ShadeMesh
 from honeybee.boundarycondition import boundary_conditions
 from honeybee.facetype import face_types, Floor, RoofCeiling
 
@@ -41,10 +42,8 @@ from honeybee_radiance.dynamic import RadianceShadeState, RadianceSubFaceState, 
     StateGeometry
 
 from ladybug.dt import Time
-from ladybug_geometry.geometry3d.pointvector import Point3D, Vector3D
-from ladybug_geometry.geometry3d.plane import Plane
-from ladybug_geometry.geometry3d.face import Face3D
-from ladybug_geometry.geometry3d.polyface import Polyface3D
+from ladybug_geometry.geometry3d import Point3D, Vector3D, Plane, Face3D, \
+    Mesh3D, Polyface3D
 
 import os
 import json
@@ -570,7 +569,7 @@ def model_energy_allair_hvac(directory):
         face.apertures_by_ratio(0.2, 0.01)
 
     vav_sys = VAV('VAV System with Glycol Loop')
-    vav_sys.vintage = '90.1-2010'
+    vav_sys.vintage = 'ASHRAE_2010'
     vav_sys.economizer_type = 'DifferentialDryBulb'
     vav_sys.sensible_heat_recovery = 0.55
     vav_sys.latent_heat_recovery = 0
@@ -833,6 +832,35 @@ def model_5vertex_sub_faces_interior(directory):
         json.dump(model_dict, fp, indent=4)
 
 
+def model_with_shade_mesh(directory):
+    room = Room.from_box('TinyHouseZone', 5, 10, 3)
+    south_face = room[3]
+    south_face.apertures_by_ratio(0.4, 0.01)
+    south_face.apertures[0].overhang(0.5, indoor=False)
+    south_face.apertures[0].overhang(0.5, indoor=True)
+    south_face.apertures[0].move_shades(Vector3D(0, 0, -0.5))
+    north_face = room[1]
+    door_verts = [Point3D(2, 10, 0.1), Point3D(1, 10, 0.1),
+                  Point3D(1, 10, 2.5), Point3D(2, 10, 2.5)]
+    aperture_verts = [Point3D(4.5, 10, 1), Point3D(2.5, 10, 1),
+                      Point3D(2.5, 10, 2.5), Point3D(4.5, 10, 2.5)]
+    door = Door('FrontDoor', Face3D(door_verts))
+    north_face.add_door(door)
+    aperture = Aperture('FrontAperture', Face3D(aperture_verts))
+    north_face.add_aperture(aperture)
+    pts = (Point3D(0, 0, 4), Point3D(0, 2, 4), Point3D(2, 2, 4),
+           Point3D(2, 0, 4), Point3D(4, 0, 4))
+    mesh = Mesh3D(pts, [(0, 1, 2, 3), (2, 3, 4)])
+    awning_1 = ShadeMesh('Awning_1', mesh)
+
+    model = Model('TinyHouse', [room], shade_meshes=[awning_1])
+    model_dict = model.to_dict()
+
+    dest_file = os.path.join(directory, 'model_with_shade_mesh.hbjson')
+    with open(dest_file, 'w') as fp:
+        json.dump(model_dict, fp, indent=4)
+
+
 # run all functions within the file
 master_dir = os.path.split(os.path.dirname(__file__))[0]
 sample_directory = os.path.join(master_dir, 'samples', 'model')
@@ -842,6 +870,7 @@ model_complete_single_zone_office_user_data(sample_directory)
 model_complete_multi_zone_office(sample_directory)
 model_complete_patient_room(sample_directory)
 model_complete_office_floor(sample_directory)
+model_with_shade_mesh(sample_directory)
 
 model_energy_shoe_box(sample_directory)
 model_energy_detailed_loads(sample_directory)

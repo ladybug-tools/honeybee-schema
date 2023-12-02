@@ -34,6 +34,17 @@ class SimulationOutput(NoExtraBaseModel):
         description='A list of EnergyPlus summary report names as strings.'
     )
 
+    unmet_setpoint_tolerance: float = Field(
+        1.11,
+        ge=0,
+        le=10,
+        description='A number in degrees Celsius for the difference that '
+        'the zone conditions must be from the thermostat setpoint in order '
+        'for the setpoint to be considered unmet. This will affect how unmet '
+        'hours are reported in the output. ASHRAE 90.1 uses a tolerance of '
+        '1.11C, which is equivalent to 1.8F.'
+    )
+
 
 class SimulationControl(NoExtraBaseModel):
     """Used to specify which types of calculations to run."""

@@ -19,7 +19,7 @@ from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, ServiceHotWaterAbridged, InfiltrationAbridged, \
     VentilationAbridged, SetpointAbridged, ProcessAbridged
 from .daylight import DaylightingControl
-from .ventcool import VentilationControlAbridged, VentilationOpening, \
+from .ventcool import VentilationControlAbridged, VentilationFan, VentilationOpening, \
     VentilationSimulationControl, AFNCrack
 from .internalmass import InternalMassAbridged
 from .schedule import ScheduleTypeLimit, ScheduleRulesetAbridged, \
@@ -243,6 +243,18 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
         default=None,
         description='An optional VentilationControl object to dictate the opening '
         'of windows. If None, the windows will never open.'
+    )
+
+    fans: List[VentilationFan] = Field(
+        default=None,
+        description='An optional list of VentilationFan objects for fans within the '
+        'room. Note that these fans are not connected to the heating or cooling system '
+        'and are meant to represent the intentional circulation of unconditioned '
+        'outdoor air for the purposes of keeping a space cooler, drier or free '
+        'of indoor pollutants (as in the case of kitchen or bathroom exhaust fans). '
+        'For the specification of mechanical ventilation of conditioned outdoor air, '
+        'the Room.ventilation property should be used and the Room should be '
+        'given a HVAC that can meet this specification.'
     )
 
     internal_masses: List[InternalMassAbridged] = Field(

@@ -2,6 +2,7 @@
 from pydantic import Field, constr
 
 from .._base import NoExtraBaseModel
+from ._base import EnergyBaseModel
 from enum import Enum
 
 
@@ -63,6 +64,79 @@ class VentilationControlAbridged(NoExtraBaseModel):
         'the year. Note that this is applied on top of any setpoints. The type of this '
         'schedule should be On/Off and values should be either 0 (no possibility of '
         'ventilation) or 1 (ventilation possible).'
+    )
+
+
+class VentilationType(str, Enum):
+    exhaust = 'Exhaust'
+    intake = 'Intake'
+    balanced = 'Balanced'
+
+
+class VentilationFan(EnergyBaseModel):
+
+    type: constr(regex='^VentilationFan$') = 'VentilationFan'
+
+    flow_rate: float = Field(
+        ...,
+        gt=0,
+        description='A number for the flow rate of the fan in m3/s.'
+    )
+
+    ventilation_type: VentilationType = Field(
+        default=VentilationType.balanced,
+        description='Text to indicate the type of type of ventilation. Choose '
+        'from the options below. For either Exhaust or Intake, values for '
+        'fan pressure and efficiency define the fan electric consumption. For Exhaust '
+        'ventilation, the conditions of the air entering the space are assumed '
+        'to be equivalent to outside air conditions. For Intake and Balanced '
+        'ventilation, an appropriate amount of fan heat is added to the '
+        'entering air stream. For Balanced ventilation, both an intake fan '
+        'and an exhaust fan are assumed to co-exist, both having the same '
+        'flow rate and power consumption (using the entered values for fan '
+        'pressure rise and fan total efficiency). Thus, the fan electric '
+        'consumption for Balanced ventilation is twice that for the Exhaust or '
+        'Intake ventilation types which employ only a single fan.'
+    )
+
+    pressure_rise: float = Field(
+        ...,
+        gt=0,
+        description='A number for the the pressure rise across the fan in Pascals '
+        '(N/m2). This is often a function of the fan speed and the conditions in '
+        'which the fan is operating since having the fan blow air through filters '
+        'or narrow ducts will increase the pressure rise that is needed to '
+        'deliver the input flow rate. The pressure rise plays an important role in '
+        'determining the amount of energy consumed by the fan. Smaller fans like '
+        'a 0.05 m3/s desk fan tend to have lower pressure rises around 60 Pa. '
+        'Larger fans, such as a 6 m3/s fan used for ventilating a large room tend '
+        'to have higher pressure rises around 400 Pa. The highest pressure rises '
+        'are typically for large fans blowing air through ducts and filters, which '
+        'can have pressure rises as high as 1000 Pa.'
+    )
+
+    efficiency: float = Field(
+        ...,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 for the overall efficiency of the fan. '
+        'Specifically, this is the ratio of the power delivered to the fluid '
+        'to the electrical input power. It is the product of the fan motor '
+        'efficiency and the fan impeller efficiency. Fans that have a higher blade '
+        'diameter and operate at lower speeds with smaller pressure rises for '
+        'their size tend to have higher efficiencies. Because motor efficiencies '
+        'are typically between 0.8 and 0.9, the best overall fan efficiencies '
+        'tend to be around 0.7 with most typical fan efficiencies between 0.5 and '
+        '0.7. The lowest efficiencies often happen for small fans in situations '
+        'with high pressure rises for their size, which can result in efficiencies '
+        'as low as 0.15.'
+    )
+
+    control: VentilationControlAbridged = Field(
+        default=None,
+        description='A VentilationControl object that dictates the conditions under '
+        'which the fan is turned on. If None, a default VentilationControl will '
+        'be generated, which will keep the fan on all of the time.'
     )
 
 

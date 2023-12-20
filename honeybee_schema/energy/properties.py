@@ -32,6 +32,7 @@ from .hvac.heatcool import FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residen
     WindowAC, GasUnitHeater, Radiant
 from .hvac.detailed import DetailedHVAC
 from .shw import SHWSystem
+from .generator import PVProperties, ElectricLoadCenter
 
 
 class ShadeMeshEnergyPropertiesAbridged(NoExtraBaseModel):
@@ -83,6 +84,14 @@ class ShadeEnergyPropertiesAbridged(NoExtraBaseModel):
         description='Identifier of a schedule to set the transmittance of the shade, '
         'which can vary throughout the simulation. If None, the shade will '
         'be completely opaque.'
+    )
+
+    pv_properties: PVProperties = Field(
+        default=None,
+        description='An optional PVProperties object to specify photovoltaic '
+        'behavior of the Shade. If None, the Shade will have no Photovoltaic '
+        'properties. Note that the normal of the Shade is important in '
+        'determining the performance of the shade as a PV geometry.'
     )
 
 
@@ -363,4 +372,11 @@ class ModelEnergyProperties(NoExtraBaseModel):
         default=None,
         description='An optional parameter to define the global parameters for '
         'a ventilation cooling.'
+    )
+
+    electric_load_center: ElectricLoadCenter = Field(
+        default=None,
+        description='An optional parameter object that defines the properties '
+        'of the model electric loads center that manages on site electricity '
+        'generation and conversion.'
     )

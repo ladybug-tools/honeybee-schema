@@ -8,7 +8,7 @@ from .energy.simulation import EfficiencyStandards, ClimateZones, BuildingTypes
 class Location(BaseModel):
     """A Ladybug Location."""
 
-    type: constr(regex='^Location$')
+    type: constr(regex='^Location$') = 'Location'
 
     city: str = Field(
         '-',
@@ -51,6 +51,8 @@ class Location(BaseModel):
 class ProjectInfo(BaseModel):
     """Project information."""
 
+    type: constr(regex='^ProjectInfo$') = 'ProjectInfo'
+
     north: float = Field(
         0,
         description='A number between -360 to 360 where positive values rotate the '
@@ -67,7 +69,7 @@ class ProjectInfo(BaseModel):
     )
 
     location: Location = Field(
-        Location(),
+        None,
         description='Project location. This value is usually generated from the '
         'information in the weather files.'
     )

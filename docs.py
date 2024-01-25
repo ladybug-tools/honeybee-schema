@@ -6,6 +6,7 @@ from honeybee_schema.model import Model
 from honeybee_schema.energy.simulation import SimulationParameter
 from honeybee_schema.validation import ValidationReport
 from honeybee_schema.comparison import ComparisonReport, SyncInstructions
+from honeybee_schema.project_info import ProjectInfo
 
 import json
 import argparse
@@ -45,7 +46,8 @@ modules = [
     {'module': [SimulationParameter], 'name': 'Simulation Parameter'},
     {'module': [ValidationReport], 'name': 'Validation Report'},
     {'module': [ComparisonReport], 'name': 'Comparison Report'},
-    {'module': [SyncInstructions], 'name': 'Sync Instructions'}
+    {'module': [SyncInstructions], 'name': 'Sync Instructions'},
+    {'module': [ProjectInfo], 'name': 'Project Information'}
 ]
 
 

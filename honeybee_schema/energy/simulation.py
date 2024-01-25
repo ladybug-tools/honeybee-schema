@@ -273,6 +273,30 @@ class ClimateZones(str, Enum):
     zone_8 = '8'
 
 
+class BuildingTypes(str, Enum):
+    Residential = 'Residential'
+    NonResidential = 'NonResidential'
+    MidriseApartment = 'MidriseApartment'
+    HighriseApartment = 'HighriseApartment'
+    LargeOffice = 'LargeOffice'
+    MediumOffice = 'MediumOffice'
+    SmallOffice = 'SmallOffice'
+    Retail = 'Retail'
+    StripMall = 'StripMall'
+    PrimarySchool = 'PrimarySchool'
+    SecondarySchool = 'SecondarySchool'
+    SmallHotel = 'SmallHotel'
+    LargeHotel = 'LargeHotel'
+    Hospital = 'Hospital'
+    Outpatient = 'Outpatient'
+    Warehouse = 'Warehouse'
+    SuperMarket = 'SuperMarket'
+    FullServiceRestaurant = 'FullServiceRestaurant'
+    QuickServiceRestaurant = 'QuickServiceRestaurant'
+    Laboratory = 'Laboratory'
+    Courthouse = 'Courthouse'
+
+
 class SizingParameter(NoExtraBaseModel):
     """Used to specify heating and cooling sizing criteria and safety factors."""
 
@@ -317,7 +341,7 @@ class SizingParameter(NoExtraBaseModel):
         'the design days on this sizing parameter object.'
     )
 
-    building_type: str = Field(
+    building_type: BuildingTypes = Field(
         default=None,
         description='Text for the building type to be used in the efficiency_standard. '
         'If the type is not recognized or is None, it will be assumed that the building '

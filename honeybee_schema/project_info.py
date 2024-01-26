@@ -1,7 +1,8 @@
 """Schema for project information."""
 from pydantic import BaseModel, Field, constr, AnyUrl
-from typing import List
+from typing import List, Union
 
+from .altnumber import Autocalculate
 from .energy.simulation import EfficiencyStandards, ClimateZones, BuildingTypes
 
 
@@ -25,8 +26,10 @@ class Location(BaseModel):
         description='Location longitude between -180 (west) and 180 (east) (Default: 0).'
     )
 
-    time_zone: float = Field(
-        None,
+    time_zone: Union[Autocalculate, int] = Field(
+        Autocalculate(),
+        ge=-12,
+        le=14,
         description='Time zone between -12 hours (west) and +14 hours (east). '
         'If None, the time zone will be an estimated integer value derived from '
         'the longitude in accordance with solar time.'

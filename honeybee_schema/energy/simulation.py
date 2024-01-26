@@ -341,7 +341,7 @@ class SizingParameter(NoExtraBaseModel):
         'the design days on this sizing parameter object.'
     )
 
-    building_type: BuildingTypes = Field(
+    building_type: str = Field(
         default=None,
         description='Text for the building type to be used in the efficiency_standard. '
         'If the type is not recognized or is None, it will be assumed that the building '

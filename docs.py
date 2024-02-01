@@ -6,7 +6,7 @@ from honeybee_schema.model import Model
 from honeybee_schema.energy.simulation import SimulationParameter
 from honeybee_schema.validation import ValidationReport
 from honeybee_schema.comparison import ComparisonReport, SyncInstructions
-from honeybee_schema.project_info import ProjectInfo
+from honeybee_schema.projectinfo import ProjectInfo
 
 import json
 import argparse

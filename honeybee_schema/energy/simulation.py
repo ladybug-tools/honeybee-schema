@@ -353,6 +353,17 @@ class SizingParameter(NoExtraBaseModel):
         'Laboratory, Courthouse.'
     )
 
+    bypass_efficiency_sizing: bool = Field(
+        default=False,
+        description='A boolean to indicate whether the efficiency standard should '
+        'trigger an sizing run that sets the efficiencies of all HVAC equipment in '
+        'the Model (False) or the standard should only be written into the OSM and '
+        'the sizing run should be bypassed (True). Bypassing the sizing run is useful '
+        'when you only want to check that the overall HVAC system architecture is '
+        'correct and you do not want to wait the extra time that it takes to run the '
+        'sizing calculation.'
+    )
+
 
 class TerrianTypes(str, Enum):
     ocean = 'Ocean'

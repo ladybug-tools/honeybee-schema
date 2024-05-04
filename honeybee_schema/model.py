@@ -16,6 +16,8 @@ from .radiance.properties import ShadeRadiancePropertiesAbridged, \
     FaceRadiancePropertiesAbridged, RoomRadiancePropertiesAbridged, \
     ModelRadianceProperties, ShadeMeshRadiancePropertiesAbridged
 
+from .doe2.properties import RoomDoe2Properties, ModelDoe2Properties
+
 from .geometry import Face3D, Mesh3D
 
 
@@ -294,6 +296,10 @@ class RoomPropertiesAbridged(BaseModel):
         default=None
     )
 
+    doe2: RoomDoe2Properties = Field(
+        default=None
+    )
+
 
 class Room(IDdBaseModel):
 
@@ -365,6 +371,10 @@ class ModelProperties(BaseModel):
     )
 
     radiance: ModelRadianceProperties = Field(
+        default=None
+    )
+
+    doe2: ModelDoe2Properties = Field(
         default=None
     )
 

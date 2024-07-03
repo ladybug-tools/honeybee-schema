@@ -18,8 +18,9 @@ setuptools.setup(
     url="https://github.com/ladybug-tools-in2/honeybee-schema",
     packages=setuptools.find_packages(exclude=["tests", "scripts", "samples"]),
     install_requires=requirements,
+    include_package_data=True,
     extras_require={
-        'cli': ['click==7.1.2']
+        'cli': ['click>=7.1.2']
     },
     entry_points={
         "console_scripts": ["honeybee-schema = honeybee_schema.cli:main"]
@@ -27,6 +28,7 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: Implementation :: CPython",
         "Operating System :: OS Independent"
     ],

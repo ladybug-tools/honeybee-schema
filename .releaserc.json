@@ -5,6 +5,8 @@
         [
             "@semantic-release/github",
             {
+                "successComment": false,
+                "failTitle": false,
                 "assets": [
                     {
                         "path": "docs/model.json",

@@ -4,6 +4,7 @@ from typing import Union
 
 from .._base import NoExtraBaseModel
 from ..altnumber import Autocalculate
+from ..geometry import Face3D
 
 
 class RoomDoe2Properties(NoExtraBaseModel):
@@ -55,6 +56,16 @@ class RoomDoe2Properties(NoExtraBaseModel):
         'heating airflow to the cooling airflow. The specific meaning varies according '
         'to the type of zone terminal. If Autocalculate, this parameter will '
         'not be written into the INP.'
+    )
+
+    space_polygon_geometry: Face3D = Field(
+        default=None,
+        description='An optional horizontal Face3D object, which will '
+        'be used to set the SPACE polygon during export to INP. If None, '
+        'the SPACE polygon is auto-calculated from the 3D Room geometry. '
+        'Specifying a geometry here can help overcome some limitations of '
+        'this auto-calculation, particularly for cases where the floors '
+        'of the Room are composed of AirBoundaries.'
     )
 
 

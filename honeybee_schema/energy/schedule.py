@@ -63,8 +63,8 @@ class ScheduleDay(EnergyBaseModel):
     )
 
     times: List[conlist(int, min_items=2, max_items=2)] = Field(
-        [0, 0],
-        description='A list of lists with each sub-list possesing 2 values for '
+        [[0, 0]],
+        description='A list of lists with each sub-list possessing 2 values for '
         '[hour, minute]. The length of the master list must match the length '
         'of the values list. Each time in the master list represents the time '
         'of day that the corresponding value begins to take effect. For example '
@@ -251,7 +251,7 @@ class ScheduleFixedIntervalAbridged(IDdEnergyBaseModel):
         ...,
         min_items=24,
         max_items=527040,
-        description='A list of timeseries values occuring at each timestep over '
+        description='A list of timeseries values occurring at each timestep over '
         'the course of the simulation.'
     )
 

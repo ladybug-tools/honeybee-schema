@@ -425,7 +425,7 @@ class SimulationParameter(NoExtraBaseModel):
     north_angle: float = Field(
         default=0,
         ge=-360,
-        lt=360,
+        le=360,
         description='A number between -360 and 360 for the north direction in degrees.'
         'This is the counterclockwise difference between the North and the '
         'positive Y-axis. 90 is West and 270 is East. Note that this '

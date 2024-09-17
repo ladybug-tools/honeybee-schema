@@ -12,7 +12,7 @@ class _RadianceAsset(IDdRadianceBaseModel):
 
     room_identifier: str = Field(
         None,
-        regex=r'[.A-Za-z0-9_-]',
+        regex=r'^[.A-Za-z0-9_-]+$',
         min_length=1,
         max_length=100,
         description='Optional text string for the Room identifier to which this '

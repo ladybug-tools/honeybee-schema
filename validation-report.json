@@ -1,0 +1,420 @@
+{
+  "openapi": "3.0.2",
+  "servers": [],
+  "info": {
+    "description": "Honeybee validation-report schema.",
+    "version": "1.58.4",
+    "title": "Honeybee Validation Report Schema",
+    "contact": {
+      "name": "Ladybug Tools",
+      "email": "info@ladybug.tools",
+      "url": "https://github.com/ladybug-tools/honeybee-schema"
+    },
+    "x-logo": {
+      "url": "https://www.ladybug.tools/assets/img/honeybee-large.png",
+      "altText": "Honeybee logo"
+    },
+    "license": {
+      "name": "BSD",
+      "url": "https://github.com/ladybug-tools-in2/honeybee-schema/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "OpenAPI Specification with Inheritance",
+    "url": "./validation-report_inheritance.json"
+  },
+  "tags": [
+    {
+      "name": "extensiontypes_model",
+      "x-displayName": "ExtensionTypes",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ExtensionTypes\" />\n"
+    },
+    {
+      "name": "linesegment3d_model",
+      "x-displayName": "LineSegment3D",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/LineSegment3D\" />\n"
+    },
+    {
+      "name": "objecttypes_model",
+      "x-displayName": "ObjectTypes",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ObjectTypes\" />\n"
+    },
+    {
+      "name": "parenttypes_model",
+      "x-displayName": "ParentTypes",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ParentTypes\" />\n"
+    },
+    {
+      "name": "point3d_model",
+      "x-displayName": "Point3D",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Point3D\" />\n"
+    },
+    {
+      "name": "validationerror_model",
+      "x-displayName": "ValidationError",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ValidationError\" />\n"
+    },
+    {
+      "name": "validationparent_model",
+      "x-displayName": "ValidationParent",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ValidationParent\" />\n"
+    },
+    {
+      "name": "validationreport_model",
+      "x-displayName": "ValidationReport",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ValidationReport\" />\n"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Models",
+      "tags": [
+        "extensiontypes_model",
+        "linesegment3d_model",
+        "objecttypes_model",
+        "parenttypes_model",
+        "point3d_model",
+        "validationerror_model",
+        "validationparent_model",
+        "validationreport_model"
+      ]
+    }
+  ],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "ExtensionTypes": {
+        "title": "ExtensionTypes",
+        "description": "Types of Honeybee/Dragonfly extensions.",
+        "enum": [
+          "Core",
+          "Radiance",
+          "Energy"
+        ],
+        "type": "string"
+      },
+      "ObjectTypes": {
+        "title": "ObjectTypes",
+        "description": "Types of Honeybee objects.",
+        "enum": [
+          "Shade",
+          "Aperture",
+          "Door",
+          "SubFace",
+          "Face",
+          "Room",
+          "SensorGrid",
+          "View",
+          "Modifier",
+          "ModifierSet",
+          "Material",
+          "Construction",
+          "ConstructionSet",
+          "ScheduleTypeLimit",
+          "Schedule",
+          "ProgramType",
+          "HVAC",
+          "SHW",
+          "RoofSpecification",
+          "Room2D",
+          "Story",
+          "Building"
+        ],
+        "type": "string"
+      },
+      "ParentTypes": {
+        "title": "ParentTypes",
+        "description": "Types of Honeybee objects that can be parents.",
+        "enum": [
+          "Aperture",
+          "Door",
+          "Face",
+          "Room",
+          "Story",
+          "Building"
+        ],
+        "type": "string"
+      },
+      "ValidationParent": {
+        "title": "ValidationParent",
+        "type": "object",
+        "properties": {
+          "parent_type": {
+            "description": "Text for the type of object that the parent is.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ParentTypes"
+              }
+            ]
+          },
+          "id": {
+            "title": "Id",
+            "description": "Text string for the unique ID of the parent object.",
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[.A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "default": "ValidationParent",
+            "pattern": "^ValidationParent$",
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "title": "Name",
+            "description": "Display name of the parent object.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "parent_type",
+          "id"
+        ]
+      },
+      "Point3D": {
+        "title": "Point3D",
+        "description": "A point object in 3D space.",
+        "type": "object",
+        "properties": {
+          "x": {
+            "title": "X",
+            "description": "Number for X coordinate.",
+            "type": "number",
+            "format": "double"
+          },
+          "y": {
+            "title": "Y",
+            "description": "Number for Y coordinate.",
+            "type": "number",
+            "format": "double"
+          },
+          "z": {
+            "title": "Z",
+            "description": "Number for Z coordinate.",
+            "type": "number",
+            "format": "double"
+          },
+          "type": {
+            "title": "Type",
+            "default": "Point3D",
+            "pattern": "^Point3D$",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z"
+        ],
+        "additionalProperties": false
+      },
+      "LineSegment3D": {
+        "title": "LineSegment3D",
+        "description": "A single line segment face in 3D space.",
+        "type": "object",
+        "properties": {
+          "p": {
+            "title": "P",
+            "description": "Line segment base point as 3 (x, y, z) values.",
+            "minItems": 3,
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          "v": {
+            "title": "V",
+            "description": "Line segment direction vector as 3 (x, y, z) values.",
+            "minItems": 3,
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          "type": {
+            "title": "Type",
+            "default": "LineSegment3D",
+            "pattern": "^LineSegment3D$",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "p",
+          "v"
+        ],
+        "additionalProperties": false
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "type": "object",
+        "properties": {
+          "code": {
+            "title": "Code",
+            "description": "Text with 6 digits for the error code. The first two digits indicate whether the error is a core honeybee error (00) vs. an extension error (any non-zero number). The second two digits indicate the nature of the error (00 is an identifier error, 01 is a geometry error, 02 is an adjacency error). The third two digits are used to give a unique ID to each condition moving upwards from more specific/detailed objects/errors to coarser/more abstract objects/errors. A full list of error codes can be found here: https://docs.pollination.cloud/user-manual/get-started/troubleshooting/help-with-modeling-error-codes",
+            "maxLength": 6,
+            "minLength": 6,
+            "pattern": "([0-9]+)",
+            "type": "string"
+          },
+          "error_type": {
+            "title": "Error Type",
+            "description": "A human-readable version of the error code, typically not more than five words long.",
+            "type": "string"
+          },
+          "extension_type": {
+            "description": "Text for the Honeybee extension from which the error originated (from the ExtensionTypes enumeration).",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ExtensionTypes"
+              }
+            ]
+          },
+          "element_type": {
+            "description": "Text for the type of object that caused the error.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjectTypes"
+              }
+            ]
+          },
+          "element_id": {
+            "title": "Element Id",
+            "description": "A list of text strings for the unique object IDs that caused the error. The list typically contains a single item but there are some types errors that stem from multiple objects like mis-matched area adjacencies or overlapping Room geometries. Note that the IDs in this list can be the identifier of a core object like a Room or a Face or it can be for an extension object like a SensorGrid or a Construction.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "pattern": "^[^,;!\\n\\t]+$"
+            }
+          },
+          "message": {
+            "title": "Message",
+            "description": "Text for the error message with a detailed description of what exactly is invalid about the element.",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "default": "ValidationError",
+            "pattern": "^ValidationError$",
+            "type": "string",
+            "readOnly": true
+          },
+          "element_name": {
+            "title": "Element Name",
+            "description": "A list of text strings for the display names of the objects that caused the error.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "parents": {
+            "title": "Parents",
+            "description": "A list lists where each sub-list corresponds to one of the objects in the element_id property. Each sub-list contains information for the parent objects of the object that caused the error. This can be useful for locating the problematic object in the model. This will contain 1 item for a Face with a parent Room. It will contain 2 for an Aperture that has a parent Face with a parent Room.",
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ValidationParent"
+              }
+            }
+          },
+          "top_parents": {
+            "title": "Top Parents",
+            "description": "A list of top-level parent objects for the specific case of duplicate child-object identifiers, where several top-level parents are involved.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationParent"
+            }
+          },
+          "helper_geometry": {
+            "title": "Helper Geometry",
+            "description": "An optional list of geometry objects that helps illustrate where exactly issues with invalid geometry exist within the Honeybee object. Examples include the naked and non-manifold line segments for non-solid Room geometries, the points of self-intersection for cases of self-intersecting geometry and out-of-plane vertices for non-planar objects. Oftentimes, zooming directly to these helper geometries will help end users understand invalid situations in their model faster than simple zooming to the invalid Honeybee object in its totality.",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Point3D"
+                },
+                {
+                  "$ref": "#/components/schemas/LineSegment3D"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "code",
+          "error_type",
+          "extension_type",
+          "element_type",
+          "element_id",
+          "message"
+        ]
+      },
+      "ValidationReport": {
+        "title": "ValidationReport",
+        "type": "object",
+        "properties": {
+          "app_version": {
+            "title": "App Version",
+            "description": "Text string for the version of honeybee-core or dragonfly-core that performed the validation.",
+            "pattern": "([0-9]+)\\.([0-9]+)\\.([0-9]+)",
+            "type": "string"
+          },
+          "schema_version": {
+            "title": "Schema Version",
+            "description": "Text string for the version of honeybee-schema or dragonfly-schema that performed the validation.",
+            "pattern": "([0-9]+)\\.([0-9]+)\\.([0-9]+)",
+            "type": "string"
+          },
+          "valid": {
+            "title": "Valid",
+            "description": "Boolean to note whether the Model is valid or not.",
+            "type": "boolean"
+          },
+          "type": {
+            "title": "Type",
+            "default": "ValidationReport",
+            "pattern": "^ValidationReport$",
+            "type": "string",
+            "readOnly": true
+          },
+          "app_name": {
+            "title": "App Name",
+            "description": "Text string for the name of the application that performed the validation. This is typically either Honeybee or Dragonfly.",
+            "default": "Honeybee",
+            "type": "string"
+          },
+          "fatal_error": {
+            "title": "Fatal Error",
+            "description": "A text string containing an exception if the Model failed to serialize. It will be an empty string if serialization was successful.",
+            "default": "",
+            "type": "string"
+          },
+          "errors": {
+            "title": "Errors",
+            "description": "A list of objects for each error that was discovered in the model. This will be an empty list or None if no errors were found.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        },
+        "required": [
+          "app_version",
+          "schema_version",
+          "valid"
+        ]
+      }
+    }
+  }
+}

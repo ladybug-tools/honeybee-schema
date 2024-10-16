@@ -88,7 +88,7 @@ class ValidationError(BaseModel):
         'adjacency error). The third two digits are used to give a unique ID to '
         'each condition moving upwards from more specific/detailed objects/errors '
         'to coarser/more abstract objects/errors. A full list of error codes can '
-        'be found here: https://docs.pollination.cloud/user-manual/get-started/'
+        'be found here: https://docs.pollination.solutions/user-manual/rhino-plugin/'
         'troubleshooting/help-with-modeling-error-codes'
     )
 

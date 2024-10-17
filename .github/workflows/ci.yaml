@@ -122,7 +122,7 @@ jobs:
       - name: generate docs
         run: |
           python docs.py --version ${{needs.deploy.outputs.tag}}
-          redoc-cli bundle ./docs/model_redoc.json -o ./docs/model.html
+          redoc-cli build ./docs/model_redoc.json -t ./docs/model-template.html -o ./docs/model.html
 
       - name: deploy to github pages
         uses: peaceiris/actions-gh-pages@v3

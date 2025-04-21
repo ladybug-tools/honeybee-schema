@@ -340,6 +340,15 @@ class Room(IDdBaseModel):
         'any calculations when the Room is part of a Model, including EUI calculations.'
     )
 
+    zone: str = Field(
+        default=None,
+        description='Text string for for the zone identifier to which this Room belongs. '
+        'Rooms sharing the same zone identifier are considered part of the same zone '
+        'in a Model. If the zone identifier has not been specified, it will be '
+        'the same as the Room identifier in the destination engine. Note that this '
+        'property has no character restrictions.'
+    )
+
     story: str = Field(
         default=None,
         description='Text string for the story identifier to which this Room belongs. '

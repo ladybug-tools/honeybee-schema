@@ -1,0 +1,14 @@
+{
+  "classes": {
+    "LineSegment3D": "honeybee_schema.geometry",
+    "Point3D": "honeybee_schema.geometry",
+    "ValidationError": "honeybee_schema.validation",
+    "ValidationParent": "honeybee_schema.validation",
+    "ValidationReport": "honeybee_schema.validation"
+  },
+  "enums": {
+    "ExtensionTypes": "honeybee_schema.validation",
+    "ObjectTypes": "honeybee_schema.validation",
+    "ParentTypes": "honeybee_schema.validation"
+  }
+}

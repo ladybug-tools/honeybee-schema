@@ -1,0 +1,12 @@
+{
+  "classes": {
+    "Autocalculate": "honeybee_schema.altnumber",
+    "Location": "honeybee_schema.projectinfo",
+    "ProjectInfo": "honeybee_schema.projectinfo"
+  },
+  "enums": {
+    "BuildingTypes": "honeybee_schema.energy.simulation",
+    "ClimateZones": "honeybee_schema.energy.simulation",
+    "EfficiencyStandards": "honeybee_schema.energy.simulation"
+  }
+}

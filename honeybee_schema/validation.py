@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field, constr
 from typing import List, Union
 from enum import Enum
 
-from .geometry import Point3D, LineSegment3D
+from .geometry import Point3D, LineSegment3D, Face3D
 
 
 class ExtensionTypes(str, Enum):
@@ -150,7 +150,7 @@ class ValidationError(BaseModel):
         'are involved.'
     )
 
-    helper_geometry: List[Union[Point3D, LineSegment3D]] = Field(
+    helper_geometry: List[Union[Point3D, LineSegment3D, Face3D]] = Field(
         default=None,
         description='An optional list of geometry objects that helps illustrate '
         'where exactly issues with invalid geometry exist within the Honeybee object. '

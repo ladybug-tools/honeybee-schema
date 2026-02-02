@@ -377,6 +377,11 @@ class Infiltration(InfiltrationAbridged):
     )
 
 
+class VentilationMethod(str, Enum):
+    sum = 'Sum'
+    max = 'Max'
+
+
 class VentilationAbridged(IDdEnergyBaseModel):
 
     type: constr(regex='^VentilationAbridged$') = 'VentilationAbridged'
@@ -418,6 +423,12 @@ class VentilationAbridged(IDdEnergyBaseModel):
         'fractional values will get multiplied by the total design flow rate '
         '(determined from the sum of the other 4 fields) to yield a complete '
         'ventilation profile.'
+    )
+
+    method: VentilationMethod = Field(
+        VentilationMethod.sum,
+        description='Text to set how the ventilation criteria are reconciled '
+        'against one another.'
     )
 
 

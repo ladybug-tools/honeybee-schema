@@ -1,12 +1,13 @@
 """Programtype Schema"""
-from pydantic import Field, constr
+from pydantic import Field
+from typing import Literal
 
 from ._base import IDdEnergyBaseModel
 
 
 class InternalMassAbridged(IDdEnergyBaseModel):
 
-    type: constr(regex='^InternalMassAbridged$') = 'InternalMassAbridged'
+    type: Literal['InternalMassAbridged'] = 'InternalMassAbridged'
 
     construction: str = Field(
         ...,

@@ -9,19 +9,23 @@ target_folder = os.path.join(root, 'samples', 'modifier_set')
 
 def test_modifierset_abridged_complete():
     file_path = os.path.join(target_folder, 'modifierset_abridged_complete.json')
-    ModifierSetAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        ModifierSetAbridged.model_validate_json(f.read())
 
 
 def test_modifierset_abridged_partial_exterior():
     file_path = os.path.join(target_folder, 'modifierset_abridged_partial_exterior.json')
-    ModifierSetAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        ModifierSetAbridged.model_validate_json(f.read())
 
 
 def test_modifierset_complete():
     file_path = os.path.join(target_folder, 'modifierset_complete.json')
-    ModifierSet.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        ModifierSet.model_validate_json(f.read())
 
 
 def test_modifierset_partial_exterior():
     file_path = os.path.join(target_folder, 'modifierset_partial_exterior.json')
-    ModifierSet.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        ModifierSet.model_validate_json(f.read())

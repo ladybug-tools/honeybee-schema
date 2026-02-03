@@ -1,6 +1,6 @@
 """Ideal Air Schema"""
-from pydantic import Field, root_validator, constr
-from typing import Union
+from pydantic import Field, model_validator
+from typing import Union, Literal, Annotated
 from enum import Enum
 
 from .._base import IDdEnergyBaseModel
@@ -16,7 +16,7 @@ class EconomizerType(str, Enum):
 class IdealAirSystemAbridged(IDdEnergyBaseModel):
     """ Provides a model for an ideal HVAC system."""
 
-    type: constr(regex='^IdealAirSystemAbridged$') = 'IdealAirSystemAbridged'
+    type: Literal['IdealAirSystemAbridged'] = 'IdealAirSystemAbridged'
 
     economizer_type: EconomizerType = Field(
         EconomizerType.differential_dry_bulb,
@@ -63,25 +63,23 @@ class IdealAirSystemAbridged(IDdEnergyBaseModel):
         description='A number for the minimum cooling supply air temperature [C].'
     )
 
-    heating_limit: Union[Autosize, NoLimit, float] = Field(
+    heating_limit: Union[Autosize, NoLimit, Annotated[float, Field(ge=0)]] = Field(
         Autosize(),
-        ge=0,
         description='A number for the maximum heating capacity in Watts. This '
         'can also be an Autosize object to indicate that the capacity should '
         'be determined during the EnergyPlus sizing calculation. This can also '
         'be a NoLimit object to indicate no upper limit to the heating capacity.'
     )
 
-    cooling_limit: Union[Autosize, NoLimit, float] = Field(
+    cooling_limit: Union[Autosize, NoLimit, Annotated[float, Field(ge=0)]] = Field(
         Autosize(),
-        ge=0,
         description='A number for the maximum cooling capacity in Watts. This '
         'can also be an Autosize object to indicate that the capacity should '
         'be determined during the EnergyPlus sizing calculation. This can also '
         'be a NoLimit object to indicate no upper limit to the cooling capacity.'
     )
 
-    heating_availability: str = Field(
+    heating_availability: Union[str, None] = Field(
         None,
         min_length=1,
         max_length=100,
@@ -89,7 +87,7 @@ class IdealAirSystemAbridged(IDdEnergyBaseModel):
         'heating over the course of the simulation.'
     )
 
-    cooling_availability: str = Field(
+    cooling_availability: Union[str, None] = Field(
         None,
         min_length=1,
         max_length=100,
@@ -97,11 +95,10 @@ class IdealAirSystemAbridged(IDdEnergyBaseModel):
         'cooling over the course of the simulation.'
     )
 
-    @root_validator
-    def check_heating_temp_gt_cooling_temp(cls, values):
+    @model_validator(mode='after')
+    def check_heating_temp_gt_cooling_temp(self) -> 'IdealAirSystemAbridged':
         "Ensure that the heating_air_temperature > cooling_air_temperature."
-        heat_temp = values.get('heating_air_temperature')
-        cool_temp = values.get('cooling_air_temperature')
-        assert heat_temp > cool_temp, 'IdealAirSystem heating_air_temperature must be ' \
+        assert self.heating_air_temperature > self.cooling_air_temperature, \
+            'IdealAirSystem heating_air_temperature must be ' \
             'greater than cooling_air_temperature.'
-        return values
+        return self

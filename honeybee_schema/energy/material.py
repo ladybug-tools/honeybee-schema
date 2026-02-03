@@ -1,6 +1,6 @@
 """Material Schema"""
-from pydantic import Field, validator, root_validator, constr, confloat
-from typing import Union, List
+from pydantic import Field, field_validator, model_validator
+from typing import Union, List, Literal, Annotated
 from enum import Enum
 
 from ._base import IDdEnergyBaseModel
@@ -29,7 +29,7 @@ class EnergyMaterialNoMass(IDdEnergyBaseModel):
     Used when only the thermal resistance (R value) of the material is known.
     """
 
-    type: constr(regex='^EnergyMaterialNoMass$') = 'EnergyMaterialNoMass'
+    type: Literal['EnergyMaterialNoMass'] = 'EnergyMaterialNoMass'
 
     r_value: float = Field(
         ...,
@@ -67,7 +67,7 @@ class EnergyMaterialNoMass(IDdEnergyBaseModel):
 class EnergyMaterial(IDdEnergyBaseModel):
     """Opaque material representing a layer within an opaque construction."""
 
-    type: constr(regex='^EnergyMaterial$') = 'EnergyMaterial'
+    type: Literal['EnergyMaterial'] = 'EnergyMaterial'
 
     roughness: Roughness = Roughness.medium_rough
 
@@ -124,7 +124,7 @@ class EnergyMaterial(IDdEnergyBaseModel):
 class EnergyMaterialVegetation(IDdEnergyBaseModel):
     """Material representing vegetation on the exterior of an opaque construction."""
 
-    type: constr(regex='^EnergyMaterialVegetation$') = 'EnergyMaterialVegetation'
+    type: Literal['EnergyMaterialVegetation'] = 'EnergyMaterialVegetation'
 
     roughness: Roughness = Roughness.medium_rough
 
@@ -250,8 +250,7 @@ class EnergyWindowMaterialSimpleGlazSys(IDdEnergyBaseModel):
     specific performance levels are being targeted.
     """
 
-    type: constr(regex='^EnergyWindowMaterialSimpleGlazSys$') = \
-        'EnergyWindowMaterialSimpleGlazSys'
+    type: Literal['EnergyWindowMaterialSimpleGlazSys'] = 'EnergyWindowMaterialSimpleGlazSys'
 
     u_factor: float = Field(
         ...,
@@ -283,7 +282,7 @@ class EnergyWindowMaterialSimpleGlazSys(IDdEnergyBaseModel):
 class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
     """Describe a single glass pane corresponding to a layer in a window construction."""
 
-    type: constr(regex='^EnergyWindowMaterialGlazing$') = 'EnergyWindowMaterialGlazing'
+    type: Literal['EnergyWindowMaterialGlazing'] = 'EnergyWindowMaterialGlazing'
 
     thickness: float = Field(
         0.003,
@@ -392,7 +391,7 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
 class EnergyWindowFrame(IDdEnergyBaseModel):
     """Opaque material representing a layer within an opaque construction."""
 
-    type: constr(regex='^EnergyWindowFrame$') = 'EnergyWindowFrame'
+    type: Literal['EnergyWindowFrame'] = 'EnergyWindowFrame'
 
     width: float = Field(
         ...,
@@ -483,7 +482,7 @@ class EnergyWindowMaterialGas(IDdEnergyBaseModel):
     Can be combined with EnergyWindowMaterialGlazing to make multi-pane windows.
     """
 
-    type: constr(regex='^EnergyWindowMaterialGas$') = 'EnergyWindowMaterialGas'
+    type: Literal['EnergyWindowMaterialGas'] = 'EnergyWindowMaterialGas'
 
     thickness: float = Field(
         0.0125,
@@ -498,8 +497,7 @@ class EnergyWindowMaterialGasMixture(IDdEnergyBaseModel):
     """Create a mixture of two to four different gases to fill the panes of multiple
     pane windows."""
 
-    type: constr(regex='^EnergyWindowMaterialGasMixture$') = \
-        'EnergyWindowMaterialGasMixture'
+    type: Literal['EnergyWindowMaterialGasMixture'] = 'EnergyWindowMaterialGasMixture'
 
     thickness: float = Field(
         0.0125,
@@ -509,42 +507,40 @@ class EnergyWindowMaterialGasMixture(IDdEnergyBaseModel):
 
     gas_types: List[GasType] = Field(
         ...,
-        min_items=2,
-        max_items=4,
+        min_length=2,
+        max_length=4,
         description='List of gases in the gas mixture.'
     )
 
-    gas_fractions: List[confloat(gt=0, lt=1)] = Field(
+    gas_fractions: List[Annotated[float, Field(gt=0, lt=1)]] = Field(
         ...,
-        min_items=2,
-        max_items=4,
+        min_length=2,
+        max_length=4,
         description='A list of fractional numbers describing the volumetric fractions '
         'of gas types in the mixture. This list must align with the gas_types '
         'list and must sum to 1.'
     )
 
-    @validator('gas_fractions')
-    def check_sum(cls, v):
+    @field_validator('gas_fractions')
+    @classmethod
+    def check_sum(cls, v: List[float]) -> List[float]:
         """Check that fractions sum to 1."""
         assert abs(1 - sum(v)) < 0.001, 'gas_fractions must sum to 1.'
         return v
 
-    @root_validator
-    def check_types_fractions_match(cls, values):
+    @model_validator(mode='after')
+    def check_types_fractions_match(self) -> 'EnergyWindowMaterialGasMixture':
         "Ensure the gas types and fractions match."
-        gas_types = values.get('gas_types')
-        gas_fractions = values.get('gas_fractions')
-        assert len(gas_types) == len(gas_fractions), 'Length of gas_types must match ' \
+        assert len(self.gas_types) == len(self.gas_fractions), 'Length of gas_types must match ' \
             'length of gas_fractions. {} != {}'.format(
-                len(gas_types), len(gas_fractions))
-        return values
+                len(self.gas_types), len(self.gas_fractions))
+        return self
 
 
 class EnergyWindowMaterialGasCustom(IDdEnergyBaseModel):
     """Create single layer of custom gas."""
 
-    type: constr(regex='^EnergyWindowMaterialGasCustom$') = \
-        'EnergyWindowMaterialGasCustom'
+    type: Literal['EnergyWindowMaterialGasCustom'] = 'EnergyWindowMaterialGasCustom'
 
     thickness: float = Field(
         0.0125,
@@ -616,7 +612,7 @@ class EnergyWindowMaterialGasCustom(IDdEnergyBaseModel):
 class EnergyWindowMaterialShade(IDdEnergyBaseModel):
     """This object specifies the properties of window shade materials."""
 
-    type: constr(regex='^EnergyWindowMaterialShade$') = 'EnergyWindowMaterialShade'
+    type: Literal['EnergyWindowMaterialShade'] = 'EnergyWindowMaterialShade'
 
     solar_transmittance: float = Field(
         0.4,
@@ -741,7 +737,7 @@ class SlatOrientation (str, Enum):
 class EnergyWindowMaterialBlind(IDdEnergyBaseModel):
     """Window blind material consisting of flat, equally-spaced slats."""
 
-    type: constr(regex='^EnergyWindowMaterialBlind$') = 'EnergyWindowMaterialBlind'
+    type: Literal['EnergyWindowMaterialBlind'] = 'EnergyWindowMaterialBlind'
 
     slat_orientation: SlatOrientation = SlatOrientation.horizontal
 

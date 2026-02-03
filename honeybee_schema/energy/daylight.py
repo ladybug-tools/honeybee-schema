@@ -1,20 +1,20 @@
-from pydantic import Field, constr
-from typing import List
+from pydantic import Field
+from typing import List, Literal
 
 from .._base import NoExtraBaseModel
 
 
 class DaylightingControl(NoExtraBaseModel):
 
-    type: constr(regex='^DaylightingControl$') = 'DaylightingControl'
+    type: Literal['DaylightingControl'] = 'DaylightingControl'
 
     sensor_position: List[float] = Field(
         ...,
         description='A point as 3 (x, y, z) values for the position of the daylight '
         'sensor within the parent Room. This point should lie within the Room '
         'volume in order for the results to be meaningful.',
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
     illuminance_setpoint: float = Field(

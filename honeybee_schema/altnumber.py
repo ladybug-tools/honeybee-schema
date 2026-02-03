@@ -1,18 +1,18 @@
 """Objects used as alternatives to numerical properties."""
-from pydantic import constr
+from typing import Literal
 from ._base import NoExtraBaseModel
 
 
 class NoLimit(NoExtraBaseModel):
 
-    type: constr(regex='^NoLimit$') = 'NoLimit'
+    type: Literal['NoLimit'] = 'NoLimit'
 
 
 class Autocalculate(NoExtraBaseModel):
 
-    type: constr(regex='^Autocalculate$') = 'Autocalculate'
+    type: Literal['Autocalculate'] = 'Autocalculate'
 
 
 class Autosize(NoExtraBaseModel):
 
-    type: constr(regex='^Autosize$') = 'Autosize'
+    type: Literal['Autosize'] = 'Autosize'

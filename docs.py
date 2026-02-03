@@ -109,7 +109,8 @@ for module in modules:
 
 # generate JSONSchema for Honeybee model
 with open('./docs/model_json_schema.json', 'w') as out_file:
-    out_file.write(Model.schema_json(indent=2))
+    # Model.schema_json() is removed in V2, replaced by model_json_schema() returning a dict
+    out_file.write(json.dumps(Model.model_json_schema(), indent=2))
 
 # generate schema for mode with inheritance but without discriminator
 # we will use this file for generating redocly - the full model is too big, and the

@@ -18,19 +18,20 @@ with open(file_path) as json_file:
 
 def test_model_radiance_properties():
     model_rad_props = office_model['properties']['radiance']
-    ModelRadianceProperties.parse_obj(model_rad_props)
+    ModelRadianceProperties.model_validate(model_rad_props)
 
 
 def test_room_radiance_properties():
     room_prop_abridged = office_model['rooms'][0]['properties']['radiance']
-    RoomRadiancePropertiesAbridged.parse_obj(room_prop_abridged)
+    RoomRadiancePropertiesAbridged.model_validate(room_prop_abridged)
 
 
 def test_face_radiance_properties():
     face_prop_abridged = office_model['rooms'][0]['faces'][0]['properties']['radiance']
-    FaceRadiancePropertiesAbridged.parse_obj(face_prop_abridged)
+    FaceRadiancePropertiesAbridged.model_validate(face_prop_abridged)
 
 
 def test_model_energy_properties_office():
     file_path = os.path.join(target_folder_prop, 'model_energy_properties_office.json')
-    ModelEnergyProperties.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        ModelEnergyProperties.model_validate_json(f.read())

@@ -1,7 +1,7 @@
 """Model schema and the 5 geometry objects that define it."""
-from pydantic import BaseModel, Field, validator, root_validator, constr
-from typing import List, Union
+from typing import List, Union, Literal
 from enum import Enum
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from ._base import IDdBaseModel
 from .boundarycondition import Outdoors, Surface, Ground, Adiabatic, OtherSideTemperature
@@ -23,20 +23,20 @@ from .geometry import Face3D, Mesh3D
 
 class ShadeMeshPropertiesAbridged(BaseModel):
 
-    type: constr(regex='^ShadeMeshPropertiesAbridged$') = 'ShadeMeshPropertiesAbridged'
+    type: Literal['ShadeMeshPropertiesAbridged'] = 'ShadeMeshPropertiesAbridged'
 
-    energy: ShadeMeshEnergyPropertiesAbridged = Field(
+    energy: Union[ShadeMeshEnergyPropertiesAbridged, None] = Field(
         default=None
     )
 
-    radiance: ShadeMeshRadiancePropertiesAbridged = Field(
+    radiance: Union[ShadeMeshRadiancePropertiesAbridged, None] = Field(
         default=None
     )
 
 
 class ShadeMesh(IDdBaseModel):
 
-    type: constr(regex='^ShadeMesh$') = 'ShadeMesh'
+    type: Literal['ShadeMesh'] = 'ShadeMesh'
 
     geometry: Mesh3D = Field(
         ...,
@@ -59,20 +59,20 @@ class ShadeMesh(IDdBaseModel):
 
 class ShadePropertiesAbridged(BaseModel):
 
-    type: constr(regex='^ShadePropertiesAbridged$') = 'ShadePropertiesAbridged'
+    type: Literal['ShadePropertiesAbridged'] = 'ShadePropertiesAbridged'
 
-    energy: ShadeEnergyPropertiesAbridged = Field(
+    energy: Union[ShadeEnergyPropertiesAbridged, None] = Field(
         default=None
     )
 
-    radiance: ShadeRadiancePropertiesAbridged = Field(
+    radiance: Union[ShadeRadiancePropertiesAbridged, None] = Field(
         default=None
     )
 
 
 class Shade(IDdBaseModel):
 
-    type: constr(regex='^Shade$') = 'Shade'
+    type: Literal['Shade'] = 'Shade'
 
     geometry: Face3D = Field(
         ...,
@@ -96,20 +96,20 @@ class Shade(IDdBaseModel):
 
 class DoorPropertiesAbridged(BaseModel):
 
-    type: constr(regex='^DoorPropertiesAbridged$') = 'DoorPropertiesAbridged'
+    type: Literal['DoorPropertiesAbridged'] = 'DoorPropertiesAbridged'
 
-    energy: DoorEnergyPropertiesAbridged = Field(
+    energy: Union[DoorEnergyPropertiesAbridged, None] = Field(
         default=None
     )
 
-    radiance: DoorRadiancePropertiesAbridged = Field(
+    radiance: Union[DoorRadiancePropertiesAbridged, None] = Field(
         default=None
     )
 
 
 class Door(IDdBaseModel):
 
-    type: constr(regex='^Door$') = 'Door'
+    type: Literal['Door'] = 'Door'
 
     geometry: Face3D = Field(
         ...,
@@ -118,7 +118,8 @@ class Door(IDdBaseModel):
 
     boundary_condition: Union[Outdoors, Surface]
 
-    @validator('boundary_condition')
+    @field_validator('boundary_condition')
+    @classmethod
     def surface_bc_objects(cls, v):
         if v.type == 'Surface':
             assert len(v.boundary_condition_objects) == 3, 'Door Surface boundary ' \
@@ -131,12 +132,12 @@ class Door(IDdBaseModel):
         'to an opaque door.'
     )
 
-    indoor_shades: List[Shade] = Field(
+    indoor_shades: Union[List[Shade], None] = Field(
         default=None,
         description='Shades assigned to the interior side of this object.'
     )
 
-    outdoor_shades: List[Shade] = Field(
+    outdoor_shades: Union[List[Shade], None] = Field(
         default=None,
         description='Shades assigned to the exterior side of this object '
         '(eg. entryway awning).'
@@ -151,20 +152,20 @@ class Door(IDdBaseModel):
 
 class AperturePropertiesAbridged(BaseModel):
 
-    type: constr(regex='^AperturePropertiesAbridged$') = 'AperturePropertiesAbridged'
+    type: Literal['AperturePropertiesAbridged'] = 'AperturePropertiesAbridged'
 
-    energy: ApertureEnergyPropertiesAbridged = Field(
+    energy: Union[ApertureEnergyPropertiesAbridged, None] = Field(
         default=None
     )
 
-    radiance: ApertureRadiancePropertiesAbridged = Field(
+    radiance: Union[ApertureRadiancePropertiesAbridged, None] = Field(
         default=None
     )
 
 
 class Aperture(IDdBaseModel):
 
-    type: constr(regex='^Aperture$') = 'Aperture'
+    type: Literal['Aperture'] = 'Aperture'
 
     geometry: Face3D = Field(
         ...,
@@ -173,7 +174,8 @@ class Aperture(IDdBaseModel):
 
     boundary_condition: Union[Outdoors, Surface]
 
-    @validator('boundary_condition')
+    @field_validator('boundary_condition')
+    @classmethod
     def surface_bc_objects(cls, v):
         if v.type == 'Surface':
             assert len(v.boundary_condition_objects) == 3, 'Aperture Surface boundary ' \
@@ -185,13 +187,13 @@ class Aperture(IDdBaseModel):
         description='Boolean to note whether the Aperture can be opened for ventilation.'
     )
 
-    indoor_shades: List[Shade] = Field(
+    indoor_shades: Union[List[Shade], None] = Field(
         default=None,
         description='Shades assigned to the interior side of this object '
         '(eg. window sill, light shelf).'
     )
 
-    outdoor_shades: List[Shade] = Field(
+    outdoor_shades: Union[List[Shade], None] = Field(
         default=None,
         description='Shades assigned to the exterior side of this object '
         '(eg. mullions, louvers).'
@@ -206,13 +208,13 @@ class Aperture(IDdBaseModel):
 
 class FacePropertiesAbridged(BaseModel):
 
-    type: constr(regex='^FacePropertiesAbridged$') = 'FacePropertiesAbridged'
+    type: Literal['FacePropertiesAbridged'] = 'FacePropertiesAbridged'
 
-    energy: FaceEnergyPropertiesAbridged = Field(
+    energy: Union[FaceEnergyPropertiesAbridged, None] = Field(
         default=None
     )
 
-    radiance: FaceRadiancePropertiesAbridged = Field(
+    radiance: Union[FaceRadiancePropertiesAbridged, None] = Field(
         default=None
     )
 
@@ -227,7 +229,7 @@ class FaceType(str, Enum):
 
 class Face(IDdBaseModel):
 
-    type: constr(regex='^Face$') = 'Face'
+    type: Literal['Face'] = 'Face'
 
     geometry: Face3D = Field(
         ...,
@@ -238,31 +240,32 @@ class Face(IDdBaseModel):
 
     boundary_condition: Union[Ground, Outdoors, Adiabatic, Surface, OtherSideTemperature]
 
-    @validator('boundary_condition')
+    @field_validator('boundary_condition')
+    @classmethod
     def surface_bc_objects(cls, v):
         if v.type == 'Surface':
             assert len(v.boundary_condition_objects) == 2, 'Face Surface boundary ' \
                 'condition must have 2 boundary_condition_objects.'
         return v
 
-    apertures: List[Aperture] = Field(
+    apertures: Union[List[Aperture], None] = Field(
         default=None,
         description='Apertures assigned to this Face. Should be coplanar with this '
         'Face and completely within the boundary of the Face to be valid.'
     )
 
-    doors: List[Door] = Field(
+    doors: Union[List[Door], None] = Field(
         default=None,
         description='Doors assigned to this Face. Should be coplanar with this '
         'Face and completely within the boundary of the Face to be valid.'
     )
 
-    indoor_shades: List[Shade] = Field(
+    indoor_shades: Union[List[Shade], None] = Field(
         default=None,
         description='Shades assigned to the interior side of this object.'
     )
 
-    outdoor_shades: List[Shade] = Field(
+    outdoor_shades: Union[List[Shade], None] = Field(
         default=None,
         description='Shades assigned to the exterior side of this object '
         '(eg. balcony, overhang).'
@@ -274,50 +277,51 @@ class Face(IDdBaseModel):
         '(Radiance, EnergyPlus).'
     )
 
-    @root_validator
-    def check_air_boundaries_are_interior(cls, values):
+    @model_validator(mode='after')
+    def check_air_boundaries_are_interior(self):
         """Check that all air wall faces have a Surface boundary condition."""
-        face_type, bc = values.get('face_type'), values.get('boundary_condition')
-        if face_type == 'AirBoundary':
-            assert bc.type == 'Surface', \
-                'AirBoundaries must have "Surface" boundary conditions.'
-        return values
+        if self.face_type == 'AirBoundary':
+            if self.boundary_condition.type != 'Surface':
+                raise ValueError(
+                    'AirBoundaries must have "Surface" boundary conditions.'
+                )
+        return self
 
 
 class RoomPropertiesAbridged(BaseModel):
 
-    type: constr(regex='^RoomPropertiesAbridged$') = 'RoomPropertiesAbridged'
+    type: Literal['RoomPropertiesAbridged'] = 'RoomPropertiesAbridged'
 
-    energy: RoomEnergyPropertiesAbridged = Field(
+    energy: Union[RoomEnergyPropertiesAbridged, None] = Field(
         default=None
     )
 
-    radiance: RoomRadiancePropertiesAbridged = Field(
+    radiance: Union[RoomRadiancePropertiesAbridged, None] = Field(
         default=None
     )
 
-    doe2: RoomDoe2Properties = Field(
+    doe2: Union[RoomDoe2Properties, None] = Field(
         default=None
     )
 
 
 class Room(IDdBaseModel):
 
-    type: constr(regex='^Room$') = 'Room'
+    type: Literal['Room'] = 'Room'
 
     faces: List[Face] = Field(
         ...,
-        min_items=4,
+        min_length=4,
         description='Faces that together form the closed volume of a room.'
     )
 
-    indoor_shades: List[Shade] = Field(
+    indoor_shades: Union[List[Shade], None] = Field(
         default=None,
         description='Shades assigned to the interior side of this object '
         '(eg. partitions, tables).'
     )
 
-    outdoor_shades: List[Shade] = Field(
+    outdoor_shades: Union[List[Shade], None] = Field(
         default=None,
         description='Shades assigned to the exterior side of this object '
         '(eg. trees, landscaping).'
@@ -340,7 +344,7 @@ class Room(IDdBaseModel):
         'any calculations when the Room is part of a Model, including EUI calculations.'
     )
 
-    zone: str = Field(
+    zone: Union[str, None] = Field(
         default=None,
         description='Text string for for the zone identifier to which this Room belongs. '
         'Rooms sharing the same zone identifier are considered part of the same zone '
@@ -349,7 +353,7 @@ class Room(IDdBaseModel):
         'property has no character restrictions.'
     )
 
-    story: str = Field(
+    story: Union[str, None] = Field(
         default=None,
         description='Text string for the story identifier to which this Room belongs. '
         'Rooms sharing the same story identifier are considered part of the same '
@@ -373,63 +377,63 @@ class Units(str, Enum):
 
 class ModelProperties(BaseModel):
 
-    type: constr(regex='^ModelProperties$') = 'ModelProperties'
+    type: Literal['ModelProperties'] = 'ModelProperties'
 
-    energy: ModelEnergyProperties = Field(
+    energy: Union[ModelEnergyProperties, None] = Field(
         default=None
     )
 
-    radiance: ModelRadianceProperties = Field(
+    radiance: Union[ModelRadianceProperties, None] = Field(
         default=None
     )
 
-    doe2: ModelDoe2Properties = Field(
+    doe2: Union[ModelDoe2Properties, None] = Field(
         default=None
     )
 
 
 class Model(IDdBaseModel):
 
-    type: constr(regex='^Model$') = 'Model'
+    type: Literal['Model'] = 'Model'
 
     version: str = Field(
         default='0.0.0',
-        regex=r'([0-9]+)\.([0-9]+)\.([0-9]+)',
+        pattern=r'^([0-9]+)\.([0-9]+)\.([0-9]+)$',
         description='Text string for the current version of the schema.'
     )
 
-    rooms: List[Room] = Field(
+    rooms: Union[List[Room], None] = Field(
         default=None,
         description='A list of Rooms in the model.'
     )
 
-    orphaned_faces: List[Face] = Field(
+    orphaned_faces: Union[List[Face], None] = Field(
         default=None,
         description='A list of Faces in the model that lack a parent Room. Note that '
         'orphaned Faces are not acceptable for Models that are to be exported '
         'for energy simulation.'
     )
 
-    orphaned_shades: List[Shade] = Field(
+    orphaned_shades: Union[List[Shade], None] = Field(
         default=None,
         description='A list of Shades in the model that lack a parent.'
     )
 
-    orphaned_apertures: List[Aperture] = Field(
+    orphaned_apertures: Union[List[Aperture], None] = Field(
         default=None,
         description='A list of Apertures in the model that lack a parent Face. '
         'Note that orphaned Apertures are not acceptable for Models that are '
         'to be exported for energy simulation.'
     )
 
-    orphaned_doors: List[Door] = Field(
+    orphaned_doors: Union[List[Door], None] = Field(
         default=None,
         description='A list of Doors in the model that lack a parent Face. '
         'Note that orphaned Doors are not acceptable for Models that are '
         'to be exported for energy simulation.'
     )
 
-    shade_meshes: List[ShadeMesh] = Field(
+    shade_meshes: Union[List[ShadeMesh], None] = Field(
         default=None,
         description='A list of ShadeMesh in the model.'
     )

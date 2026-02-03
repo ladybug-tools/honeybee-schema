@@ -1,9 +1,9 @@
 """Properties Schema"""
-from pydantic import Field, constr
-from typing import List, Union
+from pydantic import Field
+from typing import List, Union, Literal
 
-from .modifier import _REFERENCE_UNION_MODIFIERS
 from .modifierset import ModifierSet, ModifierSetAbridged
+from .modifier import Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror
 from .global_modifierset import GlobalModifierSet
 from .asset import SensorGrid, View
 from .._base import NoExtraBaseModel
@@ -31,15 +31,13 @@ class _PropertiesBaseAbridged(NoExtraBaseModel):
 class ShadeMeshRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee ShadeMesh Abridged."""
 
-    type: constr(regex='^ShadeMeshRadiancePropertiesAbridged$') = \
-        'ShadeMeshRadiancePropertiesAbridged'
+    type: Literal['ShadeMeshRadiancePropertiesAbridged'] = 'ShadeMeshRadiancePropertiesAbridged'
 
 
 class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Aperture Abridged."""
 
-    type: constr(regex='^ApertureRadiancePropertiesAbridged$') = \
-        'ApertureRadiancePropertiesAbridged'
+    type: Literal['ApertureRadiancePropertiesAbridged'] = 'ApertureRadiancePropertiesAbridged'
 
     dynamic_group_identifier: str = Field(
         default=None,
@@ -58,8 +56,7 @@ class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 class DoorRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Door Abridged."""
 
-    type: constr(regex='^DoorRadiancePropertiesAbridged$') = \
-        'DoorRadiancePropertiesAbridged'
+    type: Literal['DoorRadiancePropertiesAbridged'] = 'DoorRadiancePropertiesAbridged'
 
     dynamic_group_identifier: str = Field(
         default=None,
@@ -78,22 +75,19 @@ class DoorRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 class FaceRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Face Abridged."""
 
-    type: constr(regex='^FaceRadiancePropertiesAbridged$') = \
-        'FaceRadiancePropertiesAbridged'
+    type: Literal['FaceRadiancePropertiesAbridged'] = 'FaceRadiancePropertiesAbridged'
 
 
 class ShadeRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Shade Abridged."""
 
-    type: constr(regex='^ShadeRadiancePropertiesAbridged$') = \
-        'ShadeRadiancePropertiesAbridged'
+    type: Literal['ShadeRadiancePropertiesAbridged'] = 'ShadeRadiancePropertiesAbridged'
 
     dynamic_group_identifier: str = Field(
         default=None,
-        description="An optional string to note the dynamic group ' \
-            'to which the Shade is a part of. Shades sharing the same ' \
-            'dynamic_group_identifier will have their states change in unison. ' \
-            'If None, the Shade is assumed to be static. (default: None)."
+        description='An optional string to note the dynamic group to which the Shade '
+        'is a part of. Shades sharing the same dynamic_group_identifier will have '
+        'their states change in unison. If None, the Shade is assumed to be static.'
     )
 
     states: List[RadianceShadeStateAbridged] = Field(
@@ -105,8 +99,7 @@ class ShadeRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 class RoomRadiancePropertiesAbridged(NoExtraBaseModel):
     """Abridged Radiance Properties for Honeybee Room."""
 
-    type: constr(regex='^RoomRadiancePropertiesAbridged$') = \
-        'RoomRadiancePropertiesAbridged'
+    type: Literal['RoomRadiancePropertiesAbridged'] = 'RoomRadiancePropertiesAbridged'
 
     modifier_set: str = Field(
         default=None,
@@ -118,15 +111,15 @@ class RoomRadiancePropertiesAbridged(NoExtraBaseModel):
 class ModelRadianceProperties(NoExtraBaseModel):
     """Radiance Properties for Honeybee Model."""
 
-    type: constr(regex='^ModelRadianceProperties$') = 'ModelRadianceProperties'
+    type: Literal['ModelRadianceProperties'] = 'ModelRadianceProperties'
 
     global_modifier_set: GlobalModifierSet = Field(
         default=GlobalModifierSet(),
         description='Global Radiance modifier set.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
-    modifiers: List[_REFERENCE_UNION_MODIFIERS] = Field(
+    modifiers: List[Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror]] = Field(
         default=None,
         description='A list of all unique modifiers in the model. '
                     'This includes modifiers across all Faces, Apertures, Doors, '

@@ -1,33 +1,33 @@
 """Modifier Schema"""
 from __future__ import annotations
-from pydantic import Field, BaseModel, constr, validator
-from typing import List, Union, Optional
+from pydantic import Field, BaseModel, field_validator
+from typing import List, Literal, Union, Optional
 from ._base import IDdRadianceBaseModel
 
 
 class Void(BaseModel):
     """Void modifier"""
 
-    type: constr(regex='^Void$') = 'Void'
+    type: Literal['Void'] = 'Void'
 
 
 class ModifierBase(IDdRadianceBaseModel):
     """Base class for Radiance Modifiers"""
 
-    type: constr(regex='^ModifierBase$') = 'ModifierBase'
+    type: Literal['ModifierBase'] = 'ModifierBase'
 
 
 class Mirror(ModifierBase):
     """Radiance mirror material."""
 
-    type: constr(regex='^Mirror$') = 'Mirror'
+    type: Literal['Mirror'] = 'Mirror'
 
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier.'
     )
 
-    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
+    dependencies: Union[List[_REFERENCE_UNION_MODIFIERS], None] = Field(
         default=None,
         description='List of modifiers that this modifier depends on. This argument '
         'is only useful for defining advanced modifiers where the modifier is defined '
@@ -55,7 +55,7 @@ class Mirror(ModifierBase):
         description='A value between 0 and 1 for the blue channel reflectance.'
     )
 
-    alternate_material: _REFERENCE_UNION_MODIFIERS = Field(
+    alternate_material: Union[_REFERENCE_UNION_MODIFIERS, None] = Field(
         default=None,
         description='An optional material (like the illum type) that may be used to '
         'specify a different material to be used for shading non-source rays. '
@@ -69,14 +69,14 @@ class Mirror(ModifierBase):
 class Plastic(ModifierBase):
     """Radiance plastic material."""
 
-    type: constr(regex='^Plastic$') = 'Plastic'
+    type: Literal['Plastic'] = 'Plastic'
 
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier.'
     )
 
-    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
+    dependencies: Union[List[_REFERENCE_UNION_MODIFIERS], None] = Field(
         default=None,
         description='List of modifiers that this modifier depends on. This argument '
         'is only useful for defining advanced modifiers where the modifier is defined '
@@ -125,7 +125,7 @@ class Plastic(ModifierBase):
 class Metal(Plastic):
     """Radiance metal material."""
 
-    type: constr(regex='^Metal$') = 'Metal'
+    type: Literal['Metal'] = 'Metal'
 
     specularity: float = Field(
         default=0.9,
@@ -139,7 +139,7 @@ class Metal(Plastic):
 class Trans(Plastic):
     """Radiance Translucent material."""
 
-    type: constr(regex='^Trans$') = 'Trans'
+    type: Literal['Trans'] = 'Trans'
 
     transmitted_diff: float = Field(
         default=0,
@@ -160,14 +160,14 @@ class Trans(Plastic):
 class Glass(ModifierBase):
     """Radiance glass material."""
 
-    type: constr(regex='^Glass$') = 'Glass'
+    type: Literal['Glass'] = 'Glass'
 
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier.'
     )
 
-    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
+    dependencies: Union[List[_REFERENCE_UNION_MODIFIERS], None] = Field(
         default=None,
         description='List of modifiers that this modifier depends on. This argument '
         'is only useful for defining advanced modifiers where the modifier is '
@@ -206,14 +206,14 @@ class Glass(ModifierBase):
 class BSDF(ModifierBase):
     """Radiance BSDF (Bidirectional Scattering Distribution Function) material."""
 
-    type: constr(regex='^BSDF$') = 'BSDF'
+    type: Literal['BSDF'] = 'BSDF'
 
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier.'
     )
 
-    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
+    dependencies: Union[List[_REFERENCE_UNION_MODIFIERS], None] = Field(
         default=None,
         description='List of modifiers that this modifier depends on. This argument '
         'is only useful for defining advanced modifiers where the modifier is defined '
@@ -222,8 +222,8 @@ class BSDF(ModifierBase):
 
     up_orientation: List[float] = Field(
         default=(0.01, 0.01, 1.00),
-        min_items=3,
-        max_items=3,
+        min_length=3,
+        max_length=3,
         description='Vector as sequence that sets the hemisphere that the BSDF '
         'material faces.'
     )
@@ -236,7 +236,7 @@ class BSDF(ModifierBase):
         'negative).'
     )
 
-    function_file: str = Field(
+    function_file: Union[str, None] = Field(
         default='.',
         min_length=1,
         max_length=100,
@@ -244,7 +244,7 @@ class BSDF(ModifierBase):
         'BSDF data is written to the root of wherever a given study is run.'
     )
 
-    transform: str = Field(
+    transform: Union[str, None] = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -257,63 +257,66 @@ class BSDF(ModifierBase):
         description='A string with the contents of the BSDF XML file.'
     )
 
-    front_diffuse_reflectance: List[float] = Field(
+    front_diffuse_reflectance: Union[List[float], None] = Field(
         default=None,
-        min_items=3,
-        max_items=3,
+        min_length=3,
+        max_length=3,
         description='Optional additional front diffuse reflectance as sequence of '
         'three RGB numbers.'
     )
 
-    back_diffuse_reflectance: List[float] = Field(
+    back_diffuse_reflectance: Union[List[float], None] = Field(
         default=None,
-        min_items=3,
-        max_items=3,
+        min_length=3,
+        max_length=3,
         description='Optional additional back diffuse reflectance as sequence of '
         'three RGB numbers.'
     )
 
-    diffuse_transmittance: List[float] = Field(
+    diffuse_transmittance: Union[List[float], None] = Field(
         default=None,
-        min_items=3,
-        max_items=3,
+        min_length=3,
+        max_length=3,
         description='Optional additional diffuse transmittance as sequence of '
         'three RGB numbers.'
     )
 
-    @validator('front_diffuse_reflectance')
-    def check_front_diff_value(cls, values):
+    @field_validator('front_diffuse_reflectance')
+    @classmethod
+    def check_front_diff_value(cls, v: List[float]) -> List[float]:
         """Ensure every list value is between 0 and 1."""
-        assert all(0 <= v <= 1 for v in values), \
+        assert all(0 <= val <= 1 for val in v), \
             'Every value in front diffuse reflectance must be between 0 and 1.'
-        return values
+        return v
 
-    @validator('back_diffuse_reflectance')
-    def check_back_diff_value(cls, values):
+    @field_validator('back_diffuse_reflectance')
+    @classmethod
+    def check_back_diff_value(cls, v: List[float]) -> List[float]:
         """Ensure every list value is between 0 and 1."""
-        assert all(0 <= v <= 1 for v in values), \
+        assert all(0 <= val <= 1 for val in v), \
             'Every value in back diffuse reflectance must be between 0 and 1.'
-        return values
+        return v
 
-    @validator('diffuse_transmittance')
-    def check_diff_trans_value(cls, values):
+    @field_validator('diffuse_transmittance')
+    @classmethod
+    def check_diff_trans_value(cls, v: List[float]) -> List[float]:
         """Ensure every list value is between 0 and 1."""
-        assert all(0 <= v <= 1 for v in values), \
+        assert all(0 <= val <= 1 for val in v), \
             'Every value in diffuse transmittance must be between 0 and 1.'
-        return values
+        return v
 
 
 class Light(ModifierBase):
     """Radiance Light material."""
 
-    type: constr(regex='^Light$') = 'Light'
+    type: Literal['Light'] = 'Light'
 
     modifier: Optional[_REFERENCE_UNION_MODIFIERS] = Field(
         default=Void(),
         description='Material modifier.'
     )
 
-    dependencies: List[_REFERENCE_UNION_MODIFIERS] = Field(
+    dependencies: Union[List[_REFERENCE_UNION_MODIFIERS], None] = Field(
         default=None,
         description='List of modifiers that this modifier depends on. This argument '
         'is only useful for defining advanced modifiers where the modifier is '
@@ -345,7 +348,7 @@ class Light(ModifierBase):
 class Glow(Light):
     """Radiance Glow material."""
 
-    type: constr(regex='^Glow$') = 'Glow'
+    type: Literal['Glow'] = 'Glow'
 
     max_radius: float = Field(
         default=0,
@@ -355,19 +358,18 @@ class Glow(Light):
         'never contribute to scene illumination.'
     )
 
-
 # Union Modifier Schema objects defined for type reference
 _REFERENCE_UNION_MODIFIERS = \
     Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror]
 
 # Required for self.referencing model
 # see https://pydantic-docs.helpmanual.io/#self-referencing-models
-Mirror.update_forward_refs()
-Plastic.update_forward_refs()
-Glass.update_forward_refs()
-BSDF.update_forward_refs()
-Glow.update_forward_refs()
-Light.update_forward_refs()
-Trans.update_forward_refs()
-Metal.update_forward_refs()
-Void.update_forward_refs()
+Mirror.model_rebuild()
+Plastic.model_rebuild()
+Glass.model_rebuild()
+BSDF.model_rebuild()
+Glow.model_rebuild()
+Light.model_rebuild()
+Trans.model_rebuild()
+Metal.model_rebuild()
+Void.model_rebuild()

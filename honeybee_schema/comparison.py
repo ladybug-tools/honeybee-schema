@@ -1,7 +1,7 @@
 """Schema for the comparison object returned by the comparison command"""
-from pydantic import BaseModel, Field, constr
-from typing import List
+from typing import List, Literal, Union
 from enum import Enum
+from pydantic import BaseModel, Field
 
 
 class GeometryObjectTypes(str, Enum):
@@ -22,13 +22,13 @@ class _DiffObjectBase(BaseModel):
 
     element_id: str = Field(
         ...,
-        regex=r'^[^,;!\n\t]+$',
+        pattern=r'^[^,;!\n\t]+$',
         min_length=1,
         max_length=100,
         description='Text string for the unique object ID that has changed.'
     )
 
-    element_name: str = Field(
+    element_name: Union[str, None] = Field(
         None,
         description='Text string for the display name of the object that has changed.'
     )
@@ -36,7 +36,7 @@ class _DiffObjectBase(BaseModel):
 
 class ChangedObject(_DiffObjectBase):
 
-    type: constr(regex='^ChangedObject$') = 'ChangedObject'
+    type: Literal['ChangedObject'] = 'ChangedObject'
 
     geometry_changed: bool = Field(
         ...,
@@ -80,7 +80,7 @@ class ChangedObject(_DiffObjectBase):
         'included in the ChangedObject, even when geometry_changed is False.'
     )
 
-    existing_geometry: List[dict] = Field(
+    existing_geometry: Union[List[dict], None] = Field(
         default=None,
         description='A list of DisplayFace3D dictionaries for the existing (base) '
         'geometry. The schema of DisplayFace3D can be found in the ladybug-display-'
@@ -93,7 +93,7 @@ class ChangedObject(_DiffObjectBase):
 
 class DeletedObject(_DiffObjectBase):
 
-    type: constr(regex='^DeletedObject$') = 'DeletedObject'
+    type: Literal['DeletedObject'] = 'DeletedObject'
 
     geometry: List[dict] = Field(
         ...,
@@ -107,7 +107,7 @@ class DeletedObject(_DiffObjectBase):
 
 class AddedObject(_DiffObjectBase):
 
-    type: constr(regex='^AddedObject$') = 'AddedObject'
+    type: Literal['AddedObject'] = 'AddedObject'
 
     geometry: List[dict] = Field(
         ...,
@@ -121,9 +121,9 @@ class AddedObject(_DiffObjectBase):
 
 class ComparisonReport(BaseModel):
 
-    type: constr(regex='^ComparisonReport$') = 'ComparisonReport'
+    type: Literal['ComparisonReport'] = 'ComparisonReport'
 
-    changed_objects: List[ChangedObject] = Field(
+    changed_objects: Union[List[ChangedObject], None] = Field(
         default=None,
         description='A list of ChangedObject definitions for each top-level object '
         'that has changed in the model. To be a changed object, the object identifier '
@@ -131,14 +131,14 @@ class ComparisonReport(BaseModel):
         'or extension attributes) has experienced a meaningful change.'
     )
 
-    deleted_objects: List[DeletedObject] = Field(
+    deleted_objects: Union[List[DeletedObject], None] = Field(
         default=None,
         description='A list of DeletedObject definitions for each top-level object '
         'that has been deleted in the process of going from the base model to the '
         'new model.'
     )
 
-    added_objects: List[AddedObject] = Field(
+    added_objects: Union[List[AddedObject], None] = Field(
         default=None,
         description='A list of AddedObject definitions for each top-level object '
         'that has been added in the process of going from the base model to the '
@@ -148,7 +148,7 @@ class ComparisonReport(BaseModel):
 
 class ChangedInstruction(_DiffObjectBase):
 
-    type: constr(regex='^ChangedInstruction$') = 'ChangedInstruction'
+    type: Literal['ChangedInstruction'] = 'ChangedInstruction'
 
     update_geometry: bool = Field(
         True,
@@ -176,32 +176,32 @@ class ChangedInstruction(_DiffObjectBase):
 
 class DeletedInstruction(_DiffObjectBase):
 
-    type: constr(regex='^DeletedInstruction$') = 'DeletedInstruction'
+    type: Literal['DeletedInstruction'] = 'DeletedInstruction'
 
 
 class AddedInstruction(_DiffObjectBase):
 
-    type: constr(regex='^AddedInstruction$') = 'AddedInstruction'
+    type: Literal['AddedInstruction'] = 'AddedInstruction'
 
 
 class SyncInstructions(BaseModel):
 
-    type: constr(regex='^SyncInstructions$') = 'SyncInstructions'
+    type: Literal['SyncInstructions'] = 'SyncInstructions'
 
-    changed_objects: List[ChangedInstruction] = Field(
+    changed_objects: Union[List[ChangedInstruction], None] = Field(
         default=None,
         description='A list of ChangedInstruction definitions for each top-level '
         'object with properties to transfer from the new/updated model to the '
         'base/existing model.'
     )
 
-    deleted_objects: List[DeletedInstruction] = Field(
+    deleted_objects: Union[List[DeletedInstruction], None] = Field(
         default=None,
         description='A list of DeletedInstruction definitions for each top-level object '
         'to be deleted from the base/existing model.'
     )
 
-    added_objects: List[AddedInstruction] = Field(
+    added_objects: Union[List[AddedInstruction], None] = Field(
         default=None,
         description='A list of AddedInstruction definitions for each top-level object '
         'to be added to the base/existing model from the new/updated model.'

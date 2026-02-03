@@ -1,5 +1,6 @@
 """Ventilative cooling Schema"""
-from pydantic import Field, constr
+from pydantic import Field
+from typing import Union, Literal
 
 from .._base import NoExtraBaseModel
 from ._base import EnergyBaseModel
@@ -8,7 +9,7 @@ from enum import Enum
 
 class VentilationControlAbridged(NoExtraBaseModel):
 
-    type: constr(regex='^VentilationControlAbridged$') = 'VentilationControlAbridged'
+    type: Literal['VentilationControlAbridged'] = 'VentilationControlAbridged'
 
     min_indoor_temperature: float = Field(
         -100,
@@ -56,7 +57,7 @@ class VentilationControlAbridged(NoExtraBaseModel):
         'outdoors can be than the indoors before ventilation is stopped.'
     )
 
-    schedule: str = Field(
+    schedule: Union[str, None] = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -75,7 +76,7 @@ class VentilationType(str, Enum):
 
 class VentilationFan(EnergyBaseModel):
 
-    type: constr(regex='^VentilationFan$') = 'VentilationFan'
+    type: Literal['VentilationFan'] = 'VentilationFan'
 
     flow_rate: float = Field(
         ...,
@@ -132,7 +133,7 @@ class VentilationFan(EnergyBaseModel):
         'as low as 0.15.'
     )
 
-    control: VentilationControlAbridged = Field(
+    control: Union[VentilationControlAbridged, None] = Field(
         default=None,
         description='A VentilationControl object that dictates the conditions under '
         'which the fan is turned on. If None, a default VentilationControl will '
@@ -142,7 +143,7 @@ class VentilationFan(EnergyBaseModel):
 
 class VentilationOpening(NoExtraBaseModel):
 
-    type: constr(regex='^VentilationOpening$') = 'VentilationOpening'
+    type: Literal['VentilationOpening'] = 'VentilationOpening'
 
     fraction_area_operable: float = Field(
         0.5,
@@ -219,7 +220,7 @@ class VentilationOpening(NoExtraBaseModel):
 class AFNCrack(NoExtraBaseModel):
     """Properties for airflow through a crack."""
 
-    type: constr(regex='^AFNCrack$') = 'AFNCrack'
+    type: Literal['AFNCrack'] = 'AFNCrack'
 
     flow_coefficient: float = Field(
         ...,
@@ -261,7 +262,7 @@ class BuildingType(str, Enum):
 class VentilationSimulationControl(NoExtraBaseModel):
     """The global parameters used in the ventilation simulation."""
 
-    type: constr(regex='^VentilationSimulationControl$') = 'VentilationSimulationControl'
+    type: Literal['VentilationSimulationControl'] = 'VentilationSimulationControl'
 
     vent_control_type: VentilationControlType = Field(
         default=VentilationControlType.single_zone,

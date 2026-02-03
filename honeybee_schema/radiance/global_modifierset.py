@@ -2,8 +2,8 @@
 import pathlib
 import json
 
-from typing import List, Union
-from pydantic import constr, Field
+from typing import List, Union, Literal
+from pydantic import Field
 
 from honeybee_standards import radiance_default
 
@@ -26,67 +26,67 @@ _MODIFIER_NAMES = [
     'generic_exterior_shade_0.35', 'generic_context_0.20', 'air_boundary'
 ]
 _MODIFIERS = [
-    Plastic.parse_obj(m) if m['type'] == 'Plastic'
-    else Glass.parse_obj(m) if m['type'] == 'Glass'
-    else Trans.parse_obj(m)
+    Plastic.model_validate(m) if m['type'] == 'Plastic'
+    else Glass.model_validate(m) if m['type'] == 'Glass'
+    else Trans.model_validate(m)
     for m in _DEFAULTS['modifiers'] if m['identifier'] in _MODIFIER_NAMES
 ]
 
 
 class GlobalModifierSet(NoExtraBaseModel):
 
-    type: constr(regex='^GlobalModifierSet$') = 'GlobalModifierSet'
+    type: Literal['GlobalModifierSet'] = 'GlobalModifierSet'
 
     modifiers: List[Union[Plastic, Glass, Trans]] = Field(
         default=_MODIFIERS,
         description='Global Honeybee Radiance modifiers.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     wall_set: WallModifierSetAbridged = Field(
-        default=WallModifierSetAbridged.parse_obj(_MOD_SET['wall_set']),
+        default=WallModifierSetAbridged.model_validate(_MOD_SET['wall_set']),
         description='Global Honeybee WallModifierSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     floor_set: FloorModifierSetAbridged = Field(
-        default=FloorModifierSetAbridged.parse_obj(_MOD_SET['floor_set']),
+        default=FloorModifierSetAbridged.model_validate(_MOD_SET['floor_set']),
         description='Global Honeybee FloorModifierSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     roof_ceiling_set: RoofCeilingModifierSetAbridged = Field(
-        default=RoofCeilingModifierSetAbridged.parse_obj(_MOD_SET['roof_ceiling_set']),
+        default=RoofCeilingModifierSetAbridged.model_validate(_MOD_SET['roof_ceiling_set']),
         description='Global Honeybee RoofCeilingModifierSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     aperture_set: ApertureModifierSetAbridged = Field(
-        default=ApertureModifierSetAbridged.parse_obj(_MOD_SET['aperture_set']),
+        default=ApertureModifierSetAbridged.model_validate(_MOD_SET['aperture_set']),
         description='Global Honeybee ApertureModifierSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     door_set: DoorModifierSetAbridged = Field(
-        default=DoorModifierSetAbridged.parse_obj(_MOD_SET['door_set']),
+        default=DoorModifierSetAbridged.model_validate(_MOD_SET['door_set']),
         description='Global Honeybee DoorModifierSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     shade_set: ShadeModifierSetAbridged = Field(
-        default=ShadeModifierSetAbridged.parse_obj(_MOD_SET['shade_set']),
+        default=ShadeModifierSetAbridged.model_validate(_MOD_SET['shade_set']),
         description='Global Honeybee ShadeModifierSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     air_boundary_modifier: str = Field(
         default=_MOD_SET['air_boundary_modifier'],
         description='Global Honeybee Modifier for AirBoundary Faces.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     context_modifier: str = Field(
         default='generic_context_0.20',
         description='Global Honeybee Modifier for context Shades.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )

@@ -2,8 +2,8 @@
 import pathlib
 import json
 
-from typing import List, Union
-from pydantic import constr, Field
+from typing import List, Union, Literal
+from pydantic import Field
 
 from honeybee_standards import energy_default
 
@@ -29,14 +29,14 @@ _CONSTRUCTION_NAMES = [
     'Generic Double Pane', 'Generic Single Pane', 'Generic Exterior Door',
     'Generic Interior Door', 'Generic Shade', 'Generic Context', 'Generic Air Boundary'
 ]
-_CONSTRUCTIONS = [
-    OpaqueConstructionAbridged.parse_obj(m)
+_CONSTRUCTIONS = [ # type: ignore
+    OpaqueConstructionAbridged.model_validate(m)
     if m['type'] == 'OpaqueConstructionAbridged'
-    else WindowConstructionAbridged.parse_obj(m)
+    else WindowConstructionAbridged.model_validate(m)
     if m['type'] == 'WindowConstructionAbridged'
-    else ShadeConstruction.parse_obj(m)
+    else ShadeConstruction.model_validate(m)
     if m['type'] == 'ShadeConstruction'
-    else AirBoundaryConstructionAbridged.parse_obj(m)
+    else AirBoundaryConstructionAbridged.model_validate(m)
     for m in _DEFAULTS['constructions'] if m['identifier'] in _CONSTRUCTION_NAMES
 ]
 _MATERIAL_NAMES = [
@@ -46,21 +46,21 @@ _MATERIAL_NAMES = [
     'Generic Roof Membrane', 'Generic Brick', 'Generic HW Concrete',
     'Generic Low-e Glass', 'Generic Window Air Gap', 'Generic 25mm Insulation'
 ]
-_MATERIALS = [
-    EnergyMaterial.parse_obj(m)
+_MATERIALS = [ # type: ignore
+    EnergyMaterial.model_validate(m)
     if m['type'] == 'EnergyMaterial'
-    else EnergyMaterialNoMass.parse_obj(m)
+    else EnergyMaterialNoMass.model_validate(m)
     if m['type'] == 'EnergyMaterialNoMass'
-    else EnergyWindowMaterialGlazing.parse_obj(m)
+    else EnergyWindowMaterialGlazing.model_validate(m)
     if m['type'] == 'EnergyWindowMaterialGlazing'
-    else EnergyWindowMaterialGas.parse_obj(m)
+    else EnergyWindowMaterialGas.model_validate(m)
     for m in _DEFAULTS['materials'] if m['identifier'] in _MATERIAL_NAMES
 ]
 
 
 class GlobalConstructionSet(NoExtraBaseModel):
 
-    type: constr(regex='^GlobalConstructionSet$') = 'GlobalConstructionSet'
+    type: Literal['GlobalConstructionSet'] = 'GlobalConstructionSet'
 
     materials: List[Union[
         EnergyMaterial, EnergyMaterialNoMass,
@@ -68,7 +68,7 @@ class GlobalConstructionSet(NoExtraBaseModel):
     ]] = Field(
         default=_MATERIALS,
         description='Global Honeybee Energy materials.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     constructions: List[Union[
@@ -77,53 +77,53 @@ class GlobalConstructionSet(NoExtraBaseModel):
     ]] = Field(
         default=_CONSTRUCTIONS,
         description='Global Honeybee Energy constructions.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     wall_set: WallConstructionSetAbridged = Field(
-        default=WallConstructionSetAbridged.parse_obj(_CSET['wall_set']),
+        default=WallConstructionSetAbridged.model_validate(_CSET['wall_set']),
         description='Global Honeybee WallConstructionSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     floor_set: FloorConstructionSetAbridged = Field(
-        default=FloorConstructionSetAbridged.parse_obj(_CSET['floor_set']),
+        default=FloorConstructionSetAbridged.model_validate(_CSET['floor_set']),
         description='Global Honeybee FloorConstructionSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     roof_ceiling_set: RoofCeilingConstructionSetAbridged = Field(
-        default=RoofCeilingConstructionSetAbridged.parse_obj(_CSET['roof_ceiling_set']),
+        default=RoofCeilingConstructionSetAbridged.model_validate(_CSET['roof_ceiling_set']),
         description='Global Honeybee RoofCeilingConstructionSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     aperture_set: ApertureConstructionSetAbridged = Field(
-        default=ApertureConstructionSetAbridged.parse_obj(_CSET['aperture_set']),
+        default=ApertureConstructionSetAbridged.model_validate(_CSET['aperture_set']),
         description='Global Honeybee ApertureConstructionSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     door_set: DoorConstructionSetAbridged = Field(
-        default=DoorConstructionSetAbridged.parse_obj(_CSET['door_set']),
+        default=DoorConstructionSetAbridged.model_validate(_CSET['door_set']),
         description='Global Honeybee DoorConstructionSet.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     shade_construction: str = Field(
         default=_CSET['shade_construction'],
         description='Global Honeybee Construction for building-attached Shades.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     context_construction: str = Field(
         default='Generic Context',
         description='Global Honeybee Construction for context Shades.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )
 
     air_boundary_construction: str = Field(
         default=_CSET['air_boundary_construction'],
         description='Global Honeybee Construction for AirBoundary Faces.',
-        readOnly=True
+        json_schema_extra={'readOnly': True}
     )

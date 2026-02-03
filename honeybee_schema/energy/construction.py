@@ -1,6 +1,6 @@
 """Construction Schema"""
-from pydantic import Field, constr
-from typing import List, Union
+from pydantic import Field, StringConstraints
+from typing import List, Union, Literal, Annotated
 from enum import Enum
 
 from ._base import IDdEnergyBaseModel
@@ -15,21 +15,21 @@ from .schedule import ScheduleRuleset, ScheduleFixedInterval
 class OpaqueConstructionAbridged(IDdEnergyBaseModel):
     """Construction for opaque objects (Face, Shade, Door)."""
 
-    type: constr(regex='^OpaqueConstructionAbridged$') = 'OpaqueConstructionAbridged'
+    type: Literal['OpaqueConstructionAbridged'] = 'OpaqueConstructionAbridged'
 
-    materials: List[constr(min_length=1, max_length=100)] = Field(
+    materials: List[Annotated[str, StringConstraints(min_length=1, max_length=100)]] = Field(
         ...,
         description='List of strings for opaque material identifiers. The order '
         'of the materials is from exterior to interior.',
-        min_items=1,
-        max_items=10
+        min_length=1,
+        max_length=10
     )
 
 
 class OpaqueConstruction(OpaqueConstructionAbridged):
     """Construction for opaque objects (Face, Shade, Door)."""
 
-    type: constr(regex='^OpaqueConstruction$') = 'OpaqueConstruction'
+    type: Literal['OpaqueConstruction'] = 'OpaqueConstruction'
 
     materials: List[
         Union[EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegetation]
@@ -37,28 +37,28 @@ class OpaqueConstruction(OpaqueConstructionAbridged):
         ...,
         description='List of opaque material definitions. The order '
         'of the materials is from exterior to interior.',
-        min_items=1,
-        max_items=10
+        min_length=1,
+        max_length=10
     )
 
 
 class WindowConstructionAbridged(IDdEnergyBaseModel):
     """Construction for window objects (Aperture, Door)."""
 
-    type: constr(regex='^WindowConstructionAbridged$') = 'WindowConstructionAbridged'
+    type: Literal['WindowConstructionAbridged'] = 'WindowConstructionAbridged'
 
-    materials: List[constr(min_length=1, max_length=100)] = Field(
+    materials: List[Annotated[str, StringConstraints(min_length=1, max_length=100)]] = Field(
         ...,
         description='List of strings for glazing or gas material identifiers. The '
         'order of the materials is from exterior to interior. If a SimpleGlazSys '
         'material is used, it must be the only material in the construction. '
         'For multi-layered constructions, adjacent glass layers must be separated '
         'by one and only one gas layer.',
-        min_items=1,
-        max_items=8
+        min_length=1,
+        max_length=8
     )
 
-    frame: str = Field(
+    frame: Union[str, None] = Field(
         None,
         min_length=1,
         max_length=100,
@@ -70,7 +70,7 @@ class WindowConstructionAbridged(IDdEnergyBaseModel):
 class WindowConstruction(WindowConstructionAbridged):
     """Construction for window objects (Aperture, Door)."""
 
-    type: constr(regex='^WindowConstruction$') = 'WindowConstruction'
+    type: Literal['WindowConstruction'] = 'WindowConstruction'
 
     materials: List[
         Union[
@@ -85,11 +85,11 @@ class WindowConstruction(WindowConstructionAbridged):
         'material is used, it must be the only material in the construction. '
         'For multi-layered constructions, adjacent glass layers must be separated '
         'by one and only one gas layer.',
-        min_items=1,
-        max_items=8
+        min_length=1,
+        max_length=8
     )
 
-    frame: EnergyWindowFrame = Field(
+    frame: Union[EnergyWindowFrame, None] = Field(
         None,
         description='An optional window frame material for the frame that '
         'surrounds the window construction.'
@@ -119,8 +119,7 @@ class ControlType(str, Enum):
 class WindowConstructionShadeAbridged(IDdEnergyBaseModel):
     """Construction for window objects with an included shade layer."""
 
-    type: constr(regex='^WindowConstructionShadeAbridged$') = \
-        'WindowConstructionShadeAbridged'
+    type: Literal['WindowConstructionShadeAbridged'] = 'WindowConstructionShadeAbridged'
 
     window_construction: WindowConstructionAbridged = Field(
         ...,
@@ -156,14 +155,14 @@ class WindowConstructionShadeAbridged(IDdEnergyBaseModel):
         'determines when the shading is “on” or “off.”'
     )
 
-    setpoint: float = Field(
+    setpoint: Union[float, None] = Field(
         None,
         description='A number that corresponds to the specified control_type. '
         'This can be a value in (W/m2), (C) or (W) depending upon the control type.'
         'Note that this value cannot be None for any control type except "AlwaysOn."'
     )
 
-    schedule: str = Field(
+    schedule: Union[str, None] = Field(
         None,
         min_length=1,
         max_length=100,
@@ -176,7 +175,7 @@ class WindowConstructionShadeAbridged(IDdEnergyBaseModel):
 class WindowConstructionShade(WindowConstructionShadeAbridged):
     """Construction for window objects (Aperture, Door)."""
 
-    type: constr(regex='^WindowConstructionShade$') = 'WindowConstructionShade'
+    type: Literal['WindowConstructionShade'] = 'WindowConstructionShade'
 
     window_construction: WindowConstruction = Field(
         ...,
@@ -198,7 +197,7 @@ class WindowConstructionShade(WindowConstructionShadeAbridged):
         'glass pane like an electrochromic window assembly.'
     )
 
-    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
         None,
         description='An optional ScheduleRuleset or ScheduleFixedInterval to be '
         'applied on top of the control_type. If None, the control_type will govern '
@@ -209,8 +208,7 @@ class WindowConstructionShade(WindowConstructionShadeAbridged):
 class WindowConstructionDynamicAbridged(IDdEnergyBaseModel):
     """Construction for window objects with an included shade layer."""
 
-    type: constr(regex='^WindowConstructionDynamicAbridged$') = \
-        'WindowConstructionDynamicAbridged'
+    type: Literal['WindowConstructionDynamicAbridged'] = 'WindowConstructionDynamicAbridged'
 
     constructions: List[WindowConstructionAbridged] = Field(
         ...,
@@ -237,8 +235,7 @@ class WindowConstructionDynamicAbridged(IDdEnergyBaseModel):
 class WindowConstructionDynamic(IDdEnergyBaseModel):
     """Construction for window objects with an included shade layer."""
 
-    type: constr(regex='^WindowConstructionDynamic$') = \
-        'WindowConstructionDynamic'
+    type: Literal['WindowConstructionDynamic'] = 'WindowConstructionDynamic'
 
     constructions: List[WindowConstruction] = Field(
         ...,
@@ -263,7 +260,7 @@ class WindowConstructionDynamic(IDdEnergyBaseModel):
 class ShadeConstruction(IDdEnergyBaseModel):
     """Construction for Shade objects."""
 
-    type: constr(regex='^ShadeConstruction$') = 'ShadeConstruction'
+    type: Literal['ShadeConstruction'] = 'ShadeConstruction'
 
     solar_reflectance: float = Field(
         0.2,
@@ -290,8 +287,7 @@ class ShadeConstruction(IDdEnergyBaseModel):
 class AirBoundaryConstructionAbridged(IDdEnergyBaseModel):
     """Construction for Air Boundary objects."""
 
-    type: constr(regex='^AirBoundaryConstructionAbridged$') = \
-        'AirBoundaryConstructionAbridged'
+    type: Literal['AirBoundaryConstructionAbridged'] = 'AirBoundaryConstructionAbridged'
 
     air_mixing_per_area: float = Field(
         0.1,
@@ -302,7 +298,7 @@ class AirBoundaryConstructionAbridged(IDdEnergyBaseModel):
         'typical of what would be induced by a HVAC system.'
     )
 
-    air_mixing_schedule: str = Field(
+    air_mixing_schedule: Union[str, None] = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -314,9 +310,9 @@ class AirBoundaryConstructionAbridged(IDdEnergyBaseModel):
 class AirBoundaryConstruction(AirBoundaryConstructionAbridged):
     """Construction for Air Boundary objects."""
 
-    type: constr(regex='^AirBoundaryConstruction$') = 'AirBoundaryConstruction'
+    type: Literal['AirBoundaryConstruction'] = 'AirBoundaryConstruction'
 
-    air_mixing_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+    air_mixing_schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
         default=None,
         description='A fractional schedule as a ScheduleRuleset or '
         'ScheduleFixedInterval for the air mixing schedule across '

@@ -1,5 +1,6 @@
 """Base class used by various schema objects."""
 from pydantic import Field
+from typing import Union
 import datetime
 
 from .._base import NoExtraBaseModel
@@ -10,7 +11,7 @@ class EnergyBaseModel(NoExtraBaseModel):
 
     identifier: str = Field(
         ...,
-        regex=r'^[^,;!\n\t]+$',
+        pattern=r'^[^,;!\n\t]+$',
         min_length=1,
         max_length=100,
         description='Text string for a unique object ID. This identifier remains '
@@ -20,7 +21,7 @@ class EnergyBaseModel(NoExtraBaseModel):
         'ASCII characters and exclude (, ; ! \\n \\t).'
     )
 
-    display_name: str = Field(
+    display_name: Union[str, None] = Field(
         default=None,
         description='Display name of the object with no character restrictions.'
     )
@@ -29,7 +30,7 @@ class EnergyBaseModel(NoExtraBaseModel):
 class IDdEnergyBaseModel(EnergyBaseModel):
     """Base class for all objects requiring an EnergyPlus identifier and user_data."""
 
-    user_data: dict = Field(
+    user_data: Union[dict, None] = Field(
         default=None,
         description='Optional dictionary of user data associated with the object.'
         'All keys and values of this dictionary should be of a standard data '

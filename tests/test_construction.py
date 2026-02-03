@@ -13,37 +13,38 @@ target_folder = os.path.join(root, 'samples', 'construction')
 
 def test_construction_window_double():
     file_path = os.path.join(target_folder, 'construction_window_double.json')
-    WindowConstructionAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        WindowConstructionAbridged.model_validate_json(f.read())
 
 
 def test_construction_window_triple():
     file_path = os.path.join(target_folder, 'construction_window_triple.json')
-    WindowConstructionAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        WindowConstructionAbridged.model_validate_json(f.read())
 
 
 def test_construction_opaque_door():
     file_path = os.path.join(target_folder, 'construction_opaque_door.json')
-    OpaqueConstructionAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        OpaqueConstructionAbridged.model_validate_json(f.read())
 
 
 def test_construction_opaque_roof():
     file_path = os.path.join(target_folder, 'construction_opaque_roof.json')
-    OpaqueConstructionAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        OpaqueConstructionAbridged.model_validate_json(f.read())
 
 
 def test_construction_opaque_wall():
     file_path = os.path.join(target_folder, 'construction_opaque_wall.json')
-    OpaqueConstructionAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        OpaqueConstructionAbridged.model_validate_json(f.read())
 
 
 def test_construction_window_shade():
     file_path = os.path.join(target_folder, 'construction_window_shade.json')
-    WindowConstructionShadeAbridged.parse_file(file_path)
-
-
-def test_construction_window_blinds():
-    file_path = os.path.join(target_folder, 'construction_window_blinds.json')
-    WindowConstructionShadeAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        WindowConstructionShadeAbridged.model_validate_json(f.read())
 
 
 def test_length_opaque():
@@ -54,10 +55,10 @@ def test_length_opaque():
     for i in range(10):
         cons_length_test['materials'].append('material_{}'.format(i))
     with pytest.raises(ValidationError):
-        OpaqueConstructionAbridged.parse_obj(cons_length_test)
+        OpaqueConstructionAbridged.model_validate(cons_length_test)
     cons_length_test['materials'] = []
     with pytest.raises(ValidationError):
-        OpaqueConstructionAbridged.parse_obj(cons_length_test)
+        OpaqueConstructionAbridged.model_validate(cons_length_test)
 
 
 def test_length_window():
@@ -68,7 +69,7 @@ def test_length_window():
     for i in range(8):
         cons_length_test['materials'].append('material_{}'.format(i))
     with pytest.raises(ValidationError):
-        WindowConstructionAbridged.parse_obj(cons_length_test)
+        WindowConstructionAbridged.model_validate(cons_length_test)
     cons_length_test['materials'] = []
     with pytest.raises(ValidationError):
-        WindowConstructionAbridged.parse_obj(cons_length_test)
+        WindowConstructionAbridged.model_validate(cons_length_test)

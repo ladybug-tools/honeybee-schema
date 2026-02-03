@@ -1,6 +1,6 @@
 """Design Day Schema"""
-from pydantic import Field, constr, validator
-from typing import Union, List
+from pydantic import Field, field_validator
+from typing import Union, List, Literal
 from enum import Enum
 import datetime
 
@@ -10,7 +10,7 @@ from .._base import NoExtraBaseModel
 class DryBulbCondition(NoExtraBaseModel):
     """Used to specify dry bulb conditions on a design day."""
 
-    type: constr(regex='^DryBulbCondition$') = 'DryBulbCondition'
+    type: Literal['DryBulbCondition'] = 'DryBulbCondition'
 
     dry_bulb_max: float = Field(
         ...,
@@ -37,7 +37,7 @@ class HumidityTypes(str, Enum):
 class HumidityCondition(NoExtraBaseModel):
     """Used to specify humidity conditions on a design day."""
 
-    type: constr(regex='^HumidityCondition$') = 'HumidityCondition'
+    type: Literal['HumidityCondition'] = 'HumidityCondition'
 
     humidity_type: HumidityTypes
 
@@ -67,7 +67,7 @@ class HumidityCondition(NoExtraBaseModel):
 class WindCondition(NoExtraBaseModel):
     """Used to specify wind conditions on a design day."""
 
-    type: constr(regex='^WindCondition$') = 'WindCondition'
+    type: Literal['WindCondition'] = 'WindCondition'
 
     wind_speed: float = Field(
         ...,
@@ -89,16 +89,17 @@ class _SkyCondition(NoExtraBaseModel):
 
     date: List[int] = Field(
         ...,
-        min_items=2,
-        max_items=3,
+        min_length=2,
+        max_length=3,
         description='A list of two integers for [month, day], representing the date '
         'for the day of the year on which the design day occurs. '
         'A third integer may be added to denote whether the date should be '
         're-serialized for a leap year (it should be a 1 in this case).'
     )
 
-    @validator('date')
-    def check_date(cls, v):
+    @field_validator('date')
+    @classmethod
+    def check_date(cls, v: List[int]) -> List[int]:
         "Ensure valid date."
         if len(v) == 3 and v[2]:
             try:
@@ -122,7 +123,7 @@ class _SkyCondition(NoExtraBaseModel):
 class ASHRAEClearSky(_SkyCondition):
     """Used to specify sky conditions on a design day."""
 
-    type: constr(regex='^ASHRAEClearSky$') = 'ASHRAEClearSky'
+    type: Literal['ASHRAEClearSky'] = 'ASHRAEClearSky'
 
     clearness: float = Field(
         ...,
@@ -136,7 +137,7 @@ class ASHRAEClearSky(_SkyCondition):
 class ASHRAETau(_SkyCondition):
     """Used to specify sky conditions on a design day."""
 
-    type: constr(regex='^ASHRAETau$') = 'ASHRAETau'
+    type: Literal['ASHRAETau'] = 'ASHRAETau'
 
     tau_b: float = Field(
         ...,
@@ -170,7 +171,7 @@ class DesignDayTypes(str, Enum):
 class DesignDay(NoExtraBaseModel):
     """An object representing design day conditions."""
 
-    type: constr(regex='^DesignDay$') = 'DesignDay'
+    type: Literal['DesignDay'] = 'DesignDay'
 
     name: str = Field(
         ...,
@@ -183,8 +184,9 @@ class DesignDay(NoExtraBaseModel):
         'ASCII characters and exclude (, ; ! \\n \\t).'
     )
 
-    @validator('name')
-    def check_identifier(cls, v):
+    @field_validator('name')
+    @classmethod
+    def check_identifier(cls, v: str) -> str:
         assert all(ord(i) < 128 for i in v), 'Name contains non ASCII characters.'
         assert all(char not in v for char in (',', ';', '!', '\n', '\t')), \
             'Name contains an invalid character for EnergyPlus (, ; ! \\n \\t).'

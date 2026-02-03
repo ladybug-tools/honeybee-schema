@@ -1,7 +1,7 @@
 """Schema for the error objects returned by the validation command"""
-from pydantic import BaseModel, Field, constr
-from typing import List, Union
+from typing import List, Union, Literal, Annotated
 from enum import Enum
+from pydantic import BaseModel, Field, StringConstraints
 
 from .geometry import Point3D, LineSegment3D, Face3D
 
@@ -51,7 +51,7 @@ class ParentTypes(str, Enum):
 
 class ValidationParent(BaseModel):
 
-    type: constr(regex='^ValidationParent$') = 'ValidationParent'
+    type: Literal['ValidationParent'] = 'ValidationParent'
 
     parent_type: ParentTypes = Field(
         ...,
@@ -60,7 +60,7 @@ class ValidationParent(BaseModel):
 
     id: str = Field(
         ...,
-        regex=r'^[.A-Za-z0-9_-]+$',
+        pattern=r'^[.A-Za-z0-9_-]+$',
         min_length=1,
         max_length=100,
         description='Text string for the unique ID of the parent object.'
@@ -74,13 +74,13 @@ class ValidationParent(BaseModel):
 
 class ValidationError(BaseModel):
 
-    type: constr(regex='^ValidationError$') = 'ValidationError'
+    type: Literal['ValidationError'] = 'ValidationError'
 
     code: str = Field(
         ...,
         min_length=6,
-        max_length=6,
-        regex=r'([0-9]+)',
+        max_length=6,  # type: ignore
+        pattern=r'([0-9]+)',
         description='Text with 6 digits for the error code. The first two digits '
         'indicate whether the error is a core honeybee error (00) vs. an extension '
         'error (any non-zero number). The second two digits indicate the nature '
@@ -109,9 +109,10 @@ class ValidationError(BaseModel):
         description='Text for the type of object that caused the error.'
     )
 
-    element_id: List[
-        constr(min_length=1, max_length=100, regex=r'^[^,;!\n\t]+$')
-    ] = Field(
+    element_id: List[Annotated[
+        str,
+        StringConstraints(min_length=1, max_length=100, pattern=r'^[^,;!\n\t]+$')
+    ]] = Field(
         ...,
         description='A list of text strings for the unique object IDs that caused '
         'the error. The list typically contains a single item but there are some types '
@@ -165,7 +166,7 @@ class ValidationError(BaseModel):
 
 class ValidationReport(BaseModel):
 
-    type: constr(regex='^ValidationReport$') = 'ValidationReport'
+    type: Literal['ValidationReport'] = 'ValidationReport'
 
     app_name: str = Field(
         'Honeybee',
@@ -175,14 +176,14 @@ class ValidationReport(BaseModel):
 
     app_version: str = Field(
         ...,
-        regex=r'([0-9]+)\.([0-9]+)\.([0-9]+)',
+        pattern=r'([0-9]+)\.([0-9]+)\.([0-9]+)',
         description='Text string for the version of honeybee-core or dragonfly-core '
         'that performed the validation.'
     )
 
     schema_version: str = Field(
         ...,
-        regex=r'([0-9]+)\.([0-9]+)\.([0-9]+)',
+        pattern=r'([0-9]+)\.([0-9]+)\.([0-9]+)',
         description='Text string for the version of honeybee-schema or dragonfly-schema '
         'that performed the validation.'
     )

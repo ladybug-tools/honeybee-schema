@@ -1,5 +1,6 @@
 """Base class for all objects requiring a valid names for all engines."""
-from pydantic import BaseModel, Field, Extra
+from pydantic import BaseModel, Field, ConfigDict
+from typing import Union
 
 
 class NoExtraBaseModel(BaseModel):
@@ -9,8 +10,7 @@ class NoExtraBaseModel(BaseModel):
     that are assigned to geometry objects.
     """
 
-    class Config:
-        extra = Extra.forbid
+    model_config = ConfigDict(extra='forbid')
 
 
 class IDdBaseModel(NoExtraBaseModel):
@@ -18,7 +18,7 @@ class IDdBaseModel(NoExtraBaseModel):
 
     identifier: str = Field(
         ...,
-        regex=r'^[.A-Za-z0-9_-]+$',
+        pattern=r'^[.A-Za-z0-9_-]+$',
         min_length=1,
         max_length=100,
         description='Text string for a unique object ID. This identifier remains '
@@ -28,12 +28,12 @@ class IDdBaseModel(NoExtraBaseModel):
         'any spaces or special characters.'
     )
 
-    display_name: str = Field(
+    display_name: Union[str, None] = Field(
         default=None,
         description='Display name of the object with no character restrictions.'
     )
 
-    user_data: dict = Field(
+    user_data: Union[dict, None] = Field(
         default=None,
         description='Optional dictionary of user data associated with the object.'
         'All keys and values of this dictionary should be of a standard data '

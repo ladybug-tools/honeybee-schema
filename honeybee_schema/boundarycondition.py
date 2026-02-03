@@ -1,6 +1,6 @@
 """Boundary condition schemas."""
-from pydantic import Field, constr
-from typing import List, Union
+from typing import List, Union, Literal, Annotated
+from pydantic import Field
 
 from ._base import NoExtraBaseModel
 from .altnumber import Autocalculate
@@ -8,7 +8,7 @@ from .altnumber import Autocalculate
 
 class Outdoors(NoExtraBaseModel):
 
-    type: constr(regex='^Outdoors$') = 'Outdoors'
+    type: Literal['Outdoors'] = 'Outdoors'
 
     sun_exposure: bool = Field(
         True,
@@ -20,10 +20,8 @@ class Outdoors(NoExtraBaseModel):
         description='A boolean noting whether the boundary is exposed to wind.'
     )
 
-    view_factor: Union[Autocalculate, float] = Field(
+    view_factor: Union[Autocalculate, Annotated[float, Field()]] = Field(
         Autocalculate(),
-        ge=0,
-        le=1,
         description='A number for the view factor to the ground. This can also be '
         'an Autocalculate object to have the view factor automatically calculated.'
     )
@@ -31,12 +29,12 @@ class Outdoors(NoExtraBaseModel):
 
 class Surface(NoExtraBaseModel):
 
-    type: constr(regex='^Surface$') = 'Surface'
+    type: Literal['Surface'] = 'Surface'
 
     boundary_condition_objects: List[str] = Field(
         ...,
-        min_items=2,
-        max_items=3,
+        min_length=2,
+        max_length=3,
         description='A list of up to 3 object identifiers that are adjacent to this one.'
         ' The first object is always the one that is immediately adjacent and is of '
         'the same object type (Face, Aperture, Door). When this boundary condition '
@@ -50,17 +48,17 @@ class Surface(NoExtraBaseModel):
 
 class Ground(NoExtraBaseModel):
 
-    type: constr(regex='^Ground$') = 'Ground'
+    type: Literal['Ground'] = 'Ground'
 
 
 class Adiabatic(NoExtraBaseModel):
 
-    type: constr(regex='^Adiabatic$') = 'Adiabatic'
+    type: Literal['Adiabatic'] = 'Adiabatic'
 
 
 class OtherSideTemperature(NoExtraBaseModel):
 
-    type: constr(regex='^OtherSideTemperature$') = 'OtherSideTemperature'
+    type: Literal['OtherSideTemperature'] = 'OtherSideTemperature'
 
     heat_transfer_coefficient: float = Field(
         0,
@@ -73,7 +71,7 @@ class OtherSideTemperature(NoExtraBaseModel):
         'exterior surface temperature.'
     )
 
-    temperature: Union[Autocalculate, float] = Field(
+    temperature: Union[Autocalculate, Annotated[float, Field()]] = Field(
         Autocalculate(),
         description='A temperature value in Celsius to note the temperature on the '
         'other side of the object. This input can also be an Autocalculate object '

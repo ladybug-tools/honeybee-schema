@@ -1,5 +1,6 @@
 """All-air HVAC systems, providing ventilation and meeting thermal demand with air."""
-from pydantic import Field, constr
+from pydantic import Field
+from typing import Literal
 from enum import Enum
 
 from ._template import _TemplateSystem
@@ -147,7 +148,7 @@ class VAV(_AllAirBase):
     taller than 5 stories or larger than 14,000 m2 (150,000 ft2) of floor area.
     """
 
-    type: constr(regex='^VAV$') = 'VAV'
+    type: Literal['VAV'] = 'VAV'
 
     equipment_type: VAVEquipmentType = Field(
         VAVEquipmentType.vav_chill_gbr,
@@ -181,7 +182,7 @@ class PVAV(_AllAirBase):
     150,000 ft2) of floor area.
     """
 
-    type: constr(regex='^PVAV$') = 'PVAV'
+    type: Literal['PVAV'] = 'PVAV'
 
     equipment_type: PVAVEquipmentType = Field(
         PVAVEquipmentType.pvav_gbr,
@@ -207,7 +208,7 @@ class PSZ(_AllAirBase):
     assembly spaces.
     """
 
-    type: constr(regex='^PSZ$') = 'PSZ'
+    type: Literal['PSZ'] = 'PSZ'
 
     equipment_type: PSZEquipmentType = Field(
         PSZEquipmentType.psz_e_base,
@@ -227,7 +228,7 @@ class PTAC(_TemplateSystem):
     PTAC/HP systems are the traditional baseline system for residential buildings.
     """
 
-    type: constr(regex='^PTAC$') = 'PTAC'
+    type: Literal['PTAC'] = 'PTAC'
 
     equipment_type: PTACEquipmentType = Field(
         PTACEquipmentType.ptac_e_base,
@@ -248,7 +249,7 @@ class ForcedAirFurnace(_TemplateSystem):
     spaces that only require heating.
     """
 
-    type: constr(regex='^ForcedAirFurnace$') = 'ForcedAirFurnace'
+    type: Literal['ForcedAirFurnace'] = 'ForcedAirFurnace'
 
     equipment_type: FurnaceEquipmentType = Field(
         FurnaceEquipmentType.furnace,

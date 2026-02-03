@@ -1,6 +1,6 @@
 """SensorGrid and Sensor Schema"""
-from pydantic import Field, constr
-from typing import List
+from pydantic import Field
+from typing import List, Literal, Union
 from enum import Enum
 from ..geometry import Mesh3D, Face3D
 from .._base import NoExtraBaseModel
@@ -10,9 +10,9 @@ from ._base import IDdRadianceBaseModel
 class _RadianceAsset(IDdRadianceBaseModel):
     """Hidden base class for all Radiance Assets."""
 
-    room_identifier: str = Field(
+    room_identifier: Union[str, None] = Field(
         None,
-        regex=r'^[.A-Za-z0-9_-]+$',
+        pattern=r'^[.A-Za-z0-9_-]+$',
         min_length=1,
         max_length=100,
         description='Optional text string for the Room identifier to which this '
@@ -21,7 +21,7 @@ class _RadianceAsset(IDdRadianceBaseModel):
         'the grid will be run with all aperture groups in the model.'
     )
 
-    light_path: List[List[str]] = Field(
+    light_path: Union[List[List[str]], None] = Field(
         None,
         description='Get or set a list of lists for the light path from the object to '
         'the sky. Each sub-list contains identifiers of aperture groups through which '
@@ -34,34 +34,34 @@ class _RadianceAsset(IDdRadianceBaseModel):
 class Sensor(NoExtraBaseModel):
     """A single Radiance of sensors."""
 
-    type: constr(regex='^Sensor$') = 'Sensor'
+    type: Literal['Sensor'] = 'Sensor'
 
     pos: List[float] = Field(
         ...,
         description="Position of sensor in space as an array of (x, y, z) values.",
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
     dir: List[float] = Field(
         ...,
         description="Direction of sensor as an array of (x, y, z) values.",
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
 
 class SensorGrid(_RadianceAsset):
     """A grid of sensors."""
 
-    type: constr(regex='^SensorGrid$') = 'SensorGrid'
+    type: Literal['SensorGrid'] = 'SensorGrid'
 
     sensors: List[Sensor] = Field(
         ...,
         description='A list of sensors that belong to the grid.'
     )
 
-    mesh: Mesh3D = Field(
+    mesh: Union[Mesh3D, None] = Field(
         None,
         description='An optional Mesh3D that aligns with the sensors and can be '
         'used for visualization of the grid. Note that the number of sensors in '
@@ -69,7 +69,7 @@ class SensorGrid(_RadianceAsset):
         'the Mesh3D.'
     )
 
-    base_geometry: List[Face3D] = Field(
+    base_geometry: Union[List[Face3D], None] = Field(
         None,
         description='An optional array of Face3D used to represent the grid. '
         'There are no restrictions on how this property relates to the sensors and it '
@@ -77,7 +77,7 @@ class SensorGrid(_RadianceAsset):
         'of sensors or the mesh is too large to be practically visualized.'
     )
 
-    group_identifier: str = Field(
+    group_identifier: Union[str, None] = Field(
         default=None,
         description="An optional string to note the sensor grid group ' \
             'to which the sensor is a part of. Grids sharing the same ' \
@@ -99,15 +99,15 @@ class ViewType(str, Enum):
 class View(_RadianceAsset):
     """A single Radiance of sensors."""
 
-    type: constr(regex='^View$') = 'View'
+    type: Literal['View'] = 'View'
 
     position: List[float] = Field(
         ...,
         description='The view position (-vp) as an array of (x, y, z) values.'
         'This is the focal point of a perspective view or the center of a '
         'parallel projection.',
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
     direction: List[float] = Field(
@@ -115,15 +115,15 @@ class View(_RadianceAsset):
         description='The view direction (-vd) as an array of (x, y, z) values.'
         'The length of this vector indicates the focal distance as needed by '
         'the pixel depth of field (-pd) in rpict.',
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
     up_vector: List[float] = Field(
         ...,
         description='The view up (-vu) vector as an array of (x, y, z) values.',
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
     view_type: ViewType = ViewType.perspective
@@ -142,7 +142,7 @@ class View(_RadianceAsset):
         'projection, this is the view width in world coordinates.'
     )
 
-    shift: float = Field(
+    shift: Union[float, None] = Field(
         None,
         description='The view shift (-vs). This is the amount the actual '
         'image will be shifted to the right of the specified view. This '
@@ -153,7 +153,7 @@ class View(_RadianceAsset):
         'as well.'
     )
 
-    lift: float = Field(
+    lift: Union[float, None] = Field(
         None,
         description='The view lift (-vl). This is the amount the actual '
         'image will be lifted up from the specified view. This '
@@ -164,7 +164,7 @@ class View(_RadianceAsset):
         'as well.'
     )
 
-    fore_clip: float = Field(
+    fore_clip: Union[float, None] = Field(
         None,
         description='View fore clip (-vo) at a distance from the view point.'
         'The plane will be perpendicular to the view direction for perspective '
@@ -173,7 +173,7 @@ class View(_RadianceAsset):
         'Objects in front of this imaginary surface will not be visible.'
     )
 
-    aft_clip: float = Field(
+    aft_clip: Union[float, None] = Field(
         None,
         description='View aft clip (-va) at a distance from the view point.'
         'Like the view fore plane, it will be perpendicular to the view '
@@ -182,7 +182,7 @@ class View(_RadianceAsset):
         'centered on the view point with radius val.'
     )
 
-    group_identifier: str = Field(
+    group_identifier: Union[str, None] = Field(
         default=None,
         description="An optional string to note the view group ' \
             'to which the sensor is a part of. Views sharing the same ' \

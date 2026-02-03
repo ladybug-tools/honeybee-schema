@@ -1,5 +1,6 @@
 """Heating/cooling systems without any ventilation."""
-from pydantic import Field, constr
+from pydantic import Field
+from typing import Literal
 from enum import Enum
 
 from ._template import _TemplateSystem, RadiantFaceTypes
@@ -115,7 +116,7 @@ class FCU(_HeatCoolBase):
     boiler/district heating and 49C (120F) when ASHP is used.
     """
 
-    type: constr(regex='^FCU$') = 'FCU'
+    type: Literal['FCU'] = 'FCU'
 
     equipment_type: FCUEquipmentType = Field(
         FCUEquipmentType.fcu_chill_gb,
@@ -132,7 +133,7 @@ class Baseboard(_HeatCoolBase):
     heating unit that satisfies the heating load.
     """
 
-    type: constr(regex='^Baseboard$') = 'Baseboard'
+    type: Literal['Baseboard'] = 'Baseboard'
 
     equipment_type: BaseboardEquipmentType = Field(
         BaseboardEquipmentType.e_base,
@@ -154,7 +155,7 @@ class EvaporativeCooler(_HeatCoolBase):
     several types of baseboards, a furnace, or gas unit heaters.
     """
 
-    type: constr(regex='^EvaporativeCooler$') = 'EvaporativeCooler'
+    type: Literal['EvaporativeCooler'] = 'EvaporativeCooler'
 
     equipment_type: EvaporativeCoolerEquipmentType = Field(
         EvaporativeCoolerEquipmentType.evap_e_base,
@@ -172,7 +173,7 @@ class WSHP(_HeatCoolBase):
     equipment_type (eg. Boiler with Cooling Tower).
     """
 
-    type: constr(regex='^WSHP$') = 'WSHP'
+    type: Literal['WSHP'] = 'WSHP'
 
     equipment_type: WSHPEquipmentType = Field(
         WSHPEquipmentType.wshp_fc_gb,
@@ -195,7 +196,7 @@ class Residential(_HeatCoolBase):
     are set to reflect a typical residential system.
     """
 
-    type: constr(regex='^Residential$') = 'Residential'
+    type: Literal['Residential'] = 'Residential'
 
     equipment_type: ResidentialEquipmentType = Field(
         ResidentialEquipmentType.res_ac_e_base,
@@ -215,7 +216,7 @@ class WindowAC(_HeatCoolBase):
     a furnace, or gas unit heaters.
     """
 
-    type: constr(regex='^WindowAC$') = 'WindowAC'
+    type: Literal['WindowAC'] = 'WindowAC'
 
     equipment_type: WindowACEquipmentType = Field(
         WindowACEquipmentType.win_ac_e_base,
@@ -233,7 +234,7 @@ class VRF(_HeatCoolBase):
     in cooling or heating mode together.
     """
 
-    type: constr(regex='^VRF$') = 'VRF'
+    type: Literal['VRF'] = 'VRF'
 
     equipment_type: VRFEquipmentType = Field(
         VRFEquipmentType.vrf,
@@ -250,7 +251,7 @@ class GasUnitHeater(_HeatCoolBase):
     that satisfies the heating load.
     """
 
-    type: constr(regex='^GasUnitHeater$') = 'GasUnitHeater'
+    type: Literal['GasUnitHeater'] = 'GasUnitHeater'
 
     equipment_type: GasUnitHeaterEquipmentType = Field(
         GasUnitHeaterEquipmentType.guh,
@@ -277,7 +278,7 @@ class Radiant(_HeatCoolBase):
     peak times, add thermal mass, and use an expanded comfort range.
     """
 
-    type: constr(regex='^Radiant$') = 'Radiant'
+    type: Literal['Radiant'] = 'Radiant'
 
     equipment_type: RadiantEquipmentType = Field(
         RadiantEquipmentType.radiant_chill_gb,

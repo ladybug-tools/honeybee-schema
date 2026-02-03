@@ -1,6 +1,6 @@
 """Schema for project information."""
-from pydantic import BaseModel, Field, constr, AnyUrl
-from typing import List, Union
+from typing import List, Union, Literal, Annotated
+from pydantic import BaseModel, Field, AnyUrl
 
 from .altnumber import Autocalculate
 from .energy.simulation import EfficiencyStandards, ClimateZones, BuildingTypes
@@ -9,7 +9,7 @@ from .energy.simulation import EfficiencyStandards, ClimateZones, BuildingTypes
 class Location(BaseModel):
     """A Ladybug Location."""
 
-    type: constr(regex='^Location$') = 'Location'
+    type: Literal['Location'] = 'Location'
 
     city: str = Field(
         '-',
@@ -26,10 +26,8 @@ class Location(BaseModel):
         description='Location longitude between -180 (west) and 180 (east) (Default: 0).'
     )
 
-    time_zone: Union[Autocalculate, int] = Field(
+    time_zone: Union[Autocalculate, Annotated[int, Field(ge=-12, le=14)]] = Field(
         Autocalculate(),
-        ge=-12,
-        le=14,
         description='Time zone between -12 hours (west) and +14 hours (east). '
         'If None, the time zone will be an estimated integer value derived from '
         'the longitude in accordance with solar time.'
@@ -54,7 +52,7 @@ class Location(BaseModel):
 class ProjectInfo(BaseModel):
     """Project information."""
 
-    type: constr(regex='^ProjectInfo$') = 'ProjectInfo'
+    type: Literal['ProjectInfo'] = 'ProjectInfo'
 
     north: float = Field(
         0,
@@ -64,31 +62,31 @@ class ProjectInfo(BaseModel):
         le=360, ge=-360
     )
 
-    weather_urls: List[AnyUrl] = Field(
+    weather_urls: Union[List[AnyUrl], None] = Field(
         None,
         description='A list of URLs to zip files that includes EPW, DDY and STAT files. '
         'You can find these URLs from the EPWMAP. The first URL will be used as the '
         'primary weather file.'
     )
 
-    location: Location = Field(
+    location: Union[Location, None] = Field(
         None,
         description='Project location. This value is usually generated from the '
         'information in the weather files.'
     )
 
-    ashrae_climate_zone: ClimateZones = Field(
+    ashrae_climate_zone: Union[ClimateZones, None] = Field(
         None,
         description='Project location climate zone.'
     )
 
-    building_type: List[BuildingTypes] = Field(
+    building_type: Union[List[BuildingTypes], None] = Field(
         None,
         description='A list of building types for the project. The first building '
         'type is considered the primary type for the project.'
     )
 
-    vintage: List[EfficiencyStandards] = Field(
+    vintage: Union[List[EfficiencyStandards], None] = Field(
         None,
         description='A list of building vintages (e.g. ASHRAE_2019, ASHRAE_2016).'
     )

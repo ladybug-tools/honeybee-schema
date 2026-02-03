@@ -8,9 +8,11 @@ target_folder = os.path.join(root, 'samples', 'simulation_parameter')
 
 def test_detailed_simulation_par():
     file_path = os.path.join(target_folder, 'simulation_par_detailed.json')
-    SimulationParameter.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        SimulationParameter.model_validate_json(f.read())
 
 
 def test_simple_simulation_par():
     file_path = os.path.join(target_folder, 'simulation_par_simple.json')
-    SimulationParameter.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        SimulationParameter.model_validate_json(f.read())

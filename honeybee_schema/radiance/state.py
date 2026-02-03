@@ -1,6 +1,6 @@
 """State Schema"""
-from pydantic import Field, constr
-from typing import List
+from pydantic import Field
+from typing import List, Literal
 from .._base import NoExtraBaseModel
 from ._base import IDdRadianceBaseModel
 
@@ -10,7 +10,7 @@ from ..geometry import Face3D
 class StateGeometryAbridged(IDdRadianceBaseModel):
     """A single planar geometry that can be assigned to Radiance states."""
 
-    type: constr(regex='^StateGeometryAbridged$') = 'StateGeometryAbridged'
+    type: Literal['StateGeometryAbridged'] = 'StateGeometryAbridged'
 
     modifier: str = Field(
         default=None,
@@ -34,7 +34,7 @@ class StateGeometryAbridged(IDdRadianceBaseModel):
 class RadianceShadeStateAbridged(NoExtraBaseModel):
     """RadianceShadeStateAbridged represents a single state for a dynamic Shade."""
 
-    type: constr(regex='^RadianceShadeStateAbridged$') = 'RadianceShadeStateAbridged'
+    type: Literal['RadianceShadeStateAbridged'] = 'RadianceShadeStateAbridged'
 
     modifier: str = Field(
         default=None,
@@ -55,8 +55,7 @@ class RadianceShadeStateAbridged(NoExtraBaseModel):
 class RadianceSubFaceStateAbridged(RadianceShadeStateAbridged):
     """RadianceSubFaceStateAbridged is an abridged state for a dynamic Aperture or Door.
     """
-
-    type: constr(regex='^RadianceSubFaceStateAbridged$') = 'RadianceSubFaceStateAbridged'
+    type: Literal['RadianceSubFaceStateAbridged'] = 'RadianceSubFaceStateAbridged'
 
     vmtx_geometry: Face3D = Field(
         default=None,

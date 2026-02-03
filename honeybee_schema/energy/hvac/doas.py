@@ -1,5 +1,6 @@
 """HVAC systems with DOAS, separating ventilation and meeting thermal demand."""
-from pydantic import Field, constr
+from pydantic import Field
+from typing import Literal, Union
 from enum import Enum
 
 from ._template import _TemplateSystem, RadiantFaceTypes
@@ -44,7 +45,7 @@ class _DOASBase(_TemplateSystem):
         'to the occupancy schedule of the Rooms.'
     )
 
-    doas_availability_schedule: str = Field(
+    doas_availability_schedule: Union[str, None] = Field(
         None,
         min_length=1,
         max_length=100,
@@ -127,7 +128,7 @@ class FCUwithDOASAbridged(_DOASBase):
     used but with the energy use of the FCU fans ignored.
     """
 
-    type: constr(regex='^FCUwithDOASAbridged$') = 'FCUwithDOASAbridged'
+    type: Literal['FCUwithDOASAbridged'] = 'FCUwithDOASAbridged'
 
     equipment_type: FCUwithDOASEquipmentType = Field(
         FCUwithDOASEquipmentType.fcu_chill_gb,
@@ -155,7 +156,7 @@ class WSHPwithDOASAbridged(_DOASBase):
     equipment_type (eg. Boiler with Cooling Tower).
     """
 
-    type: constr(regex='^WSHPwithDOASAbridged$') = 'WSHPwithDOASAbridged'
+    type: Literal['WSHPwithDOASAbridged'] = 'WSHPwithDOASAbridged'
 
     equipment_type: WSHPwithDOASEquipmentType = Field(
         WSHPwithDOASEquipmentType.wshp_fc_gb,
@@ -181,7 +182,7 @@ class VRFwithDOASAbridged(_DOASBase):
     in cooling or heating mode together.
     """
 
-    type: constr(regex='^VRFwithDOASAbridged$') = 'VRFwithDOASAbridged'
+    type: Literal['VRFwithDOASAbridged'] = 'VRFwithDOASAbridged'
 
     equipment_type: VRFwithDOASEquipmentType = Field(
         VRFwithDOASEquipmentType.vrf,
@@ -216,7 +217,7 @@ class RadiantwithDOASAbridged(_DOASBase):
     peak times, add thermal mass, and use an expanded comfort range.
     """
 
-    type: constr(regex='^RadiantwithDOASAbridged$') = 'RadiantwithDOASAbridged'
+    type: Literal['RadiantwithDOASAbridged'] = 'RadiantwithDOASAbridged'
 
     equipment_type: RadiantwithDOASEquipmentType = Field(
         RadiantwithDOASEquipmentType.radiant_chill_gb,

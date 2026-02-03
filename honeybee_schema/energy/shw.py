@@ -1,6 +1,6 @@
 """Ideal Air Schema"""
-from pydantic import Field, constr, confloat
-from typing import Union
+from pydantic import Field
+from typing import Union, Literal, Annotated
 from enum import Enum
 
 from ._base import IDdEnergyBaseModel
@@ -18,7 +18,7 @@ class SHWEquipmentType(str, Enum):
 class SHWSystem(IDdEnergyBaseModel):
     """Provides a model for a Service Hot Water system."""
 
-    type: constr(regex='^SHWSystem$') = 'SHWSystem'
+    type: Literal['SHWSystem'] = 'SHWSystem'
 
     equipment_type: SHWEquipmentType = Field(
         SHWEquipmentType.gas_waterheater,
@@ -28,7 +28,7 @@ class SHWSystem(IDdEnergyBaseModel):
         'the zone needs cooling and the outdoor air is cooler than the zone.'
     )
 
-    heater_efficiency: Union[confloat(gt=0), Autocalculate] = Field(
+    heater_efficiency: Union[Annotated[float, Field(gt=0)], Autocalculate] = Field(
         Autocalculate(),
         description='A number for the efficiency of the heater within the system. '
         'For Gas systems, this is the efficiency of the burner. For HeatPump '

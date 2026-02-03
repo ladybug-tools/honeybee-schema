@@ -1,115 +1,121 @@
 """Programtype Schema"""
-from pydantic import Field, constr
+from pydantic import Field
+from typing import List, Union
 
 from ._base import IDdEnergyBaseModel
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, ServiceHotWaterAbridged, \
-    InfiltrationAbridged, VentilationAbridged, SetpointAbridged, \
-    People, Lighting, ElectricEquipment, GasEquipment, ServiceHotWater, \
+    InfiltrationAbridged, VentilationAbridged, SetpointAbridged, ProcessAbridged, People, Lighting, ElectricEquipment, GasEquipment, ServiceHotWater, \
     Infiltration, Ventilation, Setpoint
+from typing import Literal
 
 
 class ProgramTypeAbridged(IDdEnergyBaseModel):
 
-    type: constr(regex='^ProgramTypeAbridged$') = 'ProgramTypeAbridged'
+    type: Literal['ProgramTypeAbridged'] = 'ProgramTypeAbridged'
 
-    people: PeopleAbridged = Field(
+    people: Union[PeopleAbridged, None] = Field(
         default=None,
         description='People to describe the occupancy of the program. If None, '
         'no occupancy will be assumed for the program.'
     )
 
-    lighting: LightingAbridged = Field(
+    lighting: Union[LightingAbridged, None] = Field(
         default=None,
         description='Lighting to describe the lighting usage of the program. '
         'If None, no lighting will be assumed for the program.'
     )
 
-    electric_equipment: ElectricEquipmentAbridged = Field(
+    electric_equipment: Union[ElectricEquipmentAbridged, None] = Field(
         default=None,
         description='ElectricEquipment to describe the usage of electric equipment '
         'within the program. If None, no electric equipment will be assumed.'
     )
 
-    gas_equipment: GasEquipmentAbridged = Field(
+    gas_equipment: Union[GasEquipmentAbridged, None] = Field(
         default=None,
         description='GasEquipment to describe the usage of gas equipment '
         'within the program. If None, no gas equipment will be assumed.'
     )
 
-    service_hot_water: ServiceHotWaterAbridged = Field(
+    service_hot_water: Union[ServiceHotWaterAbridged, None] = Field(
         default=None,
         description='ServiceHotWater object to describe the usage of hot water '
         'within the program. If None, no hot water will be assumed.'
     )
 
-    infiltration: InfiltrationAbridged = Field(
+    infiltration: Union[InfiltrationAbridged, None] = Field(
         default=None,
         description='Infiltration to describe the outdoor air leakage of '
         'the program. If None, no infiltration will be assumed for the program.'
     )
 
-    ventilation: VentilationAbridged = Field(
+    ventilation: Union[VentilationAbridged, None] = Field(
         default=None,
         description='Ventilation to describe the minimum outdoor air requirement '
         'of the program. If None, no ventilation requirement will be assumed.'
     )
 
-    setpoint: SetpointAbridged = Field(
+    setpoint: Union[SetpointAbridged, None] = Field(
         default=None,
         description='Setpoint object to describe the temperature and humidity setpoints '
         'of the program.  If None, the ProgramType cannot be assigned to a Room '
         'that is conditioned.'
     )
 
+    process_loads: Union[List[ProcessAbridged], None] = Field(
+        default=None,
+        description='A list of Process objects for process loads within the program.'
+    )
+
 
 class ProgramType(ProgramTypeAbridged):
 
-    type: constr(regex='^ProgramType$') = 'ProgramType'
+    type: Literal['ProgramType'] = 'ProgramType'
 
-    people: People = Field(
+    people: Union[People, None] = Field(
         default=None,
         description='People to describe the occupancy of the program. If None, '
         'no occupancy will be assumed for the program.'
     )
 
-    lighting: Lighting = Field(
+    lighting: Union[Lighting, None] = Field(
         default=None,
         description='Lighting to describe the lighting usage of the program. '
         'If None, no lighting will be assumed for the program.'
     )
 
-    electric_equipment: ElectricEquipment = Field(
+    electric_equipment: Union[ElectricEquipment, None] = Field(
         default=None,
         description='ElectricEquipment to describe the usage of electric equipment '
         'within the program. If None, no electric equipment will be assumed.'
     )
 
-    gas_equipment: GasEquipment = Field(
+    gas_equipment: Union[GasEquipment, None] = Field(
         default=None,
         description='GasEquipment to describe the usage of gas equipment '
         'within the program. If None, no gas equipment will be assumed.'
     )
 
-    service_hot_water: ServiceHotWater = Field(
+    service_hot_water: Union[ServiceHotWater, None] = Field(
         default=None,
         description='ServiceHotWater object to describe the usage of hot water '
         'within the program. If None, no hot water will be assumed.'
     )
 
-    infiltration: Infiltration = Field(
+    infiltration: Union[Infiltration, None] = Field(
         default=None,
         description='Infiltration to describe the outdoor air leakage of '
         'the program. If None, no infiltration will be assumed for the program.'
     )
 
-    ventilation: Ventilation = Field(
+    ventilation: Union[Ventilation, None] = Field(
         default=None,
         description='Ventilation to describe the minimum outdoor air requirement '
         'of the program. If None, no ventilation requirement will be assumed.'
     )
 
-    setpoint: Setpoint = Field(
+    setpoint: Union[Setpoint, None] = Field(
         default=None,
         description='Setpoint object to describe the temperature and humidity setpoints '
         'of the program.  If None, the ProgramType cannot be assigned to a Room '

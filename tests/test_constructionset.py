@@ -8,22 +8,25 @@ root = os.path.dirname(os.path.dirname(__file__))
 target_folder = os.path.join(root, 'samples', 'construction_set')
 
 
-def test_constructionset_complete():
+def test_constructionset_abridged_complete():
     file_path = os.path.join(target_folder, 'constructionset_abridged_complete.json')
-    ConstructionSetAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        ConstructionSetAbridged.model_validate_json(f.read())
 
 
-def test_constructionset_partial_exterior():
+def test_constructionset_abridged_partial_exterior():
     file_path = os.path.join(target_folder, 'constructionset_abridged_partial_exterior.json')
-    ConstructionSetAbridged.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        ConstructionSetAbridged.model_validate_json(f.read())
 
 
-def test_constructionset_complete():
+def test_constructionset_full_complete():
     file_path = os.path.join(target_folder, 'constructionset_complete.json')
-    ConstructionSet.parse_file(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        ConstructionSet.model_validate_json(f.read())
 
 
-def test_constructionset_partial_exterior():
+def test_constructionset_full_partial_exterior():
     file_path = os.path.join(target_folder, 'constructionset_partial_exterior.json')
-    ConstructionSet.parse_file(file_path)
-
+    with open(file_path, 'r', encoding='utf-8') as f:
+        ConstructionSet.model_validate_json(f.read())

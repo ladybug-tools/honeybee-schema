@@ -1,11 +1,12 @@
 """Programtype Schema"""
 from pydantic import Field
-from typing import List, Union
+from typing import Union
 
 from ._base import IDdEnergyBaseModel
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, ServiceHotWaterAbridged, \
-    InfiltrationAbridged, VentilationAbridged, SetpointAbridged, ProcessAbridged, People, Lighting, ElectricEquipment, GasEquipment, ServiceHotWater, \
+    InfiltrationAbridged, VentilationAbridged, SetpointAbridged, \
+    People, Lighting, ElectricEquipment, GasEquipment, ServiceHotWater, \
     Infiltration, Ventilation, Setpoint
 from typing import Literal
 
@@ -61,11 +62,6 @@ class ProgramTypeAbridged(IDdEnergyBaseModel):
         description='Setpoint object to describe the temperature and humidity setpoints '
         'of the program.  If None, the ProgramType cannot be assigned to a Room '
         'that is conditioned.'
-    )
-
-    process_loads: Union[List[ProcessAbridged], None] = Field(
-        default=None,
-        description='A list of Process objects for process loads within the program.'
     )
 
 

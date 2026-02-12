@@ -152,16 +152,19 @@ class ModifierSetAbridged(IDdRadianceBaseModel):
     )
 
 
+ALL_MODIFIERS = Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None]
+
+
 class BaseModifierSet(NoExtraBaseModel):
     """Base class for the modifier sets assigned to Faces."""
 
-    exterior_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    exterior_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='A radiance modifier object for faces with an Outdoors boundary '
                     'condition.'
     )
 
-    interior_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    interior_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='A radiance modifier object for faces with a boundary condition '
                     'other than Outdoors.'
@@ -197,27 +200,27 @@ class ApertureModifierSet(NoExtraBaseModel):
 
     type: Literal['ApertureModifierSet'] = 'ApertureModifierSet'
 
-    window_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    window_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='A modifier object for apertures with an Outdoors '
                     'boundary condition, False is_operable property, '
                     'and Wall parent Face.'
     )
 
-    interior_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    interior_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='A modifier object for apertures with a Surface '
                     'boundary condition.'
     )
 
-    skylight_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    skylight_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='A modifier object for apertures with an Outdoors '
                     'boundary condition, False is_operable property, and a '
                     'RoofCeiling or Floor face type for their parent face.'
     )
 
-    operable_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    operable_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='A modifier object for apertures with an Outdoors boundary '
                     'condition and a True is_operable property.'
@@ -229,17 +232,17 @@ class DoorModifierSet(BaseModifierSet):
 
     type: Literal['DoorModifierSet'] = 'DoorModifierSet'
 
-    interior_glass_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    interior_glass_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='A modifier object for glass with a Surface boundary condition.'
     )
 
-    exterior_glass_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    exterior_glass_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='A modifier object for glass with an Outdoors boundary condition.'
     )
 
-    overhead_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    overhead_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='A window modifier object for doors with an Outdoors boundary '
                     'condition and a RoofCeiling or Floor face type for their '
@@ -288,7 +291,7 @@ class ModifierSet(IDdRadianceBaseModel):
                     '(default: None).'
     )
 
-    air_boundary_modifier: Union[Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror, None] = Field(
+    air_boundary_modifier: ALL_MODIFIERS = Field(
         default=None,
         description='An optional Modifier to be used for all Faces with an AirBoundary '
                     'face type. If None, it will be the honeybee generic air wall '

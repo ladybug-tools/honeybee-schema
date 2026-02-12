@@ -29,7 +29,7 @@ _CONSTRUCTION_NAMES = [
     'Generic Double Pane', 'Generic Single Pane', 'Generic Exterior Door',
     'Generic Interior Door', 'Generic Shade', 'Generic Context', 'Generic Air Boundary'
 ]
-_CONSTRUCTIONS = [ # type: ignore
+_CONSTRUCTIONS = [  # type: ignore
     OpaqueConstructionAbridged.model_validate(m)
     if m['type'] == 'OpaqueConstructionAbridged'
     else WindowConstructionAbridged.model_validate(m)
@@ -46,7 +46,7 @@ _MATERIAL_NAMES = [
     'Generic Roof Membrane', 'Generic Brick', 'Generic HW Concrete',
     'Generic Low-e Glass', 'Generic Window Air Gap', 'Generic 25mm Insulation'
 ]
-_MATERIALS = [ # type: ignore
+_MATERIALS = [  # type: ignore
     EnergyMaterial.model_validate(m)
     if m['type'] == 'EnergyMaterial'
     else EnergyMaterialNoMass.model_validate(m)

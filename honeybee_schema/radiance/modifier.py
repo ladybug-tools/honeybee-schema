@@ -59,7 +59,7 @@ class Mirror(ModifierBase):
         default=None,
         description='An optional material (like the illum type) that may be used to '
         'specify a different material to be used for shading non-source rays. '
-        'If None, this will keep the alternat_material as mirror. If this alternate '
+        'If None, this will keep the alternate_material as mirror. If this alternate '
         'material is given as Void, then the mirror surface will be invisible. '
         'Using Void is only appropriate if the surface hides other (more '
         'detailed) geometry with the same overall reflectance.'
@@ -357,6 +357,7 @@ class Glow(Light):
         'they are not representative of real light sources). Negative values will '
         'never contribute to scene illumination.'
     )
+
 
 # Union Modifier Schema objects defined for type reference
 _REFERENCE_UNION_MODIFIERS = \

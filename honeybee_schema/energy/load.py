@@ -18,14 +18,14 @@ class PeopleAbridged(IDdEnergyBaseModel):
         description='People per floor area expressed as [people/m2]'
     )
 
-    occupancy_schedule: str = Field(
-        ...,
+    occupancy_schedule: Union[str, None] = Field(
+        default=None,
         min_length=1,
         max_length=100,
         description='Identifier of a schedule for the occupancy over the course of the '
         'year. The type of this schedule should be Fractional and the fractional '
         'values will get multiplied by the people_per_area to yield a complete '
-        'occupancy profile.'
+        'occupancy profile. If None, an Always On schedule will be used.'
     )
 
     activity_schedule: Union[str, None] = Field(
@@ -67,12 +67,12 @@ class People(PeopleAbridged):
 
     type: Literal['People'] = 'People'
 
-    occupancy_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
-        ...,
+    occupancy_schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
+        default=None,
         description='A schedule for the occupancy over the course of the '
         'year. The type of this schedule should be Fractional and the fractional '
         'values will get multiplied by the people_per_area to yield a complete '
-        'occupancy profile.'
+        'occupancy profile. If None, an Always On schedule will be used.'
     )
 
     activity_schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
@@ -96,14 +96,14 @@ class LightingAbridged(IDdEnergyBaseModel):
         description='Lighting per floor area as [W/m2].'
     )
 
-    schedule: str = Field(
-        ...,
+    schedule: Union[str, None] = Field(
+        default=None,
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the use of lights over the course '
         'of the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the watts_per_area to yield a '
-        'complete lighting profile.'
+        'complete lighting profile. If None, an Always On schedule will be used.'
     )
 
     visible_fraction: float = Field(
@@ -153,12 +153,12 @@ class Lighting(LightingAbridged):
 
     type: Literal['Lighting'] = 'Lighting'
 
-    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
-        ...,
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
+        default=None,
         description='The schedule for the use of lights over the course of '
         'the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the watts_per_area to yield a '
-        'complete lighting profile.'
+        'complete lighting profile. If None, an Always On schedule will be used.'
     )
 
 
@@ -170,14 +170,14 @@ class _EquipmentBase(IDdEnergyBaseModel):
         description='Equipment level per floor area as [W/m2].'
     )
 
-    schedule: str = Field(
-        ...,
+    schedule: Union[str, None] = Field(
+        default=None,
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the use of equipment over the '
         'course of the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the watts_per_area to yield '
-        'a complete equipment profile.'
+        'a complete equipment profile. If None, an Always On schedule will be used.'
     )
 
     radiant_fraction: float = Field(
@@ -222,12 +222,12 @@ class ElectricEquipment(ElectricEquipmentAbridged):
 
     type: Literal['ElectricEquipment'] = 'ElectricEquipment'
 
-    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
-        ...,
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
+        default=None,
         description='The schedule for the use of equipment over the course '
         'of the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the watts_per_area to yield '
-        'a complete equipment profile.'
+        'a complete equipment profile. If None, an Always On schedule will be used.'
     )
 
 
@@ -240,12 +240,12 @@ class GasEquipment(GasEquipmentAbridged):
 
     type: Literal['GasEquipment'] = 'GasEquipment'
 
-    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
-        ...,
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
+        default=None,
         description='The schedule for the use of equipment over the course '
         'of the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the watts_per_area to yield '
-        'a complete equipment profile.'
+        'a complete equipment profile. If None, an Always On schedule will be used.'
     )
 
 
@@ -260,14 +260,14 @@ class ServiceHotWaterAbridged(IDdEnergyBaseModel):
         'of floor [L/h-m2].'
     )
 
-    schedule: str = Field(
-        ...,
+    schedule: Union[str, None] = Field(
+        default=None,
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the hot water use over the course '
         'of the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the flow_per_area to yield a '
-        'complete water usage profile.'
+        'complete water usage profile. If None, an Always On schedule will be used.'
     )
 
     target_temperature: float = Field(
@@ -308,12 +308,12 @@ class ServiceHotWater(ServiceHotWaterAbridged):
 
     type: Literal['ServiceHotWater'] = 'ServiceHotWater'
 
-    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
-        ...,
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
+        default=None,
         description='The schedule for the use of hot water over the course of '
         'the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the flow_per_area to yield a '
-        'complete water usage profile.'
+        'complete water usage profile. If None, an Always On schedule will be used.'
     )
 
 
@@ -327,14 +327,15 @@ class InfiltrationAbridged(IDdEnergyBaseModel):
         description='Number for the infiltration per exterior surface area in m3/s-m2.'
     )
 
-    schedule: str = Field(
-        ...,
+    schedule: Union[str, None] = Field(
+        default=None,
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the infiltration over the course of '
         'the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the flow_per_exterior_area '
-        'to yield a complete infiltration profile.'
+        'to yield a complete infiltration profile. If None, an Always On schedule '
+        'will be used.'
     )
 
     constant_coefficient: float = Field(
@@ -357,12 +358,13 @@ class Infiltration(InfiltrationAbridged):
 
     type: Literal['Infiltration'] = 'Infiltration'
 
-    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
-        ...,
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
+        default=None,
         description='The schedule for the infiltration over the course of '
         'the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the flow_per_exterior_area '
-        'to yield a complete infiltration profile.'
+        'to yield a complete infiltration profile. If None, an Always On schedule '
+        'will be used.'
     )
 
 
@@ -403,7 +405,7 @@ class VentilationAbridged(IDdEnergyBaseModel):
         description='Intensity of ventilation in m3/s for the entire Room.'
     )
 
-    schedule: str = Field(
+    schedule: Union[str, None] = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -562,18 +564,18 @@ class ProcessAbridged(IDdEnergyBaseModel):
         description='A number for the process load power in Watts.'
     )
 
-    schedule: str = Field(
-        ...,
+    schedule: Union[str, None] = Field(
+        default=None,
         min_length=1,
         max_length=100,
         description='Identifier of the schedule for the use of the process over the '
         'course of the year. The type of this schedule should be Fractional and the '
         'fractional values will get multiplied by the watts to yield a complete '
-        'equipment profile.'
+        'equipment profile. If None, an Always On schedule will be used.'
     )
 
     fuel_type: FuelTypes = Field(
-        ...,
+        FuelTypes.electricity,
         description='Text to denote the type of fuel consumed by the process. '
         'Using the "None" type indicates that no end uses will be associated '
         'with the process, only the zone gains.'

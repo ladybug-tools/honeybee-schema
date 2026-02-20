@@ -1,0 +1,10 @@
+{
+  "classes": {
+    "AddedInstruction": "honeybee_schema.comparison",
+    "ChangedInstruction": "honeybee_schema.comparison",
+    "DeletedInstruction": "honeybee_schema.comparison",
+    "SyncInstructions": "honeybee_schema.comparison",
+    "_DiffObjectBase": "honeybee_schema.comparison"
+  },
+  "enums": {}
+}

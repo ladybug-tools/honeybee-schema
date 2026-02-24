@@ -1,0 +1,12 @@
+{
+  "classes": {
+    "Face3D": "honeybee_schema.geometry",
+    "LineSegment3D": "honeybee_schema.geometry",
+    "Plane": "honeybee_schema.geometry",
+    "Point3D": "honeybee_schema.geometry",
+    "ValidationError": "honeybee_schema.validation",
+    "ValidationParent": "honeybee_schema.validation",
+    "ValidationReport": "honeybee_schema.validation"
+  },
+  "enums": {}
+}

@@ -1,0 +1,1049 @@
+{
+  "openapi": "3.0.2",
+  "servers": [],
+  "info": {
+    "description": "Honeybee simulation-parameter schema.",
+    "version": "2.0.4",
+    "title": "Honeybee Simulation Parameter Schema",
+    "contact": {
+      "name": "Ladybug Tools",
+      "email": "info@ladybug.tools",
+      "url": "https://github.com/ladybug-tools/honeybee-schema"
+    },
+    "x-logo": {
+      "url": "https://www.ladybug.tools/assets/img/honeybee-large.png",
+      "altText": "Honeybee logo"
+    },
+    "license": {
+      "name": "BSD",
+      "url": "https://github.com/ladybug-tools-in2/honeybee-schema/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "OpenAPI Specification with Inheritance",
+    "url": "./simulation-parameter_inheritance.json"
+  },
+  "tags": [
+    {
+      "name": "ashraeclearsky_model",
+      "x-displayName": "ASHRAEClearSky",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ASHRAEClearSky\" />\n"
+    },
+    {
+      "name": "ashraetau_model",
+      "x-displayName": "ASHRAETau",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ASHRAETau\" />\n"
+    },
+    {
+      "name": "calculationmethod_model",
+      "x-displayName": "CalculationMethod",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/CalculationMethod\" />\n"
+    },
+    {
+      "name": "calculationupdatemethod_model",
+      "x-displayName": "CalculationUpdateMethod",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/CalculationUpdateMethod\" />\n"
+    },
+    {
+      "name": "climatezones_model",
+      "x-displayName": "ClimateZones",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ClimateZones\" />\n"
+    },
+    {
+      "name": "daylightsavingtime_model",
+      "x-displayName": "DaylightSavingTime",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DaylightSavingTime\" />\n"
+    },
+    {
+      "name": "daysofweek_model",
+      "x-displayName": "DaysOfWeek",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DaysOfWeek\" />\n"
+    },
+    {
+      "name": "designday_model",
+      "x-displayName": "DesignDay",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DesignDay\" />\n"
+    },
+    {
+      "name": "designdaytypes_model",
+      "x-displayName": "DesignDayTypes",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DesignDayTypes\" />\n"
+    },
+    {
+      "name": "drybulbcondition_model",
+      "x-displayName": "DryBulbCondition",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DryBulbCondition\" />\n"
+    },
+    {
+      "name": "efficiencystandards_model",
+      "x-displayName": "EfficiencyStandards",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/EfficiencyStandards\" />\n"
+    },
+    {
+      "name": "humiditycondition_model",
+      "x-displayName": "HumidityCondition",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/HumidityCondition\" />\n"
+    },
+    {
+      "name": "humiditytypes_model",
+      "x-displayName": "HumidityTypes",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/HumidityTypes\" />\n"
+    },
+    {
+      "name": "reportingfrequency_model",
+      "x-displayName": "ReportingFrequency",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ReportingFrequency\" />\n"
+    },
+    {
+      "name": "runperiod_model",
+      "x-displayName": "RunPeriod",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/RunPeriod\" />\n"
+    },
+    {
+      "name": "shadowcalculation_model",
+      "x-displayName": "ShadowCalculation",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ShadowCalculation\" />\n"
+    },
+    {
+      "name": "simulationcontrol_model",
+      "x-displayName": "SimulationControl",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/SimulationControl\" />\n"
+    },
+    {
+      "name": "simulationoutput_model",
+      "x-displayName": "SimulationOutput",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/SimulationOutput\" />\n"
+    },
+    {
+      "name": "simulationparameter_model",
+      "x-displayName": "SimulationParameter",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/SimulationParameter\" />\n"
+    },
+    {
+      "name": "sizingparameter_model",
+      "x-displayName": "SizingParameter",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/SizingParameter\" />\n"
+    },
+    {
+      "name": "solardistribution_model",
+      "x-displayName": "SolarDistribution",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/SolarDistribution\" />\n"
+    },
+    {
+      "name": "terriantypes_model",
+      "x-displayName": "TerrianTypes",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/TerrianTypes\" />\n"
+    },
+    {
+      "name": "windcondition_model",
+      "x-displayName": "WindCondition",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/WindCondition\" />\n"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Models",
+      "tags": [
+        "ashraeclearsky_model",
+        "ashraetau_model",
+        "calculationmethod_model",
+        "calculationupdatemethod_model",
+        "climatezones_model",
+        "daylightsavingtime_model",
+        "daysofweek_model",
+        "designday_model",
+        "designdaytypes_model",
+        "drybulbcondition_model",
+        "efficiencystandards_model",
+        "humiditycondition_model",
+        "humiditytypes_model",
+        "reportingfrequency_model",
+        "runperiod_model",
+        "shadowcalculation_model",
+        "simulationcontrol_model",
+        "simulationoutput_model",
+        "simulationparameter_model",
+        "sizingparameter_model",
+        "solardistribution_model",
+        "terriantypes_model",
+        "windcondition_model"
+      ]
+    }
+  ],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "ASHRAEClearSky": {
+        "additionalProperties": false,
+        "description": "Used to specify sky conditions on a design day.",
+        "properties": {
+          "date": {
+            "description": "A list of two integers for [month, day], representing the date for the day of the year on which the design day occurs. A third integer may be added to denote whether the date should be re-serialized for a leap year (it should be a 1 in this case).",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "maxItems": 3,
+            "minItems": 2,
+            "title": "Date",
+            "type": "array"
+          },
+          "clearness": {
+            "description": "Value between 0 and 1.2 that will get multiplied by the irradiance to correct for factors like elevation above sea level.",
+            "maximum": 1.2,
+            "minimum": 0,
+            "title": "Clearness",
+            "type": "number",
+            "format": "double"
+          },
+          "daylight_savings": {
+            "default": false,
+            "description": "Boolean to indicate whether daylight savings time is active on the design day.",
+            "title": "Daylight Savings",
+            "type": "boolean"
+          },
+          "type": {
+            "const": "ASHRAEClearSky",
+            "default": "ASHRAEClearSky",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "date",
+          "clearness"
+        ],
+        "title": "ASHRAEClearSky",
+        "type": "object"
+      },
+      "ASHRAETau": {
+        "additionalProperties": false,
+        "description": "Used to specify sky conditions on a design day.",
+        "properties": {
+          "date": {
+            "description": "A list of two integers for [month, day], representing the date for the day of the year on which the design day occurs. A third integer may be added to denote whether the date should be re-serialized for a leap year (it should be a 1 in this case).",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "maxItems": 3,
+            "minItems": 2,
+            "title": "Date",
+            "type": "array"
+          },
+          "tau_b": {
+            "description": "Value for the beam optical depth. Typically found in .stat files.",
+            "maximum": 1.2,
+            "minimum": 0,
+            "title": "Tau B",
+            "type": "number",
+            "format": "double"
+          },
+          "tau_d": {
+            "description": "Value for the diffuse optical depth. Typically found in .stat files.",
+            "maximum": 3,
+            "minimum": 0,
+            "title": "Tau D",
+            "type": "number",
+            "format": "double"
+          },
+          "daylight_savings": {
+            "default": false,
+            "description": "Boolean to indicate whether daylight savings time is active on the design day.",
+            "title": "Daylight Savings",
+            "type": "boolean"
+          },
+          "type": {
+            "const": "ASHRAETau",
+            "default": "ASHRAETau",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "date",
+          "tau_b",
+          "tau_d"
+        ],
+        "title": "ASHRAETau",
+        "type": "object"
+      },
+      "CalculationMethod": {
+        "enum": [
+          "PolygonClipping",
+          "PixelCounting"
+        ],
+        "title": "CalculationMethod",
+        "type": "string"
+      },
+      "CalculationUpdateMethod": {
+        "enum": [
+          "Periodic",
+          "Timestep"
+        ],
+        "title": "CalculationUpdateMethod",
+        "type": "string"
+      },
+      "ClimateZones": {
+        "enum": [
+          "0A",
+          "1A",
+          "2A",
+          "3A",
+          "4A",
+          "5A",
+          "6A",
+          "0B",
+          "1B",
+          "2B",
+          "3B",
+          "4B",
+          "5B",
+          "6B",
+          "3C",
+          "4C",
+          "5C",
+          "7",
+          "8"
+        ],
+        "title": "ClimateZones",
+        "type": "string"
+      },
+      "DaylightSavingTime": {
+        "additionalProperties": false,
+        "description": "Used to describe the daylight savings time for the simulation.",
+        "properties": {
+          "type": {
+            "const": "DaylightSavingTime",
+            "default": "DaylightSavingTime",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          },
+          "start_date": {
+            "default": [
+              3,
+              12
+            ],
+            "description": "A list of two integers for [month, day], representing the date for the start of daylight savings time. Default: 12 Mar (daylight savings in the US in 2017).",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "maxItems": 3,
+            "minItems": 2,
+            "title": "Start Date",
+            "type": "array"
+          },
+          "end_date": {
+            "default": [
+              11,
+              5
+            ],
+            "description": "A list of two integers for [month, day], representing the date for the end of daylight savings time. Default: 5 Nov (daylight savings in the US in 2017).",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "maxItems": 3,
+            "minItems": 2,
+            "title": "End Date",
+            "type": "array"
+          }
+        },
+        "title": "DaylightSavingTime",
+        "type": "object"
+      },
+      "DaysOfWeek": {
+        "enum": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "title": "DaysOfWeek",
+        "type": "string"
+      },
+      "DesignDay": {
+        "additionalProperties": false,
+        "description": "An object representing design day conditions.",
+        "properties": {
+          "name": {
+            "description": "Text string for a unique design day name. This name remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, osm). It is also used to reference the object within SimulationParameters. It must be < 100 characters, use only ASCII characters and exclude (, ; ! \\n \\t).",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "day_type": {
+            "$ref": "#/components/schemas/DesignDayTypes"
+          },
+          "dry_bulb_condition": {
+            "$ref": "#/components/schemas/DryBulbCondition",
+            "description": "A DryBulbCondition describing temperature conditions on the design day."
+          },
+          "humidity_condition": {
+            "$ref": "#/components/schemas/HumidityCondition",
+            "description": "A HumidityCondition describing humidity and precipitation conditions on the design day."
+          },
+          "wind_condition": {
+            "$ref": "#/components/schemas/WindCondition",
+            "description": "A WindCondition describing wind conditions on the design day."
+          },
+          "sky_condition": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ASHRAEClearSky"
+              },
+              {
+                "$ref": "#/components/schemas/ASHRAETau"
+              }
+            ],
+            "title": "Sky Condition"
+          },
+          "type": {
+            "const": "DesignDay",
+            "default": "DesignDay",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "name",
+          "day_type",
+          "dry_bulb_condition",
+          "humidity_condition",
+          "wind_condition",
+          "sky_condition"
+        ],
+        "title": "DesignDay",
+        "type": "object"
+      },
+      "DesignDayTypes": {
+        "enum": [
+          "SummerDesignDay",
+          "WinterDesignDay",
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Holiday",
+          "CustomDay1",
+          "CustomDay2"
+        ],
+        "title": "DesignDayTypes",
+        "type": "string"
+      },
+      "DryBulbCondition": {
+        "additionalProperties": false,
+        "description": "Used to specify dry bulb conditions on a design day.",
+        "properties": {
+          "dry_bulb_max": {
+            "description": "The maximum dry bulb temperature on the design day [C].",
+            "maximum": 70,
+            "minimum": -90,
+            "title": "Dry Bulb Max",
+            "type": "number",
+            "format": "double"
+          },
+          "dry_bulb_range": {
+            "description": "The difference between min and max temperatures on the design day [C].",
+            "minimum": 0,
+            "title": "Dry Bulb Range",
+            "type": "number",
+            "format": "double"
+          },
+          "type": {
+            "const": "DryBulbCondition",
+            "default": "DryBulbCondition",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "dry_bulb_max",
+          "dry_bulb_range"
+        ],
+        "title": "DryBulbCondition",
+        "type": "object"
+      },
+      "EfficiencyStandards": {
+        "enum": [
+          "ASHRAE_2019",
+          "ASHRAE_2016",
+          "ASHRAE_2013",
+          "ASHRAE_2010",
+          "ASHRAE_2007",
+          "ASHRAE_2004",
+          "DOE_Ref_1980_2004",
+          "DOE_Ref_Pre_1980"
+        ],
+        "title": "EfficiencyStandards",
+        "type": "string"
+      },
+      "HumidityCondition": {
+        "additionalProperties": false,
+        "description": "Used to specify humidity conditions on a design day.",
+        "properties": {
+          "humidity_type": {
+            "$ref": "#/components/schemas/HumidityTypes"
+          },
+          "humidity_value": {
+            "description": "The value correcponding to the humidity_type.",
+            "title": "Humidity Value",
+            "type": "number",
+            "format": "double"
+          },
+          "type": {
+            "const": "HumidityCondition",
+            "default": "HumidityCondition",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          },
+          "barometric_pressure": {
+            "default": 101325,
+            "description": "Barometric air pressure on the design day [Pa].",
+            "maximum": 120000,
+            "minimum": 31000,
+            "title": "Barometric Pressure",
+            "type": "number",
+            "format": "double"
+          },
+          "rain": {
+            "default": false,
+            "description": "Boolean to indicate rain on the design day.",
+            "title": "Rain",
+            "type": "boolean"
+          },
+          "snow_on_ground": {
+            "default": false,
+            "description": "Boolean to indicate snow on the ground during the design day.",
+            "title": "Snow On Ground",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "humidity_type",
+          "humidity_value"
+        ],
+        "title": "HumidityCondition",
+        "type": "object"
+      },
+      "HumidityTypes": {
+        "enum": [
+          "Wetbulb",
+          "Dewpoint",
+          "HumidityRatio",
+          "Enthalpy"
+        ],
+        "title": "HumidityTypes",
+        "type": "string"
+      },
+      "ReportingFrequency": {
+        "enum": [
+          "Timestep",
+          "Hourly",
+          "Daily",
+          "Monthly",
+          "Annual"
+        ],
+        "title": "ReportingFrequency",
+        "type": "string"
+      },
+      "RunPeriod": {
+        "additionalProperties": false,
+        "description": "Used to describe the time period over which to run the simulation.",
+        "properties": {
+          "type": {
+            "const": "RunPeriod",
+            "default": "RunPeriod",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          },
+          "start_date": {
+            "default": [
+              1,
+              1
+            ],
+            "description": "A list of two integers for [month, day], representing the date for the start of the run period. Must be before the end date.",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Start Date",
+            "type": "array"
+          },
+          "end_date": {
+            "default": [
+              12,
+              31
+            ],
+            "description": "A list of two integers for [month, day], representing the date for the end of the run period. Must be after the start date.",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "End Date",
+            "type": "array"
+          },
+          "start_day_of_week": {
+            "$ref": "#/components/schemas/DaysOfWeek",
+            "default": "Sunday",
+            "description": "Text for the day of the week on which the simulation starts."
+          },
+          "holidays": {
+            "anyOf": [
+              {
+                "items": {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A list of lists where each sub-list consists of two integers for [month, day], representing a date which is a holiday within the simulation. If None, no holidays are applied.",
+            "title": "Holidays"
+          },
+          "daylight_saving_time": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DaylightSavingTime"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A DaylightSavingTime to dictate the start and end dates of daylight saving time. If None, no daylight saving time is applied to the simulation."
+          },
+          "leap_year": {
+            "default": false,
+            "description": "Boolean noting whether the simulation will be run for a leap year.",
+            "title": "Leap Year",
+            "type": "boolean"
+          }
+        },
+        "title": "RunPeriod",
+        "type": "object"
+      },
+      "ShadowCalculation": {
+        "additionalProperties": false,
+        "description": "Used to describe settings for EnergyPlus shadow calculation.",
+        "properties": {
+          "type": {
+            "const": "ShadowCalculation",
+            "default": "ShadowCalculation",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          },
+          "solar_distribution": {
+            "$ref": "#/components/schemas/SolarDistribution",
+            "default": "FullExteriorWithReflections"
+          },
+          "calculation_method": {
+            "$ref": "#/components/schemas/CalculationMethod",
+            "default": "PolygonClipping",
+            "description": "Text noting whether CPU-based polygon clipping method orGPU-based pixel counting method should be used. For low numbers of shadingsurfaces (less than ~200), PolygonClipping requires less runtime thanPixelCounting. However, PixelCounting runtime scales significantlybetter at higher numbers of shading surfaces. PixelCounting also hasno limitations related to zone concavity when used with any\u201cFullInterior\u201d solar distribution options."
+          },
+          "calculation_update_method": {
+            "$ref": "#/components/schemas/CalculationUpdateMethod",
+            "default": "Periodic",
+            "description": "Text describing how often the solar and shading calculations are updated with respect to the flow of time in the simulation."
+          },
+          "calculation_frequency": {
+            "default": 30,
+            "description": "Integer for the number of days in each period for which a unique shadow calculation will be performed. This field is only used if the Periodic calculation_method is used.",
+            "minimum": 1,
+            "title": "Calculation Frequency",
+            "type": "integer",
+            "format": "int32"
+          },
+          "maximum_figures": {
+            "default": 15000,
+            "description": "Number of allowable figures in shadow overlap calculations.",
+            "minimum": 200,
+            "title": "Maximum Figures",
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "title": "ShadowCalculation",
+        "type": "object"
+      },
+      "SimulationControl": {
+        "additionalProperties": false,
+        "description": "Used to specify which types of calculations to run.",
+        "properties": {
+          "type": {
+            "const": "SimulationControl",
+            "default": "SimulationControl",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          },
+          "do_zone_sizing": {
+            "default": true,
+            "description": "Boolean for whether the zone sizing calculation should be run.",
+            "title": "Do Zone Sizing",
+            "type": "boolean"
+          },
+          "do_system_sizing": {
+            "default": true,
+            "description": "Boolean for whether the system sizing calculation should be run.",
+            "title": "Do System Sizing",
+            "type": "boolean"
+          },
+          "do_plant_sizing": {
+            "default": true,
+            "description": "Boolean for whether the plant sizing calculation should be run.",
+            "title": "Do Plant Sizing",
+            "type": "boolean"
+          },
+          "run_for_run_periods": {
+            "default": true,
+            "description": "Boolean for whether the simulation should be run for the sizing periods.",
+            "title": "Run For Run Periods",
+            "type": "boolean"
+          },
+          "run_for_sizing_periods": {
+            "default": false,
+            "description": "Boolean for whether the simulation should be run for the run periods.",
+            "title": "Run For Sizing Periods",
+            "type": "boolean"
+          }
+        },
+        "title": "SimulationControl",
+        "type": "object"
+      },
+      "SimulationOutput": {
+        "additionalProperties": false,
+        "description": "Lists the outputs to report from the simulation and their format.",
+        "properties": {
+          "type": {
+            "const": "SimulationOutput",
+            "default": "SimulationOutput",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          },
+          "reporting_frequency": {
+            "$ref": "#/components/schemas/ReportingFrequency",
+            "default": "Hourly"
+          },
+          "outputs": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A list of EnergyPlus output names as strings, which are requested from the simulation.",
+            "title": "Outputs"
+          },
+          "summary_reports": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A list of EnergyPlus summary report names as strings.",
+            "title": "Summary Reports"
+          },
+          "unmet_setpoint_tolerance": {
+            "default": 1.11,
+            "description": "A number in degrees Celsius for the difference that the zone conditions must be from the thermostat setpoint in order for the setpoint to be considered unmet. This will affect how unmet hours are reported in the output. ASHRAE 90.1 uses a tolerance of 1.11C, which is equivalent to 1.8F.",
+            "maximum": 10,
+            "minimum": 0,
+            "title": "Unmet Setpoint Tolerance",
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "title": "SimulationOutput",
+        "type": "object"
+      },
+      "SimulationParameter": {
+        "additionalProperties": false,
+        "description": "The complete set of EnergyPlus Simulation Settings.",
+        "properties": {
+          "type": {
+            "const": "SimulationParameter",
+            "default": "SimulationParameter",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          },
+          "output": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimulationOutput"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A SimulationOutput that lists the desired outputs from the simulation and the format in which to report them."
+          },
+          "run_period": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RunPeriod"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A RunPeriod to describe the time period over which to run the simulation."
+          },
+          "timestep": {
+            "default": 6,
+            "description": "An integer for the number of timesteps per hour at which the energy calculation will be run.",
+            "maximum": 60,
+            "minimum": 1,
+            "title": "Timestep",
+            "type": "integer",
+            "format": "int32"
+          },
+          "simulation_control": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SimulationControl"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A SimulationControl object that describes which types of calculations to run."
+          },
+          "shadow_calculation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ShadowCalculation"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A ShadowCalculation object describing settings for the EnergyPlus Shadow Calculation."
+          },
+          "sizing_parameter": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SizingParameter"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A SizingParameter object with criteria for sizing the heating and cooling system."
+          },
+          "north_angle": {
+            "default": 0,
+            "description": "A number between -360 and 360 for the north direction in degrees.This is the counterclockwise difference between the North and the positive Y-axis. 90 is West and 270 is East. Note that this is different than the convention used in EnergyPlus, which uses clockwise difference instead of counterclockwise difference.",
+            "maximum": 360,
+            "minimum": -360,
+            "title": "North Angle",
+            "type": "number",
+            "format": "double"
+          },
+          "terrain_type": {
+            "$ref": "#/components/schemas/TerrianTypes",
+            "default": "City",
+            "description": "Text for the terrain in which the model sits. This is used to determine the wind profile over the height of the rooms."
+          }
+        },
+        "title": "SimulationParameter",
+        "type": "object"
+      },
+      "SizingParameter": {
+        "additionalProperties": false,
+        "description": "Used to specify heating and cooling sizing criteria and safety factors.",
+        "properties": {
+          "type": {
+            "const": "SizingParameter",
+            "default": "SizingParameter",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          },
+          "design_days": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/DesignDay"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A list of DesignDays that represent the criteria for which the HVAC systems will be sized.",
+            "title": "Design Days"
+          },
+          "heating_factor": {
+            "default": 1.25,
+            "description": "A number that will be multiplied by the peak heating load for each zone in order to size the heating system.",
+            "exclusiveMinimum": 0,
+            "title": "Heating Factor",
+            "type": "number",
+            "format": "double"
+          },
+          "cooling_factor": {
+            "default": 1.15,
+            "description": "A number that will be multiplied by the peak cooling load for each zone in order to size the heating system.",
+            "exclusiveMinimum": 0,
+            "title": "Cooling Factor",
+            "type": "number",
+            "format": "double"
+          },
+          "efficiency_standard": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EfficiencyStandards"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Text to specify the efficiency standard, which will automatically set the efficiencies of all HVAC equipment when provided. Note that providing a standard here will cause the OpenStudio translation process to perform an additional sizing calculation with EnergyPlus, which is needed since the default efficiencies of equipment vary depending on their size. THIS WILL SIGNIFICANTLY INCREASE TRANSLATION TIME TO OPENSTUDIO. However, it is often worthwhile when the goal is to match the HVAC specification with a particular standard."
+          },
+          "climate_zone": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClimateZones"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Text indicating the ASHRAE climate zone to be used with the efficiency_standard. When unspecified, the climate zone will be inferred from the design days on this sizing parameter object."
+          },
+          "building_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Text for the building type to be used in the efficiency_standard. If the type is not recognized or is None, it will be assumed that the building is a generic NonResidential. The following have specified systems per the standard:  Residential, NonResidential, MidriseApartment, HighriseApartment, LargeOffice, MediumOffice, SmallOffice, Retail, StripMall, PrimarySchool, SecondarySchool, SmallHotel, LargeHotel, Hospital, Outpatient, Warehouse, SuperMarket, FullServiceRestaurant, QuickServiceRestaurant, Laboratory, Courthouse.",
+            "title": "Building Type"
+          },
+          "bypass_efficiency_sizing": {
+            "default": false,
+            "description": "A boolean to indicate whether the efficiency standard should trigger an sizing run that sets the efficiencies of all HVAC equipment in the Model (False) or the standard should only be written into the OSM and the sizing run should be bypassed (True). Bypassing the sizing run is useful when you only want to check that the overall HVAC system architecture is correct and you do not want to wait the extra time that it takes to run the sizing calculation.",
+            "title": "Bypass Efficiency Sizing",
+            "type": "boolean"
+          }
+        },
+        "title": "SizingParameter",
+        "type": "object"
+      },
+      "SolarDistribution": {
+        "enum": [
+          "MinimalShadowing",
+          "FullExterior",
+          "FullInteriorAndExterior",
+          "FullExteriorWithReflections",
+          "FullInteriorAndExteriorWithReflections"
+        ],
+        "title": "SolarDistribution",
+        "type": "string"
+      },
+      "TerrianTypes": {
+        "enum": [
+          "Ocean",
+          "Country",
+          "Suburbs",
+          "Urban",
+          "City"
+        ],
+        "title": "TerrianTypes",
+        "type": "string"
+      },
+      "WindCondition": {
+        "additionalProperties": false,
+        "description": "Used to specify wind conditions on a design day.",
+        "properties": {
+          "wind_speed": {
+            "description": "Wind speed on the design day [m/s].",
+            "maximum": 40,
+            "minimum": 0,
+            "title": "Wind Speed",
+            "type": "number",
+            "format": "double"
+          },
+          "type": {
+            "const": "WindCondition",
+            "default": "WindCondition",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          },
+          "wind_direction": {
+            "default": 0,
+            "description": "Wind direction on the design day [degrees].",
+            "maximum": 360,
+            "minimum": 0,
+            "title": "Wind Direction",
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "wind_speed"
+        ],
+        "title": "WindCondition",
+        "type": "object"
+      }
+    }
+  }
+}

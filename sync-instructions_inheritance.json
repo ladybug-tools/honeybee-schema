@@ -1,0 +1,323 @@
+{
+  "openapi": "3.0.2",
+  "servers": [],
+  "info": {
+    "description": "Documentation for Honeybee sync-instructions schema",
+    "version": "2.0.4",
+    "title": "Honeybee Sync Instructions Schema",
+    "contact": {
+      "name": "Ladybug Tools",
+      "email": "info@ladybug.tools",
+      "url": "https://github.com/ladybug-tools/honeybee-schema"
+    },
+    "x-logo": {
+      "url": "https://www.ladybug.tools/assets/img/honeybee-large.png",
+      "altText": "Honeybee logo"
+    },
+    "license": {
+      "name": "BSD",
+      "url": "https://github.com/ladybug-tools-in2/honeybee-schema/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "OpenAPI Specification with Inheritance",
+    "url": "./sync-instructions_inheritance.json"
+  },
+  "tags": [
+    {
+      "name": "addedinstruction_model",
+      "x-displayName": "AddedInstruction",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/AddedInstruction\" />\n"
+    },
+    {
+      "name": "changedinstruction_model",
+      "x-displayName": "ChangedInstruction",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ChangedInstruction\" />\n"
+    },
+    {
+      "name": "deletedinstruction_model",
+      "x-displayName": "DeletedInstruction",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DeletedInstruction\" />\n"
+    },
+    {
+      "name": "geometryobjecttypes_model",
+      "x-displayName": "GeometryObjectTypes",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/GeometryObjectTypes\" />\n"
+    },
+    {
+      "name": "syncinstructions_model",
+      "x-displayName": "SyncInstructions",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/SyncInstructions\" />\n"
+    },
+    {
+      "name": "_diffobjectbase_model",
+      "x-displayName": "_DiffObjectBase",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/_DiffObjectBase\" />\n"
+    },
+    {
+      "name": "_openapigenbasemodel_model",
+      "x-displayName": "_OpenAPIGenBaseModel",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/_OpenAPIGenBaseModel\" />\n"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Models",
+      "tags": [
+        "_diffobjectbase_model",
+        "_openapigenbasemodel_model",
+        "addedinstruction_model",
+        "changedinstruction_model",
+        "deletedinstruction_model",
+        "geometryobjecttypes_model",
+        "syncinstructions_model"
+      ]
+    }
+  ],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "AddedInstruction": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_DiffObjectBase"
+          },
+          {
+            "type": "object",
+            "required": [],
+            "properties": {
+              "type": {
+                "const": "AddedInstruction",
+                "default": "AddedInstruction",
+                "title": "Type",
+                "type": "string",
+                "readOnly": true
+              }
+            }
+          }
+        ],
+        "title": "AddedInstruction",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "ChangedInstruction": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_DiffObjectBase"
+          },
+          {
+            "type": "object",
+            "required": [],
+            "properties": {
+              "type": {
+                "const": "ChangedInstruction",
+                "default": "ChangedInstruction",
+                "title": "Type",
+                "type": "string",
+                "readOnly": true
+              },
+              "update_geometry": {
+                "default": true,
+                "description": "A boolean to note whether the geometry of the object in the new/updated model should replace the base/existing geometry (True) or the existing geometry should be kept (False).",
+                "title": "Update Geometry",
+                "type": "boolean"
+              },
+              "update_energy": {
+                "default": true,
+                "description": "A boolean to note whether the energy properties of the object in the new/updated model should replace the base/existing energy properties (True) or the base/existing energy properties should be kept (False).",
+                "title": "Update Energy",
+                "type": "boolean"
+              },
+              "update_radiance": {
+                "default": true,
+                "description": "A boolean to note whether the radiance properties of the object in the new/updated model should replace the base/existing radiance properties (True) or the base/existing radiance properties should be kept (False).",
+                "title": "Update Radiance",
+                "type": "boolean"
+              }
+            }
+          }
+        ],
+        "title": "ChangedInstruction",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "DeletedInstruction": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_DiffObjectBase"
+          },
+          {
+            "type": "object",
+            "required": [],
+            "properties": {
+              "type": {
+                "const": "DeletedInstruction",
+                "default": "DeletedInstruction",
+                "title": "Type",
+                "type": "string",
+                "readOnly": true
+              }
+            }
+          }
+        ],
+        "title": "DeletedInstruction",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "GeometryObjectTypes": {
+        "description": "Types of Honeybee geometry objects.",
+        "enum": [
+          "Shade",
+          "Aperture",
+          "Door",
+          "Face",
+          "Room"
+        ],
+        "title": "GeometryObjectTypes",
+        "type": "string"
+      },
+      "SyncInstructions": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "SyncInstructions",
+                "default": "SyncInstructions",
+                "title": "Type",
+                "type": "string",
+                "readOnly": true
+              },
+              "changed_objects": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/components/schemas/ChangedInstruction"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of ChangedInstruction definitions for each top-level object with properties to transfer from the new/updated model to the base/existing model.",
+                "title": "Changed Objects"
+              },
+              "deleted_objects": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/components/schemas/DeletedInstruction"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of DeletedInstruction definitions for each top-level object to be deleted from the base/existing model.",
+                "title": "Deleted Objects"
+              },
+              "added_objects": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/components/schemas/AddedInstruction"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of AddedInstruction definitions for each top-level object to be added to the base/existing model from the new/updated model.",
+                "title": "Added Objects"
+              }
+            }
+          }
+        ],
+        "title": "SyncInstructions",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "_DiffObjectBase": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "element_type": {
+                "$ref": "#/components/schemas/GeometryObjectTypes",
+                "description": "Text for the type of object that has been changed."
+              },
+              "element_id": {
+                "description": "Text string for the unique object ID that has changed.",
+                "maxLength": 100,
+                "minLength": 1,
+                "pattern": "^[^,;!\\n\\t]+$",
+                "title": "Element Id",
+                "type": "string"
+              },
+              "element_name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Text string for the display name of the object that has changed.",
+                "title": "Element Name"
+              },
+              "type": {
+                "title": "Type",
+                "default": "_DiffObjectBase",
+                "type": "string",
+                "pattern": "^_DiffObjectBase$",
+                "readOnly": true
+              }
+            },
+            "required": [
+              "element_type",
+              "element_id"
+            ]
+          }
+        ],
+        "title": "_DiffObjectBase",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "_OpenAPIGenBaseModel": {
+        "properties": {
+          "type": {
+            "default": "InvalidType",
+            "description": "A base class to use when there is no baseclass available to fall on.",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "title": "_OpenAPIGenBaseModel",
+        "type": "object",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      }
+    }
+  }
+}

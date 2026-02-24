@@ -1,0 +1,375 @@
+{
+  "openapi": "3.0.2",
+  "servers": [],
+  "info": {
+    "description": "Documentation for Honeybee project-information schema",
+    "version": "2.0.4",
+    "title": "Honeybee Project Information Schema",
+    "contact": {
+      "name": "Ladybug Tools",
+      "email": "info@ladybug.tools",
+      "url": "https://github.com/ladybug-tools/honeybee-schema"
+    },
+    "x-logo": {
+      "url": "https://www.ladybug.tools/assets/img/honeybee-large.png",
+      "altText": "Honeybee logo"
+    },
+    "license": {
+      "name": "BSD",
+      "url": "https://github.com/ladybug-tools-in2/honeybee-schema/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "OpenAPI Specification with Inheritance",
+    "url": "./project-information_inheritance.json"
+  },
+  "tags": [
+    {
+      "name": "autocalculate_model",
+      "x-displayName": "Autocalculate",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Autocalculate\" />\n"
+    },
+    {
+      "name": "buildingtypes_model",
+      "x-displayName": "BuildingTypes",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/BuildingTypes\" />\n"
+    },
+    {
+      "name": "climatezones_model",
+      "x-displayName": "ClimateZones",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ClimateZones\" />\n"
+    },
+    {
+      "name": "efficiencystandards_model",
+      "x-displayName": "EfficiencyStandards",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/EfficiencyStandards\" />\n"
+    },
+    {
+      "name": "location_model",
+      "x-displayName": "Location",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Location\" />\n"
+    },
+    {
+      "name": "projectinfo_model",
+      "x-displayName": "ProjectInfo",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ProjectInfo\" />\n"
+    },
+    {
+      "name": "_openapigenbasemodel_model",
+      "x-displayName": "_OpenAPIGenBaseModel",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/_OpenAPIGenBaseModel\" />\n"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Models",
+      "tags": [
+        "_openapigenbasemodel_model",
+        "autocalculate_model",
+        "buildingtypes_model",
+        "climatezones_model",
+        "efficiencystandards_model",
+        "location_model",
+        "projectinfo_model"
+      ]
+    }
+  ],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Autocalculate": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "Autocalculate",
+                "default": "Autocalculate",
+                "title": "Type",
+                "type": "string",
+                "readOnly": true
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "title": "Autocalculate",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "BuildingTypes": {
+        "enum": [
+          "Residential",
+          "NonResidential",
+          "MidriseApartment",
+          "HighriseApartment",
+          "LargeOffice",
+          "MediumOffice",
+          "SmallOffice",
+          "Retail",
+          "StripMall",
+          "PrimarySchool",
+          "SecondarySchool",
+          "SmallHotel",
+          "LargeHotel",
+          "Hospital",
+          "Outpatient",
+          "Warehouse",
+          "SuperMarket",
+          "FullServiceRestaurant",
+          "QuickServiceRestaurant",
+          "Laboratory",
+          "Courthouse"
+        ],
+        "title": "BuildingTypes",
+        "type": "string"
+      },
+      "ClimateZones": {
+        "enum": [
+          "0A",
+          "1A",
+          "2A",
+          "3A",
+          "4A",
+          "5A",
+          "6A",
+          "0B",
+          "1B",
+          "2B",
+          "3B",
+          "4B",
+          "5B",
+          "6B",
+          "3C",
+          "4C",
+          "5C",
+          "7",
+          "8"
+        ],
+        "title": "ClimateZones",
+        "type": "string"
+      },
+      "EfficiencyStandards": {
+        "enum": [
+          "ASHRAE_2019",
+          "ASHRAE_2016",
+          "ASHRAE_2013",
+          "ASHRAE_2010",
+          "ASHRAE_2007",
+          "ASHRAE_2004",
+          "DOE_Ref_1980_2004",
+          "DOE_Ref_Pre_1980"
+        ],
+        "title": "EfficiencyStandards",
+        "type": "string"
+      },
+      "Location": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "Location",
+                "default": "Location",
+                "title": "Type",
+                "type": "string",
+                "readOnly": true
+              },
+              "city": {
+                "default": "-",
+                "description": "Name of the city as a string.",
+                "title": "City",
+                "type": "string"
+              },
+              "latitude": {
+                "default": 0,
+                "description": "Location latitude between -90 and 90 (Default: 0).",
+                "title": "Latitude",
+                "type": "number",
+                "format": "double"
+              },
+              "longitude": {
+                "default": 0,
+                "description": "Location longitude between -180 (west) and 180 (east) (Default: 0).",
+                "title": "Longitude",
+                "type": "number",
+                "format": "double"
+              },
+              "time_zone": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/Autocalculate"
+                  },
+                  {
+                    "maximum": 14,
+                    "minimum": -12,
+                    "type": "integer"
+                  }
+                ],
+                "default": {
+                  "type": "Autocalculate"
+                },
+                "description": "Time zone between -12 hours (west) and +14 hours (east). If None, the time zone will be an estimated integer value derived from the longitude in accordance with solar time.",
+                "title": "Time Zone"
+              },
+              "elevation": {
+                "default": 0,
+                "description": "A number for elevation of the location in meters. (Default: 0).",
+                "title": "Elevation",
+                "type": "number",
+                "format": "double"
+              },
+              "station_id": {
+                "default": null,
+                "description": "ID of the location if the location is representing a weather station.",
+                "title": "Station Id",
+                "type": "string"
+              },
+              "source": {
+                "default": null,
+                "description": "Source of data (e.g. TMY, TMY3).",
+                "title": "Source",
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "description": "A Ladybug Location.",
+        "title": "Location",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "ProjectInfo": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "ProjectInfo",
+                "default": "ProjectInfo",
+                "title": "Type",
+                "type": "string",
+                "readOnly": true
+              },
+              "north": {
+                "default": 0,
+                "description": "A number between -360 to 360 where positive values rotate the compass counterclockwise (towards the West) and negative values rotate the compass clockwise (towards the East).",
+                "maximum": 360,
+                "minimum": -360,
+                "title": "North",
+                "type": "number",
+                "format": "double"
+              },
+              "weather_urls": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "format": "uri",
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of URLs to zip files that includes EPW, DDY and STAT files. You can find these URLs from the EPWMAP. The first URL will be used as the primary weather file.",
+                "title": "Weather Urls"
+              },
+              "location": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/Location"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Project location. This value is usually generated from the information in the weather files."
+              },
+              "ashrae_climate_zone": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ClimateZones"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Project location climate zone."
+              },
+              "building_type": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/components/schemas/BuildingTypes"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of building types for the project. The first building type is considered the primary type for the project.",
+                "title": "Building Type"
+              },
+              "vintage": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/components/schemas/EfficiencyStandards"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of building vintages (e.g. ASHRAE_2019, ASHRAE_2016).",
+                "title": "Vintage"
+              }
+            }
+          }
+        ],
+        "description": "Project information.",
+        "title": "ProjectInfo",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "_OpenAPIGenBaseModel": {
+        "properties": {
+          "type": {
+            "default": "InvalidType",
+            "description": "A base class to use when there is no baseclass available to fall on.",
+            "title": "Type",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "title": "_OpenAPIGenBaseModel",
+        "type": "object",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      }
+    }
+  }
+}

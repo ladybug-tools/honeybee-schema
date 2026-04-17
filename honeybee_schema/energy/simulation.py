@@ -293,6 +293,7 @@ class BuildingTypes(str, Enum):
     QuickServiceRestaurant = 'QuickServiceRestaurant'
     Laboratory = 'Laboratory'
     Courthouse = 'Courthouse'
+    College = 'College'
 
 
 class SizingParameter(NoExtraBaseModel):

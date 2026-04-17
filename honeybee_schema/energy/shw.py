@@ -13,6 +13,8 @@ class SHWEquipmentType(str, Enum):
     heatpump_waterheater = 'HeatPump_WaterHeater'
     gas_tanklessheater = 'Gas_TanklessHeater'
     electric_tanklessheater = 'Electric_TanklessHeater'
+    district_waterheater = 'District_WaterHeater'
+    district_tanklessheater = 'District_TanklessHeater'
 
 
 class SHWSystem(IDdEnergyBaseModel):

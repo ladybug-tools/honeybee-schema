@@ -422,6 +422,47 @@ class VentilationAbridged(IDdEnergyBaseModel):
         'against one another.'
     )
 
+    effectiveness_cooling: float = Field(
+        1,
+        gt=0,
+        description='A positive number to note the air distribution '
+        'effectiveness of the ventilation system when it operates in cooling mode '
+        '(or how well the system is able to mix the air when cooling). A value'
+        'of 1 means that air is well mixed and specified outdoor air flows are not '
+        'adjusted in the course of simulation. Values less than 1 indicate systems '
+        'that do not mix the air as well and so the specified airflows are increased. '
+        'Values greater than 1 indicate systems that are particularly good at '
+        'delivering outdoor air to the breathing zone of a room and so the '
+        'specified airflows can be reduced.'
+    )
+
+    effectiveness_heating: float = Field(
+        1,
+        gt=0,
+        description='A positive number to note the air distribution effectiveness '
+        'of the ventilation system when it operates in heating mode '
+        '(or how well the system is able to mix the air when heating). A value'
+        'of 1 means that air is well mixed and specified outdoor air flows are not '
+        'adjusted in the course of simulation. Values less than 1 indicate systems '
+        'that do not mix the air as well and so the specified airflows are increased. '
+        'Values greater than 1 indicate systems that are particularly good at '
+        'delivering outdoor air to the breathing zone of a room and so the '
+        'specified airflows can be reduced.'
+    )
+
+    secondary_recirculation: float = Field(
+        0,
+        ge=0,
+        description='A number that is greater than or equal to zero, '
+        'which notes the fraction of a zone recirculation air that '
+        'does not directly mix with the outdoor air. Used in cases where a '
+        'central ventilation system supplies several zones and the return '
+        'air is not collected through ducts back to the central air handler '
+        '(eg. a plenum return system is used). This means unused outdoor '
+        'ventilation air from other zones in the central system can be '
+        'credited to the room. (Default: 0).'
+    )
+
 
 class Ventilation(VentilationAbridged):
 

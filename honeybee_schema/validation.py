@@ -72,6 +72,38 @@ class ValidationParent(BaseModel):
     )
 
 
+class Platforms(str, Enum):
+    """A list of platforms where validation errors can be fixed."""
+    lbt_python = 'LBT Python'
+    lbt_grasshopper = 'LBT Grasshopper'
+    pollination_rhino = 'Pollination Rhino'
+    model_editor = 'Model Editor'
+
+
+class SuggestedFix(BaseModel):
+
+    type: Literal['SuggestedFix'] = 'SuggestedFix'
+
+    platform: Platforms = Field(
+        ...,
+        description='Text string for the platform on which the command can be '
+        'run to fix the error.'
+    )
+
+    command: str = Field(
+        ...,
+        description='Text string for name of the command to be used as a suggested fix.'
+    )
+
+    inputs: Union[dict, None] = Field(
+        default=None,
+        description='Dictionary containing inputs for the command to enable it to fix '
+        'the ValidationError. The keys of this dictionary should correspond to the '
+        'name of the input and the values should be the recommended input value. '
+        'When None, the assumption is that all command defaults are used.'
+    )
+
+
 class ValidationError(BaseModel):
 
     type: Literal['ValidationError'] = 'ValidationError'
@@ -161,6 +193,13 @@ class ValidationError(BaseModel):
         'zooming directly to these helper geometries will help end users understand '
         'invalid situations in their model faster than simple zooming to the invalid '
         'Honeybee object in its totality.'
+    )
+
+    suggested_fixes: List[SuggestedFix] = Field(
+        default=None,
+        description='An optional list of SuggestedFix objects with recommendations '
+        'for how to fix the error. Multiple objects can be included to represent '
+        'different methods for fixing the error.'
     )
 
 

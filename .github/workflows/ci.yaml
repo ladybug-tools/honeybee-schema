@@ -101,7 +101,7 @@ jobs:
     name: Generate docs
     runs-on: ubuntu-latest
     needs: deploy
-    if: ${{ github.ref == 'refs/heads/master' && github.repository_owner == 'ladybug-tools' && contains(needs.deploy.outputs.tag, '.') }}
+    if: ${{ github.ref == 'refs/heads/master' && github.repository_owner == 'ladybug-tools' }}
     steps:
       - uses: actions/checkout@v2
       - name: set up Python
@@ -123,6 +123,11 @@ jobs:
         run: |
           python docs.py --version ${{needs.deploy.outputs.tag}}
           redoc-cli build ./docs/model_redoc.json -t ./docs/model-template.html -o ./docs/model.html
+          redoc-cli build ./docs/comparison-report.json -t ./docs/model-template.html -o ./docs/comparison-report.html
+          redoc-cli build ./docs/project-information.json -t ./docs/model-template.html -o ./docs/project-information.html
+          redoc-cli build ./docs/simulation-parameter.json -t ./docs/model-template.html -o ./docs/simulation-parameter.html
+          redoc-cli build ./docs/sync-instructions.json -t ./docs/model-template.html -o ./docs/sync-instructions.html
+          redoc-cli build ./docs/validation-report.json -t ./docs/model-template.html -o ./docs/validation-report.html
 
       - name: deploy to github pages
         uses: peaceiris/actions-gh-pages@v3

@@ -101,7 +101,7 @@ jobs:
     name: Generate docs
     runs-on: ubuntu-latest
     needs: deploy
-    if: ${{ github.ref == 'refs/heads/master' && github.repository_owner == 'ladybug-tools' }}
+    if: ${{ github.ref == 'refs/heads/master' && github.repository_owner == 'ladybug-tools' && contains(needs.deploy.outputs.tag, '.') }}
     steps:
       - uses: actions/checkout@v2
       - name: set up Python

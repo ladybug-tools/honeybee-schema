@@ -16,3 +16,8 @@ class Autocalculate(NoExtraBaseModel):
 class Autosize(NoExtraBaseModel):
 
     type: Literal['Autosize'] = 'Autosize'
+
+
+class Unassigned(NoExtraBaseModel):
+
+    type: Literal['Unassigned'] = 'Unassigned'

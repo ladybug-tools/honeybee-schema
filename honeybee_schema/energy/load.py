@@ -54,6 +54,15 @@ class PeopleAbridged(IDdEnergyBaseModel):
         'an Autocalculate object.'
     )
 
+    carbon_dioxide_generation_rate: float = Field(
+        3.82e-8,
+        ge=0,
+        description='A number greater than or equal to 0 for the carbon dioxide '
+        'generation rate per unit of activity level, in m3/s-W. The default is '
+        'the EnergyPlus default, which is representative of the average adult. '
+        '(Default: 3.82e-8).'
+    )
+
     @model_validator(mode='after')
     def check_sum_fractions(self) -> 'PeopleAbridged':
         "Ensure sum is less than 1."

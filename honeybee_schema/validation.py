@@ -80,17 +80,11 @@ class Platforms(str, Enum):
     model_editor = 'Model Editor'
 
 
-class SuggestedFix(BaseModel):
+class FixCommand(BaseModel):
 
-    type: Literal['SuggestedFix'] = 'SuggestedFix'
+    type: Literal['FixCommand'] = 'FixCommand'
 
-    platform: Platforms = Field(
-        ...,
-        description='Text string for the platform on which the command can be '
-        'run to fix the error.'
-    )
-
-    command: str = Field(
+    name: str = Field(
         ...,
         description='Text string for name of the command to be used as a suggested fix.'
     )
@@ -101,6 +95,25 @@ class SuggestedFix(BaseModel):
         'the ValidationError. The keys of this dictionary should correspond to the '
         'name of the input and the values should be the recommended input value. '
         'When None, the assumption is that all command defaults are used.'
+    )
+
+
+class SuggestedFix(BaseModel):
+
+    type: Literal['SuggestedFix'] = 'SuggestedFix'
+
+    platform: Platforms = Field(
+        ...,
+        description='Text string for the platform on which the command can be '
+        'run to fix the error.'
+    )
+
+    commands: List[FixCommand] = Field(
+        ...,
+        min_length=1,
+        description='A list of FixCommand objects with recommendations '
+        'for how to fix the error. The list can contain a single command or can'
+        'have multiple commands to be executed in a sequence.'
     )
 
 

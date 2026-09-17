@@ -1,0 +1,8 @@
+{
+  "classes": {
+    "Autocalculate": "honeybee_schema.altnumber",
+    "Location": "honeybee_schema.projectinfo",
+    "ProjectInfo": "honeybee_schema.projectinfo"
+  },
+  "enums": {}
+}

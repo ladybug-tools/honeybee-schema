@@ -102,6 +102,17 @@ class SuggestedFix(BaseModel):
 
     type: Literal['SuggestedFix'] = 'SuggestedFix'
 
+    name: str = Field(
+        ...,
+        description='Text string for name of the suggested fix.'
+    )
+
+    message: str = Field(
+        ...,
+        description='Text for the suggested fix with a detailed description of '
+        'what exactly the suggested fix does.'
+    )
+
     platform: Platforms = Field(
         ...,
         description='Text string for the platform on which the command can be '

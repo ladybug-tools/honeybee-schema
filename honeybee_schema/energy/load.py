@@ -487,6 +487,123 @@ class Ventilation(VentilationAbridged):
     )
 
 
+class ExhaustAirAbridged(IDdEnergyBaseModel):
+
+    type: Literal['ExhaustAirAbridged'] = 'ExhaustAirAbridged'
+
+    flow_per_area: float = Field(
+        0,
+        ge=0,
+        description='Intensity of exhaust air in [m3/s per m2 of floor area].'
+    )
+
+    flow_per_fixture: float = Field(
+        0,
+        ge=0,
+        description='The level of exhaust air ventilation in m3/s for each fixture '
+        'in the room. The term "fixture" is used broadly as a way to reference a '
+        'wide variety of contaminant sources such as toilets/urinals, shower heads, '
+        'kitchen hoods, fume hoods, etc.'
+    )
+
+    fixture_count: int = Field(
+        1,
+        ge=0,
+        description='An integer for the number of fixtures in the room. This '
+        'is multiplied by the flow_per_fixture, which is then added to the '
+        'flow_per_area to yield the final exhaust air flow rate.'
+    )
+
+    schedule: Union[str, None] = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description='Identifier of the schedule for the exhaust air ventilation '
+        'over the course of the year. The type of this schedule should be Fractional '
+        'and the fractional values get multiplied by the total design flow rate to '
+        'yield a complete exhaust air profile. Values of 0 in the schedule will '
+        'shut the exhaust fan off completely. If None, the design level of exhaust '
+        'air will be used throughout all timesteps of the simulation, meaning that '
+        'this schedule is Always On.'
+    )
+
+    pressure_rise: float = Field(
+        125,
+        gt=0,
+        description='A positive number for the the pressure rise across the fan in '
+        'Pascals (N/m2). This is often a function of the fan speed and the conditions '
+        'in which the fan is operating. It plays an important role in determining '
+        'the amount of energy consumed by the fan. Typical kitchen and bathroom '
+        'exhaust fans have pressure rises around 125 Pa but, in healthcare '
+        'settings where filters create more resistance, higher pressures '
+        'around 250 Pa are more common.'
+    )
+
+    efficiency: float = Field(
+        0.35,
+        gt=0,
+        le=1,
+        description='A number between 0 and 1 for the overall efficiency of the fan. '
+        'Specifically, this is the ratio of the power delivered to the fluid '
+        'to the electrical input power. It is the product of the fan motor '
+        'efficiency and the fan impeller efficiency. Fans that have a higher blade '
+        'diameter, no obstructions or filters, and operate at lower speeds with smaller '
+        'pressure rises for their size tend to have higher efficiencies. Because motor '
+        'efficiencies are typically between 0.8 and 0.9, the best overall fan efficiencies '
+        'tend to be around 0.7 with most typical fan efficiencies between 0.5 and '
+        '0.7. When filters are added, which is common for most exhaust fans, '
+        'the total efficiency typically ends up between 0.3 and 0.4.'
+    )
+
+    balancing_schedule: Union[str, None] = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description='Identifier of the schedule for the fraction of exhaust air that is '
+        'unbalanced by simple airflows, such as infiltration, natural ventilation, or '
+        'zone mixing. Unbalanced exhaust is modeled as being provided by the outdoor '
+        'air system in the central air system such that values of 1 in this schedule '
+        'indicate all exhaust air balancing done by the mechanical system and values '
+        'of 0 indicate all air balanced by simple air flows. If None, then '
+        'all the exhaust air flow is assumed to be unbalanced by simple '
+        'airflows. The the flow rates at the zone return air node are reduced '
+        'by the flow rate that is being exhausted and the zone outdoor air '
+        'controller will ensure that the outdoor air flow rate is sufficient '
+        'to serve the exhaust.'
+    )
+
+
+class ExhaustAir(ExhaustAirAbridged):
+
+    type: Literal['ExhaustAir'] = 'ExhaustAir'
+
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
+        default=None,
+        description='Schedule for the exhaust air ventilation over the course '
+        'of the year. The type of this schedule should be Fractional and the '
+        'fractional values get multiplied by the total design flow rate to '
+        'yield a complete exhaust air profile. Values of 0 in the schedule will '
+        'shut the exhaust fan off completely. If None, the design level of exhaust '
+        'air will be used throughout all timesteps of the simulation, meaning that '
+        'this schedule is Always On.'
+    )
+
+    balancing_schedule: Union[ScheduleRuleset, ScheduleFixedInterval, None] = Field(
+        default=None,
+        description='Schedule for the fraction of exhaust air that is unbalanced '
+        'by simple airflows, such as infiltration, natural ventilation, or '
+        'zone mixing. Unbalanced exhaust is modeled as being provided by the outdoor '
+        'air system in the central air system such that values of 1 in this schedule '
+        'indicate all exhaust air balancing done by the mechanical system and values '
+        'of 0 indicate all air balanced by simple air flows. If None, then '
+        'all the exhaust air flow is assumed to be unbalanced by simple '
+        'airflows. The the flow rates at the zone return air node are reduced '
+        'by the flow rate that is being exhausted and the zone outdoor air '
+        'controller will ensure that the outdoor air flow rate is sufficient '
+        'to serve the exhaust.'
+    )
+
+
 class SetpointAbridged(IDdEnergyBaseModel):
     """Used to specify information about the setpoint schedule."""
 

@@ -17,7 +17,7 @@ from .material import EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegeta
 from .programtype import ProgramTypeAbridged, ProgramType
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, ServiceHotWaterAbridged, InfiltrationAbridged, \
-    VentilationAbridged, SetpointAbridged, ProcessAbridged
+    VentilationAbridged, ExhaustAirAbridged, SetpointAbridged, ProcessAbridged
 from .daylight import DaylightingControl
 from .ventcool import VentilationControlAbridged, VentilationFan, VentilationOpening, \
     VentilationSimulationControl, AFNCrack
@@ -228,6 +228,12 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
     ventilation: Union[VentilationAbridged, None] = Field(
         default=None,
         description='Ventilation object for the minimum outdoor air requirement.'
+    )
+
+    exhaust: Union[ExhaustAirAbridged, None] = Field(
+        default=None,
+        description='ExhaustAir object object to describe the exhaust air requirement of '
+        'the room. If None, no exhaust air requirement will be assumed for the room.'
     )
 
     setpoint: Union[SetpointAbridged, None] = Field(

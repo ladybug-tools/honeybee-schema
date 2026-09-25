@@ -5,9 +5,9 @@ from typing import Union
 from ._base import IDdEnergyBaseModel
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     GasEquipmentAbridged, ServiceHotWaterAbridged, \
-    InfiltrationAbridged, VentilationAbridged, SetpointAbridged, \
+    InfiltrationAbridged, VentilationAbridged, ExhaustAirAbridged, SetpointAbridged, \
     People, Lighting, ElectricEquipment, GasEquipment, ServiceHotWater, \
-    Infiltration, Ventilation, Setpoint
+    Infiltration, Ventilation, ExhaustAir, Setpoint
 from typing import Literal
 
 
@@ -53,8 +53,15 @@ class ProgramTypeAbridged(IDdEnergyBaseModel):
 
     ventilation: Union[VentilationAbridged, None] = Field(
         default=None,
-        description='Ventilation to describe the minimum outdoor air requirement '
+        description='Ventilation object to describe the minimum outdoor air requirement '
         'of the program. If None, no ventilation requirement will be assumed.'
+    )
+
+    exhaust: Union[ExhaustAirAbridged, None] = Field(
+        default=None,
+        description='ExhaustAir object to describe the exhaust air requirement of '
+        'the program. If None, no exhaust air requirement will be assumed for '
+        'the program.'
     )
 
     setpoint: Union[SetpointAbridged, None] = Field(
@@ -109,6 +116,13 @@ class ProgramType(ProgramTypeAbridged):
         default=None,
         description='Ventilation to describe the minimum outdoor air requirement '
         'of the program. If None, no ventilation requirement will be assumed.'
+    )
+
+    exhaust: Union[ExhaustAir, None] = Field(
+        default=None,
+        description='ExhaustAir to describe the exhaust air requirement of '
+        'the program. If None, no exhaust air requirement will be assumed for '
+        'the program.'
     )
 
     setpoint: Union[Setpoint, None] = Field(

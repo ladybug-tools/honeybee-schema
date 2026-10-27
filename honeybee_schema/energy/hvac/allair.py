@@ -236,6 +236,24 @@ class PTAC(_TemplateSystem):
         'PTACEquipmentType enumeration.'
     )
 
+    sensible_heat_recovery: float = Field(
+        0,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 for the effectiveness '
+        'of sensible heat recovery within the system. When this is not zero, '
+        'heat recovery is modeled using an ERV connected to the PTAC.'
+    )
+
+    latent_heat_recovery: float = Field(
+        0,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 for the effectiveness '
+        'of latent heat recovery within the system. When this is not zero, '
+        'heat recovery is modeled using an ERV connected to the PTAC.'
+    )
+
 
 class ForcedAirFurnace(_TemplateSystem):
     """Forced Air Furnace HVAC system (aka. System 9 or 10).

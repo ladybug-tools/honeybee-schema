@@ -1,21 +1,74 @@
 """Heating/cooling systems without any ventilation."""
 from pydantic import Field
-from typing import Literal
+from typing import Literal, Union
 from enum import Enum
 
 from ._template import _TemplateSystem, RadiantFaceTypes
 
 
 class _HeatCoolBase(_TemplateSystem):
-    """Base class for all heating/cooling systems without any ventilation.
+    """Base class for all heating/cooling systems without ventilation.
 
-    These systems are only designed to satisfy heating + cooling demand and they
-    cannot meet any minimum ventilation requirements.
+    These systems are only designed to satisfy heating + cooling demand and,
+    by default, they cannot meet minimum ventilation requirements. However,
+    optional unit ventilators can be included, which provide ventilation through
+    a balanced intake and exhaust ventilation on a zone-by-zone basis. Unlike a
+    DOAS, unit ventilators do not pass the outdoor air through heating or cooling
+    coils to condition it for the space. However, heat recovery effectiveness
+    can be specified, which can temper the air supplied to the zone with exhaust air.
 
-    As such, these systems tend to be used in residential or storage settings where
-    meeting minimum ventilation requirements may not be required or the density
-    of occupancy is so low that infiltration is enough to meet fresh air demand.
+    These systems tend to be used in residential or hospitality settings where
+    meeting minimum ventilation requirements may not be required as the density
+    of occupancy is so low that infiltration is enough to meet fresh air needs.
+    Or occupancy is so variable that supplying ventilation to each room with
+    separate unit ventilators is a worthwhile approach.
+
+    These systems are also common in warehouse or storage settings where ventilation
+    may not be necessary.
     """
+
+    unit_ventilators: bool = Field(
+        False,
+        description='Boolean to note whether individual zone ventilators are '
+        'included with the basic heating and cooling system (True) or the system only '
+        'performs heating and cooling without any ventilation (False). Unlike a DOAS, '
+        'unit ventilators do not pass the outdoor air through heating or cooling '
+        'coils to condition it for the space. However, heat recovery effectiveness '
+        'can be specified, which can temper the air supplied to the zone by the '
+        'ventilator with exhaust air. All air flow through this ventilator '
+        'is always balanced for each zone between supply and exhaust and the '
+        'total flow rate is determined by checking the ventilation and exhaust '
+        'requirements of the rooms to which the system is assigned.'
+    )
+
+    sensible_heat_recovery: float = Field(
+        0,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 for the effectiveness of sensible '
+        'heat recovery within unit ventilators if specified.'
+    )
+
+    latent_heat_recovery: float = Field(
+        0,
+        ge=0,
+        le=1,
+        description='A number between 0 and 1 for the effectiveness of latent '
+        'heat recovery within unit ventilators if specified.'
+    )
+
+    vent_availability_schedule: Union[str, None] = Field(
+        None,
+        min_length=1,
+        max_length=100,
+        description='An optional On/Off discrete schedule to specify when '
+        'unit ventilators shut off (assuming that the unit_ventilators is True). '
+        'This will not only reduce heating and cooling load by preventing '
+        'outdoor air from flowing but will also shut off the fans, which can '
+        'result in more energy savings when spaces served by the ventilators '
+        'are completely unoccupied. If None, the unit ventilators will be '
+        'always on.'
+    )
 
 
 class FCUEquipmentType(str, Enum):
@@ -293,13 +346,6 @@ class Radiant(_HeatCoolBase):
         'system is assigned have constructions with internal source materials. '
         'In this case, those constructions will dictate the thermally active '
         'surfaces.'
-    )
-
-    minimum_operation_time: float = Field(
-        1.0,
-        gt=0,
-        description='A number for the minimum number of hours of operation '
-        'for the radiant system before it shuts off.'
     )
 
     switch_over_time: float = Field(

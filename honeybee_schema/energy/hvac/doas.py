@@ -89,6 +89,20 @@ class VRFwithDOASEquipmentType(str, Enum):
     vrf = 'DOAS_VRF'
 
 
+class PTACwithDOASEquipmentType(str, Enum):
+    ptac_e_base = 'DOAS_PTAC_ElectricBaseboard'
+    ptac_gb_base = 'DOAS_PTAC_BoilerBaseboard'
+    ptac_dhw_base = 'DOAS_PTAC_DHWBaseboard'
+    ptac_guh = 'DOAS_PTAC_GasHeaters'
+    ptac_ec = 'DOAS_PTAC_ElectricCoil'
+    ptac_gc = 'DOAS_PTAC_GasCoil'
+    ptac_gb = 'DOAS_PTAC_Boiler'
+    ptac_ashp = 'DOAS_PTAC_ASHP'
+    ptac_dhw = 'DOAS_PTAC_DHW'
+    ptac = 'DOAS_PTAC'
+    pthp = 'DOAS_PTHP'
+
+
 class RadiantwithDOASEquipmentType(str, Enum):
     radiant_chill_gb = 'DOAS_Radiant_Chiller_Boiler'
     radiant_chill_ashp = 'DOAS_Radiant_Chiller_ASHP'
@@ -191,6 +205,37 @@ class VRFwithDOASAbridged(_DOASBase):
     )
 
 
+class PTACwithDOASAbridged(_DOASBase):
+    """Packaged Terminal Air Conditioning (PTAC/HP) with DOAS HVAC system.
+
+    All rooms/zones in the system are connected to a Dedicated Outdoor Air System
+    (DOAS) that supplies a constant volume of ventilation air at the same temperature
+    to all rooms/zones. The ventilation air temperature will vary from 21.1C (70F)
+    to 15.5C (60F) depending on the outdoor air temperature (the DOAS supplies cooler air
+    when outdoor conditions are warmer). The ventilation air temperature is maintained
+    by a chilled water cooling coil and a heating coil. The heating coil is a hot
+    water coil except when electric baseboards or gas heaters are specified, in
+    which case the heating coil is a single-speed direct expansion (DX) heat pump
+    with a backup electrical resistance coil.
+
+    Each room/zone also receives its own packaged unit that meets the heating
+    and cooling loads of the space without providing any outdoor air. Cooling
+    is always done via a single-speed direct expansion (DX) cooling coil.
+    Heating can be done via a heating coil in the unit or via an external
+    baseboard. Fans are constant volume.
+
+    PTAC/HP systems are the traditional baseline system for residential buildings.
+    """
+
+    type: Literal['PTACwithDOASAbridged'] = 'PTACwithDOASAbridged'
+
+    equipment_type: PTACwithDOASEquipmentType = Field(
+        PTACwithDOASEquipmentType.ptac_e_base,
+        description='Text for the specific type of system equipment from the '
+        'PTACwithDOASEquipmentType enumeration.'
+    )
+
+
 class RadiantwithDOASAbridged(_DOASBase):
     """Low Temperature Radiant with DOAS HVAC system.
 
@@ -232,13 +277,6 @@ class RadiantwithDOASAbridged(_DOASBase):
         'system is assigned have constructions with internal source materials. '
         'In this case, those constructions will dictate the thermally active '
         'surfaces.'
-    )
-
-    minimum_operation_time: float = Field(
-        1.0,
-        gt=0,
-        description='A number for the minimum number of hours of operation '
-        'for the radiant system before it shuts off.'
     )
 
     switch_over_time: float = Field(

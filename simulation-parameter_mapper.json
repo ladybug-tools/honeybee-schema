@@ -1,0 +1,20 @@
+{
+  "classes": {
+    "ASHRAEClearSky": "honeybee_schema.energy.designday",
+    "ASHRAETau": "honeybee_schema.energy.designday",
+    "DatedBaseModel": "honeybee_schema.energy._base",
+    "DaylightSavingTime": "honeybee_schema.energy.simulation",
+    "DesignDay": "honeybee_schema.energy.designday",
+    "DryBulbCondition": "honeybee_schema.energy.designday",
+    "HumidityCondition": "honeybee_schema.energy.designday",
+    "RunPeriod": "honeybee_schema.energy.simulation",
+    "ShadowCalculation": "honeybee_schema.energy.simulation",
+    "SimulationControl": "honeybee_schema.energy.simulation",
+    "SimulationOutput": "honeybee_schema.energy.simulation",
+    "SimulationParameter": "honeybee_schema.energy.simulation",
+    "SizingParameter": "honeybee_schema.energy.simulation",
+    "WindCondition": "honeybee_schema.energy.designday",
+    "_SkyCondition": "honeybee_schema.energy.designday"
+  },
+  "enums": {}
+}

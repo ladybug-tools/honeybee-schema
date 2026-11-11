@@ -1,52 +1,8 @@
 """Schema for project information."""
-from typing import List, Union, Literal, Annotated
+from typing import List, Union, Literal
 from pydantic import BaseModel, Field, AnyUrl
 
-from .altnumber import Autocalculate
-from .energy.simulation import EfficiencyStandards, ClimateZones, BuildingTypes
-
-
-class Location(BaseModel):
-    """A Ladybug Location."""
-
-    type: Literal['Location'] = 'Location'
-
-    city: str = Field(
-        '-',
-        description='Name of the city as a string.'
-    )
-
-    latitude: float = Field(
-        0,
-        description='Location latitude between -90 and 90 (Default: 0).'
-    )
-
-    longitude: float = Field(
-        0,
-        description='Location longitude between -180 (west) and 180 (east) (Default: 0).'
-    )
-
-    time_zone: Union[Autocalculate, Annotated[int, Field(ge=-12, le=14)]] = Field(
-        Autocalculate(),
-        description='Time zone between -12 hours (west) and +14 hours (east). '
-        'If None, the time zone will be an estimated integer value derived from '
-        'the longitude in accordance with solar time.'
-    )
-
-    elevation: float = Field(
-        0,
-        description='A number for elevation of the location in meters. (Default: 0).'
-    )
-
-    station_id: str = Field(
-        None,
-        description='ID of the location if the location is representing a weather '
-        'station.'
-    )
-
-    source: str = Field(
-        None, description='Source of data (e.g. TMY, TMY3).'
-    )
+from .energy.simulation import EfficiencyStandards, ClimateZones, BuildingTypes, Location
 
 
 class ProjectInfo(BaseModel):

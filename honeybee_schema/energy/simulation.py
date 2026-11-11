@@ -1,9 +1,10 @@
 """Simulation Parameter Schema"""
-from pydantic import Field, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 from typing import List, Literal, Annotated, Union
 from enum import Enum
 
 from .._base import NoExtraBaseModel
+from ..altnumber import Autocalculate
 from ._base import DatedBaseModel
 from .designday import DesignDay
 
@@ -372,6 +373,49 @@ class TerrianTypes(str, Enum):
     city = 'City'
 
 
+class Location(BaseModel):
+    """A Ladybug Location."""
+
+    type: Literal['Location'] = 'Location'
+
+    city: str = Field(
+        '-',
+        description='Name of the city as a string.'
+    )
+
+    latitude: float = Field(
+        0,
+        description='Location latitude between -90 and 90 (Default: 0).'
+    )
+
+    longitude: float = Field(
+        0,
+        description='Location longitude between -180 (west) and 180 (east) (Default: 0).'
+    )
+
+    time_zone: Union[Autocalculate, Annotated[int, Field(ge=-12, le=14)]] = Field(
+        Autocalculate(),
+        description='Time zone between -12 hours (west) and +14 hours (east). '
+        'If None, the time zone will be an estimated integer value derived from '
+        'the longitude in accordance with solar time.'
+    )
+
+    elevation: float = Field(
+        0,
+        description='A number for elevation of the location in meters. (Default: 0).'
+    )
+
+    station_id: str = Field(
+        None,
+        description='ID of the location if the location is representing a weather '
+        'station.'
+    )
+
+    source: str = Field(
+        None, description='Source of data (e.g. TMY, TMY3).'
+    )
+
+
 class SimulationParameter(NoExtraBaseModel):
     """The complete set of EnergyPlus Simulation Settings."""
 
@@ -438,4 +482,12 @@ class SimulationParameter(NoExtraBaseModel):
         default=TerrianTypes.city,
         description='Text for the terrain in which the model sits. This is used '
         'to determine the wind profile over the height of the rooms.'
+    )
+
+    location: Union[Location, None] = Field(
+        None,
+        description='An optional location object to describe the exact latitude, '
+        'longitude, time zone and elevation of the project site. If None '
+        'the location specified within the EPW file will be used for the '
+        'simulation.'
     )
